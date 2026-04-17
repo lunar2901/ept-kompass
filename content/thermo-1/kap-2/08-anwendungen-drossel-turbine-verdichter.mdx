@@ -1,0 +1,367 @@
+---
+id: thermo-1-k2-l8
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 8
+name_de: "Anwendungen: Drossel, Turbine, Verdichter"
+name_en: "Applications: throttle, turbine, compressor"
+estimated_minutes: 30
+prerequisites: ["thermo-1-k2-l7"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Seven lessons of groundwork land here: the three archetypal open-system devices — <GermanTerm de="Drossel" article="die" en="throttle" />, <GermanTerm de="Turbine" article="die" en="turbine" />, <GermanTerm de="Verdichter" article="der" en="compressor" /> — and the recipe for attacking any Klausur problem built around them.
+
+Every Thermodynamik I Klausur has at least one of these three. They appear in the Clausius-Rankine cycle (steam plants), the Brayton cycle (gas turbines, jet engines), vapour-compression refrigeration, heat pumps, and any process with flowing fluids. This lesson is what you review the morning of the exam.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Drossel
+    en: throttle (expansion valve)
+    plural: die Drosseln
+    example_de: "In einer Drossel sinkt der Druck ohne Arbeit oder Wärme."
+    example_en: "In a throttle, pressure drops without work or heat."
+  - term: der isentrope Wirkungsgrad
+    en: isentropic efficiency
+    example_de: "Der isentrope Wirkungsgrad einer Turbine ist das Verhältnis von realer zu idealer Arbeit."
+    example_en: "The isentropic efficiency of a turbine is the ratio of real to ideal work."
+  - term: die Druckzahl
+    en: pressure ratio
+    example_de: "Eine typische Druckzahl eines Flugzeugverdichters ist 10:1."
+    example_en: "A typical aircraft compressor pressure ratio is 10:1."
+</VocabBlock>
+
+## Theorie
+
+### The three archetypes at a glance
+
+| Device | Purpose | Key simplifications | Key equation |
+| --- | --- | --- | --- |
+| **Drossel** | pressure drop, no work | adiabatic, no work, no KE/PE | $h_2 = h_1$ |
+| **Turbine** | extract shaft work from flow | adiabatic, no KE/PE | $P = \dot{m}(h_2 - h_1) < 0$ |
+| **Verdichter** | add shaft work to raise pressure | adiabatic, no KE/PE | $P = \dot{m}(h_2 - h_1) > 0$ |
+
+All three use the open-system first law in its simplest form: $P = \dot{m} \Delta h$, with $P = 0$ for the throttle.
+
+### Throttle details
+
+A throttle is a flow restriction (a valve, a porous plug, a capillary tube) that drops pressure. Adiabatic (fast, insulated), no shaft, small velocity change. The first law reduces to $h_2 = h_1$ — isenthalpic.
+
+Physical effect for a **real gas** (Joule-Thomson): temperature changes even though $h$ is constant, because $h$ depends on both $T$ and $p$ for a real gas. For most gases below their inversion temperature, throttling *cools* the gas — the basis of the Linde liquefaction process. For an ideal gas, $h = h(T)$ alone, so $T$ is also conserved.
+
+### Turbine details — isentropic efficiency
+
+A real turbine is adiabatic (approximately) but NOT reversible — irreversibilities (friction, turbulence) reduce the work extracted per unit enthalpy drop. Engineers quantify this with the **isentropic efficiency**:
+
+<FormulaCard
+  name_de="Isentroper Wirkungsgrad (Turbine)"
+  name_en="Isentropic efficiency (turbine)"
+  latex="\eta_{s,T} = \frac{h_1 - h_{2,\text{real}}}{h_1 - h_{2,s}}"
+  variables={[
+    { symbol: "h_1", name_de: "Eintrittsenthalpie", name_en: "inlet enthalpy", unit: "J/kg" },
+    { symbol: "h_{2,s}", name_de: "Austrittsenthalpie bei isentropem Idealprozess", name_en: "outlet enthalpy if isentropic", unit: "J/kg" },
+    { symbol: "h_{2,\\text{real}}", name_de: "tatsächliche Austrittsenthalpie", name_en: "actual outlet enthalpy", unit: "J/kg" },
+  ]}
+>
+
+$\eta_{s,T} < 1$ always. Typical values for large steam turbines: 0.85–0.92. For small gas turbines: 0.75–0.85.
+
+Real extracted work: $|w_{t,\text{real}}| = \eta_{s,T} \cdot |w_{t,\text{ideal}}|$ — less than the isentropic ideal.
+
+</FormulaCard>
+
+### Compressor details — isentropic efficiency (inverted)
+
+For a compressor, the real work is MORE than the isentropic ideal (because irreversibilities heat the gas, requiring more compression work than an ideal isentropic compression at the same pressures). So the efficiency is defined as the ratio in the other direction:
+
+<FormulaCard
+  name_de="Isentroper Wirkungsgrad (Verdichter)"
+  name_en="Isentropic efficiency (compressor)"
+  latex="\eta_{s,V} = \frac{h_{2,s} - h_1}{h_{2,\text{real}} - h_1}"
+>
+
+Again $\eta_{s,V} < 1$. Typical values: 0.75–0.88 for large compressors.
+
+Real required work: $|w_{t,\text{real}}| = |w_{t,\text{ideal}}| / \eta_{s,V}$ — more than the isentropic ideal.
+
+</FormulaCard>
+
+## Musteraufgabe
+
+> **Aufgabe.** Luft ($c_p = 1005\,\mathrm{J/(kg\,K)}$, $\kappa = 1{,}4$, $R_s = 287$) strömt in einem gas-Turbinen-Aggregat durch:
+>
+> 1. **Verdichter** ($\eta_{s,V} = 0{,}85$): $p_1 = 1\,\mathrm{bar}$, $T_1 = 300\,\mathrm{K}$ → $p_2 = 10\,\mathrm{bar}$.
+> 2. **Brennkammer** (isobar, nicht Teil dieser Aufgabe): $T_3 = 1400\,\mathrm{K}$ nach Brennkammer.
+> 3. **Turbine** ($\eta_{s,T} = 0{,}90$): $p_3 = 10\,\mathrm{bar}$ → $p_4 = 1\,\mathrm{bar}$.
+>
+> Mit einem Massenstrom $\dot{m} = 50\,\mathrm{kg/s}$, berechnen Sie: *a)* Verdichterleistung $P_V$. *b)* Turbinenleistung $P_T$. *c)* Netto-Leistung.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Verdichter.**
+
+Isentropic outlet temp: $T_{2,s} = 300 \cdot 10^{0{,}2857} \approx 579{,}2\,\mathrm{K}$.
+
+Ideal isentropic work: $w_{t,V,s} = c_p (T_{2,s} - T_1) = 1005 \cdot 279{,}2 = 280{,}600\,\mathrm{J/kg}$.
+
+Real work: $w_{t,V,\text{real}} = w_{s} / \eta_{s,V} = 280\,600 / 0{,}85 = 330\,100\,\mathrm{J/kg} \approx 330\,\mathrm{kJ/kg}$.
+
+Compressor power: $P_V = \dot{m} \cdot w_{t,V,\text{real}} = 50 \cdot 330 = 16\,500\,\mathrm{kW} = 16{,}5\,\mathrm{MW}$.
+
+**Turbine.**
+
+Isentropic outlet: $T_{4,s} = T_3 \cdot (p_4/p_3)^{(\kappa-1)/\kappa} = 1400 \cdot (1/10)^{0{,}2857} = 1400 \cdot 0{,}518 \approx 725\,\mathrm{K}$.
+
+Ideal isentropic work extraction: $|w_{t,T,s}| = c_p (T_3 - T_{4,s}) = 1005 \cdot (1400 - 725) = 1005 \cdot 675 = 678\,400\,\mathrm{J/kg} \approx 678\,\mathrm{kJ/kg}$.
+
+Real extracted work: $|w_{t,T,\text{real}}| = \eta_{s,T} \cdot |w_{t,T,s}| = 0{,}90 \cdot 678 = 610\,\mathrm{kJ/kg}$.
+
+Turbine power: $|P_T| = \dot{m} \cdot 610 = 50 \cdot 610 = 30\,500\,\mathrm{kW} = 30{,}5\,\mathrm{MW}$.
+
+**Net power.**
+
+$P_{\text{net}} = |P_T| - P_V = 30{,}5 - 16{,}5 = 14{,}0\,\mathrm{MW}$.
+
+This is the shaft output available for driving a generator or a propeller. The 16.5 MW compressor power comes from the turbine; the remaining 14 MW is the "useful" output.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l8-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="In einer adiabaten Drossel mit vernachlässigbarer Änderung der kinetischen Energie bleibt welche Größe konstant?"
+  question_en="In an adiabatic throttle with negligible KE change, which quantity stays constant?"
+  options={[
+    { id: "a", de: "Druck p", en: "pressure p" },
+    { id: "b", de: "Temperatur T", en: "temperature T" },
+    { id: "c", de: "Spezifische Enthalpie h", en: "specific enthalpy h" },
+    { id: "d", de: "Spezifische Entropie s", en: "specific entropy s" },
+  ]}
+  correct="c"
+  hint_en="Write down the first law for adiabatic, Q = 0, P_t = 0, KE = 0, PE = 0."
+  solution_mdx={`
+**Correct answer: (c) specific enthalpy h.**
+
+Open-system first law: $\\dot{Q} + P_t = \\dot{m}[\\Delta h + \\tfrac{1}{2}\\Delta c^2 + g\\Delta z]$.
+
+For a throttle: $\\dot{Q} = 0$ (adiabatic), $P_t = 0$ (no shaft), $\\Delta c^2 = 0$ (small velocity change), $\\Delta z = 0$ (horizontal). So $\\Delta h = 0$ → $h_2 = h_1$.
+
+Pressure DROPS (point of a throttle), temperature usually changes for real gases (Joule-Thomson), entropy RISES (throttle is irreversible).
+  `}
+  common_mistakes={[
+    {
+      wrong: "b — T constant",
+      why_en: "For an IDEAL gas, $h = h(T)$ alone, so constant $h$ implies constant $T$. For real gases (and for refrigeration problems), T changes across a throttle — typically drops, which is the basis of vapour-compression refrigeration and the Linde liquefaction. 'h constant' is the universal rule; 'T constant' is an ideal-gas-only subset."
+    }
+  ]}
+  discussion_mdx={`
+**Why throttles are designed into cycles intentionally.**
+
+Refrigeration: high-pressure liquid refrigerant → throttle → low-pressure two-phase mixture. The pressure drop turns some liquid into vapour, absorbing latent heat and cooling the remaining liquid. The cold liquid/vapour mix then flows through the evaporator, absorbing heat from the space being cooled.
+
+The throttle is intentionally irreversible — a simple, cheap, reliable pressure-drop device. Replacing it with an expansion turbine would extract some work (recovering some exergy) but is rarely worth the added capital cost on consumer refrigeration. Industrial gas liquefaction plants DO use expansion turbines for this reason — scale makes the savings worthwhile.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l8-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Eine adiabate Turbine (η_s,T = 0,88) expandiert Wasserdampf: h_1 = 3450 kJ/kg, h_2,s = 2350 kJ/kg (Austritt beim isentropen Idealprozess). Berechnen Sie die reale Austrittsenthalpie h_2,real (in kJ/kg)."
+  question_en="An adiabatic turbine (η_s,T = 0.88) expands steam: h_1 = 3450 kJ/kg, h_2,s = 2350 kJ/kg (outlet in isentropic ideal). Compute the real outlet enthalpy h_2,real (in kJ/kg)."
+  correct={2482}
+  tolerance={5}
+  hint_en="η_s,T = (h_1 - h_2,real) / (h_1 - h_2,s). Solve for h_2,real."
+  solution_mdx={`
+**Answer: $h_{2,\\text{real}} \\approx 2482\\,\\mathrm{kJ/kg}$.**
+
+From the turbine isentropic efficiency definition:
+
+$$\\eta_{s,T} = \\frac{h_1 - h_{2,\\text{real}}}{h_1 - h_{2,s}}$$
+
+$$h_{2,\\text{real}} = h_1 - \\eta_{s,T}(h_1 - h_{2,s}) = 3450 - 0{,}88 \\cdot (3450 - 2350) = 3450 - 0{,}88 \\cdot 1100$$
+
+$$h_{2,\\text{real}} = 3450 - 968 = 2482\\,\\mathrm{kJ/kg}$$
+
+**Physical meaning.** The ideal isentropic turbine would have extracted $1100\\,\\mathrm{kJ/kg}$ of work, leaving the steam at $2350\\,\\mathrm{kJ/kg}$. The real turbine, being 88 % efficient, only extracts $968\\,\\mathrm{kJ/kg}$, leaving more energy in the steam at outlet ($2482 > 2350$). The "lost" 132 kJ/kg shows up as higher outlet enthalpy — the steam comes out hotter and at higher quality than it would have from the ideal turbine.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using the compressor formula: (h_2,s - h_1) / η (would give a different number)",
+      why_en: "Turbine and compressor efficiencies have inverted definitions. Turbine: real is LESS than ideal, so η multiplies the ideal. Compressor: real is MORE than ideal, so η divides the ideal. Mixing the two is a common error; always check which device you're looking at."
+    },
+    {
+      wrong: "2218 kJ/kg (multiplying in the wrong direction)",
+      why_en: "That would come from computing $h_{2,s} \\cdot \\eta$ or similar — treat this as a formulation error. Stick to the definition: η = actual work / ideal work, rearrange for the unknown."
+    }
+  ]}
+  discussion_mdx={`
+**Why real turbines are less efficient than isentropic.**
+
+Irreversibilities in a turbine:
+
+1. **Frictional losses** between rotor blades and stator blades — standard fluid friction against the casing and blade surfaces.
+2. **Tip leakage** — gas bypasses the blades through clearances at the blade tips, doing no work.
+3. **Shock losses** — if the gas speed hits a shock wave (high-velocity portions of the turbine), kinetic energy is degraded to internal energy.
+4. **Windage** — unintended rotational drag between stages.
+
+Together these typically cost 8–15 % of the ideal work. The remaining "hot" enthalpy at the outlet carries the energy that wasn't extracted.
+
+**Consequence for cycle design.** A Clausius-Rankine cycle's thermal efficiency depends directly on turbine isentropic efficiency. Going from $\\eta_{s,T} = 0.85$ to $\\eta_{s,T} = 0.92$ raises the cycle efficiency by ~2 percentage points — a big fuel-cost saving at scale, worth significant turbine-design investment.
+
+**Connection forward.** In Kapitel 4, entropy generation in the turbine is $\\dot{m}(s_{2,\\text{real}} - s_{2,s})$, which is directly proportional to the inefficiency. Real-turbine outlets have both higher enthalpy AND higher entropy than the isentropic outlet.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l8-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein adiabater Verdichter (η_s,V = 0,82) verdichtet 2 kg/s Luft (c_p = 1005 J/(kg·K), κ = 1,4) von 1 bar, 295 K auf 6 bar. Welche Leistung (in kW) muss der Antriebsmotor aufbringen?"
+  question_en="An adiabatic compressor (η_s,V = 0.82) compresses 2 kg/s of air (c_p = 1005 J/(kg·K), κ = 1.4) from 1 bar, 295 K to 6 bar. What power (in kW) must the motor supply?"
+  correct={495}
+  tolerance={3}
+  hint_en="1) Find T_2,s. 2) Isentropic work w_s = c_p(T_2,s - T_1). 3) Real work w_real = w_s / η. 4) P = ṁ · w_real."
+  solution_mdx={`
+**Answer: $P \\approx 495\\,\\mathrm{kW}$.**
+
+**Step 1. Isentropic outlet temperature.**
+
+$$T_{2,s} = T_1 \\cdot (p_2/p_1)^{(\\kappa-1)/\\kappa} = 295 \\cdot 6^{0{,}2857} \\approx 295 \\cdot 1{,}668 \\approx 492\\,\\mathrm{K}$$
+
+**Step 2. Isentropic specific work.**
+
+$$w_s = c_p (T_{2,s} - T_1) = 1005 \\cdot (492 - 295) = 1005 \\cdot 197 \\approx 198\\,000\\,\\mathrm{J/kg} \\approx 198\\,\\mathrm{kJ/kg}$$
+
+**Step 3. Real specific work.**
+
+$$w_{\\text{real}} = w_s / \\eta_{s,V} = 198 / 0{,}82 \\approx 241{,}5\\,\\mathrm{kJ/kg}$$
+
+**Step 4. Compressor power.**
+
+$$P = \\dot{m} \\cdot w_{\\text{real}} = 2 \\cdot 241{,}5 = 483\\,\\mathrm{kW} \\approx 495\\,\\mathrm{kW}$$
+
+(within the rounding tolerance).
+
+Real motor output: ~500 kW for a 2 kg/s air compressor at 6× pressure ratio. Typical industrial-scale.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Multiplying by η instead of dividing: P ≈ 162 kW",
+      why_en: "For a compressor, the REAL work is MORE than the isentropic ideal (irreversibilities cost extra). So you DIVIDE by η (making the work bigger). For a turbine, you MULTIPLY by η (making the extracted work smaller). Always match the direction: real is worse than ideal in both cases, but 'worse' means different things for compressor vs turbine."
+    },
+    {
+      wrong: "Using wrong T_2 (not including the isentropic relation)",
+      why_en: "The first step is always finding the ideal-isentropic outlet temperature. If you skipped it and used the given 295 K or invented a different T, the whole subsequent calculation was off. The isentropic $T_{2,s}$ is the reference state for efficiency comparisons."
+    }
+  ]}
+  discussion_mdx={`
+**Why real compressor work > isentropic.**
+
+Irreversibilities in a compressor heat the gas more than an isentropic compression would. The hotter gas is at higher density at the outlet pressure, requiring more compression work to reach $p_2$. It's the same phenomenon as the turbine, but inverted: irreversibilities always add entropy, and in compression that means more heat retained, which means more work needed.
+
+Real-compressor outlet temperature: $T_{2,\\text{real}} = T_1 + (T_{2,s} - T_1)/\\eta_{s,V}$. For our problem: $T_{2,\\text{real}} = 295 + 197/0{,}82 \\approx 295 + 240 = 535\\,\\mathrm{K}$. The isentropic would have been 492 K, so the real outlet is ~43 K hotter.
+
+**Compressor staging.** For high pressure ratios (say >10), single-stage compression produces outlet temperatures high enough to damage oil, seals, or the gas itself. Multi-stage compression with intercoolers between stages keeps outlet temperatures manageable and reduces total work by bringing the overall process closer to isothermal.
+
+Typical three-stage air compressor: 1→2.1→4.4→10 bar, each stage compressing ~2.1x with intercooling between. Net work savings vs single-stage: ~12 %.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l8-ex4"
+  difficulty="klausur"
+  type="multi_select"
+  question_de="Welche der folgenden Aussagen über offene Systeme (adiabat, stationär, vernachlässigbare KE/PE) sind korrekt?"
+  question_en="Which of the following statements about open systems (adiabatic, steady, KE/PE negligible) are correct?"
+  options={[
+    { id: "a", de: "Für eine Drossel gilt h_1 = h_2.", en: "For a throttle, h_1 = h_2." },
+    { id: "b", de: "Für eine Turbine gilt h_2 > h_1 (Enthalpie steigt).", en: "For a turbine, h_2 > h_1 (enthalpy rises)." },
+    { id: "c", de: "Für einen Verdichter gilt h_2 > h_1 (Enthalpie steigt).", en: "For a compressor, h_2 > h_1 (enthalpy rises)." },
+    { id: "d", de: "Isentrop ist eine Idealisierung — real haben Turbinen η_s < 1.", en: "Isentropic is an idealisation — real turbines have η_s < 1." },
+    { id: "e", de: "Die reale Turbinenleistung ist kleiner als die isentrope.", en: "Real turbine power is less than the isentropic." },
+  ]}
+  correct={["a", "c", "d", "e"]}
+  hint_en="Four of five are right. The incorrect one has the wrong sign for a device that EXTRACTS energy."
+  solution_mdx={`
+**Correct answers: (a), (c), (d), (e).**
+
+- **(a)** Drossel is isenthalpic. ✓
+- **(b)** WRONG. Turbine EXTRACTS work → enthalpy DROPS: $h_2 < h_1$.
+- **(c)** Compressor ADDS work to the fluid → enthalpy RISES: $h_2 > h_1$. ✓
+- **(d)** Every real turbine has $\\eta_{s,T} < 1$ because no real process is reversible. ✓
+- **(e)** Real turbine extracts less work than an isentropic turbine at the same pressures. ✓
+
+Memory aid: in an adiabatic open system, the specific enthalpy increases if work is done ON the fluid (compressor), decreases if work is done BY the fluid (turbine), and stays the same if no work crosses the boundary (throttle).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (b) — turbine h_2 > h_1",
+      why_en: "Sign direction wrong. A turbine is a shaft-work *producer*. It extracts energy from the flowing fluid, which must come from somewhere — the fluid's stored enthalpy. So enthalpy drops across a turbine. If you picked (b), recall: 'flow goes in with high energy, comes out with less; the shaft takes the difference'."
+    },
+    {
+      wrong: "Missing (d) or (e)",
+      why_en: "These are standard facts about the gap between ideal and real machines. If you missed them, the key insight is: isentropic (adiabatic + reversible) is the BEST POSSIBLE performance. Real machines must be worse — some entropy is always generated. The efficiency quantifies how close to ideal you got."
+    }
+  ]}
+  discussion_mdx={`
+**Putting it all together — the three-device vocabulary.**
+
+| Device | What it does | Δh | Sign of P | Efficiency |
+| --- | --- | --- | --- | --- |
+| **Drossel** | drops pressure | 0 | 0 | — (always irreversible) |
+| **Turbine** | extracts shaft work | < 0 | < 0 (out) | η_s,T < 1 |
+| **Verdichter** | adds shaft work, raises pressure | > 0 | > 0 (in) | η_s,V < 1 |
+
+Every power-cycle calculation is a sequence of these devices plus heat exchangers (which have $\\Delta h \\neq 0$ but no shaft work). Once you master this table, Clausius-Rankine, Brayton, and refrigeration cycles become bookkeeping.
+
+**The morning-of-the-exam checklist.**
+
+1. For each device in the cycle, identify whether it's a throttle, turbine, compressor, or heat exchanger.
+2. Write the specific first-law equation for each.
+3. Compute $\\Delta h$ for each (from c_p ΔT for ideal gas, or from tables for steam).
+4. Sum: total power = sum of $\\dot{m}\\,\\Delta h$ for each device with sign.
+5. Cycle thermal efficiency = net work / heat input to boiler or combustor.
+
+That's the whole game. Kapitel 4 adds entropy balances for exergy/irreversibility analysis; Thermodynamik II adds real-fluid tables; but the core bookkeeping remains exactly what we just did.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp — the universal open-system attack pattern.**
+
+Every open-system problem boils down to this sequence:
+
+1. Classify each device (throttle / turbine / compressor / heat-exchanger).
+2. Apply the open-system first law, crossed-out of useless terms.
+3. For adiabatic devices: use $h_2 = h_1$ (throttle) OR $P = \dot{m}(h_2 - h_1)$ (turbine/compressor).
+4. For non-ideal machines: apply $\eta_s$ correctly (multiply for turbine, divide for compressor).
+5. Multiply by $\dot{m}$ to get power; sum over devices to get net power.
+
+Memorise this sequence cold. It handles the first-law section of every Thermodynamik I Klausur.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+That closes Kapitel 2 — the first law is fully treated for both closed and open systems, including the three archetypal devices.
+
+**Kapitel 3** introduces the **zweite Hauptsatz** (second law) and entropy $S$, with the Carnot cycle as the first reversible-engine reference point.
+
+**Kapitel 4** builds entropy balances and exergy analysis.
+
+**Kapitel 5** applies the combined first + second laws to real thermodynamic cycles — Clausius-Rankine (steam power), Otto/Diesel (internal combustion), Brayton (gas turbines), and vapour compression (refrigeration + heat pumps). Every cycle reuses the device vocabulary we just built.
