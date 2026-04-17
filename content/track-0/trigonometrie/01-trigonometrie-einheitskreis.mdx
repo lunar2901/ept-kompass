@@ -1,0 +1,315 @@
+---
+id: track-0-trig-l1
+module: schulwissen-auffrischen
+chapter: trigonometrie
+position: 1
+name_de: "Trigonometrie und der Einheitskreis"
+name_en: "Trigonometry and the unit circle"
+estimated_minutes: 20
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Every oscillation, every phase angle, every rotating machine's angular position, every AC circuit waveform, every wave in fluid mechanics — all are described with sine and cosine. The most efficient way to understand them both is the <GermanTerm de="Einheitskreis" article="der" en="unit circle" />: a circle of radius 1 on which a point's $x$-coordinate is $\cos\theta$ and $y$-coordinate is $\sin\theta$.
+
+This lesson rebuilds the unit-circle picture, the special-angle values you need to know by heart, and the pair of identities that show up in every engineering derivation involving phases.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: der Sinus
+    en: sine
+    ipa: /ˈziːnʊs/
+    example_de: "Der Sinus von 30 Grad ist 1/2."
+    example_en: "The sine of 30 degrees is 1/2."
+  - term: der Kosinus
+    en: cosine
+    example_de: "Der Kosinus von 0 Grad ist 1."
+    example_en: "The cosine of 0 degrees is 1."
+  - term: der Tangens
+    en: tangent
+    example_de: "Der Tangens ist das Verhältnis Sinus zu Kosinus."
+    example_en: "The tangent is the ratio of sine to cosine."
+  - term: der Einheitskreis
+    en: unit circle
+    plural: die Einheitskreise
+    example_de: "Der Einheitskreis hat den Radius 1."
+    example_en: "The unit circle has radius 1."
+  - term: das Bogenmaß
+    en: radian measure
+    example_de: "Im Bogenmaß entspricht ein voller Kreis 2 Pi."
+    example_en: "In radian measure, a full circle is 2 Pi."
+  - term: die Periode
+    en: period
+    plural: die Perioden
+    example_de: "Die Periode von Sinus ist 2 Pi."
+    example_en: "The period of sine is 2 Pi."
+</VocabBlock>
+
+## Theorie
+
+### The unit circle — one picture says it all
+
+A circle of radius 1 centred at the origin. A point on the circle at angle $\theta$ from the positive $x$-axis has coordinates:
+
+$$(\cos\theta, \sin\theta)$$
+
+So $\cos$ and $\sin$ are literally the $x$ and $y$ coordinates of a unit-circle point. This single picture tells you:
+
+- $\cos^2\theta + \sin^2\theta = 1$ (from the Pythagorean theorem — $x^2 + y^2 = r^2 = 1$)
+- $\cos(-\theta) = \cos\theta$ (reflecting across x-axis flips y but not x)
+- $\sin(-\theta) = -\sin\theta$
+- Both are periodic with period $2\pi$ (going around the circle brings you back)
+
+### Degrees vs radians
+
+<FormulaCard
+  name_de="Bogenmaß vs. Gradmaß"
+  name_en="Radian measure vs. degree measure"
+  latex="\theta[\mathrm{rad}] = \theta[\mathrm{°}] \cdot \frac{\pi}{180}"
+>
+
+Calculators have a mode switch — make sure it matches the problem. In physics and engineering formulas, radians are the default (because $\sin\theta \approx \theta$ for small $\theta$ in radians). In everyday problems, degrees are more common.
+
+**Round-trip reference.** $360° = 2\pi\,\mathrm{rad}$. So $180° = \pi$, $90° = \pi/2$, $60° = \pi/3$, $45° = \pi/4$, $30° = \pi/6$.
+
+</FormulaCard>
+
+### The special-angle values — memorise this table
+
+<FormulaCard
+  name_de="Wichtige Sinus- und Kosinuswerte"
+  name_en="Key sine and cosine values"
+>
+
+| $\theta$ | 0° | 30° | 45° | 60° | 90° |
+| --- | :---: | :---: | :---: | :---: | :---: |
+| rad | 0 | π/6 | π/4 | π/3 | π/2 |
+| $\sin\theta$ | 0 | 1/2 | $\frac{\sqrt{2}}{2}$ | $\frac{\sqrt{3}}{2}$ | 1 |
+| $\cos\theta$ | 1 | $\frac{\sqrt{3}}{2}$ | $\frac{\sqrt{2}}{2}$ | 1/2 | 0 |
+
+Pattern: moving left-to-right, $\sin$ values are $\frac{\sqrt{n}}{2}$ for $n = 0, 1, 2, 3, 4$; $\cos$ values are the reverse.
+
+Memorising this row is worth the 20 minutes. It saves time on a Klausur every single time a 30°, 45°, or 60° angle appears.
+
+</FormulaCard>
+
+### Two identities that earn their keep
+
+<FormulaCard
+  name_de="Pythagoreische Identität"
+  name_en="Pythagorean identity"
+  latex="\sin^2\theta + \cos^2\theta = 1"
+>
+
+Rewritten: $\sin^2\theta = 1 - \cos^2\theta$, $\cos^2\theta = 1 - \sin^2\theta$. Use these to convert expressions involving $\sin^2$ into $\cos^2$ and vice versa.
+
+</FormulaCard>
+
+<FormulaCard
+  name_de="Additionstheoreme"
+  name_en="Sum formulas"
+  latex="\sin(\alpha \pm \beta) = \sin\alpha \cos\beta \pm \cos\alpha \sin\beta"
+>
+
+$$\cos(\alpha \pm \beta) = \cos\alpha \cos\beta \mp \sin\alpha \sin\beta$$
+
+Specialised forms you will see often:
+
+- $\sin(2\alpha) = 2\sin\alpha\cos\alpha$ (double-angle)
+- $\cos(2\alpha) = \cos^2\alpha - \sin^2\alpha = 1 - 2\sin^2\alpha = 2\cos^2\alpha - 1$
+- $\cos(\alpha - \beta) - \cos(\alpha + \beta) = 2\sin\alpha\sin\beta$ (used in wave interference)
+
+</FormulaCard>
+
+## Musteraufgabe
+
+> **Aufgabe.** Berechnen Sie ohne Taschenrechner:
+>
+> a) $\sin(60°)$
+> b) $\cos(\pi/4)$
+> c) $\sin^2(30°) + \cos^2(30°)$
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a)** From the table: $\sin(60°) = \frac{\sqrt{3}}{2} \approx 0{,}866$.
+
+**b)** $\pi/4 = 45°$, and from the table: $\cos(45°) = \frac{\sqrt{2}}{2} \approx 0{,}707$.
+
+**c)** Pythagorean identity: $\sin^2(30°) + \cos^2(30°) = 1$ regardless of the specific angle. No computation needed.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-trig-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Berechnen Sie sin(30°). Antwort als Dezimalzahl."
+  question_en="Compute sin(30°). Give answer as a decimal."
+  correct={0.5}
+  tolerance={0.01}
+  hint_en="Special angle. From the 0°/30°/45°/60°/90° table."
+  solution_mdx={`
+**Answer: $\\sin(30°) = 0{,}5 = 1/2$.**
+
+This is one of the five values worth memorising: $\\sin(30°) = 1/2$, exactly.
+
+**Geometric reason.** In a 30-60-90 right triangle with hypotenuse 2, the side opposite 30° has length 1 and the side opposite 60° has length $\\sqrt{3}$. So $\\sin(30°) = 1/2$ and $\\sin(60°) = \\sqrt{3}/2$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Calculator in radians mode: sin(30) ≈ -0.988",
+      why_en: "In radians, sin(30) would be evaluated as sin(30 rad), which is about 30/(2π) ≈ 4.77 full rotations, giving sin(30) ≈ -0.988. Always check your calculator's DEG/RAD mode against the problem's unit."
+    }
+  ]}
+  discussion_mdx={`
+**Why 30°, 45°, 60° have such clean values.**
+
+These angles correspond to particularly symmetric triangles:
+
+- 30° and 60° appear in equilateral triangles cut in half.
+- 45° appears in isoceles right triangles.
+
+Both these triangles have integer-related side lengths (after scaling), giving sine and cosine values that are simple fractions of $\\sqrt{2}$, $\\sqrt{3}$, or 1 or 2.
+
+Other angles like 20° or 37° give irrational values without special names — you rely on a calculator. But these five special angles are enough for most Klausur problems.
+  `}
+/>
+
+<Exercise
+  id="track-0-trig-l1-ex2"
+  difficulty="easy"
+  type="numeric"
+  question_de="Wie viele Radianten entsprechen 90°?"
+  question_en="How many radians equal 90°?"
+  correct={1.5708}
+  tolerance={0.01}
+  hint_en="360° = 2π rad, so 90° is a quarter circle = π/2."
+  solution_mdx={`
+**Answer: $\\pi/2 \\approx 1{,}5708$.**
+
+$$90° = \\frac{90}{360} \\cdot 2\\pi = \\frac{1}{2} \\pi = \\pi/2 \\approx 1{,}5708$$
+
+Worth memorising:
+
+- 0° = 0
+- 30° = π/6
+- 45° = π/4
+- 60° = π/3
+- 90° = π/2
+- 180° = π
+- 360° = 2π
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 90 (forgetting to convert)",
+      why_en: "Units matter. Radians and degrees are different units for the same quantity. 90° in radians is not 90; it is π/2 ≈ 1.57. Engineering formulas typically use radians internally — always check the expected unit."
+    }
+  ]}
+  discussion_mdx={`
+**Why radians are the "natural" unit.**
+
+Defining radians: arc length on a unit circle. One radian is the angle that subtends an arc of length 1 (equal to the radius). Consequences:
+
+- For small angles, $\\sin\\theta \\approx \\theta$ in radians (not degrees!) — this is THE most-used small-angle approximation.
+- Derivatives are clean: $\\frac{d}{d\\theta} \\sin\\theta = \\cos\\theta$ only in radians. In degrees, $\\frac{d}{d\\theta} \\sin\\theta = \\frac{\\pi}{180}\\cos\\theta$ — ugly.
+
+In physics, engineering, and math, RADIANS are the standard. Degrees are for everyday use.
+  `}
+/>
+
+<Exercise
+  id="track-0-trig-l1-ex3"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Vereinfachen Sie 1 - cos^2(x)."
+  question_en="Simplify 1 - cos²(x)."
+  correct_latex="\\sin^2 x"
+  hint_en="Pythagorean identity: sin² + cos² = 1."
+  solution_mdx={`
+**Answer: $\\sin^2(x)$.**
+
+Rearrange the Pythagorean identity:
+
+$$\\sin^2(x) + \\cos^2(x) = 1 \\quad\\Rightarrow\\quad \\sin^2(x) = 1 - \\cos^2(x)$$
+
+So $1 - \\cos^2(x) = \\sin^2(x)$.
+
+**In engineering.** This replacement is made routinely when evaluating energy-method integrals (small-angle pendulum, wave modes) where you want a unified form in one trig function.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering (1 - cos(x))² (distributing the square incorrectly)",
+      why_en: "$1 - \\cos^2(x)$ is NOT $(1 - \\cos(x))^2 = 1 - 2\\cos(x) + \\cos^2(x)$. The exponent 2 is inside, on $\\cos$ only — so the identity $\\sin^2 + \\cos^2 = 1$ applies directly."
+    }
+  ]}
+  discussion_mdx={`
+**When to replace cos with sin or vice versa.**
+
+If an integral or derivative involves $\\cos^2$ but you'd rather work with $\\sin$, replace $\\cos^2 = 1 - \\sin^2$. Vice versa works too. This is especially useful in:
+
+- Integrating $\\cos^2(x)$: use the identity $\\cos^2(x) = \\frac{1 + \\cos(2x)}{2}$ (derivable from the double-angle formula) to get a clean integral.
+- Simplifying expressions in wave mechanics: often one substitution eliminates a term entirely.
+- Fourier-series coefficients: convert all products of sines and cosines into sums via product-to-sum formulas (further identities you'll meet in Analysis II).
+  `}
+/>
+
+<Exercise
+  id="track-0-trig-l1-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Wie groß ist sin(45°) + cos(45°)? Geben Sie die Antwort als Dezimalzahl an (4 Stellen)."
+  question_en="Compute sin(45°) + cos(45°). Give answer as a decimal (4 places)."
+  correct={1.4142}
+  tolerance={0.003}
+  hint_en="Both equal √2/2. Add them and recognise the sum."
+  solution_mdx={`
+**Answer: $\\sqrt{2} \\approx 1{,}4142$.**
+
+$$\\sin(45°) + \\cos(45°) = \\frac{\\sqrt{2}}{2} + \\frac{\\sqrt{2}}{2} = \\sqrt{2} \\approx 1{,}4142$$
+
+Alternatively you can see this via the identity $\\sin(45°) = \\cos(45°)$, so twice that is $2 \\cdot \\frac{\\sqrt{2}}{2} = \\sqrt{2}$.
+
+**Worth memorising:** $\\sqrt{2} \\approx 1{,}414$ and $\\sqrt{3} \\approx 1{,}732$. These appear in every 30-45-60 exam problem.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 2 (adding 1+1)",
+      why_en: "$\\sin(45°) = \\cos(45°) = \\frac{\\sqrt{2}}{2} \\approx 0.707$, NOT 1. The sum of two of these is $\\sqrt{2} \\approx 1.41$, not 2. Getting 2 means you used $\\sin(90°) = 1$ or similar instead of $\\sin(45°)$."
+    }
+  ]}
+  discussion_mdx={`
+**Why $\\sqrt{2}$ and $\\sqrt{3}$ appear so often.**
+
+These irrationals are inherent to the geometry of 30-60-90 and 45-45-90 triangles — the simplest non-right triangles that have integer-side ratios. Any engineering calculation using these angles will produce $\\sqrt{2}$ or $\\sqrt{3}$ in the answer.
+
+Common engineering occurrences:
+
+- AC circuit analysis: $V_{RMS} = V_0 / \\sqrt{2}$ for a sine wave — so $V_{RMS} = 0{,}707\\,V_0$.
+- 45° angled struts: $F_{horizontal} = F_{vertical} = F \\cdot \\cos(45°) = F/\\sqrt{2}$.
+- Hexagonal close-packing density in materials science uses $\\sqrt{3}/2$ from 60° angles.
+
+Memorising these two decimals ($\\sqrt{2} \\approx 1{,}414$, $\\sqrt{3} \\approx 1{,}732$) pays back every time you see them.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** When a problem uses angles in degrees, check your calculator's mode BEFORE plugging in. A radian-mode calculator evaluating $\sin(90)$ gives 0.894, not 1 — an error that ripples through an entire problem. The mode switch takes one second; fixing the downstream arithmetic takes five minutes.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next: **Lineare und quadratische Gleichungen** — solving $ax + b = 0$ (trivial) and $ax^2 + bx + c = 0$ via the *pq*- or *abc*-formula, graphical interpretation, and the role of the discriminant.
