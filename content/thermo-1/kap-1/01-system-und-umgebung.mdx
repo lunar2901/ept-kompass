@@ -1,0 +1,428 @@
+---
+id: thermo-1-k1-l1
+module: thermodynamik-1
+chapter: kap-1-grundbegriffe
+position: 1
+name_de: "System, Umgebung und Systemgrenze"
+name_en: "System, surroundings, and system boundary"
+estimated_minutes: 30
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock, DiagramP_and_ID } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Before we can talk about energy, heat, work, or any of the big ideas of thermodynamics, we have to draw a box around the thing we want to study. That box is called a **<GermanTerm de="System" article="das" plural="Systeme" en="system" />**. Everything outside the box is the **<GermanTerm de="Umgebung" article="die" plural="Umgebungen" en="surroundings" />**. The line between them is the **<GermanTerm de="Systemgrenze" article="die" plural="Systemgrenzen" en="system boundary" />**.
+
+This sounds trivial, but it is the single most common place students lose marks in a TU Berlin Klausur. If you draw your *Systemgrenze* in the wrong place, every energy balance you write after that is wrong — even if your maths is perfect.
+
+Think of it like accounting. Before you can say whether a company made a profit, you have to decide: *which* company? Where does its activity start and stop? Thermodynamics is the same. The *Systemgrenze* is where you count energy crossing in or out.
+
+</Callout>
+
+## Schlüsselbegriffe — key vocabulary for this lesson
+
+<VocabBlock>
+  - term: das System
+    en: system
+    plural: die Systeme
+    ipa: /zʏsˈteːm/
+    example_de: "Wir betrachten das Gas im Zylinder als geschlossenes System."
+    example_en: "We consider the gas in the cylinder as a closed system."
+  - term: die Umgebung
+    en: surroundings / environment
+    plural: die Umgebungen
+    ipa: /ʊmˈɡeːbʊŋ/
+    example_de: "Die Umgebung hat eine konstante Temperatur von 20 °C."
+    example_en: "The surroundings have a constant temperature of 20 °C."
+  - term: die Systemgrenze
+    en: system boundary
+    plural: die Systemgrenzen
+    ipa: /zʏsˈteːmˌɡʁɛntsə/
+    example_de: "Die Systemgrenze verläuft entlang der Innenwand des Zylinders."
+    example_en: "The system boundary runs along the inner wall of the cylinder."
+  - term: geschlossen
+    en: closed
+    ipa: /ɡəˈʃlɔsn̩/
+    example_de: "Ein geschlossenes System tauscht keine Masse mit der Umgebung aus."
+    example_en: "A closed system exchanges no mass with its surroundings."
+  - term: offen
+    en: open
+    ipa: /ˈɔfn̩/
+    example_de: "Eine Turbine ist ein offenes System."
+    example_en: "A turbine is an open system."
+  - term: abgeschlossen
+    en: isolated
+    ipa: /ˈapɡəˌʃlɔsn̩/
+    example_de: "Ein ideales Thermosgefäß nähert sich einem abgeschlossenen System an."
+    example_en: "An ideal thermos approximates an isolated system."
+  - term: adiabat
+    en: adiabatic (no heat transfer)
+    ipa: /adiaˈbaːt/
+    example_de: "Die Systemgrenze ist adiabat, also wärmeundurchlässig."
+    example_en: "The system boundary is adiabatic, i.e. impermeable to heat."
+  - term: diatherm
+    en: diathermal (heat-permeable)
+    ipa: /diaˈtɛʁm/
+    example_de: "Eine diatherme Wand lässt Wärme durch, aber keine Masse."
+    example_en: "A diathermal wall permits heat flow but no mass flow."
+</VocabBlock>
+
+## Theorie — the formal picture
+
+### Three kinds of system
+
+Thermodynamics classifies every system by **what is allowed to cross its boundary**: mass, energy, both, or neither.
+
+| Deutsch | English | Mass across boundary? | Energy across boundary? | Typical example |
+| --- | --- | :---: | :---: | --- |
+| **geschlossenes System** | closed system | ❌ no | ✅ yes | gas in a sealed piston-cylinder |
+| **offenes System** | open system | ✅ yes | ✅ yes | steam turbine, pump, heat exchanger |
+| **abgeschlossenes System** | isolated system | ❌ no | ❌ no | idealised thermos flask |
+
+A subtlety that shows up on Klausuren: in the German engineering tradition an open system is often called a **<GermanTerm de="Kontrollraum" article="der" plural="Kontrollräume" en="control volume" />** and its boundary is the **<GermanTerm de="Kontrollfläche" article="die" plural="Kontrollflächen" en="control surface" />**. These are the same idea as *offenes System / Systemgrenze* but phrased in the language of flow processes. When you see *Kontrollraum* in an exam question, you are being asked to do an open-system balance.
+
+### The boundary itself has properties
+
+A *Systemgrenze* is not just a line — it has physical properties we assign:
+
+<FormulaCard
+  name_de="Eigenschaften der Systemgrenze"
+  name_en="Properties of the system boundary"
+>
+  A boundary can independently be:
+  - **starr** (rigid) — volume cannot change, so no boundary work  
+    or **beweglich** (movable) — piston can move, boundary work is possible
+  - **adiabat** (adiabatic) — no heat crosses  
+    or **diatherm** (diathermal) — heat can cross
+  - **stofflich durchlässig** (mass-permeable)  
+    or **stofflich undurchlässig** (mass-impermeable)
+</FormulaCard>
+
+A typical Klausur sentence is *"Das System sei durch eine starre, adiabate und stofflich undurchlässige Wand begrenzt."* — translated: the system has a rigid, adiabatic, mass-impermeable boundary. You should immediately conclude: no work, no heat, no mass flow. In other words, isolated.
+
+### Drawing the boundary — what examiners actually check
+
+When you answer an exam question you should:
+
+1. **Draw the physical setup** — the piston, the tank, the pipe.
+2. **Draw the *Systemgrenze* as a dashed line.** Every Klausur solution at TU Berlin uses a dashed line for this.
+3. **Label all crossings** — every arrow is either a mass flow (<GermanTerm de="Massenstrom" article="der" plural="Massenströme" en="mass flow rate" />, symbol $\dot{m}$), a heat flow (<GermanTerm de="Wärmestrom" article="der" plural="Wärmeströme" en="heat flow rate" />, symbol $\dot{Q}$), or a power (<GermanTerm de="Leistung" article="die" plural="Leistungen" en="power" />, symbol $P$ or $\dot{W}$).
+4. **State which type of system** it is in words: *"Das ist ein offenes, stationäres System."*
+
+That last step — stating it in words, in German — is worth marks on almost every energy-balance problem.
+
+<DiagramP_and_ID
+  caption_de="Beispiel: Dampfturbine als offenes System. Die Systemgrenze (gestrichelt) umschließt die Turbine; Masse tritt bei 1 ein und bei 2 aus, Leistung P wird abgegeben."
+  caption_en="Example: Steam turbine as an open system. The boundary (dashed) encloses the turbine; mass enters at 1 and leaves at 2, power P is delivered."
+  mermaid={`
+flowchart LR
+  in((1)) -.->|"ṁ, h₁"| T[Turbine]
+  T -.->|"ṁ, h₂"| out((2))
+  T -->|"P (Leistung)"| shaft[Welle]
+  style T fill:#f0f7ff,stroke:#333,stroke-dasharray: 5 5
+  `}
+/>
+
+## Musteraufgabe — worked example in Klausur style
+
+> **Aufgabe.** Ein ideal isolierter, starrer Behälter enthält 2 kg Luft. Durch ein Rührwerk wird Arbeit in den Behälter eingebracht. Die Behälterwände sind wärmeundurchlässig und die Luft kann nicht entweichen.
+>
+> *a)* Um welchen Systemtyp handelt es sich? Begründen Sie.  
+> *b)* Zeichnen Sie das System mit Systemgrenze und tragen Sie alle Energieflüsse ein.
+
+<details>
+<summary>**Lösungsweg — step by step (English)**</summary>
+
+**Step 1. Check what can cross the boundary.**
+
+- *Masse?* The problem says *"die Luft kann nicht entweichen"* (the air cannot escape) → no mass crosses.
+- *Wärme?* The walls are *"wärmeundurchlässig"* (adiabatic) → no heat crosses.
+- *Arbeit?* A *Rührwerk* (stirrer) is doing work on the gas. Work is energy, and energy crosses the boundary through the shaft of the stirrer.
+
+**Step 2. Classify.**
+
+Mass: no. Heat: no. Energy in another form (work): yes.
+
+This is a **geschlossenes, adiabates System**. It is **not** abgeschlossen, because energy is still being transferred (as shaft work). A common trap: students see *"isoliert"* in the question and write *abgeschlossen*. But *isoliert* here only means *thermally* isolated — the stirrer shaft still carries energy in.
+
+**Step 3. German answer sentence for part a).**
+
+*"Es handelt sich um ein geschlossenes, adiabates System, da weder Masse noch Wärme die Systemgrenze überschreiten, jedoch Arbeit über die Welle des Rührwerks zugeführt wird."*
+
+**Step 4. Sketch for part b).**
+
+Draw the tank. Draw a dashed line just inside the wall. Draw an arrow labelled $W_{\text{Welle}}$ (*Wellenarbeit*, shaft work) crossing the boundary pointing inward. No $\dot{Q}$ arrow. No $\dot{m}$ arrow. Write on the sketch: *geschlossenes, adiabates System*.
+
+</details>
+
+## Übungen — practice with full worked solutions
+
+Every exercise in EPT-Kompass gives you:
+
+- a **hint** (tap once if you're stuck but don't want the answer yet)
+- a **full worked solution** in TU Berlin Klausur format
+- **common mistakes** — the specific wrong answers students give and why
+- a **Diskussion** section that explores edge cases, variations of the question, and how this concept connects forward
+
+Use this structure for every exercise you work. If you got it right, read the Diskussion anyway — that's where the exam-level understanding lives.
+
+<Exercise
+  id="thermo-1-k1-l1-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Eine Dampfturbine, durch die kontinuierlich Dampf strömt und die Arbeit an einer Welle abgibt, ist ein …"
+  question_en="A steam turbine through which steam flows continuously and which delivers work at a shaft is a …"
+  options={[
+    { id: "a", de: "geschlossenes System", en: "closed system" },
+    { id: "b", de: "offenes System", en: "open system" },
+    { id: "c", de: "abgeschlossenes System", en: "isolated system" },
+    { id: "d", de: "adiabates System", en: "adiabatic system" },
+  ]}
+  correct="b"
+  hint_en="Ask yourself: does any matter cross the boundary of the turbine during normal operation?"
+  solution_mdx={`
+**Correct answer: (b) offenes System.**
+
+**Gegeben:** A steam turbine, operating continuously, with steam flowing through it and shaft work being delivered.
+
+**Reasoning:**
+
+1. *Does mass cross the system boundary?* Yes — steam enters at the inlet (state 1) and leaves at the outlet (state 2). The turbine would not work otherwise.
+
+2. *Once mass crosses*, the system is by definition **offen** (open). That alone rules out (a) and (c).
+
+3. *Is it adiabatic (d)?* Maybe — in idealised textbook problems we often assume the turbine is adiabatic because the time the steam spends inside is very short compared to the time needed for significant heat transfer through the casing. But the question does not *say* the turbine is adiabatic, so we cannot assume it. Being open is a certainty; being adiabatic is a modelling assumption.
+
+**Answer in German:** *"Es handelt sich um ein offenes System, da Dampf als Masse die Systemgrenze überschreitet."*
+  `}
+  common_mistakes={[
+    {
+      wrong: "d — adiabates System",
+      why_en: "Students remember that textbook turbines are 'usually adiabatic' and jump to (d). But adiabatic describes the heat behaviour; open/closed describes the mass behaviour. These are independent properties — a system can be open AND adiabatic at the same time. The question asks the more fundamental classification (mass crossing), which is 'open'."
+    },
+    {
+      wrong: "c — abgeschlossenes System",
+      why_en: "*Abgeschlossen* means isolated — no mass AND no energy crosses the boundary. Turbines exist precisely to let energy (and mass) out. If you ticked this, you may be confusing *abgeschlossen* (isolated) with *geschlossen* (closed). German distinguishes these; English often blurs them. Keep them separate in your head."
+    }
+  ]}
+  discussion_mdx={`
+**Why this classification matters for what you compute next.**
+
+Once you have said "offenes System", you commit to the open-system energy balance (the *Energiebilanz für stationäre Fließprozesse*):
+
+$$
+\\dot{Q} + P = \\dot{m} \\left[ (h_2 - h_1) + \\tfrac{1}{2}(c_2^2 - c_1^2) + g(z_2 - z_1) \\right]
+$$
+
+If you had classified it as closed, you would instead try to use $Q + W = \\Delta U$, which uses *internal energy* $U$, not *enthalpy* $H$. **That is the single biggest trap in the whole first-law chapter.** The reason open systems use enthalpy $h = u + pv$ is that mass crossing the boundary carries not only its internal energy but also does *Verschiebearbeit* (flow work, $pv$) against the pressure on the other side. Enthalpy bundles these two together, so you don't have to track them separately.
+
+**Variation 1 — what if the question said "the casing is well-insulated"?** Then you add "adiabatic" to your classification: *offenes, adiabates, stationäres System*, and you can set $\\dot{Q} = 0$ in the balance above. Fewer terms, easier problem.
+
+**Variation 2 — what if there is no shaft, only steam flowing through an insulated pipe?** Still open, still adiabatic, but $P = 0$ as well. The balance reduces to $h_2 = h_1$ (plus small kinetic-energy terms). This is the idealisation used for a *Drossel* (throttling valve) — and it is Klausur gold, because it tells you that throttling is *isenthalpic* without you having to memorise that fact.
+
+**Connection forward.** In Thermodynamik II you will meet real steam tables and the Clausius-Rankine cycle, where turbines are a key component. Every one of those calculations starts with exactly this classification step.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l1-ex2"
+  difficulty="medium"
+  type="multi_select"
+  question_de="Welche Aussagen über ein abgeschlossenes System sind korrekt? (Mehrfachauswahl möglich.)"
+  question_en="Which statements about an isolated system are correct? (Multiple selection possible.)"
+  options={[
+    { id: "a", de: "Es tauscht weder Masse noch Energie mit der Umgebung aus.", en: "It exchanges neither mass nor energy with its surroundings." },
+    { id: "b", de: "Seine innere Energie kann sich durch äußere Einflüsse ändern.", en: "Its internal energy can change due to external influences." },
+    { id: "c", de: "Das Universum als Ganzes ist näherungsweise ein abgeschlossenes System.", en: "The universe as a whole is approximately an isolated system." },
+    { id: "d", de: "Ein abgeschlossenes System muss immer adiabat sein.", en: "An isolated system must always be adiabatic." },
+  ]}
+  correct={["a", "c", "d"]}
+  hint_en="Two of the four answers say essentially the same thing. Think about how the definition of 'isolated' relates to the definition of 'adiabatic'."
+  solution_mdx={`
+**Correct answers: (a), (c), and (d).**
+
+**(a) is correct — it is the definition.** *Abgeschlossen* means no exchange of mass *and* no exchange of energy in any form (heat, work, or otherwise). Any one of those crossing the boundary disqualifies the system.
+
+**(b) is incorrect.** If no mass and no energy cross the boundary, *by definition* nothing external can change the internal state of the system. Internal energy $U$ can still redistribute (e.g. a gas mixture coming to equilibrium inside the box) but the *total* $U$ of an isolated system is conserved. This is a direct consequence of the first law: $\\Delta U = Q + W$, and both $Q$ and $W$ are zero at the boundary.
+
+**(c) is correct** in the sense textbooks mean it. The universe has no "outside" to exchange anything with, so it is treated as isolated. This is why the second law is often stated as *"die Entropie des Universums nimmt bei realen Prozessen stets zu"* — because the universe being isolated means its entropy obeys $\\Delta S_{\\text{Universum}} \\geq 0$.
+
+**(d) is correct, but with an important direction.** If no energy crosses, then in particular no heat crosses, so the system must be adiabatic. **The converse is NOT true** — an adiabatic system need not be isolated (work could still cross the boundary, as in our stirred-tank Musteraufgabe above). This asymmetry is a classic Klausur question.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Only selecting (a)",
+      why_en: "You got the definition right but didn't push through the logical consequences. In Klausuren the examiner almost always asks you to *reason from* a definition, not just to *state* it. Always check every option against the definition before moving on."
+    },
+    {
+      wrong: "Selecting (b)",
+      why_en: "This is the single most common wrong selection on this exercise. Students think of 'influences' loosely — 'well, gravity still acts on it' or 'the gas inside is still moving around'. But the definition of an isolated system is mathematically strict: $Q = 0$ and $W = 0$ and $\\dot{m} = 0$ at the boundary. Nothing external can change $U$."
+    },
+    {
+      wrong: "Not selecting (d)",
+      why_en: "Students see 'muss IMMER adiabat sein' and get suspicious of the word 'immer'. In fact the logic is airtight: no energy crossing ⊃ no heat crossing ⊃ adiabatic. Trust the definitions."
+    }
+  ]}
+  discussion_mdx={`
+**The relationship between isolated, adiabatic, and closed, in one diagram.**
+
+Think of these as nested sets:
+
+$$
+\\text{abgeschlossen} \\;\\subset\\; \\text{adiabat} \\;\\cap\\; \\text{stofflich undurchlässig}
+$$
+
+- Every isolated system is adiabatic.
+- Every isolated system is closed.
+- But an adiabatic closed system need not be isolated — it might still have work crossing.
+
+**Why does this matter?** Because on an exam, when the problem says *"adiabates System"*, you should **not** also assume $W = 0$. You only get $Q = 0$. Students who over-read "adiabat" as "nothing happens at the boundary" get energy balances with too many zeros in them and arrive at answers like $\\Delta U = 0$, which is usually wrong.
+
+**Second-law angle.** The isolated universe is the only system for which the strictest form of the second law applies without qualification: $\\Delta S \\geq 0$, with equality only for reversible processes. For any smaller system you are looking at, you have to include the entropy change of the surroundings too. This is why problems often ask for $\\Delta S_{\\text{Gesamt}} = \\Delta S_{\\text{System}} + \\Delta S_{\\text{Umgebung}}$ — the *Gesamtsystem* (system + surroundings) is isolated even when the system alone is not.
+
+**Historical note.** The distinction between *abgeschlossen* and *adiabat* was sharpened by Carathéodory in 1909, who put thermodynamics on a rigorous axiomatic footing. Before that, textbooks used the terms loosely and students got them confused — just like some textbooks still do today. If you remember the nesting above, you are ahead of the game.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l1-ex3"
+  difficulty="klausur"
+  type="short_derivation"
+  question_de="Ein Wasserkocher wird an das Stromnetz angeschlossen und erhitzt das Wasser bis zum Sieden. Der Deckel ist offen, sodass Dampf entweicht. a) Klassifizieren Sie das System. b) Nennen Sie alle Energie- und Stoffströme über die Systemgrenze. c) Begründen Sie Ihre Wahl der Systemgrenze. d) Geben Sie an, ob das System stationär oder instationär arbeitet, und begründen Sie."
+  question_en="An electric kettle is connected to mains electricity and heats water to boiling. The lid is open so steam escapes. a) Classify the system. b) List all energy and mass flows across the boundary. c) Justify your choice of boundary. d) State whether the system operates in steady state or transient, and justify."
+  hint_en="Work through it in the order (c) → (a) → (b) → (d) even though the question asks them in a different order. Choose the boundary first, *then* look at what crosses it, *then* classify."
+  solution_mdx={`
+**Full Klausur-style solution.**
+
+**c) Wahl der Systemgrenze.** We place the *Systemgrenze* just inside the wall of the kettle, enclosing the liquid water and the air/steam above it. This is the only sensible choice because:
+
+- Placing it outside the kettle would force us to model the external air, which the problem does not describe.
+- Placing it only around the water (excluding the steam above) would create an awkward moving boundary at the water surface.
+- Placing it inside the heating element would separate the element from the water and force us to write a separate balance for each — unnecessary complication.
+
+With the boundary drawn as above, the kettle body itself is part of the system (we neglect its thermal mass unless the problem tells us otherwise).
+
+**a) Klassifizierung.** 
+
+- Mass crosses: yes (steam escapes through the open lid). → **offen**
+- Heat crosses: yes (heat losses through the walls to the ambient air). → **not adiabatic**
+- Does it reach steady state? No, because the water mass inside is continuously decreasing and its temperature evolves over time. → **instationär**
+
+**Type: offenes, nicht-adiabates, instationäres System.**
+
+**b) Energie- und Stoffströme über die Systemgrenze.**
+
+*Stoffströme (mass flows):*
+- $\\dot{m}_{\\text{Dampf}}$ — steam leaves through the open lid, carrying mass out.
+
+*Energieströme (energy flows):*
+- $P_{\\text{el}}$ — electrical power enters through the cable into the heating element. This is electrical work crossing the boundary.
+- $\\dot{Q}_{\\text{Verlust}}$ — heat loss through the kettle walls to the surroundings. Typically small but not zero.
+- Enthalpy outflow carried by the escaping steam: $\\dot{m}_{\\text{Dampf}} \\cdot h_{\\text{Dampf}}$. This is not a separate phenomenon from the mass flow — but in the energy balance it appears as a distinct term on the right-hand side.
+
+**d) Stationär oder instationär?**
+
+Instationär. Two independent reasons make it so:
+
+1. The water mass inside the kettle decreases with time as steam leaves. A stationary system requires that all stored quantities (mass, energy) be constant in time inside the boundary.
+2. Before boiling, the water temperature rises continuously from room temperature toward 100 °C. Even after boiling starts, the temperature stays at 100 °C but the mass is still changing. At no point is the state inside the boundary time-independent.
+
+**Sketch.** Draw the kettle. Dashed line just inside the wall. Arrow labelled $P_{\\text{el}}$ pointing inward through the bottom (the cable). Arrow labelled $\\dot{Q}_{\\text{Verlust}}$ pointing outward through the side wall. Arrow labelled $\\dot{m}_{\\text{Dampf}}$ pointing upward through the open lid. Label the whole thing: *offenes, nicht-adiabates, instationäres System*.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting the heat-loss term $\\dot{Q}_{\\text{Verlust}}$",
+      why_en: "Students see 'kettle' and think 'it's just an electric heater, the problem is about $P_{\\text{el}}$'. But the problem does NOT say the kettle is well-insulated. In TU Berlin Klausuren, if the problem does not explicitly tell you a surface is adiabatic, you must assume heat can cross it — and you must list that heat flow in your answer. Marks are lost here routinely."
+    },
+    {
+      wrong: "Classifying as 'stationär'",
+      why_en: "A surprising number of students write 'stationär' because the kettle has a steady electrical input. But 'stationär' in thermodynamics means the state INSIDE the boundary is time-independent. Constant input does not imply constant state — here the water mass is decreasing and (before boiling) the temperature is rising, so the state is definitely not constant."
+    },
+    {
+      wrong: "Listing only $\\dot{m}_{\\text{Dampf}}$ under Energieströme",
+      why_en: "Mass flow and energy flow are two different columns in the bookkeeping. Mass carries energy with it, yes — but the mass flow itself is not an energy flow, it is a mass flow. List $\\dot{m}_{\\text{Dampf}}$ under Stoffströme. List $P_{\\text{el}}$ and $\\dot{Q}_{\\text{Verlust}}$ under Energieströme. The enthalpy carried by the steam ($\\dot{m}_{\\text{Dampf}} \\cdot h_{\\text{Dampf}}$) shows up in the energy balance equation, but it is not an independent 'energy flow'."
+    }
+  ]}
+  discussion_mdx={`
+**What happens if we change one assumption?**
+
+*Case A — lid closed.* No steam escapes. System becomes closed (no mass across) but still not adiabatic. It is also still instationär because temperature keeps rising. Eventually, pressure builds up too (you have just invented a pressure cooker), and the boundary may become movable if the lid lifts.
+
+*Case B — kettle is on a scale, and we define the system as the entire kettle + water + steam column up to the ceiling.* Now there are fewer mass flows across the boundary (steam is inside until it reaches the ceiling). This shows that the classification depends on where you draw the boundary, not just on the physical situation. **Moving the Systemgrenze changes the problem.** This is why picking the boundary first, deliberately, is the single most important step.
+
+*Case C — steady state version.* Imagine a continuous-flow water heater: water enters cold at a constant rate, leaves hot at a constant rate, heating power is constant. Now the state inside is time-independent (the water inside the heater is always at the same average temperature, the same mass). This IS stationär. The difference between the kettle and the continuous-flow heater is not the physics — it's whether storage inside the boundary is changing.
+
+**Connection forward.**
+
+The *instationäre offene Systeme* we just classified here are the subject of a full later lesson on *transiente Massen- und Energiebilanzen*. The governing equations there look more complicated than the stationary ones because they include $\\frac{dm}{dt}$ and $\\frac{dU}{dt}$ terms — but they are just bookkeeping. Every term in the instationary energy balance corresponds to one of the flows you listed in part (b) of this exercise. If your list there is right, your balance will be right.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l1-ex4"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Eine gut gedämmte Thermoskanne enthält heißen Kaffee. Über einen Zeitraum von mehreren Stunden bleibt der Kaffee (fast) heiß, der Deckel ist fest verschlossen. Welche Klassifikation ist für eine Klausur-Modellierung am geeignetsten?"
+  question_en="A well-insulated thermos flask contains hot coffee. Over several hours the coffee stays (almost) hot, and the lid is firmly closed. Which classification is most appropriate for exam-level modelling?"
+  options={[
+    { id: "a", de: "offenes, adiabates System", en: "open, adiabatic system" },
+    { id: "b", de: "geschlossenes, adiabates System", en: "closed, adiabatic system" },
+    { id: "c", de: "abgeschlossenes System (ideal)", en: "isolated system (idealised)" },
+    { id: "d", de: "geschlossenes, diathermes System", en: "closed, diathermal system" },
+  ]}
+  correct="c"
+  hint_en="The key phrase is 'for exam-level modelling'. What idealisation does the problem most closely match? Not what the real physics exactly is, but what you'd assume for a tractable calculation."
+  solution_mdx={`
+**Correct answer: (c) abgeschlossenes System (ideal).**
+
+**Reasoning.** Let's check each boundary property:
+
+- *Mass?* Lid firmly closed → no mass crosses → **closed at minimum**.
+- *Heat?* "Gut gedämmt" (well-insulated) and "bleibt fast heiß" (stays almost hot) → we idealise heat loss as zero → **adiabatic**.
+- *Work?* The thermos just sits there. No shaft, no piston, no electrical input. **No work crosses.**
+
+No mass, no heat, no work → **nothing crosses** → the system is idealised as isolated (*abgeschlossen*).
+
+**Why not (b)?** Geschlossen + adiabat is strictly correct but weaker — it still allows for work to cross. Since nothing is actually pushing or pulling on the thermos, (c) is the tighter, more informative classification. On an exam, if both (b) and (c) seem defensible, pick (c) — it carries more information, and the examiner is testing whether you noticed the absence of work.
+
+**Why not (a)?** The lid is closed, so no mass crosses.
+
+**Why not (d)?** Diatherm means heat-permeable. The whole point of a thermos is to be (approximately) adiabatic. A diathermal thermos would be a mug.
+  `}
+  common_mistakes={[
+    {
+      wrong: "b — geschlossenes, adiabates System",
+      why_en: "This is the most common wrong answer and it is nearly right. It is strictly true — the thermos is closed and (idealised) adiabatic. But when the problem gives you enough information to also rule out work, use the strongest (most specific) classification. In engineering Klausuren, vague classifications lose marks."
+    },
+    {
+      wrong: "c but with the caveat 'only for short times'",
+      why_en: "Adding hedge-words does not win marks. If the problem says 'well-insulated', the expected modelling choice is to idealise as adiabatic, full stop. The word 'fast' (almost) in the problem is your signal that this idealisation is appropriate. Commit to the idealisation in your answer."
+    }
+  ]}
+  discussion_mdx={`
+**When is an idealisation OK, and when does it break?**
+
+The thermos is *approximately* isolated over a few hours. Over a few days, it is not — you will notice the coffee going cold. The idealisation is coupled to a time scale.
+
+In engineering, a rule of thumb: the idealisation "adiabatic" works when the characteristic time for heat loss through the walls is much longer than the time scale of the process you're analysing. For a thermos with cork insulation the thermal time constant might be 6–12 hours. If the process you care about is 1 hour of holding hot coffee, adiabatic is fine. If it's 24 hours, it is not.
+
+This is exactly the same reasoning applied to turbines (the steam is inside for milliseconds → adiabatic is fine), heat exchangers (fluids inside for seconds → not adiabatic, the whole point is heat transfer), and building thermal mass (day–night cycles vs wall time constants → genuinely time-dependent).
+
+**Connection forward.** When you reach Kapitel 2 of Thermodynamik I, you will apply the first law to an "idealised thermos" kind of system and derive that $U$ is constant. In Kapitel 5 of Thermische Verfahrenstechnik, you will model industrial tanks in exactly the same way but with *Verlustterme* (loss terms) added back in — because real industrial tanks lose heat on the time scale of the process. The idealisation and the correction are two sides of the same modelling decision.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** When an exam question describes a device in German and asks you to classify the system, circle these four words in the text: *geschlossen, offen, adiabat, isoliert*. If any of them is missing, the problem is telling you *you* have to decide from the physics — not assume. *"Gut isolierter Behälter"* means adiabatic **to a good approximation** — you should state that assumption in your answer.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+In the next lesson — **Zustandsgrößen: intensiv und extensiv** — we build on this picture. Once you know where the system ends, you can start describing *what is inside it*: temperature, pressure, volume, mass. These are *Zustandsgrößen*, and the distinction between **intensive** (temperature, pressure — do not depend on size) and **extensive** (volume, mass, internal energy — scale with size) is the second most common thing Klausuren test after boundary-drawing.

@@ -1,0 +1,418 @@
+---
+id: track-0-logs-l1
+module: schulwissen-auffrischen
+chapter: logarithmen
+position: 1
+name_de: "Logarithmen — was sie sind und warum Ingenieure sie lieben"
+name_en: "Logarithms — what they are and why engineers love them"
+estimated_minutes: 25
+prerequisites: ["track-0-potenzen-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this exists
+
+You have not used a logarithm since school. That is fine. You will meet them again roughly ten minutes into your first Thermodynamik lecture (entropy of an ideal gas), and again in *Reaktionstechnik* (reaction rates), in *Regelungstechnik* (Bode plots), and in *Verfahrenstechnik* (pH, decibels, orders of magnitude). So let us fix it now, once, properly.
+
+A logarithm answers one specific question: **"to what power do I have to raise this base to get that number?"** That is it. Everything else — the log rules, the graph shape, the "natural log" — follows from that single question.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: der Logarithmus
+    en: logarithm
+    plural: die Logarithmen
+    ipa: /loɡaˈʁɪtmʊs/
+    example_de: "Der Logarithmus von 1000 zur Basis 10 ist 3."
+    example_en: "The logarithm of 1000 to base 10 is 3."
+  - term: die Basis
+    en: base
+    plural: die Basen
+    ipa: /ˈbaːzɪs/
+    example_de: "Der natürliche Logarithmus hat die Basis e."
+    example_en: "The natural logarithm has base e."
+  - term: der natürliche Logarithmus
+    en: natural logarithm (ln)
+    ipa: /naˈtyːɐ̯lɪçɐ loɡaˈʁɪtmʊs/
+    example_de: "In der Thermodynamik taucht oft der natürliche Logarithmus auf."
+    example_en: "The natural logarithm appears frequently in thermodynamics."
+  - term: der dekadische Logarithmus
+    en: common logarithm (log₁₀)
+    ipa: /deˈkaːdɪʃɐ loɡaˈʁɪtmʊs/
+    example_de: "Der pH-Wert basiert auf dem dekadischen Logarithmus."
+    example_en: "The pH value is based on the common logarithm."
+  - term: die Potenz
+    en: power (as in exponentiation)
+    plural: die Potenzen
+    ipa: /poˈtɛnts/
+    example_de: "Der Logarithmus ist die Umkehrung der Potenz."
+    example_en: "The logarithm is the inverse of the power."
+  - term: der Exponent
+    en: exponent
+    plural: die Exponenten
+    ipa: /ɛkspoˈnɛnt/
+    example_de: "Im Ausdruck 10³ ist 3 der Exponent."
+    example_en: "In the expression 10³, 3 is the exponent."
+</VocabBlock>
+
+## Der eine Gedanke, den du nie vergessen darfst
+
+Everything about logarithms reduces to this:
+
+$$
+\log_b(x) = y \quad \Longleftrightarrow \quad b^y = x
+$$
+
+Read the symbol $\Longleftrightarrow$ as "is the same question as". So $\log_{10}(1000) = 3$ is the same question as $10^3 = 1000$. A logarithm is literally **the exponent that the base is raised to**.
+
+That is why engineers use logs when quantities span many orders of magnitude. A concentration of $10^{-7}$ and a concentration of $10^{-3}$ look almost the same next to each other on a normal axis. Take $-\log_{10}$ and they become $7$ and $3$ — neat, readable, and that is exactly what *pH-Wert* is.
+
+## Die drei Logarithmen, denen du begegnen wirst
+
+| Symbol | German name | Base | Where you meet it |
+| --- | --- | :---: | --- |
+| $\log_{10}(x)$ or $\lg(x)$ | <GermanTerm de="dekadischer Logarithmus" article="der" plural="dekadische Logarithmen" en="common log" /> | 10 | pH, decibels, Richter scale |
+| $\ln(x)$ | <GermanTerm de="natürlicher Logarithmus" article="der" plural="natürliche Logarithmen" en="natural log" /> | $e \approx 2.718$ | thermodynamics, reaction kinetics, anything with $e^x$ |
+| $\log_2(x)$ or $\operatorname{lb}(x)$ | <GermanTerm de="binärer Logarithmus" article="der" plural="binäre Logarithmen" en="binary log" /> | 2 | computer science, information theory |
+
+One warning. In a German textbook *"log"* without a subscript almost always means $\log_{10}$. In an English textbook and in most scientific calculators, *"log"* without a subscript still means $\log_{10}$, **but** in pure mathematics papers it often means $\ln$. **In any TU Berlin engineering exam, write $\ln$ or $\lg$ explicitly. Never write bare *log*. You will lose marks for ambiguity.**
+
+## Die Rechenregeln — log rules, derived from the one idea
+
+You do not need to memorise these as separate facts. They all come from the fact that a log is an exponent, and exponents combine by addition when you multiply powers.
+
+<FormulaCard
+  name_de="Logarithmus eines Produkts"
+  name_en="Log of a product"
+  latex="\log_b(x \cdot y) = \log_b(x) + \log_b(y)"
+  variables={[
+    { symbol: "b", name_de: "Basis", name_en: "base", unit: "—" },
+    { symbol: "x, y", name_de: "positive reelle Zahlen", name_en: "positive real numbers", unit: "—" },
+  ]}
+>
+Why: if $x = b^p$ and $y = b^q$, then $x \cdot y = b^{p+q}$, so the exponent of the product is $p + q = \log_b(x) + \log_b(y)$.
+</FormulaCard>
+
+<FormulaCard
+  name_de="Logarithmus eines Quotienten"
+  name_en="Log of a quotient"
+  latex="\log_b\!\left(\frac{x}{y}\right) = \log_b(x) - \log_b(y)"
+>
+Same logic: dividing powers subtracts exponents.
+</FormulaCard>
+
+<FormulaCard
+  name_de="Logarithmus einer Potenz"
+  name_en="Log of a power"
+  latex="\log_b(x^n) = n \cdot \log_b(x)"
+>
+$x^n = (b^p)^n = b^{np}$, so the exponent is $n \cdot p$.
+</FormulaCard>
+
+<FormulaCard
+  name_de="Basiswechsel"
+  name_en="Change of base"
+  latex="\log_b(x) = \frac{\ln(x)}{\ln(b)} = \frac{\lg(x)}{\lg(b)}"
+>
+Your calculator only has *ln* and *lg*. If you need $\log_2(50)$, compute $\ln(50) / \ln(2)$. That is the change-of-base formula doing its job.
+</FormulaCard>
+
+## Zwei Werte, die du auswendig kennen solltest
+
+- $\ln(1) = 0$ — because $e^0 = 1$.
+- $\ln(e) = 1$ — because $e^1 = e$.
+- $\lg(1) = 0$, $\lg(10) = 1$, $\lg(100) = 2$, $\lg(1000) = 3$.
+
+In a Klausur you do not always have a calculator for every step. Recognising that $\ln(e^3) = 3$ without reaching for the calculator saves you time you will need later.
+
+## Musterrechnung
+
+> **Aufgabe.** Vereinfachen Sie: $\ln(e^2 \cdot x^3) - \ln(x)$.
+
+<details>
+<summary>**Lösung (English walk-through)**</summary>
+
+**Step 1.** Apply the product rule to the first term:
+$$\ln(e^2 \cdot x^3) = \ln(e^2) + \ln(x^3)$$
+
+**Step 2.** Apply the power rule to both pieces:
+$$= 2 \ln(e) + 3 \ln(x) = 2 \cdot 1 + 3 \ln(x) = 2 + 3 \ln(x)$$
+
+**Step 3.** Subtract $\ln(x)$:
+$$2 + 3\ln(x) - \ln(x) = 2 + 2\ln(x)$$
+
+**Answer:** $2 + 2\ln(x)$, or equivalently $2 + \ln(x^2)$.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-logs-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Berechnen Sie ohne Taschenrechner: $\lg(10\,000)$."
+  question_en="Compute without a calculator: $\lg(10\,000)$."
+  correct={4}
+  tolerance={0}
+  hint_en="Ask: 10 to what power gives 10,000? Count the zeros."
+  solution_mdx={`
+**Answer: 4.**
+
+**Step 1.** Write $10\\,000$ as a power of 10:
+$$10\\,000 = 10 \\cdot 10 \\cdot 10 \\cdot 10 = 10^4$$
+
+**Step 2.** Apply the definition of the logarithm:
+$$\\lg(10\\,000) = \\lg(10^4) = 4$$
+
+(Because $\\lg$ means $\\log_{10}$, and by definition $\\log_{10}(10^n) = n$.)
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 10,000 or 1",
+      why_en: "Students sometimes confuse the input and output of the log function. $\\lg(10\\,000)$ asks 'what exponent turns 10 into 10,000?' The answer is the exponent (4), not the number (10,000) and not the base (10)."
+    },
+    {
+      wrong: "Answering 5",
+      why_en: "Off-by-one: counting the number of digits in 10,000 (which is 5) instead of the number of zeros (which is 4). $\\lg(10\\,000) = 4$, not 5. Check: $10^4 = 10\\,000$, $10^5 = 100\\,000$."
+    }
+  ]}
+  discussion_mdx={`
+**Why is $\\lg$ so convenient for numbers with many zeros?**
+
+$\\lg$ of a power of 10 is just the number of zeros after the 1. So $\\lg(10^9) = 9$. The Avogadro constant $\\approx 6 \\cdot 10^{23}$ has a log of about $23 + \\lg(6) \\approx 23.78$. This is the trick behind scientific notation: every number becomes "mantissa plus order of magnitude", and the order of magnitude *is* the log.
+
+**Where you meet this in EPT.** Sound intensity (*Schallpegel*) is measured in decibels: $L = 10 \\lg(I/I_0)$. A doubling of intensity corresponds to $10 \\lg(2) \\approx 3\\,\\text{dB}$ — that's why audio engineers say "3 dB is a doubling".
+  `}
+/>
+
+<Exercise
+  id="track-0-logs-l1-ex2"
+  difficulty="easy"
+  type="numeric"
+  question_de="Berechnen Sie ohne Taschenrechner: $\ln(e^5)$."
+  question_en="Compute without a calculator: $\ln(e^5)$."
+  correct={5}
+  tolerance={0}
+  hint_en="$\ln$ and $e^{(\cdot)}$ are inverse functions — they undo each other."
+  solution_mdx={`
+**Answer: 5.**
+
+The natural logarithm $\\ln$ has base $e$. By the definition of a logarithm:
+
+$$\\ln(x) = y \\Longleftrightarrow e^y = x$$
+
+So $\\ln(e^5) = y$ where $e^y = e^5$, meaning $y = 5$.
+
+More generally: $\\ln(e^n) = n$ for any $n$. The $\\ln$ and $e^{(\\cdot)}$ functions cancel each other, because each one is defined as the inverse of the other.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering $e^5 \\approx 148.4$",
+      why_en: "This is the value of $e^5$, not of $\\ln(e^5)$. You do not need to evaluate $e^5$ at all — the $\\ln$ strips the exponent off. If you find yourself reaching for a calculator on this question, stop and check whether you are using the inverse-function property."
+    },
+    {
+      wrong: "Answering 1 (from 'ln(e) = 1, and then... something with 5')",
+      why_en: "You have the right fact ($\\ln(e) = 1$) but you need to apply the power rule: $\\ln(e^5) = 5 \\ln(e) = 5 \\cdot 1 = 5$. Both routes give the same answer."
+    }
+  ]}
+  discussion_mdx={`
+**The inverse-function identity, both ways.**
+
+For every $x > 0$:
+$$\\ln(e^x) = x \\quad \\text{and} \\quad e^{\\ln(x)} = x$$
+
+The first says: take the exponential, then the log — get back where you started. The second says: take the log, then the exponential — same thing. These are the two cleanest identities in the whole topic, and they appear everywhere in engineering mathematics.
+
+**Where this saves you on an exam.** Any expression of the form $e^{\\text{something}}$ where you need to isolate "something" is solved by taking $\\ln$ of both sides and using this identity. Example from chemistry: the Arrhenius equation $k = A \\cdot e^{-E_A/(RT)}$ gives the activation energy by $\\ln(k) = \\ln(A) - E_A/(RT)$ — linear in $1/T$, so plotting $\\ln(k)$ vs $1/T$ gives a straight line whose slope is $-E_A/R$. This plot has a name: *Arrhenius-Diagramm*. You will see it in Reaktionstechnik.
+  `}
+/>
+
+<Exercise
+  id="track-0-logs-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Lösen Sie nach $x$ auf: $\ln(x) = 3$. Geben Sie $x$ auf zwei Dezimalstellen genau an."
+  question_en="Solve for $x$: $\ln(x) = 3$. Give $x$ to two decimal places."
+  correct={20.09}
+  tolerance={0.02}
+  hint_en="If $\ln$ and $e^{(\cdot)}$ cancel each other, what operation applied to both sides will free $x$?"
+  solution_mdx={`
+**Answer: $x \\approx 20.09$.**
+
+**Step 1.** Start from $\\ln(x) = 3$. Apply the inverse function $e^{(\\cdot)}$ to both sides:
+$$e^{\\ln(x)} = e^3$$
+
+**Step 2.** The left side simplifies via the inverse-function identity $e^{\\ln(x)} = x$:
+$$x = e^3$$
+
+**Step 3.** Evaluate: $e \\approx 2.71828$, so $e^3 \\approx 20.0855$. To two decimal places, $x \\approx 20.09$.
+
+**Answer in context:** $x = e^3 \\approx 20.09$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 3 (thinking $\\ln(x) = 3 \\Rightarrow x = 3$)",
+      why_en: "This treats $\\ln$ as if it were an identity function. It is not. $\\ln(3) \\approx 1.10$, not 3. If you wrote $x = 3$, you effectively said $\\ln(3) = 3$, which is wrong by a factor of about 3."
+    },
+    {
+      wrong: "Answering $\\approx 8.15$ (using $2^3$ or similar)",
+      why_en: "You applied the wrong base. $\\ln$ has base $e \\approx 2.72$, not 2 or 10. Always check which log you are inverting — and remember German exam convention: if the paper shows '$\\ln$', use $e$; if it shows '$\\lg$', use 10."
+    },
+    {
+      wrong: "Answering $\\approx 1000$ (using base 10 inversion)",
+      why_en: "Reading '$\\ln$' as '$\\lg$'. $\\lg(x) = 3$ would indeed give $x = 10^3 = 1000$, but the problem says $\\ln$. These notations are very close on paper and students rush. Slow down."
+    }
+  ]}
+  discussion_mdx={`
+**The general pattern.**
+
+$$\\ln(x) = a \\quad\\Longrightarrow\\quad x = e^a$$
+$$\\lg(x) = a \\quad\\Longrightarrow\\quad x = 10^a$$
+
+These two operations — "take $e$ to the power", "take 10 to the power" — are what German textbooks call *Entlogarithmieren* (de-logarithming). It is not a separate skill; it is just applying the inverse function.
+
+**Where you meet this in EPT.** Any time you have a quantity in log form and need the actual number. Examples:
+
+- pH of 4 → $[\\text{H}^+] = 10^{-4}$ mol/L.
+- Entropy change ideal gas: $\\Delta s = R \\ln(p_1/p_2)$. If you know $\\Delta s$ and want the pressure ratio, you de-log: $p_1/p_2 = e^{\\Delta s / R}$.
+- Half-life of a reaction: $t_{1/2} = \\ln(2) / k$. If you know $t_{1/2}$ and want $k$: $k = \\ln(2) / t_{1/2}$ — no de-logging here, but you see $\\ln(2) \\approx 0.693$ so often you should memorise it.
+  `}
+/>
+
+<Exercise
+  id="track-0-logs-l1-ex4"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Welcher Ausdruck ist gleichwertig zu $\ln(a) - \ln(b) + 2\ln(c)$?"
+  question_en="Which expression is equivalent to $\ln(a) - \ln(b) + 2\ln(c)$?"
+  options={[
+    { id: "a", de: "$\\ln\\!\\left(\\dfrac{a \\cdot c^2}{b}\\right)$", en: "$\\ln\\!\\left(\\dfrac{a \\cdot c^2}{b}\\right)$" },
+    { id: "b", de: "$\\ln(a \\cdot b \\cdot c^2)$", en: "$\\ln(a \\cdot b \\cdot c^2)$" },
+    { id: "c", de: "$\\ln\\!\\left(\\dfrac{a-b}{c^2}\\right)$", en: "$\\ln\\!\\left(\\dfrac{a-b}{c^2}\\right)$" },
+    { id: "d", de: "$2\\ln\\!\\left(\\dfrac{a \\cdot c}{b}\\right)$", en: "$2\\ln\\!\\left(\\dfrac{a \\cdot c}{b}\\right)$" },
+  ]}
+  correct="a"
+  hint_en="Apply the three rules in order: power rule on $2\ln(c)$, then combine everything using quotient and product rules."
+  solution_mdx={`
+**Correct answer: (a) $\\ln\\!\\left(\\dfrac{a \\cdot c^2}{b}\\right)$.**
+
+**Step 1. Apply the power rule** to the $2\\ln(c)$ term:
+$$2\\ln(c) = \\ln(c^2)$$
+
+So the expression becomes $\\ln(a) - \\ln(b) + \\ln(c^2)$.
+
+**Step 2. Combine the addition** using the product rule:
+$$\\ln(a) + \\ln(c^2) = \\ln(a \\cdot c^2)$$
+
+Expression: $\\ln(a \\cdot c^2) - \\ln(b)$.
+
+**Step 3. Combine the subtraction** using the quotient rule:
+$$\\ln(a \\cdot c^2) - \\ln(b) = \\ln\\!\\left(\\frac{a \\cdot c^2}{b}\\right)$$
+
+Done — matches option (a).
+  `}
+  common_mistakes={[
+    {
+      wrong: "c — $\\ln\\!\\left(\\frac{a-b}{c^2}\\right)$",
+      why_en: "This is the 'treat $\\ln$ like it distributes over subtraction' mistake. It does not. $\\ln(a) - \\ln(b) = \\ln(a/b)$ (a ratio), NOT $\\ln(a - b)$ (a difference). The log of a difference has no simpler form — don't make one up."
+    },
+    {
+      wrong: "b — $\\ln(a \\cdot b \\cdot c^2)$",
+      why_en: "You applied the product rule to all three terms, forgetting that the middle one has a minus sign. When a term has a minus in front of $\\ln$, it becomes the denominator of a ratio, not a factor of a product."
+    },
+    {
+      wrong: "d — $2\\ln\\!\\left(\\frac{a \\cdot c}{b}\\right)$",
+      why_en: "You factored the 2 out of the wrong term. The 2 multiplies only $\\ln(c)$ in the original expression, so it ends up as an exponent on $c$ alone inside the final log, not as an overall multiplier of the whole expression."
+    }
+  ]}
+  discussion_mdx={`
+**The one rule with no counterpart: the log of a sum.**
+
+The three log rules handle products, quotients, and powers. They do **not** handle sums or differences:
+
+$$\\ln(a + b) \\neq \\ln(a) + \\ln(b)$$
+$$\\ln(a - b) \\neq \\ln(a) - \\ln(b)$$
+
+Students spend years wanting these to be true. They are not. If you see $\\ln(a+b)$ in a problem, you cannot simplify it with log rules — you can only evaluate it if you know the numerical values, or leave it as-is.
+
+**Where this matters in engineering.** In Reaktionstechnik, you will derive rate laws that look like $-\\ln([A]_0 - x) + \\ln([A]_0) = kt$. Students try to combine the two logs on the left with the quotient rule and get $\\ln([A]_0 / ([A]_0 - x)) = kt$ — which is correct. But if you had $\\ln([A]_0 - x + [A]_0)$, those two $[A]_0$'s cannot be combined further by a log rule; they have to be added arithmetically first *inside* the log. Know which rules apply when.
+  `}
+/>
+
+<Exercise
+  id="track-0-logs-l1-ex5"
+  difficulty="klausur"
+  type="numeric"
+  question_de="In der Thermodynamik begegnet Ihnen der Ausdruck $\Delta s = R \cdot \ln(p_1 / p_2)$ mit der spezifischen Gaskonstante $R = 287\ \mathrm{J/(kg\,K)}$ (Luft), dem Anfangsdruck $p_1 = 10\ \mathrm{bar}$ und dem Enddruck $p_2 = 1\ \mathrm{bar}$. Berechnen Sie $\Delta s$ in $\mathrm{J/(kg\,K)}$."
+  question_en="In thermodynamics you meet the expression $\Delta s = R \cdot \ln(p_1 / p_2)$ with specific gas constant $R = 287\ \mathrm{J/(kg\,K)}$ (air), initial pressure $p_1 = 10\ \mathrm{bar}$ and final pressure $p_2 = 1\ \mathrm{bar}$. Compute $\Delta s$ in $\mathrm{J/(kg\,K)}$."
+  correct={660.8}
+  tolerance={2}
+  hint_en="The argument of the log is a ratio — what happens to the units inside? And do you need to convert bar to Pa?"
+  solution_mdx={`
+**Answer: $\\Delta s \\approx 660.8\\ \\mathrm{J/(kg\\,K)}$.**
+
+**Gegeben:**
+- $R = 287\\ \\mathrm{J/(kg\\,K)}$
+- $p_1 = 10\\ \\mathrm{bar}$
+- $p_2 = 1\\ \\mathrm{bar}$
+
+**Gesucht:** $\\Delta s$ in $\\mathrm{J/(kg\\,K)}$.
+
+**Step 1. Form the ratio inside the log.**
+$$\\frac{p_1}{p_2} = \\frac{10\\ \\mathrm{bar}}{1\\ \\mathrm{bar}} = 10$$
+
+The units *bar* cancel because the argument is a ratio. You do **not** need to convert to Pa — you would get the same ratio. This is one of the beautiful things about log expressions of ratios: they are unit-free inside the log.
+
+**Step 2. Evaluate $\\ln(10)$.**
+$$\\ln(10) \\approx 2.3026$$
+
+(Worth memorising — this number appears in the change-of-base conversion between $\\ln$ and $\\lg$: $\\lg(x) = \\ln(x) / \\ln(10)$.)
+
+**Step 3. Multiply.**
+$$\\Delta s = 287\\ \\frac{\\mathrm{J}}{\\mathrm{kg\\,K}} \\cdot 2.3026 \\approx 660.8\\ \\frac{\\mathrm{J}}{\\mathrm{kg\\,K}}$$
+
+**Unit check.** The log is dimensionless, so the units of $\\Delta s$ equal the units of $R$: $\\mathrm{J/(kg\\,K)}$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Converting bar to Pa first, getting $\\ln(10^6 / 10^5) = \\ln(10)$",
+      why_en: "You arrive at the same answer, but you wasted time. When the log's argument is a ratio, any common factor (including unit conversion factors) cancels. Save this kind of unit conversion for when only one of the pressures appears, not a ratio."
+    },
+    {
+      wrong: "Using $\\lg$ instead of $\\ln$ and getting $\\approx 287\\ \\mathrm{J/(kg\\,K)}$",
+      why_en: "$\\lg(10) = 1$, $\\ln(10) \\approx 2.3026$ — these are very different numbers. The formula in thermodynamics always uses $\\ln$ (natural log), because it comes from integrating $1/x$, which gives $\\ln$ and nothing else. If you see $\\log$ in a thermodynamics formula, it means $\\ln$ in disguise."
+    },
+    {
+      wrong: "Getting a sign wrong and answering $-660.8$",
+      why_en: "The sign of $\\Delta s$ depends on which pressure is labelled '1' and which is '2'. Here $p_1 > p_2$, so $\\ln(p_1/p_2) > 0$, so $\\Delta s > 0$. Physical interpretation: the gas expanded from 10 bar to 1 bar, and for an isothermal expansion the entropy increases. A positive answer is the right sign."
+    }
+  ]}
+  discussion_mdx={`
+**What does this number mean physically?**
+
+$\\Delta s = 660.8\\ \\mathrm{J/(kg\\,K)}$ is the specific entropy change per kilogram of air when it expands isothermally from 10 bar to 1 bar. For 1 kg of air this is an entropy generation of about 660 J/K — enough that if this expansion happened irreversibly (e.g. throttling through a valve to the atmosphere), the associated *Exergieverlust* (loss of available work) would be $T \\cdot \\Delta s$. At $T = 300\\,\\mathrm{K}$ that is about 200 kJ/kg of lost work. This is why throttling is an expensive way to reduce pressure — you permanently destroy useful energy.
+
+**The formula in context.** $\\Delta s = R \\ln(p_1/p_2)$ is a special case of the general formula for ideal-gas entropy change at constant temperature:
+$$\\Delta s = c_p \\ln\\!\\left(\\frac{T_2}{T_1}\\right) - R \\ln\\!\\left(\\frac{p_2}{p_1}\\right)$$
+At constant temperature the first term vanishes. The minus sign on the second term is a common source of bookkeeping errors — keep an eye on which pressure is '1' and which is '2', and always sanity-check the sign against physics (expansion → higher entropy).
+
+**When does this formula fail?** It assumes the gas is ideal. For steam, CO₂ at high pressure, or any gas near its critical point, you have to use steam tables or equations of state instead. In Thermodynamik II you will meet *Realgaskorrekturen* (real-gas corrections) precisely to handle this case.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** When you see a log in a formula, look first at its argument. If the argument is a **ratio** (like $p_1/p_2$), the units inside cancel — you can plug in bar, Pa, or atm, as long as you use the same unit on top and bottom. This saves you a unit-conversion step and is the source of half the arithmetic mistakes on thermodynamics exams.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next lesson: **Ableitungen auffrischen — was ist eine Ableitung wirklich?** We'll rebuild your intuition for differentiation from first principles, so that when a physics formula says $\dot{Q} = \frac{dQ}{dt}$ you know *exactly* what that dot and that fraction mean. Logarithms and derivatives are the two tools every engineering formula uses; now you have one.
