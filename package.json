@@ -10,7 +10,7 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "seed": "tsx scripts/seed.ts",
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
