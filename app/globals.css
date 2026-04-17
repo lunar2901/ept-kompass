@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "katex/dist/katex.min.css";
 
+/* Klausur-Modus — hides English translations so the student sees only
+ * German, simulating an exam page. Toggle via <KlausurToggle>, which
+ * adds/removes `.klausur-mode` on <html>. Components tag their
+ * English-only spans with the `klausur-hide-en:hidden` variant below. */
+@custom-variant klausur-hide-en (:where(.klausur-mode) &);
+
 /* ─────────────────────────────────────────────────────────────
  * EPT-Kompass global styles.
  * Palette: warm parchment light, deep-slate dark.

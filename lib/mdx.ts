@@ -24,7 +24,7 @@ export async function renderLessonMDX(
   source: string,
 ): Promise<{ content: ReactElement }> {
   const { content } = await compileMDX({
-    source,
+    source: stripLeadingImports(source),
     components: {
       GermanTerm,
       FormulaCard,
@@ -57,4 +57,16 @@ export async function renderLessonMDX(
     },
   });
   return { content };
+}
+
+/**
+ * Remove `import { ... } from "..."` statements from the top of MDX source.
+ * Lesson authors write `import { GermanTerm, ... } from "@/components/lesson"`
+ * so their files work in an editor with type hints, but at render time
+ * every component is already provided via compileMDX's `components` prop.
+ * Leaving the import in place would force a bundler resolution at
+ * render time, which next-mdx-remote/rsc neither needs nor supports.
+ */
+function stripLeadingImports(source: string): string {
+  return source.replace(/^\s*import\s[^\n]*\n/gm, "");
 }
