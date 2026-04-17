@@ -1,0 +1,326 @@
+---
+id: track-0-stat-l1
+module: schulwissen-auffrischen
+chapter: statistik
+position: 1
+name_de: "Wahrscheinlichkeit und einfache Statistik"
+name_en: "Probability and basic statistics"
+estimated_minutes: 20
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Engineering measurements have <GermanTerm de="Unsicherheit" article="die" en="uncertainty" />. A thermometer reads "25 °C" — but which digit is trustworthy? To describe and propagate uncertainties, engineers reach for statistics: the mean, the standard deviation, and the normal distribution.
+
+This lesson covers the minimum you need: probabilities as ratios, mean and variance of a data set, and what "$(μ \pm σ)$" means when a lab hands you a measured value.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Wahrscheinlichkeit
+    en: probability
+    plural: die Wahrscheinlichkeiten
+    ipa: /ˈvaːʁʃaɪ̯nlɪçkaɪ̯t/
+    example_de: "Die Wahrscheinlichkeit eines Ereignisses liegt zwischen 0 und 1."
+    example_en: "The probability of an event lies between 0 and 1."
+  - term: der Mittelwert
+    en: mean / average
+    example_de: "Der Mittelwert einer Stichprobe ist die Summe geteilt durch die Anzahl."
+    example_en: "The mean of a sample is the sum divided by the count."
+  - term: die Standardabweichung
+    en: standard deviation
+    example_de: "Die Standardabweichung misst die Streuung um den Mittelwert."
+    example_en: "Standard deviation measures the spread around the mean."
+  - term: die Varianz
+    en: variance
+    example_de: "Die Varianz ist das Quadrat der Standardabweichung."
+    example_en: "Variance is the square of the standard deviation."
+  - term: die Normalverteilung
+    en: normal distribution
+    example_de: "Die Normalverteilung (Gauß-Kurve) ist die häufigste Modellverteilung."
+    example_en: "The normal distribution (Gauss curve) is the most common model distribution."
+</VocabBlock>
+
+## Theorie
+
+### Probability basics
+
+<FormulaCard
+  name_de="Wahrscheinlichkeit eines Ereignisses"
+  name_en="Probability of an event"
+  latex="P(A) = \frac{\text{günstige Fälle}}{\text{alle Fälle}}"
+>
+
+Classical definition (equally likely outcomes): divide favourable by total. Always between 0 (impossible) and 1 (certain).
+
+Examples:
+- Die roll, event A = "6": $P(A) = 1/6$.
+- Coin flip, event A = "heads": $P(A) = 1/2$.
+- Drawing a specific card from a 52-card deck: $P = 1/52$.
+
+</FormulaCard>
+
+### Combining events
+
+Two events A and B:
+
+- **Probability of A OR B** (exclusive, i.e. A and B never both happen): $P(A) + P(B)$.
+- **Probability of A AND B** (independent events): $P(A) \cdot P(B)$.
+
+Examples:
+- Roll two dice, both 6: $P = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}$.
+- Either a 1 or a 2 on one die: $P = \frac{1}{6} + \frac{1}{6} = \frac{2}{6} = \frac{1}{3}$.
+
+### Mean and standard deviation
+
+<FormulaCard
+  name_de="Mittelwert und Standardabweichung (Stichprobe)"
+  name_en="Mean and standard deviation (sample)"
+  latex="\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i, \qquad \sigma = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2}"
+>
+
+The **mean** (Mittelwert) is the arithmetic average: sum all values, divide by count.
+
+The **standard deviation** (Standardabweichung) measures the spread. Large σ means widely scattered data; small σ means data tightly clustered around the mean.
+
+The factor $1/(n-1)$ (rather than $1/n$) is the "sample" correction — makes σ unbiased for small samples. Some sources use $1/n$ (this is the "population" standard deviation). Engineering uses $1/(n-1)$ by convention.
+
+</FormulaCard>
+
+### The normal distribution and the 68-95-99.7 rule
+
+When a measurement is affected by many small random errors, it tends toward a <GermanTerm de="Normalverteilung" article="die" en="normal distribution" />. Parameters: mean $\mu$ and standard deviation $\sigma$.
+
+<FormulaCard
+  name_de="68-95-99,7-Regel"
+  name_en="68-95-99.7 rule"
+>
+
+For a normally-distributed measurement:
+
+- ~68 % of values fall within $\pm 1\sigma$ of the mean.
+- ~95 % within $\pm 2\sigma$.
+- ~99.7 % within $\pm 3\sigma$.
+
+**Engineering shorthand.** When a lab reports "measured temperature $= 25{,}0 \pm 0{,}3\,\mathrm{°C}$", they mean the best estimate is 25.0 °C and the standard deviation of the measurement is 0.3 °C. So 68 % of repeat measurements fall in [24.7, 25.3], and 95 % in [24.4, 25.6].
+
+</FormulaCard>
+
+## Musteraufgabe
+
+> **Aufgabe.** Eine Reihe von 5 Messungen der Temperatur ergab: 22,1, 22,3, 22,0, 22,5, 22,1 (alle in °C). Berechnen Sie Mittelwert und Standardabweichung.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Mean.**
+
+$\bar{x} = (22{,}1 + 22{,}3 + 22{,}0 + 22{,}5 + 22{,}1)/5 = 111{,}0/5 = 22{,}20\,\mathrm{°C}$.
+
+**Deviations from mean.**
+
+$-0{,}1, +0{,}1, -0{,}2, +0{,}3, -0{,}1$.
+
+**Squared deviations.**
+
+$0{,}01 + 0{,}01 + 0{,}04 + 0{,}09 + 0{,}01 = 0{,}16$.
+
+**Variance.** $s^2 = 0{,}16 / (5-1) = 0{,}04$ (°C)².
+
+**Standard deviation.** $s = \sqrt{0{,}04} = 0{,}2\,\mathrm{°C}$.
+
+So: $T = 22{,}20 \pm 0{,}20\,\mathrm{°C}$ (stated as mean ± one standard deviation).
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-stat-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Wie groß ist die Wahrscheinlichkeit, beim Würfeln mit zwei fairen Würfeln eine Summe von 2 zu erhalten?"
+  question_en="What is the probability of rolling two fair dice and getting a sum of 2?"
+  correct={0.02778}
+  tolerance={0.001}
+  hint_en="Sum = 2 requires both dice to show 1. Independent events: multiply."
+  solution_mdx={`
+**Answer: $1/36 \\approx 0{,}0278$.**
+
+Sum = 2 only happens when both dice show 1. Each die's probability of showing 1 is $1/6$. Independent events: multiply:
+
+$$P = \\frac{1}{6} \\cdot \\frac{1}{6} = \\frac{1}{36} \\approx 0{,}0278$$
+
+This is the rarest outcome (equally with sum = 12). The most likely sum is 7, with probability 6/36.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 1/12 (adding instead of multiplying)",
+      why_en: "For INDEPENDENT events happening TOGETHER (both), you multiply probabilities. Adding is for mutually-exclusive events (A OR B). This is one of the most common early probability mistakes — always check whether 'and' or 'or' is the connector."
+    }
+  ]}
+  discussion_mdx={`
+**Probability distribution for two-dice sums.**
+
+Ways to make each sum out of 36 outcomes:
+- 2: (1,1) — 1 way → 1/36
+- 3: (1,2), (2,1) — 2 ways → 2/36
+- 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) — 6 ways → 6/36
+- 12: (6,6) — 1 way → 1/36
+
+Most likely sum: 7. Symmetric distribution around 7.
+
+**Engineering connection.** Combining independent noise sources has a similar multiplicative-then-additive structure: variances add (for uncorrelated noise), standard deviations add in quadrature ($\\sigma_{total} = \\sqrt{\\sigma_1^2 + \\sigma_2^2}$). This is the *Gaussian error propagation* law.
+  `}
+/>
+
+<Exercise
+  id="track-0-stat-l1-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Berechnen Sie den Mittelwert von: 3, 5, 7, 9, 11."
+  question_en="Compute the mean of: 3, 5, 7, 9, 11."
+  correct={7}
+  tolerance={0.01}
+  hint_en="Sum divided by count."
+  solution_mdx={`
+**Answer: $\\bar{x} = 7$.**
+
+$$\\bar{x} = \\frac{3 + 5 + 7 + 9 + 11}{5} = \\frac{35}{5} = 7$$
+
+For an evenly-spaced set (arithmetic progression), the mean is the middle value — here, 7.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Summing without dividing: 35",
+      why_en: "That's the SUM, not the mean. Divide by the count (5 values) to get the mean. Always finish the formula."
+    }
+  ]}
+  discussion_mdx={`
+**Arithmetic mean shortcuts.**
+
+For an arithmetic progression $a, a+d, a+2d, \\dots, a+(n-1)d$, the mean is $a + (n-1)d/2$ — the midpoint. So 3, 5, 7, 9, 11 has mean $3 + 4 \\cdot 2 / 2 = 7$.
+
+For a symmetric dataset, the mean equals the median equals the midpoint of the range. Not true for skewed datasets (income, rainfall, reaction times) — there the median and mean diverge, which is important information.
+  `}
+/>
+
+<Exercise
+  id="track-0-stat-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Eine Messung ergibt: T = (100,0 ± 2,0) °C. Unter Annahme einer Normalverteilung: mit welcher Wahrscheinlichkeit liegt die wahre Temperatur im Intervall [98, 102] °C?"
+  question_en="A measurement gives T = (100.0 ± 2.0) °C. Assuming normal distribution: what is the probability that the true temperature lies in [98, 102] °C?"
+  correct={0.68}
+  tolerance={0.02}
+  hint_en="The interval is ±σ around the mean — the 68-95-99.7 rule."
+  solution_mdx={`
+**Answer: $\\approx 68\\%$ (or $0{,}68$ as a fraction).**
+
+The interval [98, 102] °C is exactly $100 \\pm 2 = \\mu \\pm \\sigma$ (one standard deviation around the mean).
+
+By the 68-95-99.7 rule, for a normal distribution: ~68 % of values fall within $\\pm 1\\sigma$. So the probability that the true value lies in this interval is approximately 68 %.
+
+**Precise value.** The exact probability inside $\\pm 1\\sigma$ is 68.27 %. Within $\\pm 2\\sigma$: 95.45 %. Within $\\pm 3\\sigma$: 99.73 %. Round numbers (68, 95, 99.7) are what you remember for engineering.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 95% (confusing σ and 2σ)",
+      why_en: "95 % is the $\\pm 2\\sigma$ interval, which would be [96, 104]. Here the interval is only $\\pm 1\\sigma$, so the probability is 68 %, not 95 %. Watch the width of the given interval vs σ."
+    }
+  ]}
+  discussion_mdx={`
+**The 68-95-99.7 rule in engineering practice.**
+
+- **Quality control.** A manufacturing process producing parts with mean diameter 10 mm and σ = 0.1 mm: 68 % of parts are in [9.9, 10.1] mm, 95 % in [9.8, 10.2] mm. Tolerance specifications are often expressed in ± σ or ± 2σ terms.
+- **Measurement uncertainty.** Published in the form $X \\pm \\sigma$ conventionally. If a paper says "η = 0.35 ± 0.02", the value lies in [0.33, 0.37] with 68 % probability — not certainty.
+- **Safety factors.** Design for $3\\sigma$ or $4\\sigma$ reliability — only 0.3 % or 0.006 % of cases fall outside. Aviation, medical devices often require 6σ (~1 ppm).
+
+**Connection to thermodynamics.** Molecular speeds follow the Maxwell-Boltzmann distribution, which is a ratio-of-three-gaussians shape; standard deviations relate to temperature. Energy fluctuations in small systems obey similar statistics. Measurements of specific heat, reaction rates, etc., always come with uncertainties you have to interpret.
+  `}
+/>
+
+<Exercise
+  id="track-0-stat-l1-ex4"
+  difficulty="klausur"
+  type="multiple_choice"
+  question_de="Welche Aussage über Standardabweichung und Varianz ist FALSCH?"
+  question_en="Which statement about standard deviation and variance is FALSE?"
+  options={[
+    { id: "a", de: "Die Varianz ist das Quadrat der Standardabweichung.", en: "Variance is the square of the standard deviation." },
+    { id: "b", de: "Die Standardabweichung hat dieselbe Einheit wie die Messgröße.", en: "Standard deviation has the same units as the measured quantity." },
+    { id: "c", de: "Varianzen unabhängiger Messgrößen addieren sich.", en: "Variances of independent quantities add." },
+    { id: "d", de: "Die Standardabweichung addiert sich einfach, wie die Mittelwerte.", en: "Standard deviations simply add, like means." },
+  ]}
+  correct="d"
+  hint_en="Three are true; one is the classic 'add in quadrature' vs 'add directly' confusion."
+  solution_mdx={`
+**Correct answer: (d) is FALSE.**
+
+**Variance addition law.** For independent quantities X and Y:
+
+$$\\mathrm{Var}(X + Y) = \\mathrm{Var}(X) + \\mathrm{Var}(Y)$$
+
+For standard deviations:
+
+$$\\sigma(X + Y) = \\sqrt{\\sigma_X^2 + \\sigma_Y^2}$$
+
+**NOT** $\\sigma_X + \\sigma_Y$ — that would over-estimate the combined uncertainty.
+
+This is Pythagoras for uncertainties: independent error sources combine in quadrature (square root of sum of squares), not linearly. It's why averaging N independent measurements reduces uncertainty by $\\sqrt{N}$, not $N$.
+
+- (a) By definition, $\\mathrm{Var} = \\sigma^2$. True.
+- (b) σ has same units as the data (μ and σ share units). True.
+- (c) Independent variances ADD — this is the formula. True.
+- (d) σ does NOT simply add; it adds in quadrature. False.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (c) as the false statement",
+      why_en: "Variances DO add (for independent quantities). It's variance addition that gives the $\\sqrt{N}$ standard-deviation reduction when averaging. The common confusion is that students remember 'something doesn't add directly' but aren't sure what — it's the standard deviation, not variance."
+    }
+  ]}
+  discussion_mdx={`
+**Why variances add (Pythagorean error propagation).**
+
+For independent errors, they can combine in any direction — some +, some -, some at angles. The SUM of many tiny random errors is another random variable, and the variance of a sum is the sum of variances:
+
+$$\\mathrm{Var}\\left(\\sum X_i\\right) = \\sum \\mathrm{Var}(X_i)$$
+
+The standard deviation is:
+
+$$\\sigma_{total} = \\sqrt{\\sum \\sigma_i^2}$$
+
+— this is the "error propagation" formula.
+
+**Consequence: averaging.** Averaging N independent measurements with each having σ:
+
+$$\\bar{X} = \\frac{1}{N} \\sum X_i$$
+
+Then $\\mathrm{Var}(\\bar{X}) = \\frac{1}{N^2} \\sum \\mathrm{Var}(X_i) = \\frac{N\\sigma^2}{N^2} = \\frac{\\sigma^2}{N}$.
+
+So $\\sigma(\\bar{X}) = \\sigma / \\sqrt{N}$. Averaging reduces uncertainty by $\\sqrt{N}$, not N. This is why 100 measurements gives 10× better precision, not 100×.
+
+**In engineering.** Pressure sensors, thermometers, flow meters — combining readings from multiple redundant instruments reduces uncertainty by $\\sqrt{N}$, but not further. For the same reason, taking many repeat readings at full cost is less efficient than using better instruments.
+
+**Connection forward.** In Reliability Engineering (5th-6th semester), you analyse system failure rates by combining component reliabilities — same variance-addition principle, applied to failure rates.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** When you see a measurement "$\mu \pm \sigma$", remember that σ means one standard deviation (68 % confidence). If a Klausur asks for "99 % confidence", you want $\pm 2{,}58\sigma$; for 95 % you want $\pm 1{,}96\sigma$ (often rounded to 2σ). Match the confidence level to the right multiple of σ.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+That concludes the Track-0 **Schulwissen auffrischen** curriculum (12 topics). Next natural step: **Track A — Mathematische und naturwissenschaftliche Grundlagen**, starting with Analysis I für Ingenieure (limits, continuity, derivatives rigorously, integration techniques, Fourier) — the first-semester math course that builds on everything you just reviewed.
