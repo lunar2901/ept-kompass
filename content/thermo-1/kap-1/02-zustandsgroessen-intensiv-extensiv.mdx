@@ -1,0 +1,589 @@
+---
+id: thermo-1-k1-l2
+module: thermodynamik-1
+chapter: kap-1-grundbegriffe
+position: 2
+name_de: "Zustandsgrößen: intensiv und extensiv"
+name_en: "State variables: intensive vs. extensive"
+estimated_minutes: 25
+prerequisites: ["thermo-1-k1-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+You now know what a *System* is — everything inside the box you drew. The next question is **how do we describe what is inside the box?** We use numbers: temperature, pressure, mass, volume, internal energy. These numbers are <GermanTerm de="Zustandsgrößen" article="die" plural="Zustandsgrößen" en="state variables" />.
+
+But there are two species of state variable, and mixing them up is the second-most common way students lose marks on Klausuren (the first being drawing the *Systemgrenze* in the wrong place). Every state variable is either **intensive** or **extensive**, and the rules for combining them are different.
+
+Intuition: cut your system in half. The quantities that stay the same in each half are **intensive**; the quantities that also get cut in half are **extensive**.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Zustandsgröße
+    en: state variable
+    plural: die Zustandsgrößen
+    ipa: /ˈʦuːʃtantsˌɡʁøːsə/
+    example_de: "Temperatur ist eine intensive Zustandsgröße."
+    example_en: "Temperature is an intensive state variable."
+  - term: intensiv
+    en: intensive
+    ipa: /ɪntɛnˈziːf/
+    example_de: "Der Druck ist eine intensive Größe: er bleibt gleich, wenn man das System teilt."
+    example_en: "Pressure is an intensive quantity: it stays the same when the system is divided."
+  - term: extensiv
+    en: extensive
+    ipa: /ɛkstɛnˈziːf/
+    example_de: "Die Masse ist eine extensive Größe: sie ist proportional zur Systemgröße."
+    example_en: "Mass is an extensive quantity: it is proportional to system size."
+  - term: die Temperatur
+    en: temperature
+    plural: die Temperaturen
+    ipa: /tɛmpəʁaˈtuːɐ̯/
+    example_de: "Die Temperatur wird in Kelvin gemessen."
+    example_en: "Temperature is measured in kelvin."
+  - term: der Druck
+    en: pressure
+    plural: die Drücke
+    ipa: /dʁʊk/
+    example_de: "Der Druck ist Kraft pro Fläche."
+    example_en: "Pressure is force per area."
+  - term: das Volumen
+    en: volume
+    plural: die Volumina
+    ipa: /voˈluːmən/
+    example_de: "Das Volumen eines Gases hängt von Druck und Temperatur ab."
+    example_en: "The volume of a gas depends on pressure and temperature."
+  - term: die Dichte
+    en: density
+    plural: die Dichten
+    ipa: /ˈdɪçtə/
+    example_de: "Die Dichte ist eine intensive Größe, auch wenn Masse und Volumen extensiv sind."
+    example_en: "Density is an intensive quantity, even though mass and volume are extensive."
+  - term: die spezifische Größe
+    en: specific quantity
+    example_de: "Eine spezifische Zustandsgröße ist immer intensiv."
+    example_en: "A specific state variable is always intensive."
+  - term: die molare Größe
+    en: molar quantity
+    example_de: "Die molare Wärmekapazität hat die Einheit J/(mol·K)."
+    example_en: "The molar heat capacity has units of J/(mol·K)."
+</VocabBlock>
+
+## Theorie — the formal picture
+
+### Definition by the cut-in-half test
+
+Consider a homogeneous system at equilibrium and imagine cutting it into two equal halves. Each half is itself a valid thermodynamic system. Now compare a property of the whole to the same property of one half:
+
+| Property | Whole system | Each half | Classification |
+| --- | :---: | :---: | --- |
+| Temperature $T$ | $T$ | $T$ | **intensive** |
+| Pressure $p$ | $p$ | $p$ | **intensive** |
+| Density $\rho$ | $\rho$ | $\rho$ | **intensive** |
+| Mass $m$ | $m$ | $m/2$ | **extensive** |
+| Volume $V$ | $V$ | $V/2$ | **extensive** |
+| Internal energy $U$ | $U$ | $U/2$ | **extensive** |
+| Entropy $S$ | $S$ | $S/2$ | **extensive** |
+
+The test is: *if you double the amount of matter in the system at constant T and p, does the quantity double too?* If yes, extensive. If no, intensive.
+
+### The common engineering list
+
+<FormulaCard
+  name_de="Typische Zustandsgrößen"
+  name_en="Typical state variables"
+>
+
+**Intensive** (do not depend on size):
+- Temperatur $T$ (in Kelvin)
+- Druck $p$ (in Pascal)
+- Dichte $\rho$ (in kg/m³)
+- spezifisches Volumen $v = 1/\rho$ (in m³/kg)
+- Konzentration, Stoffmengenanteil
+- chemisches Potenzial $\mu_i$
+
+**Extensive** (scale with size):
+- Masse $m$ (in kg)
+- Stoffmenge $n$ (in mol)
+- Volumen $V$ (in m³)
+- innere Energie $U$ (in J)
+- Enthalpie $H = U + pV$ (in J)
+- Entropie $S$ (in J/K)
+
+</FormulaCard>
+
+### The trick: extensive divided by extensive → intensive
+
+This is the single most useful manipulation you will do. Take any extensive quantity and divide by the mass or the moles in the system. The result is intensive, and we call it a **spezifische Größe** (specific quantity, per unit mass) or **molare Größe** (molar quantity, per mole).
+
+<FormulaCard
+  name_de="Spezifische und molare Größen"
+  name_en="Specific and molar quantities"
+  latex="v = \frac{V}{m}, \quad u = \frac{U}{m}, \quad h = \frac{H}{m}, \quad s = \frac{S}{m}"
+  variables={[
+    { symbol: "V, U, H, S", name_de: "extensive Größen", name_en: "extensive quantities", unit: "m^3, J, J, J/K" },
+    { symbol: "m", name_de: "Masse des Systems", name_en: "mass of the system", unit: "kg" },
+    { symbol: "v, u, h, s", name_de: "spezifische Größen", name_en: "specific quantities", unit: "m^3/kg, J/kg, J/kg, J/(kg·K)" },
+  ]}
+>
+
+The lower-case symbols $v$, $u$, $h$, $s$ are the convention in thermodynamics. Steam tables are almost always printed in specific-quantity form, so that a single entry *"$h_1 = 3275\,\mathrm{kJ/kg}$"* works regardless of whether your process handles 1 g or 1000 kg of steam — you just multiply at the end by $m$ or $\dot{m}$.
+
+</FormulaCard>
+
+### A subtlety: density is intensive even though it involves extensive quantities
+
+Density is mass over volume: $\rho = m/V$. Both $m$ and $V$ are extensive. But when you cut the system in half, *both* get cut in half, so their ratio stays the same. This is the general rule:
+
+> The ratio of two extensive quantities, taken over the **same** system, is intensive.
+
+<Callout variant="note">
+
+A sign that a quantity is intensive: its units contain a denominator with a mass unit, volume unit, or mole unit — *per kilogram*, *per litre*, *per mole*. Units like J/(kg·K) = *Joule pro Kilogramm Kelvin* are always intensive.
+
+</Callout>
+
+## Musteraufgabe — worked example in Klausur style
+
+> **Aufgabe.** Ein Gasbehälter enthält 4 kg Stickstoff bei $T = 300\,\mathrm{K}$ und $p = 2\,\mathrm{bar}$. Das Volumen beträgt $V = 1{,}78\,\mathrm{m^3}$.
+>
+> *a)* Welche der angegebenen Größen sind intensiv, welche extensiv?
+> *b)* Berechnen Sie das spezifische Volumen $v$ und die Dichte $\rho$.
+> *c)* Der Behälter wird mit einer Trennwand in zwei gleiche Hälften geteilt. Welche Werte haben $T$, $p$, $m$, $V$, $v$ und $\rho$ in jeder Hälfte?
+
+<details>
+<summary>**Lösungsweg — step by step (English)**</summary>
+
+**Part a) Classification.**
+
+- $T = 300\,\mathrm{K}$ — intensive (temperature).
+- $p = 2\,\mathrm{bar}$ — intensive (pressure).
+- $m = 4\,\mathrm{kg}$ — extensive (mass).
+- $V = 1{,}78\,\mathrm{m^3}$ — extensive (volume).
+
+**Part b) Specific volume and density.**
+
+Specific volume:
+$$v = \frac{V}{m} = \frac{1{,}78\,\mathrm{m^3}}{4\,\mathrm{kg}} = 0{,}445\,\mathrm{m^3/kg}$$
+
+Density is the reciprocal:
+$$\rho = \frac{1}{v} = \frac{m}{V} = \frac{4\,\mathrm{kg}}{1{,}78\,\mathrm{m^3}} \approx 2{,}25\,\mathrm{kg/m^3}$$
+
+Both $v$ and $\rho$ are intensive — as expected, they are ratios of extensive quantities taken over the same system.
+
+**Part c) After halving with a partition.**
+
+The partition creates two subsystems, each containing half the gas at the same $T$ and $p$:
+
+| Quantity | Type | Whole | Each half |
+| --- | --- | --- | --- |
+| $T$ | intensive | $300\,\mathrm{K}$ | $300\,\mathrm{K}$ |
+| $p$ | intensive | $2\,\mathrm{bar}$ | $2\,\mathrm{bar}$ |
+| $m$ | extensive | $4\,\mathrm{kg}$ | $2\,\mathrm{kg}$ |
+| $V$ | extensive | $1{,}78\,\mathrm{m^3}$ | $0{,}89\,\mathrm{m^3}$ |
+| $v$ | intensive | $0{,}445\,\mathrm{m^3/kg}$ | $0{,}445\,\mathrm{m^3/kg}$ |
+| $\rho$ | intensive | $2{,}25\,\mathrm{kg/m^3}$ | $2{,}25\,\mathrm{kg/m^3}$ |
+
+Exactly what the definition predicts.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k1-l2-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Welche der folgenden Zustandsgrößen ist intensiv?"
+  question_en="Which of the following state variables is intensive?"
+  options={[
+    { id: "a", de: "die Masse m", en: "mass m" },
+    { id: "b", de: "das Volumen V", en: "volume V" },
+    { id: "c", de: "die Temperatur T", en: "temperature T" },
+    { id: "d", de: "die innere Energie U", en: "internal energy U" },
+  ]}
+  correct="c"
+  hint_en="Apply the cut-in-half test: if you split the system into two halves, which quantity stays the same in each half?"
+  solution_mdx={`
+**Correct answer: (c) Temperatur T.**
+
+The cut-in-half test: when you divide a homogeneous system into two equal parts at equilibrium, the temperature in each part equals the temperature of the whole — the molecules were all at the same temperature before you drew the partition, and the act of drawing a line does not change their kinetic energy. So $T$ is intensive.
+
+Mass, volume, and internal energy all scale with the amount of matter. Each of the two halves has half the mass, half the volume, and half the internal energy.
+
+**In German units:** $T$ in Kelvin is the SI base unit; temperature differences $\\Delta T$ are also intensive, with the same units.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — die Masse m",
+      why_en: "Mass is the archetypal extensive quantity. If you answered mass is intensive, you may be confusing *intensive* with *always the same* or with *not changing with time*. Intensive means *does not depend on system size*, which is not the same thing."
+    },
+    {
+      wrong: "d — die innere Energie U",
+      why_en: "Internal energy is $U = N \\cdot \\langle \\varepsilon \\rangle$, where $N$ is the number of particles and $\\langle \\varepsilon \\rangle$ is the average energy per particle. $N$ scales with system size, so $U$ does too. The per-particle (or per-mole, or per-kilogram) energy is intensive, but $U$ itself is extensive."
+    },
+    {
+      wrong: "b — das Volumen V",
+      why_en: "Volume is extensive — twice as much gas at the same $T$ and $p$ occupies twice the volume. The *specific* volume $v = V/m$ and *molar* volume $V_m = V/n$ are intensive."
+    }
+  ]}
+  discussion_mdx={`
+**Why the distinction matters for writing energy balances.**
+
+Thermodynamic equations almost always come in two flavours: one for the *extensive* version and one for the *specific / intensive* version. For example, the first law for a closed system:
+
+$$
+\\Delta U = Q + W \\qquad \\text{(extensive, for the whole system)}
+$$
+
+or, dividing every term by $m$:
+
+$$
+\\Delta u = q + w \\qquad \\text{(specific, per unit mass)}
+$$
+
+Both are correct. Pick one style and stick with it inside one calculation — mixing is the single most common source of Klausur errors worth 3–5 marks.
+
+**Exam tip.** When you see lower-case $u$, $h$, $s$ — the variable is specific. When you see capital $U$, $H$, $S$ — extensive. This is not decoration; it is vocabulary. German textbooks are particularly strict about this.
+
+**Connection forward.** In Kapitel 2 you will meet the first law in its most compact form. The whole apparatus of *specific heat* $c_p$ and $c_v$ exists so that students can work with a per-mass quantity and convert to total energy only at the end. The mental move "convert to specific quantity, do the algebra, convert back" is the fingerprint of engineering thermodynamics.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l2-ex2"
+  difficulty="easy"
+  type="multi_select"
+  question_de="Welche der folgenden Größen sind extensiv? (Mehrfachauswahl.)"
+  question_en="Which of the following are extensive? (Multiple selection.)"
+  options={[
+    { id: "a", de: "die Entropie S", en: "entropy S" },
+    { id: "b", de: "die Dichte ρ", en: "density ρ" },
+    { id: "c", de: "die Stoffmenge n", en: "amount of substance n" },
+    { id: "d", de: "die spezifische Enthalpie h", en: "specific enthalpy h" },
+    { id: "e", de: "die Enthalpie H", en: "enthalpy H" },
+  ]}
+  correct={["a", "c", "e"]}
+  hint_en="Five quantities, three extensive. Apply the cut-in-half test to each."
+  solution_mdx={`
+**Correct answers: (a), (c), (e).**
+
+- **(a) Entropie $S$.** Extensive. A sub-system has the same per-particle disorder (intensive $s = S/m$) but half the total $S$.
+- **(c) Stoffmenge $n$.** Extensive by definition: $n$ is the number of moles. Twice the gas = twice the moles.
+- **(e) Enthalpie $H = U + pV$.** Extensive. Both $U$ and $pV$ are extensive ($V$ is extensive, $p$ is intensive, and *intensive times extensive = extensive*).
+- **(b) Dichte $\\rho = m/V$.** Intensive. Ratio of two extensive quantities taken over the same system.
+- **(d) Spezifische Enthalpie $h = H/m$.** Intensive. Per-unit-mass version of $H$.
+
+The pattern: the capital-letter total-amount versions ($S$, $H$, $U$, $V$, $G$) are extensive; their lower-case specific versions ($s$, $h$, $u$, $v$, $g$) are intensive. $p$ and $T$ are intensive without a specific version (they are already 'per particle' in spirit).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (b) Dichte ρ",
+      why_en: "Density is intensive — this is the canonical example of *ratio of two extensives*. If you included it, re-do the cut-in-half test: a bottle of water and half a bottle of water have the same density. Mass halves, volume halves, but density does not."
+    },
+    {
+      wrong: "Missing (e) Enthalpie H",
+      why_en: "Students sometimes hesitate on enthalpy because $H = U + pV$ has an intensive factor ($p$) in it. But the *product* $pV$ is extensive (pressure times the extensive volume), and adding two extensive quantities gives an extensive one. Cross-check: the specific enthalpy $h$ has units J/kg — per-mass, so its non-specific form $H$ must have units J, which is an extensive unit."
+    },
+    {
+      wrong: "Including (d) spezifische Enthalpie h",
+      why_en: "The lower-case $h$ is always intensive — that's the whole point of 'specific'. Watch for capitalisation: $H$ vs $h$ is a meaningful distinction in thermodynamics notation and you will lose points for writing one when you mean the other."
+    }
+  ]}
+  discussion_mdx={`
+**The rule of combining products of state variables.**
+
+- intensive × intensive → intensive (e.g. $pT$, though it's not physically meaningful)
+- intensive × extensive → extensive (e.g. $pV$, $Tc_p m = T \\cdot m c_p$)
+- extensive × extensive → *extensive squared*, usually not physically meaningful
+- extensive / extensive (same system) → intensive
+- extensive / intensive → extensive
+
+This is why $pV$-work $W = -\\int p\\,\\mathrm{d}V$ gives an extensive work (joules): intensive $p$ times the differential of an extensive $V$.
+
+**An easy sanity check: units.**
+
+- Anything with Joules in the numerator and nothing matter-related in the denominator (like $U$ in J) is extensive.
+- Anything with Joules per kilogram, per mol, or per m³ is intensive.
+- Pascals (Pa = N/m²) are pressure, intensive — force per area has no "amount" dependence.
+
+**Historical note.** The intensive / extensive distinction was codified by Richard Tolman (1917) in his treatment of statistical thermodynamics. Before that, German textbooks used the term *zustandsgebunden* (state-bound) for what we now call intensive, and the distinction was often implicit. Modern physics / engineering textbooks are always explicit — and your Klausur will be too.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l2-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein Tank enthält 500 L Wasser bei 20 °C. Die Dichte von Wasser beträgt ρ = 998 kg/m³. Welche Masse hat das Wasser im Tank (in kg)?"
+  question_en="A tank contains 500 L of water at 20 °C. The density of water is ρ = 998 kg/m³. What is the mass of water in the tank (in kg)?"
+  correct={499}
+  tolerance={1}
+  hint_en="Mass = density × volume. Be careful with the unit conversion: 1 m³ = 1000 L."
+  solution_mdx={`
+**Answer: $m \\approx 499\\,\\mathrm{kg}$.**
+
+**Gegeben:** $V = 500\\,\\mathrm{L}$, $\\rho = 998\\,\\mathrm{kg/m^3}$.
+
+**Gesucht:** $m$ in kg.
+
+**Step 1. Convert volume to SI.**
+$$V = 500\\,\\mathrm{L} = 500 \\cdot 10^{-3}\\,\\mathrm{m^3} = 0{,}500\\,\\mathrm{m^3}$$
+
+**Step 2. Apply $m = \\rho \\cdot V$.**
+$$m = 998\\,\\mathrm{kg/m^3} \\cdot 0{,}500\\,\\mathrm{m^3} = 499\\,\\mathrm{kg}$$
+
+**Unit check.** kg/m³ × m³ = kg. ✓
+
+**Why the density matters.** At 20 °C the density of water is almost exactly 1000 kg/m³, so a 500 L tank holds almost exactly 500 kg — but the "almost" is 1 kg, or 0.2 %, and Klausuren often test whether you used the actual value (998 at 20 °C, 958 at 100 °C) or sloppily wrote 1000. If the problem gives you a density, use it.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting to convert L to m³, getting 499 000 kg",
+      why_en: "Using 500 instead of 0.500 for the volume gives a 500 kg-per-m³ mistake — literally three orders of magnitude high. The units are your friend: kg/m³ × L has incompatible units, which is your signal to convert. In Klausuren, *always* write the unit after every number and check the units cancel before multiplying."
+    },
+    {
+      wrong: "Using ρ = 1000 kg/m³ and reporting 500 kg",
+      why_en: "Close but not quite. If the problem specifies $\\rho = 998\\,\\mathrm{kg/m^3}$, use that — do not round to 1000 unless you're told to. The point of specifying a precise density is that the examiner wants to see you use it."
+    },
+    {
+      wrong: "Dividing instead of multiplying, getting ~0.501 (kg/m³/L)",
+      why_en: "Dimensional analysis would have caught this immediately: density has units of mass-per-volume, so to go from volume to mass you multiply by density. If you wrote $m = V / \\rho$, the units give m³ ÷ (kg/m³) = m⁶/kg, which is physically meaningless. Always check units."
+    }
+  ]}
+  discussion_mdx={`
+**Why engineering problems are often about conversions.**
+
+This exercise looks like it is about density. It is actually about *being careful with units under time pressure*. Every Klausur question in Thermodynamik I has at least one unit-conversion trap, and the most common tripwires are:
+
+- litres vs m³: $1\\,\\mathrm{L} = 10^{-3}\\,\\mathrm{m^3}$
+- bar vs Pa: $1\\,\\mathrm{bar} = 10^5\\,\\mathrm{Pa}$
+- °C vs K: $T[\\mathrm{K}] = T[\\mathrm{°C}] + 273{,}15$
+- kJ vs J: a factor of 1000
+- minutes vs seconds in time-derivative quantities like $\\dot{m}$
+
+**Pro tip for the Klausur.** Before you start any calculation, make a two-column list: *gegebene Größen* on the left with units as given, *umgerechnete Größen* on the right with SI units. Plug only from the right column. This one habit will save you more points on an exam than any single formula.
+
+**Connection to the chapter.** Mass is extensive, density is intensive. When the problem hands you an intensive quantity and asks for an extensive one, you always need another extensive number (in this case, the volume) to "anchor" the answer. The pattern: *intensive × extensive = extensive*.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l2-ex4"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Ein Gas ist mit der inneren Energie U = 1200 kJ und der Masse m = 3 kg beschrieben. Welche Aussage ist korrekt?"
+  question_en="A gas is described by internal energy U = 1200 kJ and mass m = 3 kg. Which statement is correct?"
+  options={[
+    { id: "a", de: "Die spezifische innere Energie beträgt u = 400 J/kg.", en: "The specific internal energy is u = 400 J/kg." },
+    { id: "b", de: "Die spezifische innere Energie beträgt u = 400 kJ/kg.", en: "The specific internal energy is u = 400 kJ/kg." },
+    { id: "c", de: "Wenn man das System halbiert, sinkt u auf 200 kJ/kg.", en: "Halving the system reduces u to 200 kJ/kg." },
+    { id: "d", de: "U = 1200 kJ ist eine intensive Größe.", en: "U = 1200 kJ is an intensive quantity." },
+  ]}
+  correct="b"
+  hint_en="Specific quantities are defined per unit mass, and halving a system does NOT change its specific quantities — only the extensive ones."
+  solution_mdx={`
+**Correct answer: (b) $u = 400\\,\\mathrm{kJ/kg}$.**
+
+$$u = \\frac{U}{m} = \\frac{1200\\,\\mathrm{kJ}}{3\\,\\mathrm{kg}} = 400\\,\\mathrm{kJ/kg}$$
+
+The common slip is (a) — forgetting that $U$ was in kJ, not J. The answer in J/kg would be $400\\,000\\,\\mathrm{J/kg}$, but the question uses kJ throughout.
+
+Option (c) is wrong because *specific* quantities are intensive: halving the system halves both $U$ and $m$, so their ratio stays the same. Option (d) is wrong because $U$ is extensive by definition.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — u = 400 J/kg",
+      why_en: "A unit slip. $U$ is given in kJ, so $u = U/m$ gives kJ/kg. To convert to J/kg you'd multiply by 1000, giving $400\\,000\\,\\mathrm{J/kg}$ — but that's not what option (a) says. Watch the prefix."
+    },
+    {
+      wrong: "c — halving reduces u to 200 kJ/kg",
+      why_en: "This is the conceptual core of the lesson. Specific quantities are intensive — they don't change when you cut the system. If $u$ halved when you halved the system, it wouldn't be useful as an intensive parameter. The whole apparatus of steam tables relies on this invariance."
+    },
+    {
+      wrong: "d — U is intensive",
+      why_en: "Internal energy is the flagship extensive energy quantity. Intensive energies exist (the specific form $u$), but without the 'specific' qualifier, $U$ scales with system size. If you ticked this, you may be confusing *state quantity* (what $U$ is) with *intensive* (what it is not)."
+    }
+  ]}
+  discussion_mdx={`
+**The symbol-size convention in thermodynamics.**
+
+- UPPERCASE: extensive ($U$, $H$, $S$, $V$, $G$, $A$, $N$).
+- lowercase: intensive, specific per unit mass ($u$, $h$, $s$, $v$, $g$, $a$).
+- lowercase with subscript $m$: molar ($u_m$, $h_m$, $s_m$, $V_m$).
+
+This convention is universal in German and international engineering thermodynamics textbooks. In a Klausur, writing $U = 3275\\,\\mathrm{kJ/kg}$ is a contradiction — the units say *per mass* (intensive), but the symbol says *total* (extensive). Examiners will take points off even if the number is arithmetically right.
+
+**When is the specific form more convenient?**
+
+Almost always, in engineering. A power plant handles $\\dot{m} = 100\\,\\mathrm{kg/s}$ of steam. The internal energy balance
+
+$$
+\\dot{U}_{out} - \\dot{U}_{in} = \\dot{Q} + P
+$$
+
+looks complicated in extensive form because you keep multiplying by $\\dot{m}$. In specific form it becomes just
+
+$$
+u_2 - u_1 = q + w \\quad \\text{(per unit mass of working fluid)}
+$$
+
+and you multiply by $\\dot{m}$ once at the very end to get the MW throughput. Every steam-power calculation you will ever do uses this simplification.
+
+**The exception.** When the problem says "a closed system of fixed mass", the extensive form is fine, and sometimes cleaner because you don't have to track the mass as an extra factor. But the moment mass flows are involved, go specific.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l2-ex5"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Ein Rohr führt einen Massenstrom von ṁ = 0{,}50 kg/s warmes Wasser mit der spezifischen Enthalpie h = 335 kJ/kg. Welcher Enthalpiestrom Ḣ (in kW) fließt durch das Rohr?"
+  question_en="A pipe carries a mass flow of ṁ = 0.50 kg/s of warm water with specific enthalpy h = 335 kJ/kg. What enthalpy flow rate Ḣ (in kW) passes through the pipe?"
+  correct={167.5}
+  tolerance={1}
+  hint_en="Ḣ = ṁ · h. Specific × mass-flow gives a flow of the extensive quantity. Watch the units: kJ/kg times kg/s is kJ/s = kW."
+  solution_mdx={`
+**Answer: $\\dot{H} \\approx 167{,}5\\,\\mathrm{kW}$.**
+
+**Gegeben:**
+- $\\dot{m} = 0{,}50\\,\\mathrm{kg/s}$
+- $h = 335\\,\\mathrm{kJ/kg}$
+
+**Gesucht:** $\\dot{H}$ in kW.
+
+**Step 1. Multiply specific enthalpy by mass flow rate.**
+$$\\dot{H} = \\dot{m} \\cdot h = 0{,}50\\,\\mathrm{kg/s} \\cdot 335\\,\\mathrm{kJ/kg}$$
+
+**Step 2. Cancel the kg, simplify the seconds.**
+$$\\dot{H} = 0{,}50 \\cdot 335\\,\\mathrm{kJ/s} = 167{,}5\\,\\mathrm{kJ/s} = 167{,}5\\,\\mathrm{kW}$$
+
+(because $1\\,\\mathrm{kJ/s} = 1\\,\\mathrm{kW}$).
+
+**What this number means.** The pipe delivers a bit under 170 kW of enthalpy flow — about the same as a small residential heating system at full output. The "enthalpy flow" is the rate at which enthalpy crosses the system boundary; in an open-system energy balance it appears as the term $\\dot{m}\\,h$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting the 1 kJ/s = 1 kW identity, reporting 167 500 W",
+      why_en: "The answer in W is 167 500, which is numerically correct but in the wrong unit — the question asked for kW. When the problem specifies the unit, convert at the end. Writing '167 500 kW' (a common slip — reusing the W unit without conversion) would be an order-of-magnitude error."
+    },
+    {
+      wrong: "Dividing: h / ṁ = 670 kJ·s/kg²",
+      why_en: "Dimensional analysis saves you again: this gives a nonsense unit. The product ṁ · h carries the intensive quantity across the boundary at the rate of the mass crossing. Division would mean 'enthalpy per unit mass-flow', which has no physical meaning in this context."
+    },
+    {
+      wrong: "Confusing $\\dot{m}$ with $m$: 'a 0.5 kg pipe delivers 167.5 kJ'",
+      why_en: "This is a subtle one. ṁ is a *rate* (kg per second); an enthalpy flow rate Ḣ is also a rate (kJ per second). If you treated the problem as a fixed mass, you'd get the right number but the wrong interpretation — there is no 'total mass' in the pipe, only a flow. The dot is not decoration."
+    }
+  ]}
+  discussion_mdx={`
+**Enthalpy flow: the workhorse of open-system thermodynamics.**
+
+Every open-system energy balance (turbines, pumps, heat exchangers, compressors, throttles) has the term $\\dot{m}_i\\,h_i$ for each stream crossing the boundary. The general steady-state balance is:
+
+$$
+\\dot{Q} + P = \\sum_{\\text{out}} \\dot{m}\\,h \\; - \\; \\sum_{\\text{in}} \\dot{m}\\,h
+$$
+
+(plus kinetic- and potential-energy terms, usually negligible).
+
+You will spend the majority of Thermodynamik I Kapitel 2 computing $h$ values from tables and doing this bookkeeping. Being comfortable with the unit game *specific × mass-flow = extensive-flow* now saves you confusion later.
+
+**Variation — what if two streams enter and one leaves?**
+
+A mixing tee has two inlet streams (1 and 2) and one outlet (3). Steady-state mass balance: $\\dot{m}_1 + \\dot{m}_2 = \\dot{m}_3$. Adiabatic energy balance (no $\\dot{Q}$, no $P$):
+
+$$
+\\dot{m}_1\\,h_1 + \\dot{m}_2\\,h_2 = \\dot{m}_3\\,h_3
+$$
+
+Solve for the mixed specific enthalpy $h_3$. This is the algebra of every building's hot-water loop.
+
+**Why enthalpy and not internal energy?**
+
+Because a stream crossing an open-system boundary carries not only internal energy but also the work $pv$ it does pushing against whatever is upstream (the so-called *Verschiebearbeit*, flow work). Enthalpy $h = u + pv$ bundles these, and you do not have to track them separately. This is the single biggest practical reason engineering thermodynamics lives and breathes with $h$, not $u$, as soon as flows are involved.
+
+**Connection forward.** In Kapitel 2 — *Erster Hauptsatz* — we will derive this balance from the first law applied to a moving control volume. This exercise is a preview.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l2-ex6"
+  difficulty="klausur"
+  type="multiple_choice"
+  question_de="Sie lesen in einer Klausuraufgabe: 'Die spezifische Entropie des Wasserdampfs beträgt s = 7{,}35 kJ/(kg·K).' Welche der folgenden Schlussfolgerungen ist korrekt?"
+  question_en="You read on a Klausur: 'The specific entropy of the steam is s = 7.35 kJ/(kg·K).' Which conclusion is correct?"
+  options={[
+    { id: "a", de: "Die Gesamtentropie S des Dampfes beträgt 7{,}35 kJ/K, unabhängig von der Masse.", en: "The total entropy S of the steam is 7.35 kJ/K, regardless of mass." },
+    { id: "b", de: "Die Entropie des Dampfes ist eine intensive Größe.", en: "The entropy of the steam is an intensive quantity." },
+    { id: "c", de: "Um die Gesamtentropie S zu erhalten, muss man s mit der Masse multiplizieren: S = s · m.", en: "To get total entropy S, multiply s by mass: S = s · m." },
+    { id: "d", de: "7{,}35 ist ein ungewöhnlich niedriger Wert für die Entropie von Wasserdampf.", en: "7.35 is an unusually low value for the entropy of steam." },
+  ]}
+  correct="c"
+  hint_en="The 's' is lowercase: it's the specific (per-mass) form. To convert to the extensive form S you need a mass."
+  solution_mdx={`
+**Correct answer: (c) $S = s \\cdot m$.**
+
+Lowercase $s$ is the specific (intensive) form of entropy, with units $\\mathrm{kJ/(kg \\cdot K)}$ that tell you directly "per kilogram". To recover the extensive entropy $S$ (in $\\mathrm{kJ/K}$), multiply by the mass: $S = s \\cdot m$. That is the universal pattern for every specific / extensive pair.
+
+**Option (a)** is wrong for two reasons: (1) the units are $\\mathrm{kJ/(kg \\cdot K)}$ not $\\mathrm{kJ/K}$, and (2) "regardless of mass" is the definition of intensive — which $s$ is, but $S$ is not.
+
+**Option (b)** conflates $s$ (intensive) with $S$ (extensive). The question asked about *"die Entropie des Dampfes"*, which — without a qualifier — means the extensive $S$. That would be extensive.
+
+**Option (d)** is wrong factually: $s \\approx 7\\,\\mathrm{kJ/(kg \\cdot K)}$ is a typical value for superheated steam; it is *not* unusual.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — the total entropy is 7.35 kJ/K",
+      why_en: "Dropping the 'per kg' in the units is a classic trap. If the examiner writes units with /kg or /mol in them, the quantity is specific (intensive). To get the non-specific total you need another quantity (mass or moles). This trap appears in almost every steam-table-based Klausur question."
+    },
+    {
+      wrong: "b — entropy of the steam is intensive",
+      why_en: "Entropy itself (denoted $S$) is extensive, and that's what 'die Entropie' without qualification means. The specific entropy $s$ is the intensive version. German engineering vocabulary distinguishes these carefully — and Klausuren test the distinction."
+    },
+    {
+      wrong: "d — 7.35 is an unusually low value",
+      why_en: "A minor red herring. Typical superheated-steam specific entropies at normal operating conditions are 6–8 kJ/(kg·K), so 7.35 is ordinary. This option tests whether you can keep numerical sanity-checking separate from unit interpretation — do not let a numerical-sounding distractor pull you away from the conceptual point."
+    }
+  ]}
+  discussion_mdx={`
+**The steam-table habit.**
+
+Every printed thermodynamic property table for water — Wasserdampftafel — lists properties in specific-quantity form: $v$ in m³/kg, $u$ in kJ/kg, $h$ in kJ/kg, $s$ in kJ/(kg·K). That is because a single table row covers every possible system, large or small. You just multiply by $m$ or $\\dot{m}$ at the end of your calculation.
+
+When you encounter a property in a Klausur, always check three things:
+
+1. Is it uppercase or lowercase? ($S$ or $s$, $H$ or $h$.) That tells you extensive or intensive.
+2. What are the units? J, kJ, or MJ? Per-kg, per-mol, or total? Write them out.
+3. Is there a 'per time' (dot on top, or rate units)? That signals a flow, not a stored quantity.
+
+**Variation — a vessel at constant volume and temperature has $p$, $T$, $\\rho$ printed. Which are intensive?**
+
+All three. That is the point of a *Zustandspunkt* (state point) on a $(p, T)$ or $(p, v)$ diagram: every coordinate is intensive, which is why a point can describe the state of any amount of fluid at those conditions.
+
+**Connection forward.** The next lesson — *Zustand und Prozess* — introduces state *points* (intensive description of a state) and state *changes* (paths between points). The intensive-vs-extensive distinction underlies the whole graphical apparatus of thermodynamic diagrams: state points are intensive, the enclosed area on a $(p,V)$ diagram represents extensive work.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** Before you start any Klausur calculation, glance at every symbol in the problem statement and sort them into two piles:
+
+- capital letters with units like J, m³, kg, kJ/K → **extensive**;
+- lower-case letters with units like J/kg, m³/kg, kJ/(kg·K), or "naked" T, p, ρ → **intensive**.
+
+When you write your balance equation, every term on the left must match every term on the right in extensive-ness. If one side is per-kg and the other is total, you forgot a mass somewhere. This five-second sort catches half of all Klausur arithmetic errors.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+In the next lesson — **Zustand und Prozess: state points and state changes** — we put these intensive quantities to work. A *Zustand* (state) is described by a few intensive coordinates, and a *Prozess* (process) is a path from one state to another. The whole graphical apparatus of $(p, V)$, $(T, s)$, and $(h, s)$ diagrams that you will meet in the rest of thermodynamics rests on this distinction.

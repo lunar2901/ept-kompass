@@ -1,0 +1,503 @@
+---
+id: thermo-1-k1-l3
+module: thermodynamik-1
+chapter: kap-1-grundbegriffe
+position: 3
+name_de: "Zustand und Prozess: state points and state changes"
+name_en: "State and process: state points and state changes"
+estimated_minutes: 25
+prerequisites: ["thermo-1-k1-l2"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+You now know that the state of a system is described by a handful of <GermanTerm de="Zustandsgrößen" article="die" plural="Zustandsgrößen" en="state variables" />. A natural next question: **how many do I need to nail down to fully describe the state?**
+
+The beautiful and slightly miraculous answer for the systems in this course is: **two, usually**. For a single-phase, pure substance at equilibrium, two intensive state variables are enough to fix every other one. This is the <GermanTerm de="Gibbssche Phasenregel" article="die" en="Gibbs phase rule" /> applied to the simplest case, and it is why thermodynamic diagrams are always 2D — a $(p, v)$ plot, a $(T, s)$ plot.
+
+If two numbers fix a state, a state becomes a **point** in a 2D plane. And a **process** — the system moving from one state to another — becomes a **curve** from one point to another in that plane. That picture is the whole visual grammar of thermodynamics.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: der Zustand
+    en: state
+    plural: die Zustände
+    ipa: /ˈʦuːʃtant/
+    example_de: "Der Zustand des Gases wird durch Druck und Temperatur beschrieben."
+    example_en: "The state of the gas is described by pressure and temperature."
+  - term: die Zustandsänderung
+    en: change of state
+    plural: die Zustandsänderungen
+    example_de: "Eine isotherme Zustandsänderung verläuft bei konstanter Temperatur."
+    example_en: "An isothermal change of state proceeds at constant temperature."
+  - term: der Prozess
+    en: process
+    plural: die Prozesse
+    example_de: "Der Carnot-Prozess ist ein idealisierter Kreisprozess."
+    example_en: "The Carnot process is an idealised cycle."
+  - term: der Zustandspunkt
+    en: state point
+    plural: die Zustandspunkte
+    example_de: "Zwei intensive Zustandsgrößen legen den Zustandspunkt fest."
+    example_en: "Two intensive state variables fix the state point."
+  - term: quasistatisch
+    en: quasi-static
+    ipa: /kvaːziˈstaːtɪʃ/
+    example_de: "Eine quasistatische Zustandsänderung verläuft so langsam, dass das System jederzeit im Gleichgewicht ist."
+    example_en: "A quasi-static change proceeds so slowly that the system is in equilibrium at every instant."
+  - term: reversibel
+    en: reversible
+    example_de: "Ein reversibler Prozess ist idealisiert — real existiert er nicht."
+    example_en: "A reversible process is idealised — no real process is truly reversible."
+  - term: irreversibel
+    en: irreversible
+    example_de: "Alle realen Prozesse sind irreversibel und erzeugen Entropie."
+    example_en: "All real processes are irreversible and generate entropy."
+  - term: isotherm
+    en: isothermal
+    example_de: "Eine isotherme Zustandsänderung hält T konstant."
+    example_en: "An isothermal change holds T constant."
+  - term: isobar
+    en: isobaric
+    example_de: "Eine isobare Zustandsänderung hält p konstant."
+    example_en: "An isobaric change holds p constant."
+  - term: isochor
+    en: isochoric
+    example_de: "Eine isochore Zustandsänderung hält V konstant."
+    example_en: "An isochoric change holds V constant."
+  - term: isentrop
+    en: isentropic
+    example_de: "Eine isentrope Zustandsänderung hält die Entropie konstant; sie ist reversibel und adiabat."
+    example_en: "An isentropic change holds entropy constant; it is reversible and adiabatic."
+</VocabBlock>
+
+## Theorie
+
+### Two intensive variables fix a pure-substance state
+
+For a single-phase pure substance at equilibrium (no chemical reactions, one component), you can pick any two *independent* intensive properties — $p$ and $T$, or $T$ and $v$, or $p$ and $s$ — and every other property follows. This is why steam tables are organised as a 2D lookup: you enter with $(p, T)$ or $(p, h)$ and read the rest.
+
+At a two-phase boundary (boiling water, condensing steam) this rule tightens: only *one* intensive property is free, because $p$ and $T$ are no longer independent (they are linked by the Clausius-Clapeyron curve). You need one intensive property *plus* an extensive quality variable — the vapour fraction $x$.
+
+<Callout variant="note">
+
+**Gibbs phase rule** (general case):
+$$F = C - P + 2$$
+where $F$ = degrees of freedom (intensive), $C$ = number of chemical components, $P$ = number of coexisting phases. For a single pure substance ($C = 1$): one phase → $F = 2$; two phases in equilibrium → $F = 1$; the triple point → $F = 0$.
+
+</Callout>
+
+### State vs process, equation vs path
+
+A **state** is a single frozen snapshot of the system. A **process** (*Prozess*, *Zustandsänderung*) is the *path* the system follows between two states. State variables have values *at a state*; process quantities like heat $Q$ and work $W$ only acquire values *over a path*.
+
+<FormulaCard
+  name_de="Zustandsgrößen vs. Prozessgrößen"
+  name_en="State vs. process quantities"
+>
+
+**State quantities** (Zustandsgrößen): $T$, $p$, $v$, $u$, $h$, $s$. Exist at a single state. Their change from state 1 to state 2 depends only on the endpoints: $\Delta u = u_2 - u_1$.
+
+**Process quantities** (Prozessgrößen): $q$, $w$. Exist only while the process is happening. Their value depends on the path, not just the endpoints: $q = \int \delta q$, not $\int du$.
+
+Notation: use the exact differential $\mathrm{d}$ for state quantities ($\mathrm{d}u$, $\mathrm{d}h$), the inexact differential $\delta$ for process quantities ($\delta q$, $\delta w$).
+
+</FormulaCard>
+
+### Named processes you need to recognise
+
+A single lecture contains a jargon cluster of *iso-*words. They all mean "at constant X":
+
+| Prefix | Constant | Example |
+| --- | --- | --- |
+| **iso**therm | temperature $T$ | gas expanding slowly in contact with a heat bath |
+| **iso**bar | pressure $p$ | open beaker heated on a hotplate |
+| **iso**chor | volume $V$ | sealed rigid tank heated |
+| **iso**entrop | entropy $s$ | ideal turbine, ideal compressor |
+| adiabat | $Q = 0$ | insulated process, any speed |
+| polytrop | $pV^n = \mathrm{const}$ | real compressor (n = 1.2, say) |
+
+**Important distinction.** *Isentrop* means "at constant entropy", which is stronger than "adiabat". An adiabatic process has $\delta Q = 0$ but can still have entropy rise (if irreversible). Isentropic = adiabatic + reversible.
+
+### Quasi-static and reversible
+
+Real processes proceed at finite speed. Near every piston there are pressure gradients, temperature gradients, tiny fluid accelerations — the gas is NOT in a single equilibrium state during the process. For the equations we want to write, we need to idealise:
+
+- A <GermanTerm de="quasistatische Zustandsänderung" article="die" en="quasi-static change of state" /> is one that proceeds through a sequence of equilibrium states — slow enough that the gas is "uniform" at every instant.
+- A **reversible** process is quasi-static AND dissipation-free (no friction, no heat across finite $\Delta T$). It can be run backward recovering the same states in reverse order.
+
+Only reversible quasi-static processes trace out a well-defined *curve* on a $(p, v)$ diagram. A real irreversible process has no well-defined intermediate states, so the path is undrawable — only the endpoints are well-defined points.
+
+<Callout variant="exam-tip">
+
+On a $(p, v)$ diagram, any real irreversible process is drawn as a **dashed curve** or just a pair of endpoints with a wavy arrow — emphasising that the intermediate states are not known. A solid curve means the author is assuming reversibility.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Ein ideales Gas (1 kg Luft, $R = 287\,\mathrm{J/(kg\,K)}$) befindet sich im Zustand 1 mit $p_1 = 1\,\mathrm{bar}$, $T_1 = 300\,\mathrm{K}$. Es durchläuft folgende drei quasistatischen Zustandsänderungen:
+>
+> - 1 → 2: isotherm auf $p_2 = 2\,\mathrm{bar}$
+> - 2 → 3: isobar auf $T_3 = 600\,\mathrm{K}$
+> - 3 → 1: direkt zurück zum Ausgangszustand
+>
+> Skizzieren Sie den Kreisprozess im $(p, v)$-Diagramm und berechnen Sie $v_1$, $v_2$, $v_3$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Gegeben:** Ideal gas, 1 kg air, $R = 287\,\mathrm{J/(kg\,K)}$, three state points.
+
+**Step 1. Find the specific volume at each state using $pv = RT$.**
+
+$$v_1 = \frac{R T_1}{p_1} = \frac{287 \cdot 300}{10^5} = 0{,}861\,\mathrm{m^3/kg}$$
+
+For state 2 ($T_2 = T_1 = 300\,\mathrm{K}$, $p_2 = 2 \cdot 10^5\,\mathrm{Pa}$):
+$$v_2 = \frac{R T_2}{p_2} = \frac{287 \cdot 300}{2 \cdot 10^5} = 0{,}430\,\mathrm{m^3/kg}$$
+
+For state 3 ($p_3 = p_2 = 2\,\mathrm{bar}$, $T_3 = 600\,\mathrm{K}$):
+$$v_3 = \frac{R T_3}{p_3} = \frac{287 \cdot 600}{2 \cdot 10^5} = 0{,}861\,\mathrm{m^3/kg}$$
+
+**Step 2. Sketch.**
+
+On a $(p, v)$ diagram:
+- State 1: $(v_1, p_1) = (0{,}861\,\mathrm{m^3/kg},\, 1\,\mathrm{bar})$
+- State 2: $(v_2, p_2) = (0{,}430\,\mathrm{m^3/kg},\, 2\,\mathrm{bar})$
+- State 3: $(v_3, p_3) = (0{,}861\,\mathrm{m^3/kg},\, 2\,\mathrm{bar})$
+
+Process 1 → 2 (isotherm): hyperbola $pv = \mathrm{const}$, moving up and left.
+
+Process 2 → 3 (isobar): horizontal line at $p = 2\,\mathrm{bar}$, moving right.
+
+Process 3 → 1: horizontal at $v = 0{,}861\,\mathrm{m^3/kg}$? No — state 3 has $v_3 = v_1$ but higher $p$ and higher $T$. So to get from 3 to 1, we need an isochoric (constant-$v$) cooling: vertical line at $v = 0{,}861$ moving down.
+
+**Step 3. Classify.**
+
+The three processes are: isotherm (1→2), isobar (2→3), isochor (3→1). The cycle encloses an area on the $(p, v)$ diagram — that area is the net work of the cycle.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k1-l3-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Welche Zustandsänderung verläuft bei konstantem Volumen?"
+  question_en="Which change of state proceeds at constant volume?"
+  options={[
+    { id: "a", de: "isotherm", en: "isothermal" },
+    { id: "b", de: "isobar", en: "isobaric" },
+    { id: "c", de: "isochor", en: "isochoric" },
+    { id: "d", de: "adiabat", en: "adiabatic" },
+  ]}
+  correct="c"
+  hint_en="Parse the Greek: 'iso-' means constant, and 'chor' comes from χώρος meaning space/room/volume."
+  solution_mdx={`
+**Correct answer: (c) isochor.**
+
+The Greek breakdown:
+- *iso-* (ἴσος): equal, constant
+- *therm* (θέρμη): heat, temperature → isotherm
+- *bar* (βάρος): weight, pressure → isobar
+- *chor* (χώρος): space, volume → isochor
+- *entrop* (ἐντροπία): entropy → isentrop
+
+"Adiabat" is unrelated — it comes from *a-dia-batos* ("not passing through"), meaning no heat passes through the boundary.
+
+In a sealed rigid tank heated from outside, $V$ is fixed — isochor. For an ideal gas in isochoric heating, $p/T = \\mathrm{const}$, so pressure rises linearly with temperature.
+  `}
+  common_mistakes={[
+    {
+      wrong: "d — adiabat",
+      why_en: "Adiabatic means no heat crossing — it is a statement about Q, not about V. An adiabatic process can proceed at changing volume (a piston expanding without heat exchange, for example). These are orthogonal properties."
+    },
+    {
+      wrong: "a — isotherm",
+      why_en: "Isothermal means constant T. Temperature and volume are independent state variables for an ideal gas, so 'constant T' does NOT imply 'constant V' — in an isothermal compression, V shrinks while T stays fixed."
+    }
+  ]}
+  discussion_mdx={`
+**The iso-word family in one diagram.**
+
+On a $(p, v)$ diagram, each iso-process is a different curve:
+- isotherm: hyperbola $p = RT/v$
+- isobar: horizontal line ($p = \\mathrm{const}$)
+- isochor: vertical line ($v = \\mathrm{const}$)
+- isentrop (ideal gas): steeper hyperbola $pv^\\kappa = \\mathrm{const}$ with $\\kappa = c_p/c_v$
+
+Every Klausur-style cycle is a combination of these four curves. Learning to recognise the shape of each on a $(p, v)$ or $(T, s)$ diagram speeds up every problem.
+
+**German naming quirk.** You will sometimes see *isovolum* in older texts — it's a synonym for *isochor*. Modern German engineering uses *isochor* almost exclusively. Similarly, *isotherm* is universal; you will not see *isothermisch* in an engineering context (that form exists in chemistry).
+
+**The orthogonality of adiabat and isochor.** A sealed rigid adiabatic tank containing a stirrer (Joule's paddle-wheel experiment) — heat = 0, volume = 0. But work through the stirrer can still change $T$ and $p$. So even 'nothing crosses the boundary' does not mean 'nothing changes'. Keep the distinction sharp.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l3-ex2"
+  difficulty="medium"
+  type="multi_select"
+  question_de="Welche der folgenden Aussagen über einen reversiblen Prozess sind korrekt? (Mehrfachauswahl.)"
+  question_en="Which of the following statements about a reversible process are correct? (Multiple selection.)"
+  options={[
+    { id: "a", de: "Er ist quasistatisch.", en: "It is quasi-static." },
+    { id: "b", de: "Er ist frei von Reibung und Wärmetransport über endliche Temperaturdifferenzen.", en: "It is free of friction and of heat transfer across finite temperature differences." },
+    { id: "c", de: "Er kann rückwärts gefahren werden, wobei das System dieselben Zwischenzustände durchläuft.", en: "It can be run backwards, passing through the same intermediate states." },
+    { id: "d", de: "In der Realität existieren reversible Prozesse.", en: "Reversible processes exist in reality." },
+    { id: "e", de: "Die Entropieerzeugung ist in einem reversiblen Prozess gleich Null.", en: "Entropy generation is zero in a reversible process." },
+  ]}
+  correct={["a", "b", "c", "e"]}
+  hint_en="Four of the five are correct. The incorrect one is a physical-existence claim, not a definitional one."
+  solution_mdx={`
+**Correct answers: (a), (b), (c), (e).**
+
+- **(a) quasi-static** — yes, a reversible process must pass through equilibrium states, which requires being slow enough that no internal gradients develop.
+- **(b) friction-free and no heat across finite $\\Delta T$** — yes, these are the two dissipation sources that make processes irreversible. Reversible means no dissipation.
+- **(c) reversibility** — yes, by definition. If you can reverse every step and recover every intermediate state, the process was reversible. This is the actual test.
+- **(e) zero entropy generation** — yes. The second law: $\\Delta S_{\\text{universe}} = \\Delta S_{\\text{system}} + \\Delta S_{\\text{surr}} \\geq 0$, with equality iff the process was reversible.
+- **(d) reversible processes exist** — NO. Reversibility is an idealisation, useful as a limiting case (efficiency upper bounds, like Carnot). Real processes always have *some* friction, some finite-$\\Delta T$ heat transfer, some mixing, some irreversibility.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (d)",
+      why_en: "The single most important intellectual point of the second law: reversible processes are idealisations. Carnot cycles, isentropic turbines, ideal reversible heat pumps — all are theoretical. Understanding that the bound is unreachable is more important than memorising its value."
+    },
+    {
+      wrong: "Missing (a) quasi-static",
+      why_en: "Students sometimes treat 'quasi-static' and 'reversible' as synonyms. They are not: all reversible processes are quasi-static, but not vice versa. A quasi-static process with friction is still irreversible. Quasi-static is necessary but not sufficient for reversibility."
+    },
+    {
+      wrong: "Missing (e) zero entropy generation",
+      why_en: "This is a direct consequence of the second law. The equality $\\Delta S_{\\text{gen}} = 0$ is the mathematical statement of reversibility. If you missed it, revisit the formulation of the second law as an inequality."
+    }
+  ]}
+  discussion_mdx={`
+**Why bother with an idealisation that cannot exist?**
+
+Because reversibility gives us *bounds*. The Carnot efficiency $\\eta_C = 1 - T_{\\text{kalt}}/T_{\\text{warm}}$ is the maximum efficiency any heat engine operating between those two reservoirs can achieve. No real engine beats it; every real engine falls short. Knowing the unreachable upper bound lets you evaluate real designs: an efficiency of 40 % is good when $\\eta_C = 60 %$, terrible when $\\eta_C = 80 %$.
+
+Similarly, the isentropic compressor and turbine provide the reference points against which real compressor and turbine efficiencies are measured:
+
+$$\\eta_{s,T} = \\frac{h_1 - h_2}{h_1 - h_{2,s}} \\quad\\text{(turbine isentropic efficiency)}$$
+
+where $h_{2,s}$ is the specific enthalpy at the outlet *if* the expansion had been reversible (isentropic). Real turbines have $\\eta_{s,T} \\approx 0.85$–$0.92$.
+
+**The engineering workflow.** Design the ideal reversible version first (tractable, closed-form). Calculate efficiencies and power. Then multiply by a component efficiency to get the real-world estimate. Most engineering textbooks walk you through exactly this pattern.
+
+**The sharper form of the second law.** $\\Delta S_{\\text{gen}} > 0$ for any real (irreversible) process and $\\Delta S_{\\text{gen}} = 0$ only for the idealised reversible limit. You will meet this in Kapitel 4 as the *Entropie-Bilanzgleichung*.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l3-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein ideales Gas (1 kg, R = 287 J/(kg·K)) wird isotherm von p₁ = 1 bar, T₁ = 300 K auf p₂ = 3 bar verdichtet. Wie groß ist das spezifische Volumen v₂ nach der Verdichtung (in m³/kg)?"
+  question_en="An ideal gas (1 kg, R = 287 J/(kg·K)) is compressed isothermally from p₁ = 1 bar, T₁ = 300 K to p₂ = 3 bar. What is the specific volume v₂ after compression (in m³/kg)?"
+  correct={0.287}
+  tolerance={0.003}
+  hint_en="Isothermal means T₂ = T₁ = 300 K. Apply pv = RT at state 2."
+  solution_mdx={`
+**Answer: $v_2 \\approx 0{,}287\\,\\mathrm{m^3/kg}$.**
+
+**Gegeben:** Ideal gas, $R = 287\\,\\mathrm{J/(kg\\,K)}$, $p_1 = 1\\,\\mathrm{bar} = 10^5\\,\\mathrm{Pa}$, $T_1 = 300\\,\\mathrm{K}$, $p_2 = 3\\,\\mathrm{bar} = 3 \\cdot 10^5\\,\\mathrm{Pa}$, process is isotherm so $T_2 = T_1 = 300\\,\\mathrm{K}$.
+
+**Gesucht:** $v_2$ in m³/kg.
+
+**Step 1. Write the ideal-gas law at state 2.**
+$$p_2 v_2 = R T_2 \\quad \\Rightarrow \\quad v_2 = \\frac{R T_2}{p_2}$$
+
+**Step 2. Plug in with SI units.**
+$$v_2 = \\frac{287\\,\\frac{\\mathrm{J}}{\\mathrm{kg\\,K}} \\cdot 300\\,\\mathrm{K}}{3 \\cdot 10^5\\,\\mathrm{Pa}} = \\frac{86\\,100\\,\\mathrm{J/kg}}{3 \\cdot 10^5\\,\\mathrm{Pa}}$$
+
+**Step 3. Simplify units.** Joule = Pa · m³, so J/kg ÷ Pa = m³/kg.
+$$v_2 \\approx 0{,}287\\,\\mathrm{m^3/kg}$$
+
+**Sanity check.** Starting $v_1 = R T_1 / p_1 = 287 \\cdot 300 / 10^5 = 0{,}861\\,\\mathrm{m^3/kg}$. After tripling the pressure at constant $T$, Boyle's law says $v$ should drop to one-third: $0{,}861 / 3 = 0{,}287$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using p in bar directly: v₂ = 287 · 300 / 3 = 28 700 m³/kg",
+      why_en: "The gas constant $R = 287\\,\\mathrm{J/(kg\\,K)}$ requires pressure in Pa, not bar. Using $p$ in bar gives a number five orders of magnitude off. Always convert pressures to Pa for ideal-gas calculations — or use a variant of $R$ in consistent units (e.g. $R = 0{,}287\\,\\mathrm{kJ/(kg\\,K)}$ with $p$ in kPa)."
+    },
+    {
+      wrong: "Using T in °C: 287 · 27 / (3·10⁵) = 0.0258 m³/kg",
+      why_en: "Temperature in ideal-gas formulae is always in Kelvin. 300 K is not 300 °C — it is 27 °C. Mixing Kelvin and Celsius gives answers an order of magnitude off, and the error is easy to spot in practice: specific volume of air at room conditions is near 1 m³/kg, not 0.03 m³/kg."
+    },
+    {
+      wrong: "Forgetting the isothermal condition, solving for T₂ somehow",
+      why_en: "The whole point of the word *isotherm* in the question is that T₂ = T₁. If you found yourself computing a new T, you skipped over the process label — slow down and extract what is constant before starting the algebra."
+    }
+  ]}
+  discussion_mdx={`
+**Boyle's law as a special case.**
+
+For isothermal compression of an ideal gas, $pv = RT = \\mathrm{const}$, which gives Boyle's law in the form:
+
+$$p_1 v_1 = p_2 v_2 \\quad \\Leftrightarrow \\quad \\frac{v_2}{v_1} = \\frac{p_1}{p_2}$$
+
+So tripling the pressure thirds the volume, halving the pressure doubles the volume. This is the simplest isothermal relation and worth memorising — it lets you do compression ratios in your head for sanity-checking.
+
+**What does *isothermal compression* look like physically?**
+
+To keep $T$ constant while $v$ decreases, heat has to leave the gas as it is compressed — otherwise compression work would raise $T$. A real isothermal compression would run the piston very slowly (so heat transfer has time to happen) through a cooling jacket. Industrial compressors are usually far from isothermal — they are closer to adiabatic on short timescales because the process is fast relative to heat-transfer time constants. Intercooling between compressor stages brings real machines closer to the isothermal ideal.
+
+**Work for isothermal compression.** The boundary work done *on* the gas in isothermal compression from state 1 to 2 is:
+
+$$W = -\\int_{v_1}^{v_2} p \\, \\mathrm{d}v = - m R T \\ln\\!\\left(\\frac{v_2}{v_1}\\right) = m R T \\ln\\!\\left(\\frac{p_2}{p_1}\\right)$$
+
+For our problem: $W = 1 \\cdot 287 \\cdot 300 \\cdot \\ln(3) \\approx 94{,}6\\,\\mathrm{kJ}$ of work done on the gas. Of course, exactly that much heat leaves the gas to keep $T$ constant.
+
+**Connection forward.** Kapitel 2 derives the *Volumenänderungsarbeit* $W = -\\int p\\,\\mathrm{d}V$ and evaluates it for each of the iso-processes. The isothermal case gives the cleanest formula because $pv = RT$ is a simple function of $v$ at constant $T$.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l3-ex4"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Ein Prozess hat Anfangszustand p₁ = 2 bar, T₁ = 400 K und Endzustand p₂ = 4 bar, T₂ = 400 K. Welche Zustandsänderung liegt mit größtmöglicher Sicherheit vor?"
+  question_en="A process has initial state p₁ = 2 bar, T₁ = 400 K and final state p₂ = 4 bar, T₂ = 400 K. Which type of change of state is most likely?"
+  options={[
+    { id: "a", de: "isobar", en: "isobaric" },
+    { id: "b", de: "isotherm", en: "isothermal" },
+    { id: "c", de: "isochor", en: "isochoric" },
+    { id: "d", de: "Man kann allein aus den Endzuständen keine Aussage treffen.", en: "One cannot tell from endpoints alone." },
+  ]}
+  correct="d"
+  hint_en="The endpoints only tell you that T is the same at start and end. Could an 'intermediate detour' through other states connect them?"
+  solution_mdx={`
+**Correct answer: (d) One cannot tell from endpoints alone.**
+
+This is a deliberately sharp exercise. The two endpoints share $T_1 = T_2 = 400\\,\\mathrm{K}$, which is necessary for an isothermal process — but it is *not* sufficient. A process from state 1 to state 2 could also follow a path like:
+
+1. isobaric heating from 400 K to 800 K (staying at 2 bar)
+2. isochoric cooling from 800 K back to 400 K (which happens to end at 4 bar)
+
+Same endpoints, same $T_1 = T_2$, but the path was NOT isothermal — only the endpoints coincided in $T$.
+
+**The lesson.** State variables specify endpoints; they do not specify paths. To know the type of process, you need to know what was held constant *during* the process, not just what happened to be equal at the start and end.
+
+A careful Klausur problem says "*isotherme Verdichtung*" to indicate the process type. An unsafe problem hands you endpoints and asks you to infer — the safe answer is usually 'you can't tell'.
+  `}
+  common_mistakes={[
+    {
+      wrong: "b — isotherm",
+      why_en: "Tempting because both endpoints have the same $T$. But 'same $T$ at start and end' does not mean '$T$ was constant throughout'. This is exactly the state-vs-process distinction in exam form — and this exercise is designed to catch students who haven't yet internalised it."
+    },
+    {
+      wrong: "c — isochor",
+      why_en: "Isochor requires same $V$ (or same $v$). Given the endpoints, we can compute $v_1 = RT_1/p_1$ and $v_2 = RT_2/p_2$. Since $T_1 = T_2$ but $p_2 = 2p_1$, we get $v_2 = v_1/2$. Different specific volumes — definitely not isochoric."
+    }
+  ]}
+  discussion_mdx={`
+**Why paths matter for process quantities.**
+
+Consider going from state 1 to state 2 via two different paths:
+
+- Path A: isotherm directly (slow, with heat exchange to maintain $T$).
+- Path B: isobaric heating + isochoric cooling (the detour).
+
+The *state* changes are the same: $\\Delta u = u_2 - u_1$, $\\Delta h = h_2 - h_1$, $\\Delta s = s_2 - s_1$. These depend only on endpoints.
+
+The *process* quantities are different: $q_A \\neq q_B$, $w_A \\neq w_B$ — though by the first law $q + w$ must be the same (because it equals $\\Delta u$, a state quantity). Two paths, same energy bookkeeping at the endpoints, different individual heat and work.
+
+**A picture.** On a $(p, v)$ diagram, both paths start at point 1 and end at point 2, but trace different curves. The area under each curve (the work) is different.
+
+**Klausur pattern to look out for.** A question says: "Compute $q$ and $w$ for this process." Step 1: what IS the process? If the question gives you only endpoints and no process description, you're stuck. If it gives you "*isotherme Verdichtung*" or "*adiabate Expansion*", you have a process type and can proceed. In practice, examiners always specify the process type, but Klausur-level questions sometimes make you SEPARATE state quantities (computable from endpoints) from process quantities (not).
+
+**Connection forward.** Kapitel 2 formalises this: for any path-independent function $X$ (i.e. state quantity), $\\int_1^2 \\mathrm{d}X = X_2 - X_1$. For path-dependent quantities, the integral $\\int_1^2 \\delta q$ requires you to parametrise the path first.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l3-ex5"
+  difficulty="klausur"
+  type="multi_select"
+  question_de="Welche Aussagen über einen 'adiabaten Prozess' sind korrekt? (Mehrfachauswahl.)"
+  question_en="Which statements about an 'adiabatic process' are correct? (Multiple selection.)"
+  options={[
+    { id: "a", de: "Es fließt keine Wärme über die Systemgrenze.", en: "No heat flows across the system boundary." },
+    { id: "b", de: "Die Temperatur des Systems bleibt konstant.", en: "The temperature of the system stays constant." },
+    { id: "c", de: "Ein adiabater Prozess ist automatisch reversibel.", en: "An adiabatic process is automatically reversible." },
+    { id: "d", de: "Ein adiabater, reversibler Prozess heißt isentrop.", en: "An adiabatic, reversible process is called isentropic." },
+    { id: "e", de: "In einem adiabaten Prozess gilt ΔU = W (für ein geschlossenes System).", en: "In an adiabatic process, ΔU = W (for a closed system)." },
+  ]}
+  correct={["a", "d", "e"]}
+  hint_en="Three of the five are correct. Two popular misconceptions are in the list."
+  solution_mdx={`
+**Correct answers: (a), (d), (e).**
+
+- **(a) No heat crosses the boundary.** Definitional. Adiabat = $Q = 0$.
+- **(d) Adiabatic + reversible = isentropic.** Standard naming: if an adiabatic process is also reversible, $\\Delta s = 0$, so entropy is constant — hence isentropic. This is the ideal turbine / compressor model.
+- **(e) $\\Delta U = W$ for a closed adiabatic system.** First law: $\\Delta U = Q + W$. With $Q = 0$, $\\Delta U = W$. Every joule of work done *on* the system shows up as internal-energy increase.
+
+**(b) is wrong.** Adiabatic processes very commonly change $T$. An adiabatic compression *raises* the temperature of a gas (all the work goes into internal energy, which for an ideal gas means $T$ rises); an adiabatic expansion *cools* it. The cooling of air as it leaves a compressed-air can is adiabatic, not isothermal.
+
+**(c) is wrong.** Adiabatic only says $Q = 0$. It says nothing about friction, dissipation, or reversibility. A stirrer inside an adiabatic tank (Joule's paddle-wheel experiment) does irreversible work while $Q = 0$ — adiabatic but irreversible. Only if the adiabatic process is also reversible is it isentropic.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (b) — T constant",
+      why_en: "The most common misconception about adiabatic processes. Students confuse 'adiabatic' (no heat) with 'isothermal' (constant T). In fact, these are nearly opposite in implications: a fast compression is approximately adiabatic (heat can't escape quickly enough) AND NOT isothermal (T rises); a slow compression is approximately isothermal AND NOT adiabatic (heat leaves to keep T constant). The classic bicycle pump gets hot because it's close to adiabatic, not isothermal."
+    },
+    {
+      wrong: "Including (c) — adiabatic implies reversible",
+      why_en: "This conflates 'no heat transfer' with 'no dissipation'. Friction, free expansion, and mixing are all irreversible, adiabatic-compatible processes. The classic example: a gas freely expanding into a vacuum in an insulated container — $Q = 0$, $W = 0$ (no one to push against), $\\Delta U = 0$ — yet the entropy rises, so the process is irreversible. Adiabatic does NOT imply reversible."
+    },
+    {
+      wrong: "Missing (e) — ΔU = W",
+      why_en: "Direct consequence of the first law $\\Delta U = Q + W$ with $Q = 0$. If you missed it, review the first law. This relation is the key to every adiabatic-compression calculation: the work input equals the internal-energy rise, which for an ideal gas equals $m c_v \\Delta T$."
+    }
+  ]}
+  discussion_mdx={`
+**Adiabatic vs. isothermal — the mental model.**
+
+Two knobs: *thermal insulation* (how easily heat crosses) and *speed* (how long the process takes).
+
+- **Thick insulation + any speed** → adiabatic. Q = 0 regardless.
+- **Thin insulation + very slow** → isothermal. Heat has time to equilibrate with surroundings.
+- **Thin insulation + very fast** → approximately adiabatic anyway. Heat doesn't have time to cross.
+- **Thick insulation + very slow** → adiabatic AND reversible → isentropic.
+
+Real compressors live closer to adiabatic because they are fast. Real evaporators/condensers are decidedly NOT adiabatic — they are designed to transfer large amounts of heat.
+
+**Isentropic as the limit.** In thermodynamics problems, the word 'isentropic' almost always appears as the idealised limit against which real machine performance is measured. Writing $s_2 = s_1$ lets you find a reference outlet state, which you then correct with the isentropic efficiency:
+
+$$\\eta_{s,T} = \\frac{h_1 - h_{2,\\text{real}}}{h_1 - h_{2,s}} \\approx 0{,}85\\text{–}0{,}92$$
+
+for a real turbine. Real compressors define their isentropic efficiency the other way:
+
+$$\\eta_{s,C} = \\frac{h_{2,s} - h_1}{h_{2,\\text{real}} - h_1}$$
+
+**Adiabatic expansion into a vacuum (Joule-Thomson in the ideal-gas limit).** For an ideal gas, adiabatic irreversible free expansion keeps $U$ constant (so $T$ constant for ideal gas), which is surprising: the temperature does NOT change. For a real gas (Joule-Thomson), it usually does. This effect is the principle of the Linde process for gas liquefaction and is its own lesson in Thermodynamik II.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** Every process type is a constraint that removes one unknown from your energy balance. Drill the list so you can translate instantly:
+
+- isotherm → $T = \mathrm{const}$, $\Delta U = 0$ (ideal gas only), $\Delta H = 0$ (ideal gas only)
+- isobar → $p = \mathrm{const}$, $W = -p\,\Delta V$, $Q = \Delta H$ (closed system)
+- isochor → $V = \mathrm{const}$, $W = 0$, $Q = \Delta U$ (closed system)
+- isentrop → $s = \mathrm{const}$, $Q = 0$ AND reversible
+- adiabat → $Q = 0$, $\Delta U = W$ (closed system)
+
+When the problem names a process, immediately write down what is zero or constant — that one line saves 30 seconds and avoids the single most common mistake of treating heat flow in a nominally adiabatic problem.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+The next lesson — **Thermodynamisches Gleichgewicht** — pins down exactly what it means for a system to be "at a state". Equilibrium is not just *nothing changing visibly*; it is a precise statement about thermal, mechanical, and chemical balances. Once you understand equilibrium, the state-variable apparatus we just built sits on firm ground.
