@@ -1,0 +1,353 @@
+---
+id: thermo-1-k2-l7
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 7
+name_de: "Wellenarbeit und technische Arbeit"
+name_en: "Shaft work and technical work"
+estimated_minutes: 20
+prerequisites: ["thermo-1-k2-l6"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Closed systems deal with <GermanTerm de="Volumenänderungsarbeit" article="die" en="boundary work" />: a piston pushes on gas, the gas pushes back, integrated $-\int p\,\mathrm{d}V$ gives the work.
+
+Open systems — turbines, compressors, pumps — don't have pistons. Instead they have shafts rotating at high speed, transferring energy into or out of the fluid. The appropriate work concept here is <GermanTerm de="technische Arbeit" article="die" en="technical work" /> $W_t$ (or its rate form, power $P$). This lesson derives the formula $W_t = \int V\,\mathrm{d}p$ and shows its relationship to $W_V$.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Wellenarbeit
+    en: shaft work
+    example_de: "Wellenarbeit wird durch rotierende Welle zwischen System und Umgebung übertragen."
+    example_en: "Shaft work is transferred by a rotating shaft between system and surroundings."
+  - term: die technische Arbeit
+    en: technical work
+    example_de: "Die technische Arbeit W_t = ∫V dp ist das Pendant zur Volumenänderungsarbeit in offenen Systemen."
+    example_en: "Technical work W_t = ∫V dp is the open-system counterpart of boundary work."
+  - term: die Druckänderungsarbeit
+    en: pressure-change work (alternative term for technical work)
+    example_de: "Die Druckänderungsarbeit misst die Arbeit beim Durchlaufen eines Druckgradienten."
+    example_en: "Pressure-change work measures the work along a pressure gradient."
+</VocabBlock>
+
+## Theorie
+
+### The technical-work formula
+
+For a quasi-static, steady, adiabatic open-system process with negligible KE and PE:
+
+<FormulaCard
+  name_de="Technische Arbeit"
+  name_en="Technical work"
+  latex="w_{t,12} = \int_{p_1}^{p_2} v \, \mathrm{d}p"
+  variables={[
+    { symbol: "w_t", name_de: "spezifische technische Arbeit", name_en: "specific technical work", unit: "J/kg" },
+    { symbol: "v", name_de: "spezifisches Volumen", name_en: "specific volume", unit: "m³/kg" },
+    { symbol: "p", name_de: "Druck", name_en: "pressure", unit: "Pa" },
+  ]}
+>
+
+Sign: $w_t > 0$ → work INTO the fluid (compressor). $w_t < 0$ → work OUT (turbine).
+
+For multi-kg flows, multiply by mass or (more usefully) by $\dot{m}$ to get power: $P = \dot{m} w_t$.
+
+The full form with KE and PE:
+
+$$w_t = \int_1^2 v\,\mathrm{d}p + \tfrac{1}{2}(c_2^2 - c_1^2) + g(z_2 - z_1)$$
+
+</FormulaCard>
+
+### Why $\int v \, \mathrm{d}p$ and not $-\int p\,\mathrm{d}V$?
+
+Two derivations of the same result. Closed-system boundary work is $-\int p\,\mathrm{d}V$. Open systems add the *flow work* $pV$ to push matter across the boundary. Differentiating:
+
+$$\mathrm{d}(pV) = p\,\mathrm{d}V + V\,\mathrm{d}p$$
+
+So $-p\,\mathrm{d}V - \mathrm{d}(pV) = -2 p\,\mathrm{d}V - V\,\mathrm{d}p$, which doesn't cleanly give $\int V\,\mathrm{d}p$ on its own. The clean derivation is via the first law for open systems: adiabatic + steady + no KE/PE gives $w_t = h_2 - h_1$, and for a reversible process, $dh = T\,\mathrm{d}s + v\,\mathrm{d}p$, so with $\mathrm{d}s = 0$ (reversible adiabat = isentropic), $dh = v\,\mathrm{d}p$ — integrating gives $w_t = \int v\,\mathrm{d}p$.
+
+### Evaluating $w_t$ for iso-processes
+
+| Process | $w_t$ (per unit mass, ideal gas) |
+| --- | --- |
+| isobar | 0 (no pressure change → no technical work) |
+| isotherm | $R_s T \ln(p_2/p_1)$ — same magnitude as $-w_V$ |
+| isentrop (adiabat reversibel) | $\dfrac{\kappa}{\kappa - 1} R_s (T_2 - T_1)$ or $h_2 - h_1$ |
+| polytrop ($n \neq 1$) | $\dfrac{n}{n - 1} R_s (T_2 - T_1)$ |
+
+Note the recurring factor $\frac{n}{n-1}$ (or $\frac{\kappa}{\kappa-1}$ for isentropic). Compared to the closed-system boundary work formula $\frac{R_s(T_2-T_1)}{n-1}$, the technical work is **$n$ times larger** in magnitude.
+
+<Callout variant="note">
+
+The factor $n$ (or $\kappa$): technical work on a gas compression is $n \times$ the boundary work, because technical work includes both the compression energy AND the flow-work contribution needed to push the fluid across the system boundary. This is the precise sense in which $H$ (which bundles $U$ and $pV$) is the natural variable for open systems.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Luft wird durch einen adiabaten Verdichter isentrop von $p_1 = 1\,\mathrm{bar}$, $T_1 = 300\,\mathrm{K}$ auf $p_2 = 5\,\mathrm{bar}$ verdichtet. Gas: ideal, $\kappa = 1{,}4$, $R_s = 287\,\mathrm{J/(kg\,K)}$, $c_p = 1005\,\mathrm{J/(kg\,K)}$.
+>
+> *a)* Berechnen Sie $T_2$.
+> *b)* Berechnen Sie die spezifische technische Arbeit $w_t$ über $\int v\,\mathrm{d}p$.
+> *c)* Verifizieren Sie: $w_t = \Delta h = c_p (T_2 - T_1)$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Temperature.**
+
+Isentropic: $T_2/T_1 = (p_2/p_1)^{(\kappa-1)/\kappa} = 5^{0{,}4/1{,}4} = 5^{0{,}2857} \approx 1{,}584$.
+
+$T_2 \approx 300 \cdot 1{,}584 \approx 475{,}2\,\mathrm{K}$.
+
+**b) Technical work via** $\int v\,\mathrm{d}p$.
+
+Using the polytropic form (with $n = \kappa = 1{,}4$):
+
+$$w_t = \frac{\kappa}{\kappa-1} R_s(T_2 - T_1) = \frac{1{,}4}{0{,}4} \cdot 287 \cdot 175{,}2 = 3{,}5 \cdot 287 \cdot 175{,}2$$
+
+$$w_t \approx 176\,000\,\mathrm{J/kg} = 176\,\mathrm{kJ/kg}$$
+
+Positive → work INTO the fluid ✓.
+
+**c) Cross-check with** $w_t = c_p \Delta T$.
+
+$w_t = 1005 \cdot 175{,}2 \approx 176\,100\,\mathrm{J/kg} = 176{,}1\,\mathrm{kJ/kg}$. ✓
+
+Both approaches agree within rounding. This is the fundamental identity:
+
+$$w_t = c_p (T_2 - T_1) = \Delta h \quad \text{for adiabatic reversible (isentropic) flow}$$
+
+For a 1 kg/s mass-flow rate, this is 176 kW of shaft power — what the motor driving the compressor must deliver.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l7-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Welche der folgenden Formeln ist die technische Arbeit für einen quasistatischen Prozess?"
+  question_en="Which formula gives the technical work for a quasi-static process?"
+  options={[
+    { id: "a", de: "w_t = -∫ p dV", en: "w_t = -∫ p dV" },
+    { id: "b", de: "w_t = ∫ V dp", en: "w_t = ∫ V dp" },
+    { id: "c", de: "w_t = p · V", en: "w_t = p · V" },
+    { id: "d", de: "w_t = T · Δs", en: "w_t = T · Δs" },
+  ]}
+  correct="b"
+  hint_en="The pattern: boundary work uses d(volume); technical work swaps the roles of p and V in the integral."
+  solution_mdx={`
+**Correct answer: (b) $w_t = \\int V\\,\\mathrm{d}p$.**
+
+The roles of $p$ and $V$ swap when going from closed to open systems:
+
+- Closed system: $w_V = -\\int p\\,\\mathrm{d}V$ (boundary work)
+- Open system: $w_t = +\\int v\\,\\mathrm{d}p$ (technical work, per unit mass)
+
+Sign note: closed-system work has a minus (expansion = work out); open-system work doesn't have the explicit minus because the integration bounds flip direction naturally (compression has $p_2 > p_1$, positive integral = work in).
+
+Option (c) — $p V$ is not work but rather the product of two state quantities.
+Option (d) — $T \\Delta s$ is (reversible) heat per unit mass, not work.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — W_V formula (boundary, closed-system)",
+      why_en: "Closed vs open system. $-\\int p\\,\\mathrm{d}V$ is boundary work for closed systems (piston-cylinders). $\\int V\\,\\mathrm{d}p$ is technical work for open systems (turbines, compressors, pumps). These are not interchangeable — each applies to its own system type."
+    }
+  ]}
+  discussion_mdx={`
+**The geometric picture.**
+
+On a $(p, V)$ diagram, both integrals are "area under a curve" — but the area is measured from different axes:
+
+- $w_V = -\\int p\\,\\mathrm{d}V$: area under the curve projected onto the V-axis (horizontal).
+- $w_t = \\int V\\,\\mathrm{d}p$: area under the curve projected onto the p-axis (vertical).
+
+For a closed cycle on a (p, V) diagram, these two integrals are equal (both equal the enclosed area). But for non-cyclic processes they are generally different — in fact, differ exactly by $\\Delta(pV)$, which is why enthalpy $h = u + pv$ is the natural open-system quantity.
+
+**Intuitive meaning.** Technical work is the work a shaft does as the fluid flows across a pressure gradient. Volumetric work is the work a piston does as the fluid changes volume. They're different physical settings; they happen to give the same answer for cycles (which is why heat engines can be analysed with either).
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l7-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein adiabater, isentroper Verdichter presst Luft von 1 bar, 300 K auf 10 bar. Luft: κ = 1,4, c_p = 1005 J/(kg·K). Wie groß ist die spezifische technische Arbeit w_t (in kJ/kg)?"
+  question_en="An adiabatic, isentropic compressor pushes air from 1 bar, 300 K to 10 bar. Air: κ = 1.4, c_p = 1005 J/(kg·K). What is the specific technical work w_t (in kJ/kg)?"
+  correct={278.6}
+  tolerance={2}
+  hint_en="First get T_2 from isentropic relation. Then w_t = c_p (T_2 - T_1) = Δh."
+  solution_mdx={`
+**Answer: $w_t \\approx 278{,}6\\,\\mathrm{kJ/kg}$.**
+
+**Step 1. T_2 from isentropic relation.**
+
+$$T_2 = T_1 \\cdot (p_2/p_1)^{(\\kappa-1)/\\kappa} = 300 \\cdot 10^{0{,}2857} \\approx 300 \\cdot 1{,}931 \\approx 579{,}2\\,\\mathrm{K}$$
+
+**Step 2. w_t = c_p ΔT.**
+
+$$w_t = c_p (T_2 - T_1) = 1005 \\cdot (579{,}2 - 300) = 1005 \\cdot 279{,}2$$
+
+$$w_t \\approx 280\\,600\\,\\mathrm{J/kg} \\approx 278{,}6\\,\\mathrm{kJ/kg}$$
+
+(Small differences from rounding in $10^{0{,}2857}$ — accept 277–280.)
+
+**Sanity check.** The gas temperature nearly doubled on a 10× pressure increase. The motor must supply ~280 kJ per kg of air — a hefty input for what sounds like a small thing. An industrial 1 kg/s air compressor running at this ratio would need a ~280 kW motor.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using c_v instead of c_p: 199 kJ/kg",
+      why_en: "Technical work = Δh for adiabatic reversible open flow, which uses c_p. Boundary work = ΔU uses c_v. The distinction is exactly which quantity is conserved: in open flow, enthalpy crosses the boundary (h = u + pv), bundling boundary work into the state quantity."
+    },
+    {
+      wrong: "Using isothermal formula: R_s T ln(p_2/p_1) = 198 kJ/kg",
+      why_en: "The isothermal compression work is lower than the adiabatic work for the same pressure ratio — because isothermal means continuous heat removal during compression. A real adiabatic (isentropic) compressor has HIGHER work. If your answer is close to 198, you computed the isothermal case by mistake."
+    }
+  ]}
+  discussion_mdx={`
+**Why adiabatic compression needs more work than isothermal.**
+
+During adiabatic compression, the gas heats up. At every instant, you are pushing a hotter, denser gas into a smaller volume. The work needed for each differential compression step grows.
+
+Isothermal compression removes heat as fast as work is added, keeping the gas cool throughout. At every step, the gas is at its minimum-work density for that pressure. Work needed is smaller.
+
+For our numbers:
+
+- Isentropic 1→10 bar: $w_t = 280\\,\\mathrm{kJ/kg}$
+- Isothermal 1→10 bar: $w_t = R_s T \\ln(10) = 287 \\cdot 300 \\cdot 2{,}303 = 198\\,\\mathrm{kJ/kg}$
+
+Ratio: 280/198 ≈ 1.41. So a real adiabatic compressor needs ~41 % more work than the isothermal minimum — a big incentive for intercoolers.
+
+**Polytropic middle ground.** Real compressors are polytropic with $n \\approx 1.3$ (partial cooling). Technical work for $n = 1.3$: somewhere between isothermal and isentropic, typically $240\\,\\mathrm{kJ/kg}$ for our pressure ratio. Achievable savings: ~15 % relative to pure isentropic.
+
+**Connection forward.** Kapitel 2 Lesson 8 computes exactly this compressor calculation with real-machine isentropic efficiencies applied on top of the ideal isentropic baseline.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l7-ex3"
+  difficulty="medium"
+  type="multi_select"
+  question_de="Welche Aussagen über technische Arbeit w_t und Volumenänderungsarbeit w_V sind korrekt? (Mehrfachauswahl.)"
+  question_en="Which statements about technical work w_t and boundary work w_V are correct? (Multiple selection.)"
+  options={[
+    { id: "a", de: "w_V gilt für geschlossene Systeme, w_t für offene.", en: "w_V applies to closed systems, w_t to open." },
+    { id: "b", de: "Für einen isentropen Prozess ist w_t = κ · w_V (in Beträgen).", en: "For an isentropic process, |w_t| = κ · |w_V|." },
+    { id: "c", de: "Für einen isobaren Prozess ist w_t = 0.", en: "For an isobaric process, w_t = 0." },
+    { id: "d", de: "w_t = Δh für adiabate, reversible Prozesse.", en: "w_t = Δh for adiabatic, reversible processes." },
+    { id: "e", de: "Beide Arbeiten sind immer gleich für denselben Prozess.", en: "Both works are always equal for the same process." },
+  ]}
+  correct={["a", "b", "c", "d"]}
+  hint_en="Four of the five are correct. The wrong one conflates different system types."
+  solution_mdx={`
+**Correct answers: (a), (b), (c), (d).**
+
+- **(a)** Yes — different system types, different work concepts. $w_V$ for pistons, $w_t$ for shafts.
+- **(b)** Yes — the ratio $w_t/w_V = \\kappa$ for isentropic processes. Technical work is $\\kappa$ times boundary work in magnitude, because it includes the flow-work contribution.
+- **(c)** Yes — isobaric means $dp = 0$ throughout, so $\\int v\\,dp = 0$. Makes sense: a pump or compressor with zero pressure rise does no technical work, even if the fluid changes volume (heated isobarically, say).
+- **(d)** Yes — derived in the lesson. Adiabatic reversible open system: $w_t = \\Delta h$, which equals $c_p \\Delta T$ for ideal gas.
+- **(e)** NO. $w_V$ and $w_t$ are different for non-cyclic processes. They agree only for complete cycles (and even then, only their integrals around the cycle).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Missing (c) isobar → w_t = 0",
+      why_en: "For an isobaric process, $dp = 0$, so the integral $\\int v\\,dp = 0$. This matters in practice: a water-heating beaker, an atmospheric hot-water heat exchanger — all these flow at essentially constant pressure, so all the energy input is heat, not technical work. The pump feeding them does the w_t."
+    },
+    {
+      wrong: "Including (e) always equal",
+      why_en: "$w_V$ and $w_t$ differ by $\\Delta(pV)$ for any process — they agree only for closed cycles where $\\Delta(pV) = 0$ overall. Most processes are NOT cycles, so the two works differ."
+    }
+  ]}
+  discussion_mdx={`
+**Why a pump's technical work is essentially $v \\cdot \\Delta p$ for liquids.**
+
+For an incompressible fluid like water, $v$ is nearly constant. Then:
+
+$$w_t = \\int_1^2 v\\,dp \\approx v \\cdot \\Delta p$$
+
+This is the "pump-work formula" — a big time saver. For liquid water at $v \\approx 0.001\\,\\mathrm{m^3/kg}$ pumped from 1 bar to 100 bar: $w_t \\approx 0.001 \\cdot 99 \\cdot 10^5 = 9900\\,\\mathrm{J/kg} \\approx 10\\,\\mathrm{kJ/kg}$. Small compared to gas compressor work at the same pressure ratio (~280 kJ/kg for 10 bar).
+
+Physical reason: liquids are ~1000× denser than gases at the same $p$, so their $v$ in the integral is ~1000× smaller.
+
+**Connection to hydraulics.** Hydraulic systems exploit this: you can pressurise a liquid to thousands of bar with relatively modest pump power, then use that high pressure to do massive mechanical work downstream. Construction machinery (excavator arms) runs on 200–400 bar hydraulic fluid.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l7-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Eine adiabate Dampfturbine expandiert Dampf: h_1 = 3400 kJ/kg (Eintritt), h_2 = 2600 kJ/kg (Austritt). KE und PE vernachlässigbar. Welche spezifische technische Arbeit w_t (in kJ/kg) gibt die Turbine ab (negativ, wenn OUT aus System)?"
+  question_en="An adiabatic steam turbine expands steam: h_1 = 3400 kJ/kg (inlet), h_2 = 2600 kJ/kg (outlet). KE and PE negligible. What specific technical work w_t (in kJ/kg) does the turbine deliver (negative means OUT of system)?"
+  correct={-800}
+  tolerance={5}
+  hint_en="For adiabatic, reversible (or even just adiabatic steady-flow with Δh known): w_t = Δh = h_2 - h_1."
+  solution_mdx={`
+**Answer: $w_t = -800\\,\\mathrm{kJ/kg}$.**
+
+Adiabatic steady-flow open system, negligible KE/PE:
+
+$$w_t = h_2 - h_1 = 2600 - 3400 = -800\\,\\mathrm{kJ/kg}$$
+
+Negative → work OUT of the control volume → turbine delivers work. For a 10 kg/s steam flow, the power is $P = \\dot{m} w_t = 10 \\cdot (-800) = -8000\\,\\mathrm{kW} = -8\\,\\mathrm{MW}$, i.e. 8 MW delivered.
+
+**Note:** You don't need c_p or any specific-heat capacity here — you have the enthalpy values directly from steam tables. For real substances like water steam, always prefer table values over ideal-gas approximations.
+  `}
+  common_mistakes={[
+    {
+      wrong: "+800 kJ/kg (wrong sign)",
+      why_en: "Sign convention: w_t is the work INTO the fluid. Turbine extracts work, so w_t < 0. If you got +800, you either wrote h_1 - h_2 instead of h_2 - h_1, or reversed the convention."
+    },
+    {
+      wrong: "Trying to compute via c_p ΔT without knowing T",
+      why_en: "For steam, c_p depends on state and isn't constant. Table values for h at each state point are the appropriate approach. Don't invent $\\Delta T$ — use the given $\\Delta h$."
+    }
+  ]}
+  discussion_mdx={`
+**Why steam turbines extract so much work per kg.**
+
+The 800 kJ/kg drop is typical of a high-pressure steam turbine stage. Mechanism: steam expands through several stages, each dropping pressure (say from 200 bar to 0.05 bar over all stages) and enthalpy. Total enthalpy drop across a modern power-plant turbine: 1200–1500 kJ/kg.
+
+At $\\dot{m} = 500\\,\\mathrm{kg/s}$ (large plant), total power: $500 \\cdot 1400 = 700\\,\\mathrm{MW}$ — a typical nuclear-plant-scale turbine.
+
+**Why enthalpy is the right variable for turbines.**
+
+The turbine is an open system with mass flowing through at steady state. Energy crosses the boundary in two forms:
+
+1. Shaft work $W_t$ — via the rotating blade-rotor interaction.
+2. Mass crossing — which carries enthalpy $m \\cdot h$, NOT internal energy, because the fluid has to push against the downstream pressure.
+
+Writing the energy balance in terms of $\\Delta h$ automatically bundles the flow work into the correct accounting. If you'd written it in terms of $\\Delta u$, you'd have to separately add $\\Delta(pv)$ terms — a more complicated and error-prone calculation.
+
+**Connection forward.** Thermodynamik II treats the Clausius-Rankine cycle where this 800 kJ/kg drop is one leg of a four-process cycle. Combined with boiler heat input and pump work and condenser heat rejection, you compute the cycle's thermal efficiency.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For open-system Klausur problems, if the device is adiabatic + steady + no KE/PE (most textbook devices), collapse the full open-system first law down to just:
+
+$$P = \dot{m}\,\Delta h$$
+
+Compressor or pump: $\Delta h > 0$, $P > 0$, motor supplies power.
+
+Turbine: $\Delta h < 0$, $P < 0$, turbine delivers power.
+
+Find $\Delta h$ from tables (for water, refrigerants) or from $c_p \Delta T$ (for air, at moderate conditions).
+
+</Callout>
+
+## Was kommt als Nächstes
+
+The final Kap 2 lesson — **Anwendungen: Drossel, Turbine, Verdichter** — applies everything we've built to worked examples of the three archetypal open-system devices. By the end, you have a template for every first-law Klausur problem you'll ever see.
