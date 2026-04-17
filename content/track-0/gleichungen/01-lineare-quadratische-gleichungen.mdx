@@ -1,0 +1,304 @@
+---
+id: track-0-gleich-l1
+module: schulwissen-auffrischen
+chapter: gleichungen
+position: 1
+name_de: "Lineare und quadratische Gleichungen"
+name_en: "Linear and quadratic equations"
+estimated_minutes: 20
+prerequisites: ["track-0-binom-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Engineering formulas often have one unknown you need to solve for. If the unknown appears linearly ($ax + b = 0$), you rearrange in 10 seconds. If it appears quadratically ($ax^2 + bx + c = 0$), you use the *pq-Formel* or *abc-Formel* — the single most-used formula in engineering mathematics after $F = ma$. This lesson rebuilds both skills.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Gleichung
+    en: equation
+    plural: die Gleichungen
+    example_de: "Eine lineare Gleichung hat die Form ax + b = 0."
+    example_en: "A linear equation has the form ax + b = 0."
+  - term: die Lösung
+    en: solution
+    plural: die Lösungen
+    example_de: "Die Lösung einer Gleichung erfüllt sie."
+    example_en: "The solution of an equation satisfies it."
+  - term: die Diskriminante
+    en: discriminant
+    example_de: "Die Diskriminante entscheidet, wie viele Lösungen eine quadratische Gleichung hat."
+    example_en: "The discriminant decides how many solutions a quadratic has."
+  - term: die pq-Formel
+    en: pq-formula
+    example_de: "Die pq-Formel löst eine normierte quadratische Gleichung."
+    example_en: "The pq-formula solves a normalised quadratic equation."
+</VocabBlock>
+
+## Theorie
+
+### Linear equations
+
+<FormulaCard
+  name_de="Lineare Gleichung"
+  name_en="Linear equation"
+  latex="ax + b = 0 \quad\Rightarrow\quad x = -\frac{b}{a}"
+>
+
+Solution exists and is unique for any $a \neq 0$. For $a = 0$, the equation becomes $b = 0$: either it's true for all $x$ (if $b = 0$) or false for all $x$ (if $b \neq 0$).
+
+</FormulaCard>
+
+### Quadratic equations
+
+<FormulaCard
+  name_de="Quadratische Gleichung in normierter Form: die pq-Formel"
+  name_en="Quadratic equation in normalised form: the pq-formula"
+  latex="x^2 + p\,x + q = 0 \quad\Rightarrow\quad x_{1,2} = -\frac{p}{2} \pm \sqrt{\left(\frac{p}{2}\right)^2 - q}"
+>
+
+Applicable when the coefficient of $x^2$ is 1 (divide through if not).
+
+**Three cases based on the discriminant** $D = (p/2)^2 - q$:
+
+- $D > 0$: two real solutions $x_1 \neq x_2$.
+- $D = 0$: one double solution $x_1 = x_2 = -p/2$.
+- $D < 0$: no real solutions (two complex-conjugate solutions in ℂ).
+
+</FormulaCard>
+
+<FormulaCard
+  name_de="abc-Formel (allgemein)"
+  name_en="abc-formula (general)"
+  latex="ax^2 + bx + c = 0 \quad\Rightarrow\quad x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}"
+>
+
+Also called the *Mitternachtsformel* because every German high-school student is supposed to know it "even at midnight". Works when $a \neq 0$, regardless of whether you've normalised.
+
+Discriminant here: $D = b^2 - 4ac$. Same three cases as the pq-formula.
+
+</FormulaCard>
+
+Both formulas give the same solutions. Use whichever feels cleaner — the *pq* for already-normalised equations, the *abc* for general ones.
+
+### Derivation: completing the square
+
+Starting from $x^2 + px + q = 0$, add $(p/2)^2$ to both sides to complete the square:
+
+$$x^2 + px + (p/2)^2 = (p/2)^2 - q \quad\Rightarrow\quad (x + p/2)^2 = (p/2)^2 - q$$
+
+Take square root: $x + p/2 = \pm\sqrt{(p/2)^2 - q}$, then isolate $x$. That's the pq-formula.
+
+The binomial formula $(a+b)^2 = a^2 + 2ab + b^2$ is what enables this "complete the square" step — $x^2 + px = (x + p/2)^2 - (p/2)^2$.
+
+## Musteraufgabe
+
+> **Aufgabe.** Lösen Sie:
+>
+> a) $3x - 12 = 0$
+> b) $x^2 - 5x + 6 = 0$
+> c) $2x^2 + 4x - 6 = 0$
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a)** Linear: $x = 12/3 = 4$.
+
+**b)** Use pq-formula with $p = -5$, $q = 6$:
+
+$$x = \frac{5}{2} \pm \sqrt{(5/2)^2 - 6} = 2{,}5 \pm \sqrt{6{,}25 - 6} = 2{,}5 \pm 0{,}5$$
+
+$x_1 = 3$, $x_2 = 2$. Check: $3 \cdot 2 = 6$ ✓ and $3 + 2 = 5$ ✓ (Vieta's formulas).
+
+**c)** Normalise first: divide by 2 → $x^2 + 2x - 3 = 0$. Apply pq with $p = 2$, $q = -3$:
+
+$$x = -1 \pm \sqrt{1 - (-3)} = -1 \pm 2$$
+
+$x_1 = 1$, $x_2 = -3$.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-gleich-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Lösen Sie 5x - 20 = 0."
+  question_en="Solve 5x - 20 = 0."
+  correct={4}
+  tolerance={0.01}
+  hint_en="Add 20 to both sides, then divide by 5."
+  solution_mdx={`
+**Answer: $x = 4$.**
+
+$$5x - 20 = 0 \\quad\\Leftrightarrow\\quad 5x = 20 \\quad\\Leftrightarrow\\quad x = 4$$
+
+Check: $5 \\cdot 4 - 20 = 20 - 20 = 0$ ✓.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering -4 (sign error)",
+      why_en: "Rearranging $5x - 20 = 0$ to $5x = 20$ (add 20 to both sides). Then $x = 4$, positive. If you got -4, you either subtracted 20 from both sides (giving 5x = -20) or messed up signs somewhere."
+    }
+  ]}
+  discussion_mdx={`
+**Linear equations in engineering.**
+
+Every time you isolate a variable from a formula. Example: from $pV = nRT$, to find $V$: $V = nRT/p$ — a linear operation. From $F = ma$ to find $a$: $a = F/m$. This is the most basic but most frequent manipulation.
+
+**Units as a check.** After rearranging, units should match on both sides. $V$ in m³, $nRT/p$ has units $\\mathrm{mol \\cdot J/(mol \\cdot K) \\cdot K / Pa} = \\mathrm{J/Pa} = \\mathrm{m^3}$. ✓
+  `}
+/>
+
+<Exercise
+  id="track-0-gleich-l1-ex2"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Lösen Sie x² - 4x + 3 = 0 mit der pq-Formel."
+  question_en="Solve x² - 4x + 3 = 0 using the pq-formula."
+  correct_latex="x_1 = 3, x_2 = 1"
+  hint_en="pq with p = -4, q = 3: x = 2 ± √(4 - 3)."
+  solution_mdx={`
+**Answer: $x_1 = 3$, $x_2 = 1$.**
+
+With $p = -4$, $q = 3$:
+
+$$x = -\\frac{-4}{2} \\pm \\sqrt{(-4/2)^2 - 3} = 2 \\pm \\sqrt{4 - 3} = 2 \\pm 1$$
+
+So $x_1 = 3$, $x_2 = 1$.
+
+**Check (Vieta):** $x_1 \\cdot x_2 = 3 \\cdot 1 = 3 = q$ ✓, $x_1 + x_2 = 3 + 1 = 4 = -p$ ✓.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Sign error on p: using p = 4 instead of -4, getting x = -2 ± 1",
+      why_en: "The pq-formula uses the SIGNED coefficients. For $x^2 - 4x + 3$, $p = -4$ (the coefficient of $x$), $q = 3$ (the constant). The formula then has $-p/2 = -(-4)/2 = +2$, not $-2$. Always match signs carefully."
+    }
+  ]}
+  discussion_mdx={`
+**Vieta's formulas — the sanity check.**
+
+For $x^2 + px + q = 0$ with solutions $x_1, x_2$:
+
+- $x_1 + x_2 = -p$
+- $x_1 \\cdot x_2 = q$
+
+This is two equations for two unknowns; it gives you the solutions directly in many cases. Example: $x^2 - 5x + 6 = 0$: looking for two numbers that add to 5 and multiply to 6. Try 2 and 3: $2 + 3 = 5$ ✓, $2 \\cdot 3 = 6$ ✓. So $x_1 = 2$, $x_2 = 3$.
+
+Vieta's formulas also let you construct quadratics with given roots. Want a quadratic with roots 5 and $-2$? Then $p = -(5 + (-2)) = -3$, $q = 5 \\cdot (-2) = -10$, giving $x^2 - 3x - 10 = 0$.
+  `}
+/>
+
+<Exercise
+  id="track-0-gleich-l1-ex3"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Lösen Sie 2x² + 6x - 8 = 0."
+  question_en="Solve 2x² + 6x - 8 = 0."
+  correct_latex="x_1 = 1, x_2 = -4"
+  hint_en="Normalise first (divide by 2), then apply pq-formula."
+  solution_mdx={`
+**Answer: $x_1 = 1$, $x_2 = -4$.**
+
+Divide by 2: $x^2 + 3x - 4 = 0$.
+
+With $p = 3$, $q = -4$:
+
+$$x = -\\frac{3}{2} \\pm \\sqrt{(3/2)^2 - (-4)} = -1{,}5 \\pm \\sqrt{2{,}25 + 4} = -1{,}5 \\pm \\sqrt{6{,}25} = -1{,}5 \\pm 2{,}5$$
+
+So $x_1 = 1$, $x_2 = -4$.
+
+**Alternative with abc.** Without normalising: $a = 2$, $b = 6$, $c = -8$. $D = 36 + 64 = 100$, $\\sqrt{D} = 10$. $x = (-6 \\pm 10)/4$. $x_1 = 4/4 = 1$, $x_2 = -16/4 = -4$. Same answer.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting to normalise: apply pq directly with p=6, q=-8",
+      why_en: "The pq-formula requires the coefficient of $x^2$ to be 1. For $2x^2 + 6x - 8 = 0$, you MUST divide through by 2 first: $x^2 + 3x - 4 = 0$. Applying pq with the original $p=6$, $q=-8$ would give wrong answers. The abc-formula avoids this step by handling general coefficients directly."
+    }
+  ]}
+  discussion_mdx={`
+**When to use pq vs abc.**
+
+- **pq:** the equation is already in $x^2 + px + q = 0$ form, OR dividing through is trivial (coefficient of $x^2$ is a nice integer like 2 or 3).
+- **abc:** the coefficient of $x^2$ is awkward (like 5, 7, 11), or the equation is given in $ax^2 + bx + c$ form and you don't want to normalise.
+
+Both always work; it's a preference. Some German textbooks teach only pq; some mix. For the Klausur, know both and pick based on context.
+
+**Discriminant sanity check.** For this problem, $D = b^2 - 4ac = 36 - 4(2)(-8) = 36 + 64 = 100$. $\\sqrt{100} = 10$, integer → clean roots. If your $D$ came out to a nasty decimal, either there's a calculation error or the roots are genuinely irrational (not unusual — check your arithmetic once, then proceed).
+  `}
+/>
+
+<Exercise
+  id="track-0-gleich-l1-ex4"
+  difficulty="klausur"
+  type="multiple_choice"
+  question_de="Welche Aussage über die Gleichung x² + 2x + 5 = 0 ist korrekt?"
+  question_en="Which statement about x² + 2x + 5 = 0 is correct?"
+  options={[
+    { id: "a", de: "Sie hat zwei reelle Lösungen.", en: "It has two real solutions." },
+    { id: "b", de: "Sie hat genau eine reelle Lösung (Doppelwurzel).", en: "It has exactly one real solution (double root)." },
+    { id: "c", de: "Sie hat keine reellen Lösungen (aber zwei komplexe).", en: "It has no real solutions (but two complex ones)." },
+    { id: "d", de: "Sie ist unlösbar in jedem Zahlbereich.", en: "It is unsolvable in any number system." },
+  ]}
+  correct="c"
+  hint_en="Compute the discriminant D = (p/2)² - q. Negative → no real solutions."
+  solution_mdx={`
+**Correct answer: (c) — no real solutions.**
+
+With $p = 2$, $q = 5$:
+
+$$D = (p/2)^2 - q = 1 - 5 = -4 < 0$$
+
+Discriminant is negative → no real solutions. The two solutions in the complex numbers are $x = -1 \\pm 2i$ (where $i = \\sqrt{-1}$).
+
+**(d)** is wrong because complex numbers do exist. Every polynomial equation has at least one solution in $\\mathbb{C}$ (Gauss's fundamental theorem of algebra).
+
+**(a)** is wrong because the discriminant is negative.
+
+**(b)** would require $D = 0$; here $D = -4$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — two real solutions",
+      why_en: "Only true when $D > 0$. Check the discriminant first: $(p/2)^2 - q = 1 - 5 = -4$. Negative discriminant means no real roots. If you computed $D$ and got positive, you probably confused the sign of $q$."
+    },
+    {
+      wrong: "d — unsolvable anywhere",
+      why_en: "In the real numbers, yes — no solution. But in the complex numbers, every quadratic has exactly two solutions (counting multiplicity). The complex extension of $\\mathbb{R}$ is specifically designed to give square roots of negative numbers meaning, hence solutions to equations like this."
+    }
+  ]}
+  discussion_mdx={`
+**What happens physically when a discriminant is negative.**
+
+Engineering context: a damped oscillator obeys $m \\ddot{x} + c \\dot{x} + k x = 0$, with characteristic equation $\\lambda^2 + (c/m)\\lambda + (k/m) = 0$.
+
+- $D > 0$: overdamped — no oscillation, exponential decay to equilibrium.
+- $D = 0$: critically damped — fastest return to equilibrium without overshoot.
+- $D < 0$: underdamped — oscillation with exponentially decaying amplitude.
+
+The last case has complex roots $\\lambda = -\\alpha \\pm i\\omega$, which translate (via Euler's formula $e^{i\\omega t} = \\cos\\omega t + i\\sin\\omega t$) into a real-valued oscillatory solution $e^{-\\alpha t}\\cos(\\omega t + \\phi)$.
+
+So negative discriminants aren't "nothing happens" — they correspond to oscillatory physical behaviour. Mechanics, electronics, thermal systems — all have these regimes.
+
+**Connection forward.** In Analysis II and vibrations, the link between complex roots and physical oscillation is made formal. For now, the point is: discriminant is a DIAGNOSTIC, not a fail state.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** Before jumping into pq/abc: check whether the equation factors easily. $x^2 - 5x + 6 = (x-2)(x-3) = 0$ gives $x = 2$ or $x = 3$ instantly. If the numbers are friendly (small integers), factoring is often faster than the formula. Use pq/abc when factoring is not obvious.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next: **Vektorrechnung-Grundlagen** — vectors as arrows, addition and scalar multiplication, the dot product for finding angles and projections, the cross product for areas and perpendiculars. Essential for mechanics, fluid flow, and vector fields in thermodynamics.
