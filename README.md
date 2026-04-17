@@ -24,6 +24,38 @@ npm run dev                  # http://localhost:3000
 
 Without Supabase env vars, the app reads lessons directly from `content/**/*.mdx` — useful for offline development and for a first-boot smoke test.
 
+### Supabase (optional for MVP)
+
+The schema lives in `supabase/migrations/` and is only needed for the seeded DB path, auth, and per-user features (notes, SRS, discussions, past-exam uploads). MVP without these runs fine off the filesystem.
+
+**Local Supabase** — for a one-command sandboxed Postgres + Auth + Studio:
+
+```bash
+# Install the CLI once (https://supabase.com/docs/guides/cli)
+supabase start          # boots Postgres on :54322, Studio on :54323
+supabase db reset       # applies migrations 0001 + 0002
+```
+
+`supabase/config.toml` is tuned for this workflow (Inbucket on :54324 catches magic-link emails; Google OAuth is off locally and enabled in the dashboard for prod).
+
+**Remote Supabase** — create a free project at [supabase.com](https://supabase.com/), grab the project ref, then:
+
+```bash
+supabase link --project-ref <ref>
+supabase db push                          # applies all migrations
+echo 'NEXT_PUBLIC_SUPABASE_URL=https://<ref>.supabase.co' >> .env.local
+echo 'NEXT_PUBLIC_SUPABASE_ANON_KEY=...'                  >> .env.local
+echo 'SUPABASE_SERVICE_ROLE_KEY=...'                      >> .env.local
+npm run seed                              # populates tracks/modules/lessons/glossary
+```
+
+Migrations:
+
+| File | What it adds |
+| --- | --- |
+| `0001_init.sql` | 16 tables · RLS · `touch_updated_at` trigger · auto `profiles` on signup |
+| `0002_anonymous_content_reads.sql` | Lets the `anon` role read content tables (MVP runs without auth) |
+
 ### Useful routes
 
 - `/` — home with the reference-slice lesson list
