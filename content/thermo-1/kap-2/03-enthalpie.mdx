@@ -1,0 +1,339 @@
+---
+id: thermo-1-k2-l3
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 3
+name_de: "Enthalpie H"
+name_en: "Enthalpy H"
+estimated_minutes: 20
+prerequisites: ["thermo-1-k2-l2"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Internal energy $U$ is great for closed systems — matter stays put, so you only track what happens inside the boundary. But the moment matter crosses a boundary (a turbine, a heat exchanger, a compressor), you need to track the energy carried IN with the flowing matter, plus the work spent pushing it across the boundary. That combination is <GermanTerm de="Enthalpie" article="die" en="enthalpy" />:
+
+$$
+H = U + pV \qquad\text{or per unit mass}\qquad h = u + pv
+$$
+
+Enthalpy is what lives on steam tables. Every open-system energy balance in the rest of this course is written in $h$, not $u$. Knowing why this combination is useful is the point of this lesson.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Enthalpie
+    en: enthalpy
+    ipa: /ɛntalˈpiː/
+    example_de: "Die Enthalpie H = U + pV ist eine Zustandsgröße."
+    example_en: "Enthalpy H = U + pV is a state variable."
+  - term: die Verschiebearbeit
+    en: flow work (displacement work)
+    example_de: "Die Verschiebearbeit pv wird beim Ein- und Austreten von Masse verrichtet."
+    example_en: "Flow work pv is done when mass enters and leaves a system."
+  - term: die spezifische Enthalpie
+    en: specific enthalpy
+    example_de: "Die spezifische Enthalpie h = u + pv hat die Einheit J/kg."
+    example_en: "Specific enthalpy h = u + pv has units of J/kg."
+</VocabBlock>
+
+## Theorie
+
+### The definition
+
+$H \equiv U + pV$. By construction, $H$ is a state quantity (sum of a state quantity $U$ and the product of two state quantities $p$, $V$). Its specific form: $h = u + pv$. Units are J for $H$, J/kg for $h$.
+
+### Why "U plus pV" is the natural open-system quantity
+
+Picture a pipe carrying fluid across a system boundary. A small chunk of fluid of volume $v$ (per unit mass) is about to enter. For it to enter, whatever is behind it must *push* it across the boundary against the local pressure $p$. The work done by that upstream fluid on the chunk is $p \cdot v$ per unit mass — this is the **Verschiebearbeit** (flow work).
+
+So the total energy carried across the boundary per unit mass is: the internal energy $u$ the fluid had + the flow work $pv$ spent pushing it in. That sum is $h = u + pv$ — the specific enthalpy.
+
+This is why open-system energy balances have $\dot{m} \cdot h$ terms, not $\dot{m} \cdot u$ terms: enthalpy bundles together the fluid's internal energy AND the flow work needed to move it, into a single convenient quantity.
+
+### Ideal-gas specialisation
+
+For an ideal gas, $pv = R_s T$, so:
+
+$$h = u + pv = u(T) + R_s T = h(T)$$
+
+Enthalpy depends only on temperature for an ideal gas — same simplification as internal energy. Differentiating:
+
+<FormulaCard
+  name_de="Enthalpie und c_p"
+  name_en="Enthalpy and c_p"
+  latex="\mathrm{d}h = c_p(T) \, \mathrm{d}T \quad \Rightarrow \quad \Delta h = \int_{T_1}^{T_2} c_p(T)\,\mathrm{d}T \approx c_p \, \Delta T"
+  variables={[
+    { symbol: "c_p", name_de: "spezifische Wärmekapazität bei konstantem Druck", name_en: "specific heat capacity at constant pressure", unit: "J/(kg·K)" },
+  ]}
+>
+
+For any ideal-gas process, $\Delta h = c_p \, \Delta T$. Valid even for isochoric processes, because $h$ is a state quantity and depends only on $T$ for an ideal gas.
+
+</FormulaCard>
+
+### Heat in isobaric closed-system processes
+
+For a closed system undergoing an isobaric (constant-$p$) process:
+
+- First law: $\Delta U = Q + W_V$.
+- Isobaric boundary work: $W_V = -p \, \Delta V$.
+- So: $Q = \Delta U - W_V = \Delta U + p\,\Delta V = \Delta U + \Delta(pV) = \Delta (U + pV) = \Delta H$.
+
+**For isobaric closed systems, $Q = \Delta H$.** This is why $H$ was invented — to let isobaric heat calculations look like state-quantity differences.
+
+## Musteraufgabe
+
+> **Aufgabe.** 2 kg Luft ($c_p = 1005\,\mathrm{J/(kg\,K)}$) werden in einem offenen System (Heizregister) isobar von $T_1 = 290\,\mathrm{K}$ auf $T_2 = 340\,\mathrm{K}$ erwärmt.
+>
+> *a)* Wie groß ist die spezifische Enthalpieänderung $\Delta h$?
+> *b)* Wie groß ist die gesamte Enthalpieänderung $\Delta H$?
+> *c)* Welche Wärme $Q$ muss zugeführt werden (vernachlässigbare kin./pot. Energieänderungen)?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Specific enthalpy change.**
+
+For ideal gas, $\Delta h = c_p \Delta T$ irrespective of process type:
+
+$$\Delta h = 1005 \cdot (340 - 290) = 1005 \cdot 50 = 50\,250\,\mathrm{J/kg} \approx 50{,}3\,\mathrm{kJ/kg}$$
+
+**b) Total enthalpy change.**
+
+$$\Delta H = m \cdot \Delta h = 2 \cdot 50\,250 = 100\,500\,\mathrm{J} \approx 100{,}5\,\mathrm{kJ}$$
+
+**c) Heat required.**
+
+For an open-system steady-flow heating with negligible KE/PE and no shaft work:
+
+$$\dot{Q} = \dot{m} \Delta h \quad \Rightarrow \quad Q \text{ per kg of air passing through} = \Delta h$$
+
+For the entire 2 kg of air: $Q = \Delta H = 100{,}5\,\mathrm{kJ}$.
+
+**Comparison to closed-system isobaric heating.** Coincidentally, for an isobaric closed system with the same air, same $T_1$, $T_2$, we'd also get $Q = m c_p \Delta T = 100{,}5\,\mathrm{kJ}$. This is not a coincidence — it is the deep reason $H$ is useful in both contexts.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l3-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Die Enthalpie H ist definiert als …"
+  question_en="Enthalpy H is defined as …"
+  options={[
+    { id: "a", de: "H = U + pV", en: "H = U + pV" },
+    { id: "b", de: "H = U - pV", en: "H = U - pV" },
+    { id: "c", de: "H = U + TS", en: "H = U + TS" },
+    { id: "d", de: "H = U · pV", en: "H = U · pV" },
+  ]}
+  correct="a"
+  hint_en="Enthalpy adds the 'flow work' pV to the internal energy U."
+  solution_mdx={`
+**Correct answer: (a) H = U + pV.**
+
+This is the definition. The combination is chosen so that in isobaric processes, $\\Delta H = Q$, and in open-system flows, $h$ captures both the internal energy and the flow work a fluid chunk needs to cross a boundary.
+
+Option (c) is the Helmholtz free energy A = U - TS or related — NOT enthalpy. Option (b) and (d) are just wrong definitions.
+  `}
+  common_mistakes={[
+    {
+      wrong: "c — H = U + TS (or similar free-energy form)",
+      why_en: "Free energies (Helmholtz A = U - TS, Gibbs G = H - TS) are different thermodynamic potentials useful for different contexts (A: constant T + V; G: constant T + p). Enthalpy is specifically H = U + pV — the additional quantity is pV (mechanical), not TS (thermal)."
+    }
+  ]}
+  discussion_mdx={`
+**The four main thermodynamic potentials, at a glance.**
+
+| Potential | Definition | Useful when |
+| --- | --- | --- |
+| $U$ | primary | constant $S$, $V$ |
+| $H = U + pV$ | "enthalpy" | constant $S$, $p$ |
+| $A = U - TS$ | "Helmholtz free energy" | constant $T$, $V$ |
+| $G = H - TS$ | "Gibbs free energy" | constant $T$, $p$ |
+
+Thermodynamik I focuses mostly on $U$ and $H$. Kapitel 4 introduces $S$ (entropy), after which $A$ and $G$ become meaningful. In chemical thermodynamics, $G$ is central — the sign of $\\Delta G$ decides reaction spontaneity at constant $T$ and $p$.
+
+**Memory device.** "U + pV" → "internal energy + flow work push" → enthalpy. Bundles stored energy and the pressure-volume work that goes with it. Whenever matter crosses a boundary against pressure, enthalpy is the right stored quantity.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l3-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Wasserdampf (m = 0{,}5 kg) wird in einer Wärmetauscherstufe bei konstantem Druck von h_1 = 2770 kJ/kg auf h_2 = 3275 kJ/kg erhitzt. Wie groß ist die zugeführte Wärme Q (in kJ)?"
+  question_en="Steam (m = 0.5 kg) is heated in a heat-exchanger stage at constant pressure from h_1 = 2770 kJ/kg to h_2 = 3275 kJ/kg. What heat Q (in kJ) is transferred?"
+  correct={252.5}
+  tolerance={1}
+  hint_en="Isobaric open-system heating: Q = m · (h_2 - h_1)."
+  solution_mdx={`
+**Answer: $Q = 252{,}5\\,\\mathrm{kJ}$.**
+
+For an isobaric heat-exchanger stage with no shaft work and negligible kinetic/potential energy, the energy balance reduces to $\\dot{Q} = \\dot{m} \\Delta h$, which in batch form is $Q = m \\Delta h$.
+
+$$Q = m (h_2 - h_1) = 0{,}5 \\cdot (3275 - 2770) = 0{,}5 \\cdot 505 = 252{,}5\\,\\mathrm{kJ}$$
+
+**Why no $c_p$?** Because the specific enthalpy values $h_1$, $h_2$ are already given directly (from the steam tables). For steam at these conditions, using $c_p$ would be less accurate than reading $\\Delta h$ from the table. Open-system thermo problems on real substances almost always use tabulated $h$ values.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using ΔU = U_2 - U_1 formula with these h values: still gives 252.5 if lucky",
+      why_en: "For isobaric heating of a flow-through system, $Q$ equals $\\Delta H$, NOT $\\Delta U$. For an ideal gas these differ by the flow-work term $p \\Delta V$. For real substances like steam at 100 bar, the difference is substantial and you need to use $h$ (from tables), not $u$."
+    },
+    {
+      wrong: "Forgetting to multiply by mass: Q = 505 kJ",
+      why_en: "$\\Delta h$ is per unit mass (units: kJ/kg). The total heat depends on how much mass passes through. 505 kJ/kg × 0.5 kg = 252.5 kJ. Always check units at the end — kJ/kg is not kJ."
+    }
+  ]}
+  discussion_mdx={`
+**Steam tables — your best friend in Thermodynamik II.**
+
+A typical steam table lists, for each (p, T): specific volume $v$, specific internal energy $u$, specific enthalpy $h$, specific entropy $s$. You don't compute these with formulas — you look them up. The lookup is always in specific form (per kg) because that makes the table size-independent.
+
+For Thermodynamik I, ideal-gas estimates are usually fine. For Thermodynamik II and beyond, tables become standard once the working fluid is water, a refrigerant, or similar.
+
+**The saturation region.** Inside the vapour dome, $p$ and $T$ are dependent (related by the Clausius-Clapeyron curve), so $(p, T)$ doesn't uniquely specify the state — you need additionally a vapour fraction $x$. Then:
+
+$$h(x) = (1-x) \\cdot h_{\\text{liq}}(p) + x \\cdot h_{\\text{vap}}(p)$$
+
+Mixture enthalpy is a linear interpolation between the saturated liquid and saturated vapour values. This is how heat-of-vaporisation calculations are handled in boilers and condensers.
+
+**Connection forward.** Kapitel 2 Lesson 5 (Energiebilanz offenes System) turns $\\dot{Q} = \\dot{m} \\Delta h$ into the full steady-state energy balance including shaft work, kinetic energy, and potential energy terms.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l3-ex3"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Für welchen der folgenden Prozesse gilt Q = ΔH (ohne Wellenarbeit, vernachlässigbare kin./pot. Energie)?"
+  question_en="For which of the following processes does Q = ΔH hold (no shaft work, negligible KE/PE)?"
+  options={[
+    { id: "a", de: "isochorer Prozess (V = const)", en: "isochoric process (V = const)" },
+    { id: "b", de: "isobarer Prozess (p = const)", en: "isobaric process (p = const)" },
+    { id: "c", de: "adiabater Prozess (Q = 0)", en: "adiabatic process (Q = 0)" },
+    { id: "d", de: "isothermer Prozess (T = const)", en: "isothermal process (T = const)" },
+  ]}
+  correct="b"
+  hint_en="Work that H 'swallows' is exactly the pΔV boundary work — which exists only when V changes at constant p."
+  solution_mdx={`
+**Correct answer: (b) isobaric.**
+
+Derivation for isobaric closed system with no shaft work:
+
+$$Q = \\Delta U - W_V = \\Delta U - (-p\\Delta V) = \\Delta U + p\\Delta V$$
+
+At constant $p$: $\\Delta(pV) = p\\Delta V$, so:
+
+$$Q = \\Delta U + \\Delta(pV) = \\Delta(U + pV) = \\Delta H$$
+
+For other processes:
+
+- **Isochoric:** $Q = \\Delta U$ (no boundary work), not $\\Delta H$.
+- **Adiabatic:** $Q = 0$, so $\\Delta H$ is computed from $\\Delta U + \\Delta(pV)$; $Q$ is just zero.
+- **Isothermal (ideal gas):** $\\Delta U = 0$ and $\\Delta H = 0$, so $Q = -W$ — they happen to match ($\\Delta H = Q$ trivially as 0 = 0), but not in a useful way.
+
+The specific *usefulness* of $Q = \\Delta H$ is for isobaric heating.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — isochoric",
+      why_en: "For isochoric, $W_V = 0$, so $Q = \\Delta U$, NOT $\\Delta H$. The difference $\\Delta H - \\Delta U = V \\Delta p$ (at constant V, V times the pressure change) does NOT equal zero — pressure still changes. Writing $Q = \\Delta H$ for an isochoric problem would be a wrong energy balance."
+    }
+  ]}
+  discussion_mdx={`
+**The Q-matching table for ideal-gas closed systems.**
+
+| Process | Q |
+| --- | --- |
+| isochor | $Q = \\Delta U = m c_v \\Delta T$ |
+| isobar | $Q = \\Delta H = m c_p \\Delta T$ |
+| isotherm | $Q = -W_V = m R_s T \\ln(p_2/p_1)$ |
+| adiabat | $Q = 0$ |
+
+This table is worth memorising. It answers: "given the process type, what's the heat?" — which is the single most common Klausur sub-question.
+
+**Open vs closed — why the same $Q = \\Delta H$ result holds for isobaric flow.**
+
+For an open system (heat exchanger, boiler stage) operating at constant pressure with no shaft work and negligible KE/PE, the energy balance per unit mass of working fluid is:
+
+$$\\dot{Q}/\\dot{m} = \\Delta h$$
+
+— the same shape as $Q = \\Delta H$ for closed systems. Not coincidence: in both cases, all heat added at constant pressure shows up as an enthalpy increase, because the expansion work is already bundled into $h = u + pv$.
+
+**Calorimetry in chemistry.** Chemical thermodynamics works in constant-$p$ conditions (open beakers), so $\\Delta H_{\\text{rxn}}$ is the natural reaction-heat measurement. Chemists call it "enthalpy of reaction" precisely because $Q_p = \\Delta H$. Engineering uses the same terminology.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l3-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="2 kg Luft (c_p = 1005 J/(kg·K), c_v = 718 J/(kg·K)) werden isobar von 300 K auf 500 K erhitzt. Berechnen Sie ΔH - ΔU (in kJ) — d. h. wie viel mehr Energie steckt in der Enthalpieänderung gegenüber der inneren-Energie-Änderung?"
+  question_en="2 kg of air (c_p = 1005 J/(kg·K), c_v = 718 J/(kg·K)) is heated isobarically from 300 K to 500 K. Compute ΔH - ΔU (in kJ) — how much more energy is in the enthalpy change compared with the internal-energy change?"
+  correct={114.8}
+  tolerance={1}
+  hint_en="ΔH - ΔU = m (c_p - c_v) ΔT = m R_s ΔT (by Mayer). This equals the boundary work the gas did at constant p."
+  solution_mdx={`
+**Answer: $\\Delta H - \\Delta U \\approx 114{,}8\\,\\mathrm{kJ}$.**
+
+By Mayer's relation $c_p - c_v = R_s$:
+
+$$\\Delta H - \\Delta U = m (c_p - c_v) \\Delta T = m R_s \\Delta T$$
+
+$$\\Delta H - \\Delta U = 2 \\cdot 287 \\cdot 200 = 114\\,800\\,\\mathrm{J} \\approx 114{,}8\\,\\mathrm{kJ}$$
+
+**Physical meaning.** This 114.8 kJ is exactly the boundary work the gas did against the constant external pressure as it expanded during heating:
+
+$$W_V = -p \\Delta V = -p \\cdot \\frac{m R_s \\Delta T}{p} = -m R_s \\Delta T$$
+
+(using $\\Delta V = mR_s \\Delta T / p$ at constant $p$). So $|W_V| = m R_s \\Delta T = 114{,}8\\,\\mathrm{kJ}$, pointing out of the system.
+
+First-law check: $\\Delta U = Q + W_V$, with $Q = \\Delta H = m c_p \\Delta T \\approx 402\\,\\mathrm{kJ}$ and $W_V = -114{,}8\\,\\mathrm{kJ}$, giving $\\Delta U \\approx 287{,}2\\,\\mathrm{kJ}$ — matching $m c_v \\Delta T = 287{,}2\\,\\mathrm{kJ}$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using c_p ΔT instead of (c_p - c_v) ΔT: 402 kJ",
+      why_en: "That's the answer to $\\Delta H$ (or to $Q$ for isobaric), not $\\Delta H - \\Delta U$. The difference is exactly $m R_s \\Delta T$ — Mayer's relation paying off."
+    },
+    {
+      wrong: "Thinking ΔH = ΔU and answering 0",
+      why_en: "For a real-gas or even ideal-gas process, $\\Delta H$ and $\\Delta U$ are generally different. They coincide only under specific circumstances (like isothermal processes on ideal gases where both are zero). For isobaric heating with $\\Delta T \\neq 0$, the difference is the boundary work $p \\Delta V$, which is non-zero."
+    }
+  ]}
+  discussion_mdx={`
+**Unifying picture: $H$, $U$, and the work they 'absorb'.**
+
+- $\\Delta U = m c_v \\Delta T$: captures ONLY the temperature rise's energy cost. Ignores boundary expansion.
+- $\\Delta H = m c_p \\Delta T$: captures the temperature rise AND the boundary work $p \\Delta V$ bundled in.
+- Difference: $m R_s \\Delta T = p \\Delta V = $ boundary work at constant $p$.
+
+Which one you use depends on whether boundary work is already "counted" in your accounting:
+
+- Closed isochoric: $Q = \\Delta U$ (no boundary work anyway).
+- Closed isobaric: $Q = \\Delta H$ (boundary work is bundled into H).
+- Open system: $\\dot{Q} + P_t = \\dot{m} \\Delta h + \\dot{m} \\cdot (\\text{KE, PE terms})$ — H naturally bundles the flow work.
+
+**Common Klausur slip.** Using $m c_p \\Delta T$ everywhere. This overcounts for isochoric problems (where only $c_v$ is right) and for isothermal problems (where both are zero). Pick the right heat capacity by following the process logic.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** Writing down the first law at the start of every first-law problem is worth one mark. For closed systems: $\Delta U = Q + W$. For steady-state open systems: $\dot{Q} + P_t = \dot{m}\left[\Delta h + \tfrac{1}{2}\Delta c^2 + g\Delta z\right]$. Once written, the examiner knows you know the right tool — even if the algebra later goes wrong.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+In the next lesson — **Energiebilanz für geschlossene Systeme** — we assemble everything from Lessons 1-3 (work types, heat sign, internal energy, enthalpy) into the first law's full form for closed systems, and run through the four iso-processes with the full energy bookkeeping. By the end of that lesson you will have a one-page cheat sheet that solves 80 % of Kap 2 Klausur problems.
