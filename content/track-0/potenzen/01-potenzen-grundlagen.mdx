@@ -1,0 +1,340 @@
+---
+id: track-0-potenzen-l1
+module: schulwissen-auffrischen
+chapter: potenzen
+position: 1
+name_de: "Potenzen und Wurzeln — das Minimum, das jeder Ingenieur braucht"
+name_en: "Powers and roots — the minimum every engineer needs"
+estimated_minutes: 20
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+A quarter of all engineering formulas have a power in them. Kinetic energy is $\tfrac{1}{2}m c^2$ (a square). Wind-turbine power is $\propto c^3$ (a cube). Heat radiation is $\propto T^4$ (Stefan-Boltzmann). When you want to manipulate these — solve for one variable, take a ratio, compare two cases — you need the rules of exponent arithmetic cold.
+
+This lesson is a refresher, not new territory. If you remember that $x^a \cdot x^b = x^{a+b}$ you can skim; if you hesitate on that one, stay. By the end you will be comfortable with powers of any sign, with roots as fractional exponents, and with the scientific-notation arithmetic that every lab and Klausur requires.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Potenz
+    en: power (exponentiation)
+    plural: die Potenzen
+    ipa: /poˈtɛnʦ/
+    example_de: "Die Potenz 2^5 bedeutet 2 · 2 · 2 · 2 · 2 = 32."
+    example_en: "The power 2^5 means 2·2·2·2·2 = 32."
+  - term: die Basis
+    en: base
+    plural: die Basen
+    example_de: "In der Potenz a^n ist a die Basis."
+    example_en: "In the power a^n, a is the base."
+  - term: der Exponent
+    en: exponent
+    plural: die Exponenten
+    example_de: "Ein negativer Exponent bedeutet Kehrwert: a^(-n) = 1/a^n."
+    example_en: "A negative exponent means reciprocal: a^(-n) = 1/a^n."
+  - term: die Wurzel
+    en: root
+    plural: die Wurzeln
+    ipa: /ˈvʊʁʦəl/
+    example_de: "Die Quadratwurzel von 9 ist 3."
+    example_en: "The square root of 9 is 3."
+  - term: die Quadratwurzel
+    en: square root
+    example_de: "Quadratwurzel bedeutet Potenz mit Exponent 1/2."
+    example_en: "Square root means power with exponent 1/2."
+</VocabBlock>
+
+## Theorie
+
+### Definition
+
+$a^n$ (for positive integer $n$) means $a$ multiplied by itself $n$ times:
+
+$$a^1 = a, \quad a^2 = a \cdot a, \quad a^3 = a \cdot a \cdot a, \quad \dots$$
+
+Extensions to other exponents are defined so that the rules below stay valid:
+
+- $a^0 = 1$ (for $a \neq 0$) — required for $a^m \cdot a^0 = a^m$ to hold.
+- $a^{-n} = 1/a^n$ — required for $a^n \cdot a^{-n} = a^{n-n} = a^0 = 1$.
+- $a^{1/2} = \sqrt{a}$ — required for $(a^{1/2})^2 = a^1 = a$.
+- $a^{p/q} = \sqrt[q]{a^p}$ — rational exponents via combined root.
+
+### The six rules
+
+<FormulaCard
+  name_de="Potenzgesetze"
+  name_en="Power rules"
+>
+
+For any $a, b > 0$ and real $m, n$:
+
+$$a^m \cdot a^n = a^{m+n} \qquad \text{(multiply → add exponents)}$$
+$$\frac{a^m}{a^n} = a^{m-n} \qquad \text{(divide → subtract)}$$
+$$(a^m)^n = a^{m \cdot n} \qquad \text{(power of a power → multiply)}$$
+$$(a \cdot b)^n = a^n \cdot b^n$$
+$$\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$$
+$$a^{-n} = \frac{1}{a^n}$$
+
+</FormulaCard>
+
+These are not separate facts — they are consequences of the definition of exponentiation. If you remember the first one ($a^m \cdot a^n = a^{m+n}$), the others can be derived on the fly.
+
+### Rational exponents and roots
+
+<FormulaCard
+  name_de="Wurzeln als Potenzen"
+  name_en="Roots as fractional powers"
+  latex="\sqrt[n]{a} = a^{1/n}, \qquad \sqrt[n]{a^m} = a^{m/n}"
+>
+
+- $\sqrt{a} = a^{1/2}$
+- $\sqrt[3]{a} = a^{1/3}$ (cube root)
+- $a^{3/2} = (a^{1/2})^3 = (\sqrt{a})^3$
+
+For negative bases with irrational exponents the definition needs care; for engineering formulas (positive bases like masses, volumes, temperatures), this isn't an issue.
+
+</FormulaCard>
+
+### Scientific notation — engineering's default number format
+
+Numbers in engineering span enormous ranges: molecular masses $\approx 10^{-27}$ kg, solar power to Earth $\approx 10^{17}$ W. Scientific notation lets you manipulate these cleanly:
+
+$$a \cdot 10^n$$
+
+where $1 \leq a < 10$ (the "mantissa") and $n$ is an integer (the "order of magnitude").
+
+**Multiplication:** multiply mantissas, add exponents.
+
+$$(3 \cdot 10^4) \cdot (2 \cdot 10^3) = 6 \cdot 10^7$$
+
+**Division:** divide mantissas, subtract exponents.
+
+$$\frac{6 \cdot 10^7}{3 \cdot 10^4} = 2 \cdot 10^3$$
+
+**Exponentiation:** exponentiate mantissa, multiply exponents.
+
+$$(2 \cdot 10^3)^2 = 4 \cdot 10^6$$
+
+<Callout variant="exam-tip">
+
+**Notation in German engineering.** The decimal comma is standard in German texts: $6{,}022 \cdot 10^{23}$, not $6.022 \cdot 10^{23}$. Klausuren accept either; be consistent within one problem. In this app we default to comma in German prose, period in English walkthroughs.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Vereinfachen Sie:
+>
+> a) $\dfrac{a^7 \cdot a^{-3}}{a^2}$
+> b) $(2 \cdot 10^{-3})^3$
+> c) $\sqrt[3]{8 x^9}$
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Exponent arithmetic.**
+
+Multiplying $a^7 \cdot a^{-3} = a^{7 + (-3)} = a^4$.
+Dividing by $a^2$: $a^4 / a^2 = a^{4 - 2} = a^2$.
+
+Result: $\boxed{a^2}$.
+
+**b) Cubing a scientific-notation number.**
+
+$(2 \cdot 10^{-3})^3 = 2^3 \cdot 10^{-3 \cdot 3} = 8 \cdot 10^{-9}$.
+
+**c) Cube root of a product.**
+
+$\sqrt[3]{8 x^9} = \sqrt[3]{8} \cdot \sqrt[3]{x^9} = 2 \cdot x^{9/3} = 2 x^3$.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-potenzen-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Wie viel ist 2^10?"
+  question_en="What is 2^10?"
+  correct={1024}
+  tolerance={1}
+  hint_en="Worth memorising: 2^10 = 1024. Also usable as 2^10 ≈ 1000 (kilobyte vs kibibyte distinction in computing)."
+  solution_mdx={`
+**Answer: 1024.**
+
+$$2^{10} = 2^5 \\cdot 2^5 = 32 \\cdot 32 = 1024$$
+
+**Worth memorising.** $2^{10} = 1024$ is the number of bytes in a kibibyte. It's close enough to 1000 (the kilobyte in SI) that the two are often confused in casual usage — but they are different by ~2.4 %.
+  `}
+  common_mistakes={[
+    {
+      wrong: "20 (multiplying 2 and 10)",
+      why_en: "Exponent notation is NOT multiplication. $2^{10}$ means '2 multiplied by itself 10 times', which is 1024, not 2 × 10 = 20. The exponent tells you how many copies of the base to multiply, not what to multiply by."
+    },
+    {
+      wrong: "100 (thinking '2 to the power' of 10 is 100 or similar)",
+      why_en: "Ten is what you'd get from $10^1$, not $2^{10}$. The base matters. Always double-check: which number is the base (2) and which is the exponent (10)?"
+    }
+  ]}
+  discussion_mdx={`
+**Powers of 2 in engineering.**
+
+$2^{10} = 1024$ — kibibyte (binary thousand).
+$2^{20} = 1\\,048\\,576$ — mebibyte.
+$2^{30} = 1\\,073\\,741\\,824$ — gibibyte.
+
+These distinctions matter in computing. Storage manufacturers sell "GB" as $10^9$ bytes (SI gigabyte); operating systems often report memory in GiB ($2^{30}$ bytes). The difference is 7 % — source of many user complaints about "missing disk space".
+
+**Powers of 10 and the decimal system.**
+
+$10^n$ has exactly $n$ zeros after the 1. So $10^3 = 1\\,000$ (3 zeros), $10^6 = 1\\,000\\,000$ (6 zeros). This is why the decimal SI prefixes align with powers of 1000: each step (kilo → mega → giga) is $10^3$.
+
+For powers of 2, each step of 10 gives approximately 1000 (1024 actually). That's why in computing, the prefixes Ki, Mi, Gi (with the little "i") exist to flag binary multiples distinctly.
+  `}
+/>
+
+<Exercise
+  id="track-0-potenzen-l1-ex2"
+  difficulty="easy"
+  type="numeric"
+  question_de="Wie viel ist 10^{-3}?"
+  question_en="What is 10^{-3}?"
+  correct={0.001}
+  tolerance={0.0001}
+  hint_en="Negative exponent means reciprocal. 10^{-3} = 1/10^3 = 1/1000."
+  solution_mdx={`
+**Answer: 0.001 (= 1/1000).**
+
+$$10^{-3} = \\frac{1}{10^3} = \\frac{1}{1000} = 0{,}001$$
+
+This is the SI prefix 'milli'. 1 mm = 10⁻³ m, 1 mg = 10⁻³ g (though kg is the base unit for mass).
+  `}
+  common_mistakes={[
+    {
+      wrong: "-1000 (negating instead of reciprocating)",
+      why_en: "Negative exponent does NOT mean negative number. It means the RECIPROCAL of the positive-exponent value. $10^{-3} = 1/10^3$, not $-10^3 = -1000$. This is one of the most common slips."
+    },
+    {
+      wrong: "-0.001 (reciprocating and keeping the minus)",
+      why_en: "The minus sign in $-3$ inside the exponent tells you to flip (take the reciprocal), not to negate the result. The ANSWER is always positive when the base is positive."
+    }
+  ]}
+  discussion_mdx={`
+**The pattern of negative exponents.**
+
+$a^0 = 1$, $a^{-1} = 1/a$, $a^{-2} = 1/a^2$, $a^{-n} = 1/a^n$.
+
+Just like for positive exponents:
+- $a^m \\cdot a^{-n} = a^{m-n}$ (combine multiplicatively as usual)
+- $a^{-n} / a^{-m} = a^{m-n}$ (same subtraction rule)
+
+**Engineering intuition.** Time constants appear as $e^{-t/\\tau}$ — the negative exponent means "decay to zero as $t$ grows". Damping in oscillations: $e^{-\\zeta \\omega t}$, negative exponent, amplitude drops. Radioactive decay: $N(t) = N_0 \\cdot 2^{-t/T_{1/2}}$, half-life appears naturally.
+  `}
+/>
+
+<Exercise
+  id="track-0-potenzen-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Vereinfachen Sie: (3 · 10^4)² · (2 · 10^{-2})"
+  question_en="Simplify: (3 · 10^4)² · (2 · 10^{-2})"
+  correct={18000000}
+  tolerance={100}
+  hint_en="First compute the square, then multiply. Mantissas separately from exponents."
+  solution_mdx={`
+**Answer: $1{,}8 \\cdot 10^7 = 18\\,000\\,000$.**
+
+**Step 1. Square the first term.**
+
+$$(3 \\cdot 10^4)^2 = 3^2 \\cdot (10^4)^2 = 9 \\cdot 10^8$$
+
+**Step 2. Multiply by $2 \\cdot 10^{-2}$.**
+
+Mantissas: $9 \\cdot 2 = 18$.
+Exponents: $10^8 \\cdot 10^{-2} = 10^{8-2} = 10^6$.
+
+Product: $18 \\cdot 10^6 = 1{,}8 \\cdot 10^7 = 18\\,000\\,000$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Adding exponents instead of multiplying when squaring: (3·10⁴)² = 9·10⁴ instead of 9·10⁸",
+      why_en: "Squaring a power means MULTIPLYING the exponent by 2, not leaving it alone. $(10^4)^2 = 10^{4 \\cdot 2} = 10^8$. If you forget the rule 'power of a power is the PRODUCT of exponents', you'll get answers 10⁴× too small on this kind of problem."
+    }
+  ]}
+  discussion_mdx={`
+**The three rules of scientific-notation arithmetic (cheat sheet).**
+
+Multiply $(a \\cdot 10^m) \\cdot (b \\cdot 10^n) = ab \\cdot 10^{m+n}$.
+Divide $(a \\cdot 10^m) / (b \\cdot 10^n) = (a/b) \\cdot 10^{m-n}$.
+Power $(a \\cdot 10^m)^k = a^k \\cdot 10^{mk}$.
+
+Check: does the mantissa stay between 1 and 10? If yes, the result is in standard scientific form. If no, normalise by adjusting the mantissa and exponent. In our problem: $18 \\cdot 10^6 = 1{,}8 \\cdot 10^7$, normalising so mantissa is in [1, 10).
+
+**In engineering.** Every fluid mechanics problem has a Reynolds number: $Re = \\rho c L / \\mu$. Typical values: $\\rho \\sim 10^3\\,\\mathrm{kg/m^3}$, $c \\sim 1\\,\\mathrm{m/s}$, $L \\sim 10^{-1}\\,\\mathrm{m}$, $\\mu \\sim 10^{-3}\\,\\mathrm{Pa\\,s}$. Then $Re \\sim 10^3 \\cdot 1 \\cdot 10^{-1} / 10^{-3} = 10^5$ — typical turbulent pipe flow. The back-of-envelope estimate uses scientific notation without writing out the long-form numbers.
+  `}
+/>
+
+<Exercise
+  id="track-0-potenzen-l1-ex4"
+  difficulty="klausur"
+  type="short_derivation"
+  question_de="Vereinfachen Sie: (a^3 · b^{-2})^{-1} · a^{-2} · b^4"
+  question_en="Simplify: (a^3 · b^{-2})^{-1} · a^{-2} · b^4"
+  correct_latex="\\frac{b^6}{a^5}"
+  hint_en="First apply the outer (-1) to the bracket. Then collect exponents for a and for b separately."
+  solution_mdx={`
+**Answer: $\\dfrac{b^6}{a^5}$ (equivalently $a^{-5} b^6$).**
+
+**Step 1. Expand the bracket.**
+
+$(a^3 \\cdot b^{-2})^{-1} = a^{-3} \\cdot b^{2}$
+
+(applying $(xy)^n = x^n y^n$ with $n = -1$, and $(x^m)^n = x^{mn}$).
+
+**Step 2. Multiply everything.**
+
+$$(a^{-3} \\cdot b^2) \\cdot a^{-2} \\cdot b^4$$
+
+Collect $a$'s: $a^{-3} \\cdot a^{-2} = a^{-5}$.
+Collect $b$'s: $b^2 \\cdot b^4 = b^6$.
+
+Result: $a^{-5} b^6 = \\dfrac{b^6}{a^5}$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Distributing wrong: (a³·b⁻²)⁻¹ = a⁻⁴·b⁻³",
+      why_en: "The rule $(xy)^n = x^n y^n$ distributes the OUTER exponent to each factor. For $n = -1$ on each, you'd get $a^{-3}$ and $b^{2}$ — not $a^{-4}$. Whatever multiplication the outer $-1$ does to $3$ is the same multiplication it does to $-2$, but separately. Redo the arithmetic on each if needed."
+    },
+    {
+      wrong: "Adding exponents across different bases: treating a and b as one variable",
+      why_en: "$a$ and $b$ are independent. Collect $a$'s with $a$'s and $b$'s with $b$'s, NEVER mix them. $a^2 \\cdot b^3 \\neq (ab)^5$ — those are fundamentally different expressions."
+    }
+  ]}
+  discussion_mdx={`
+**Algebraic manipulation in engineering.**
+
+This kind of exponent arithmetic appears when you rearrange formulas. Example: the Reynolds number $Re = \\rho c L / \\mu$ can be written as $Re = \\rho c L \\mu^{-1}$. If you want to express $L$ in terms of the others: $L = Re \\cdot \\rho^{-1} c^{-1} \\mu$. The algebra of negative exponents is how you fluidly move variables between numerator and denominator.
+
+**Connection forward.** Dimensional analysis in mechanics and fluid flow is a giant exercise in exponent arithmetic. The Buckingham-π theorem derives dimensionless groups from products of powers of physical quantities; you get a system of linear equations in the exponents, solved with matrix algebra. The pattern is exactly what we just did in this exercise — collect, simplify, interpret.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** When simplifying a messy algebraic expression with powers, work **one variable at a time**. Collect all $a$'s, then all $b$'s, then all $c$'s. This prevents mistakes from mixing bases. And always write the final answer with positive exponents (moving negative-exponent factors to the denominator) — German exam conventions prefer this.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next lesson: **Logarithmen** (already written) — the inverse of exponentiation, with its own set of rules that mirror the power rules exactly. Together, powers and logs are the two pillars of every analytic manipulation in engineering mathematics.
