@@ -8,7 +8,7 @@
  * needs a component not in this file, add it HERE first, then use it in MDX.
  */
 
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 
 // ─────────────────────────────────────────────────────────────────
 // GermanTerm — the inline chip that appears in English prose

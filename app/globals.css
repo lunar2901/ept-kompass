@@ -1,0 +1,237 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+/* ─────────────────────────────────────────────────────────────
+ * EPT-Kompass global styles.
+ * Palette: warm parchment light, deep-slate dark.
+ * Accent: muted teal. Serif for lesson body, sans UI, mono code.
+ * ─────────────────────────────────────────────────────────── */
+
+:root {
+  --background: #faf8f3;
+  --foreground: #1a1d21;
+  --muted: #f0ece2;
+  --muted-foreground: #575c63;
+  --border: #e4dfd3;
+  --accent: #0f766e;
+  --accent-foreground: #ffffff;
+  --accent-muted: #ccfbf1;
+  --card: #ffffff;
+  --card-foreground: #1a1d21;
+  --chip-bg: #fef9c3;
+  --chip-fg: #713f12;
+  --chip-border: #fde68a;
+  --warn: #b45309;
+  --danger: #b91c1c;
+  --success: #047857;
+  --font-sans: var(--font-inter, "Inter"), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-source-serif, "Source Serif 4"), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-jetbrains, "JetBrains Mono"), "Fira Code", ui-monospace, Menlo, monospace;
+}
+
+.dark,
+[data-theme="dark"] {
+  --background: #0c0e11;
+  --foreground: #e8e6e1;
+  --muted: #1a1d21;
+  --muted-foreground: #9aa0a6;
+  --border: #262a31;
+  --accent: #2dd4bf;
+  --accent-foreground: #042f2e;
+  --accent-muted: #134e4a;
+  --card: #13161a;
+  --card-foreground: #e8e6e1;
+  --chip-bg: #3b2f05;
+  --chip-fg: #fde68a;
+  --chip-border: #644d0a;
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --success: #34d399;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-muted: var(--accent-muted);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-chip-bg: var(--chip-bg);
+  --color-chip-fg: var(--chip-fg);
+  --color-chip-border: var(--chip-border);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #0c0e11;
+    --foreground: #e8e6e1;
+    --muted: #1a1d21;
+    --muted-foreground: #9aa0a6;
+    --border: #262a31;
+    --accent: #2dd4bf;
+    --accent-foreground: #042f2e;
+    --accent-muted: #134e4a;
+    --card: #13161a;
+    --card-foreground: #e8e6e1;
+    --chip-bg: #3b2f05;
+    --chip-fg: #fde68a;
+    --chip-border: #644d0a;
+    --warn: #fbbf24;
+    --danger: #f87171;
+    --success: #34d399;
+  }
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Lesson body typography (Source Serif 4 via .lesson-body) ─── */
+
+.lesson-body {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--foreground);
+}
+
+.lesson-body h1,
+.lesson-body h2,
+.lesson-body h3,
+.lesson-body h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.lesson-body h1 { font-size: 1.875rem; margin-top: 0; }
+.lesson-body h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.35em; }
+.lesson-body h3 { font-size: 1.25rem; }
+.lesson-body h4 { font-size: 1.0625rem; }
+
+.lesson-body p { margin: 1em 0; }
+
+.lesson-body ul,
+.lesson-body ol { margin: 1em 0; padding-left: 1.5em; }
+
+.lesson-body ul { list-style: disc; }
+.lesson-body ol { list-style: decimal; }
+
+.lesson-body li + li { margin-top: 0.35em; }
+
+.lesson-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.lesson-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+  background: var(--muted);
+  border-radius: 0.25em;
+}
+
+.lesson-body blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.25em 0 0.25em 1em;
+  color: var(--muted-foreground);
+  font-style: italic;
+  margin: 1.25em 0;
+}
+
+.lesson-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25em 0;
+  font-size: 0.95em;
+}
+
+.lesson-body th,
+.lesson-body td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.lesson-body th {
+  background: var(--muted);
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.lesson-body details {
+  border: 1px solid var(--border);
+  border-radius: 0.5em;
+  padding: 0.75em 1em;
+  margin: 1.25em 0;
+  background: var(--card);
+}
+
+.lesson-body details[open] summary {
+  margin-bottom: 0.75em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5em;
+}
+
+.lesson-body summary {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+/* ─── KaTeX overrides — match surrounding serif, stay scroll-safe ─── */
+
+.katex {
+  font-size: 1.05em;
+}
+
+.katex-display {
+  margin: 1.25em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+}
+
+.katex-display > .katex {
+  white-space: nowrap;
+}
+
+/* Mermaid dashed system boundary — per math-and-typography §6 */
+.mermaid .system-boundary rect,
+.mermaid .system-boundary polygon {
+  stroke-dasharray: 5 3;
+  fill: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--accent-muted);
+  color: var(--foreground);
+}
