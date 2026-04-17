@@ -1,0 +1,315 @@
+---
+id: track-0-mech-l1
+module: schulwissen-auffrischen
+chapter: mechanik
+position: 1
+name_de: "Newton'sche Mechanik — die drei Gesetze auf Schulniveau"
+name_en: "Newtonian mechanics — the three laws at high-school level"
+estimated_minutes: 20
+prerequisites: ["track-0-vec-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Before thermodynamics, before fluid dynamics, before anything — there is $F = ma$. Newton's three laws are the backbone of every mechanical-engineering calculation: static forces on beams, rockets accelerating, fluids flowing, gears meshing. This lesson refreshes the three laws and the energy-momentum language that grows out of them.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Kraft
+    en: force
+    plural: die Kräfte
+    example_de: "Eine Kraft ist ein Vektor mit Betrag und Richtung."
+    example_en: "A force is a vector with magnitude and direction."
+  - term: die Masse
+    en: mass
+    plural: die Massen
+    example_de: "Die Masse eines Objekts misst seine Trägheit."
+    example_en: "The mass of an object measures its inertia."
+  - term: die Beschleunigung
+    en: acceleration
+    plural: die Beschleunigungen
+    example_de: "Die Beschleunigung ist die zeitliche Änderung der Geschwindigkeit."
+    example_en: "Acceleration is the time rate of change of velocity."
+  - term: der Impuls
+    en: momentum
+    plural: die Impulse
+    example_de: "Der Impuls p = m·v bleibt in isolierten Systemen erhalten."
+    example_en: "Momentum p = m·v is conserved in isolated systems."
+  - term: die kinetische Energie
+    en: kinetic energy
+    example_de: "Die kinetische Energie ist 1/2 m v²."
+    example_en: "Kinetic energy is 1/2 m v²."
+</VocabBlock>
+
+## Theorie
+
+### The three laws
+
+<FormulaCard
+  name_de="Newton's Gesetze"
+  name_en="Newton's laws"
+>
+
+**1. Trägheitsgesetz (Law of inertia).** A body not acted on by any net force moves with constant velocity (possibly zero). Ohne äußere Kraft keine Änderung der Bewegung.
+
+**2. Aktionsprinzip (Action law).**
+
+$$\vec{F}_{net} = m \, \vec{a}$$
+
+Net force equals mass times acceleration. Vector equation in three components.
+
+**3. Reaktionsprinzip (Reaction law).** For every action there is an equal and opposite reaction: $\vec{F}_{A \to B} = -\vec{F}_{B \to A}$.
+
+</FormulaCard>
+
+### Derivatives and integrals
+
+Kinematic relations you'll use:
+
+- $\vec{v} = \dfrac{\mathrm{d}\vec{s}}{\mathrm{d}t}$ — velocity is derivative of position.
+- $\vec{a} = \dfrac{\mathrm{d}\vec{v}}{\mathrm{d}t}$ — acceleration is derivative of velocity.
+- Integrating: $\vec{v}(t) = \vec{v}_0 + \int \vec{a}\,\mathrm{d}t$, $\vec{s}(t) = \vec{s}_0 + \int \vec{v}\,\mathrm{d}t$.
+
+For constant acceleration (free fall with $g$, constant-thrust rocket):
+
+$$v = v_0 + a\,t, \qquad s = s_0 + v_0 t + \tfrac{1}{2} a t^2$$
+
+### Energy and momentum
+
+<FormulaCard
+  name_de="Kinetische Energie und Impuls"
+  name_en="Kinetic energy and momentum"
+  latex="E_{kin} = \tfrac{1}{2} m v^2, \qquad \vec{p} = m \vec{v}"
+>
+
+Kinetic energy is a scalar (J), momentum is a vector (kg·m/s).
+
+**Work-energy theorem:** the net work done on a body equals its change in kinetic energy:
+
+$$W_{net} = \int \vec{F}_{net} \cdot \mathrm{d}\vec{s} = \Delta E_{kin}$$
+
+**Momentum conservation (closed system):** total momentum is conserved in the absence of external forces:
+
+$$\sum \vec{p}_{vor} = \sum \vec{p}_{nach}$$
+
+The backbone of every collision and every rocket calculation.
+
+</FormulaCard>
+
+### Potential energy
+
+For conservative forces (gravity, spring, electrostatic), define a potential energy $E_{pot}$ such that $\vec{F} = -\nabla E_{pot}$:
+
+- Gravitational (uniform near Earth's surface): $E_{pot} = m g h$.
+- Spring (Hooke): $E_{pot} = \tfrac{1}{2} k x^2$.
+
+**Energy conservation** in conservative systems: $E_{kin} + E_{pot} = \mathrm{const}$.
+
+## Musteraufgabe
+
+> **Aufgabe.** Ein Ball der Masse $m = 0{,}5\,\mathrm{kg}$ fällt aus $h = 20\,\mathrm{m}$ Höhe. Berechnen Sie die Aufprallgeschwindigkeit (ohne Luftwiderstand, $g = 9{,}81\,\mathrm{m/s^2}$).
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Method: energy conservation.**
+
+Initial: $E_{kin,0} = 0$, $E_{pot,0} = m g h = 0{,}5 \cdot 9{,}81 \cdot 20 = 98{,}1\,\mathrm{J}$.
+
+Final (just before impact): $E_{pot,f} = 0$, so $E_{kin,f} = 98{,}1\,\mathrm{J}$.
+
+$\tfrac{1}{2} m v^2 = 98{,}1 \Rightarrow v = \sqrt{2 \cdot 98{,}1 / 0{,}5} = \sqrt{392{,}4} \approx 19{,}8\,\mathrm{m/s}$.
+
+**Alternative: kinematics.** $v = \sqrt{2 g h} = \sqrt{2 \cdot 9{,}81 \cdot 20} \approx 19{,}8\,\mathrm{m/s}$. Same answer.
+
+Either method works; energy conservation is usually faster.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-mech-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Welche Beschleunigung erfährt ein Auto (m = 1500 kg), wenn es mit einer Nettokraft von F = 4500 N beschleunigt wird? Antwort in m/s²."
+  question_en="What acceleration does a car (m = 1500 kg) experience under a net force of F = 4500 N? Give answer in m/s²."
+  correct={3}
+  tolerance={0.01}
+  hint_en="a = F/m."
+  solution_mdx={`
+**Answer: $a = 3\\,\\mathrm{m/s^2}$.**
+
+Newton 2: $F = ma \\Rightarrow a = F/m = 4500/1500 = 3\\,\\mathrm{m/s^2}$.
+
+In "0 to 100 km/h" terms: $v/a = (100/3{,}6)/3 \\approx 9{,}3\\,\\mathrm{s}$. A moderately peppy acceleration.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Multiplying instead of dividing: F·m = 6,750,000",
+      why_en: "$F = ma$ rearranges to $a = F/m$. Division, not multiplication. Get units wrong — $a$ has units of m/s², and kg·N/kg = N/kg = m/s² only if you divide correctly."
+    }
+  ]}
+  discussion_mdx={`
+**Typical accelerations.**
+
+- Earth gravity: $g \\approx 9{,}81\\,\\mathrm{m/s^2}$ (~1 g).
+- Elevator comfortable acceleration: 1-2 m/s² (~0.1-0.2 g).
+- Family car acceleration: 3-5 m/s² (~0.3-0.5 g).
+- Sports car: 8-10 m/s² (~1 g).
+- Jet fighter turn: 30-90 m/s² (~3-9 g — pilot blackout territory).
+- Bullet acceleration in gun barrel: ~$10^6\\,\\mathrm{m/s^2}$ (~100 000 g).
+
+Knowing these orders of magnitude lets you sanity-check problem answers.
+  `}
+/>
+
+<Exercise
+  id="track-0-mech-l1-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Eine Feder mit Federkonstante k = 200 N/m ist um x = 0,1 m zusammengedrückt. Welche potenzielle Energie ist gespeichert (in J)?"
+  question_en="A spring with spring constant k = 200 N/m is compressed by x = 0.1 m. How much potential energy is stored (in J)?"
+  correct={1}
+  tolerance={0.01}
+  hint_en="E_pot = (1/2) k x²."
+  solution_mdx={`
+**Answer: 1 J.**
+
+$$E_{pot} = \\frac{1}{2} k x^2 = \\frac{1}{2} \\cdot 200 \\cdot (0{,}1)^2 = 100 \\cdot 0{,}01 = 1\\,\\mathrm{J}$$
+
+**Order-of-magnitude check.** A force of $F = k x = 200 \\cdot 0{,}1 = 20\\,\\mathrm{N}$ acts over a distance $x = 0{,}1\\,\\mathrm{m}$. Average force (from 0 at rest to 20 N at full compression) is 10 N, so work = 10 · 0.1 = 1 J. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using x without squaring: E = 100 · 0.1 = 10 J",
+      why_en: "The spring potential energy has $x^2$, not $x$. This comes from integrating the linear force $F(x) = k x$: $E = \\int_0^x kx'\\,\\mathrm{d}x' = \\frac{1}{2} k x^2$. Missing the square gives an answer 10× too large for this problem."
+    }
+  ]}
+  discussion_mdx={`
+**Why springs store energy quadratically.**
+
+The force to stretch a spring is $F = k x$ — linear in displacement. The work to stretch further is force × distance, integrated:
+
+$$E = \\int_0^x k x'\\,\\mathrm{d}x' = \\tfrac{1}{2} k x^2$$
+
+The factor of $\\frac{1}{2}$ comes from integration (average force over the compression is $kx/2$).
+
+**Connection to oscillation.** Newton 2 for a mass on a spring: $m \\ddot{x} = -k x$. Solution: $x(t) = A \\cos(\\omega t + \\phi)$ with $\\omega = \\sqrt{k/m}$ — simple harmonic motion. Energy oscillates between kinetic (at equilibrium) and potential (at extremes), with sum conserved.
+
+**In thermodynamics.** Molecular vibrations are approximately spring-like near equilibrium bond lengths. The quadratic potential energy is why molecules have well-defined vibrational frequencies, which affect heat capacities (equipartition theorem).
+  `}
+/>
+
+<Exercise
+  id="track-0-mech-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein Objekt (1 kg) fällt aus 5 m Höhe frei. Wie groß ist seine kinetische Energie kurz vor dem Aufprall (in J)? g = 9,81 m/s²."
+  question_en="An object (1 kg) falls freely from 5 m. What is its kinetic energy just before impact (in J)? g = 9.81 m/s²."
+  correct={49.05}
+  tolerance={0.2}
+  hint_en="Energy conservation: E_kin at bottom = E_pot at top = m·g·h."
+  solution_mdx={`
+**Answer: $\\approx 49{,}1\\,\\mathrm{J}$.**
+
+Energy conservation: all gravitational PE at the top converts to KE at impact.
+
+$$E_{kin} = m g h = 1 \\cdot 9{,}81 \\cdot 5 = 49{,}05\\,\\mathrm{J}$$
+
+Or via velocity: $v = \\sqrt{2 g h} = \\sqrt{98{,}1} \\approx 9{,}9\\,\\mathrm{m/s}$, then $\\tfrac{1}{2} \\cdot 1 \\cdot 9{,}9^2 \\approx 49{,}0\\,\\mathrm{J}$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Computing only v = √(2gh) without continuing to KE",
+      why_en: "$v \\approx 9{,}9\\,\\mathrm{m/s}$ is an intermediate step. The question asks for KE in J. If you stopped at v, you've found velocity but not energy. Continue with $E_{kin} = \\frac{1}{2} m v^2$."
+    },
+    {
+      wrong: "Using g = 10 and getting 50 J",
+      why_en: "Close but not quite right. When the problem specifies $g = 9{,}81$, use that. The simplification $g \\approx 10$ is sometimes used in back-of-envelope estimates, but for a precise problem with a specified $g$, use the specified value."
+    }
+  ]}
+  discussion_mdx={`
+**Energy conservation is always faster than kinematics for free fall.**
+
+For any free-fall problem, $m g h \\to \\frac{1}{2} m v^2$ directly tells you the impact KE. Compare to kinematics: compute $v$ first, then KE — two steps.
+
+Energy methods also handle situations where kinematics fails (curved paths, varying forces) as long as the forces are conservative.
+
+**In engineering.** Hydroelectric dams convert gravitational PE ($m g h$ per kg of water) to rotational KE of turbines to electricity. A water column of 100 m provides $9{,}81 \\cdot 100 \\approx 1\\,\\mathrm{kJ/kg}$, times ~90 % efficiency → ~900 J/kg delivered as electricity. Scaling to 1000 kg/s flow: 900 kW.
+  `}
+/>
+
+<Exercise
+  id="track-0-mech-l1-ex4"
+  difficulty="klausur"
+  type="multi_select"
+  question_de="Welche Aussagen über Impulserhaltung sind korrekt?"
+  question_en="Which statements about momentum conservation are correct?"
+  options={[
+    { id: "a", de: "Der Gesamtimpuls eines abgeschlossenen Systems bleibt erhalten.", en: "The total momentum of an isolated system is conserved." },
+    { id: "b", de: "Der Impuls eines einzelnen Körpers in einem System bleibt erhalten.", en: "The momentum of an individual body in a system is conserved." },
+    { id: "c", de: "Impulserhaltung folgt aus Newtons 3. Gesetz.", en: "Momentum conservation follows from Newton's 3rd law." },
+    { id: "d", de: "In einem Stoßvorgang ist der Impuls nur erhalten, wenn die kinetische Energie ebenfalls erhalten ist.", en: "In a collision, momentum is conserved only if kinetic energy is also conserved." },
+  ]}
+  correct={["a", "c"]}
+  hint_en="Two of the four. (b) and (d) overreach."
+  solution_mdx={`
+**Correct answers: (a), (c).**
+
+- **(a)** True — this IS the statement of momentum conservation for isolated systems.
+- **(c)** True — Newton 3 says forces come in action-reaction pairs. Summing over internal forces in a system: everything cancels pairwise, leaving only external forces as the net force. If external forces are zero (isolated system), total momentum doesn't change.
+- **(b)** False — individual bodies can exchange momentum; only the total is conserved.
+- **(d)** False — momentum is always conserved in isolated systems regardless of whether the collision is elastic (KE conserved) or inelastic (KE partly lost to heat/deformation).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Missing (c) — deriving conservation from Newton 3",
+      why_en: "Newton 3 is the foundation. Without action-reaction pairs cancelling, total momentum would change due to internal forces — but they don't, because every internal force has an equal and opposite partner. This is the deep structural reason for conservation."
+    },
+    {
+      wrong: "Including (d) — KE must also be conserved",
+      why_en: "Inelastic collisions exist — a ball of clay hitting a wall sticks, KE goes to heat, but momentum is still conserved. Momentum conservation is unconditional for isolated systems; KE conservation requires an additional assumption (elasticity)."
+    }
+  ]}
+  discussion_mdx={`
+**Elastic vs inelastic collisions.**
+
+All isolated-system collisions conserve momentum. They differ in what happens to kinetic energy:
+
+- **Elastic**: KE conserved (idealised billiard balls, some atomic collisions).
+- **Inelastic**: KE partially converted to heat, sound, deformation (cars crashing, clay balls sticking).
+- **Perfectly inelastic**: maximum KE loss — the two bodies stick together post-collision.
+
+Rocket propulsion is the same physics: total momentum of rocket + ejected exhaust is conserved; the rocket speeds up because the exhaust is thrown backward.
+
+**Connection to engineering.**
+- Car crash test analysis: compute momentum before, momentum after — difference (if any) came from external forces (friction, crash structure).
+- Fluid momentum: used in pump calculations, jet thrust (rockets, jet engines).
+- Rigid-body dynamics: angular momentum conservation governs rotating machines, gyroscopes, flywheels.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For mechanics problems, ask three questions at the start:
+
+1. **System boundaries?** What am I tracking — single body, multi-body, fluid volume?
+2. **External forces?** If zero, momentum is conserved. If some forces are conservative, total mechanical energy is conserved if no dissipation.
+3. **Time or position dependence?** If given forces as a function of position, use work-energy. If given as a function of time, use impulse-momentum.
+
+Choosing the right approach is usually more important than the arithmetic.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Last Track 0 lesson: **Wahrscheinlichkeit und einfache Statistik** — probability basics, mean and standard deviation, the normal distribution. Relevant for measurement uncertainty and reliability analysis in engineering.
