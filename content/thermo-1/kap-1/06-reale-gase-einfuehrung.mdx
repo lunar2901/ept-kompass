@@ -1,0 +1,351 @@
+---
+id: thermo-1-k1-l6
+module: thermodynamik-1
+chapter: kap-1-grundbegriffe
+position: 6
+name_de: "Reale Gase: Einführung"
+name_en: "Real gases: an introduction"
+estimated_minutes: 20
+prerequisites: ["thermo-1-k1-l5"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+The ideal-gas model from the last lesson assumes point particles with no interactions. At moderate conditions that is astonishingly accurate (< 1 % error for air at 1 bar). But push a gas to high pressure, or cool it toward its dew point, and the two assumptions break: molecular volume becomes comparable to the gas volume, and intermolecular attractions become comparable to kinetic energy.
+
+This lesson introduces two tools for real-gas deviations: the <GermanTerm de="van-der-Waals-Gleichung" article="die" en="van der Waals equation" />, and the <GermanTerm de="Realgasfaktor" article="der" en="compressibility factor" /> $Z$. Both live at the interface between the pristine ideal model and the messy tabulated real data you will use in Thermodynamik II.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: das reale Gas
+    en: real gas
+    plural: die realen Gase
+    example_de: "Ein reales Gas weicht bei hohen Drücken vom Idealgasmodell ab."
+    example_en: "A real gas deviates from the ideal-gas model at high pressures."
+  - term: der Realgasfaktor
+    en: compressibility factor
+    ipa: /ˈʁeaːlˌɡaːsˌfaktoːɐ̯/
+    example_de: "Der Realgasfaktor Z = pv/(R_s T) ist für ideale Gase gleich 1."
+    example_en: "The compressibility factor Z = pv/(R_s T) equals 1 for ideal gases."
+  - term: der kritische Punkt
+    en: critical point
+    example_de: "Am kritischen Punkt verschwindet der Unterschied zwischen flüssig und gasförmig."
+    example_en: "At the critical point the distinction between liquid and gas vanishes."
+  - term: die Wasserdampftafel
+    en: steam table
+    plural: die Wasserdampftafeln
+    example_de: "Die Wasserdampftafel listet Zustandsgrößen für verschiedene p und T."
+    example_en: "The steam table lists state variables for various p and T."
+  - term: die Kompressibilität
+    en: compressibility
+    example_de: "Die Kompressibilität ist bei realen Gasen druckabhängig."
+    example_en: "The compressibility of real gases depends on pressure."
+</VocabBlock>
+
+## Theorie
+
+### The two corrections
+
+<FormulaCard
+  name_de="Van-der-Waals-Gleichung"
+  name_en="Van der Waals equation"
+  latex="\left(p + \frac{a\,n^2}{V^2}\right)(V - n\,b) = n\,R\,T"
+  variables={[
+    { symbol: "a", name_de: "Anziehungsparameter", name_en: "attraction parameter", unit: "Pa·m⁶/mol²" },
+    { symbol: "b", name_de: "Eigenvolumen-Parameter", name_en: "excluded-volume parameter", unit: "m³/mol" },
+    { symbol: "n", name_de: "Stoffmenge", name_en: "amount of substance", unit: "mol" },
+  ]}
+>
+
+Two corrections to $pV = nRT$:
+
+- The $+a\,n^2/V^2$ term *adds* a correction to the measured pressure to compensate for attractive forces between molecules that reduce the wall-impact pressure.
+- The $-n\,b$ term *subtracts* the volume the molecules themselves take up (finite size), since that space is unavailable to free motion.
+
+Both $a$ and $b$ are gas-specific constants, tabulated. For air: $a \approx 0{,}136\,\mathrm{Pa\,m^6/mol^2}$, $b \approx 3{,}65 \times 10^{-5}\,\mathrm{m^3/mol}$. For water: $a \approx 0{,}554$, $b \approx 3{,}05 \times 10^{-5}$ — reflecting water's stronger intermolecular attractions.
+
+</FormulaCard>
+
+### The compressibility factor $Z$
+
+Easier to use in engineering is the <GermanTerm de="Realgasfaktor" article="der" en="compressibility factor" /> $Z$:
+
+<FormulaCard
+  name_de="Realgasfaktor"
+  name_en="Compressibility factor"
+  latex="Z = \frac{p\,v}{R_s\,T}"
+  variables={[
+    { symbol: "Z", name_de: "Realgasfaktor", name_en: "compressibility factor", unit: "—" },
+    { symbol: "p", name_de: "Druck", name_en: "pressure", unit: "Pa" },
+    { symbol: "v", name_de: "spezifisches Volumen", name_en: "specific volume", unit: "m³/kg" },
+    { symbol: "R_s", name_de: "spezifische Gaskonstante", name_en: "specific gas constant", unit: "J/(kg·K)" },
+    { symbol: "T", name_de: "Temperatur", name_en: "temperature", unit: "K" },
+  ]}
+>
+
+- Ideal gas: $Z = 1$ exactly.
+- Most real gases at low $p$ and high $T$: $Z \approx 1$ within a few %.
+- Real gases at high $p$: $Z$ can be as low as 0.3 (attractive forces dominate, gas more compressible than ideal) or as high as 2–5 (excluded volume dominates, gas less compressible than ideal).
+
+$Z$ is tabulated or charted as a function of reduced pressure $p_r = p/p_c$ and reduced temperature $T_r = T/T_c$, where $p_c$ and $T_c$ are the gas's critical-point values. This is the **principle of corresponding states** — most real gases at the same $p_r$, $T_r$ have nearly the same $Z$.
+
+</FormulaCard>
+
+### When to reach for tables instead of formulas
+
+For water, refrigerants, and many hydrocarbons, engineers use **property tables** (*Wasserdampftafel*, steam tables) directly — the real-gas equation is too approximate for power-plant calculations. A typical steam-table entry looks like:
+
+> $p = 10\,\mathrm{bar}$, $T = 400\,\mathrm{°C}$: $v = 0{,}3066\,\mathrm{m^3/kg}$, $h = 3264\,\mathrm{kJ/kg}$, $s = 7{,}465\,\mathrm{kJ/(kg\,K)}$
+
+That is the real-gas answer, measured to four-figure accuracy. No formula can compete in that regime. The ideal-gas calculation would give $v_{\mathrm{id}} = R_s T / p = 461 \cdot 673 / 10^6 = 0{,}310\,\mathrm{m^3/kg}$ — off by 1 % in this case, acceptable for some uses but not for precise cycle analysis.
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** If the Klausur names a *specific* substance (water, R-134a, ammonia) and gives $p$ and $T$ near a phase boundary, expect to use the table. If it says *"air" or "gas"* and conditions are moderate ($p < 10\,\mathrm{bar}$, $T$ well above dew point), use the ideal-gas law. When unsure, write down both the ideal estimate and a short sentence saying whether you need a real-gas correction.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Der Realgasfaktor von Luft bei $p = 50\,\mathrm{bar}$, $T = 300\,\mathrm{K}$ beträgt $Z = 0{,}985$. Das spezifische Volumen der Luft in diesem Zustand ist zu bestimmen.
+>
+> *a)* Schätzen Sie $v$ mit der idealen Gasgleichung.
+> *b)* Korrigieren Sie Ihre Schätzung mit dem Realgasfaktor.
+> *c)* Wie groß ist die relative Abweichung?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Ideal-gas estimate.**
+
+$$v_{\mathrm{id}} = \frac{R_s T}{p} = \frac{287 \cdot 300}{50 \cdot 10^5} = 0{,}01722\,\mathrm{m^3/kg}$$
+
+**b) Real-gas correction via $Z$.**
+
+$$Z = \frac{pv}{R_s T} \quad\Rightarrow\quad v_{\mathrm{real}} = Z \cdot \frac{R_s T}{p} = Z \cdot v_{\mathrm{id}}$$
+
+$$v_{\mathrm{real}} = 0{,}985 \cdot 0{,}01722 = 0{,}01696\,\mathrm{m^3/kg}$$
+
+**c) Deviation.**
+
+$$\frac{v_{\mathrm{id}} - v_{\mathrm{real}}}{v_{\mathrm{real}}} = \frac{0{,}01722 - 0{,}01696}{0{,}01696} \approx 1{,}5\,\%$$
+
+At 50 bar and 300 K the ideal estimate is 1.5 % high — small, but not zero. For tight power-plant heat-rate calculations this matters; for estimating a compressed-air tank volume it would usually be ignored.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k1-l6-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Ein Gas mit Realgasfaktor Z = 1,00 verhält sich …"
+  question_en="A gas with compressibility factor Z = 1.00 behaves …"
+  options={[
+    { id: "a", de: "ideal.", en: "ideally." },
+    { id: "b", de: "komprimierter als ein ideales Gas.", en: "more compressed than an ideal gas." },
+    { id: "c", de: "weniger komprimiert als ein ideales Gas.", en: "less compressed than an ideal gas." },
+    { id: "d", de: "flüssig.", en: "as a liquid." },
+  ]}
+  correct="a"
+  hint_en="Z = 1 is the defining property of the ideal-gas model."
+  solution_mdx={`
+**Correct answer: (a) ideal.**
+
+The compressibility factor is defined as $Z = pv/(R_s T)$. The ideal-gas equation is $pv = R_s T$, which rearranges to $Z = 1$ identically. So $Z = 1$ is exactly the ideal-gas condition.
+
+- If $Z < 1$: the gas is more compressible than ideal (attractive forces dominate; $v$ is smaller than ideal at the same $p$, $T$). Common at high pressures for most gases.
+- If $Z > 1$: the gas is less compressible than ideal (excluded-volume effects dominate; $v$ is larger than ideal). Happens at very high pressures where molecules are packed almost against each other.
+
+Option (d) (liquid) is irrelevant — $Z$ is defined for gases. A liquid would be described by a different equation of state entirely.
+  `}
+  common_mistakes={[
+    {
+      wrong: "d — liquid",
+      why_en: "Z is a gas-phase quantity. For liquids, we use density tables or equations like the Tait equation. Reading Z = 1 as 'nothing unusual happening' is right; reading it as 'any phase' is wrong."
+    }
+  ]}
+  discussion_mdx={`
+**Where real gases deviate most.**
+
+On a compressibility chart (Z vs reduced pressure for various reduced temperatures), the dip below Z = 1 is deepest near the critical point — where attractive forces dominate and molecules are in effect "half-liquid". At reduced temperatures much above the critical ($T_r > 2$), attraction effects are swamped by kinetic energy, and the deviation from Z = 1 is small even at high pressures.
+
+**Engineering rule of thumb.** If $T_r = T/T_c > 2$ AND $p_r = p/p_c < 5$, ideal gas is good to ~2 %. Outside that envelope, either use $Z$ charts or (for water and common refrigerants) property tables.
+
+**Connection forward.** Thermodynamik II's big table-reading exercise is the Clausius-Rankine cycle, where you look up $h$ and $s$ at four state points from the steam table and compute efficiencies. Getting comfortable with Z here is a precursor to getting comfortable reading tables there.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l6-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Welches spezifische Volumen (in m³/kg) berechnet die ideale Gasgleichung für CO₂ bei p = 60 bar, T = 320 K? Verwenden Sie R_s,CO₂ = 189 J/(kg·K)."
+  question_en="What specific volume (in m³/kg) does the ideal-gas equation give for CO₂ at p = 60 bar, T = 320 K? Use R_s,CO₂ = 189 J/(kg·K)."
+  correct={0.01008}
+  tolerance={0.0003}
+  hint_en="v = R_s · T / p. Remember bar → Pa."
+  solution_mdx={`
+**Answer: $v \\approx 0{,}0101\\,\\mathrm{m^3/kg}$.**
+
+$$v_{\\mathrm{id}} = \\frac{R_s T}{p} = \\frac{189 \\cdot 320}{60 \\cdot 10^5} = \\frac{60\\,480}{6 \\cdot 10^6} \\approx 0{,}01008\\,\\mathrm{m^3/kg}$$
+
+**Reality check.** At 60 bar and 320 K, CO₂ is near its critical conditions ($p_c \\approx 73{,}8\\,\\mathrm{bar}$, $T_c \\approx 304\\,\\mathrm{K}$). Real $v$ is significantly smaller (roughly $0{,}006$ m³/kg, so Z ≈ 0.6). The ideal estimate is off by ~40 %. This is exactly the regime where ideal gas fails and you reach for a Z-chart or a CO₂ property table.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using p in bar without conversion, getting 1008 m³/kg",
+      why_en: "SI units require Pa. 60 bar = 6 · 10⁶ Pa, not 60. The resulting 1000× error is visibly wrong — one cubic metre of gas does not weigh one kilogram at 60 bar by any stretch."
+    },
+    {
+      wrong: "Using R = 8.314 J/(mol·K) (universal) instead of R_s (specific)",
+      why_en: "The specific form $pv = R_s T$ uses mass, the molar form $pV_m = RT$ uses moles. Using the universal R with the specific v gives a numerically smaller answer (about 0.044 m³/mol), but the unit is per-mole, not per-kg. Mixing the two pairs yields numbers that look plausible but carry the wrong physical interpretation."
+    }
+  ]}
+  discussion_mdx={`
+**Near the critical point: the ideal-gas model's worst regime.**
+
+CO₂'s critical point is at 304 K, 73.8 bar — close to room temperature, not that high a pressure. So CO₂ under typical industrial conditions (fire extinguishers at 60 bar, carbonated drinks, supercritical extraction) is routinely in the regime where ideal fails badly.
+
+A 40 % deviation sounds large, and it is. The physical reason: at 60 bar and 320 K, CO₂ molecules are packed close enough that intermolecular attractions (responsible for $a$ in van der Waals) significantly reduce the wall-impact pressure — the real gas is more compressible than the model predicts. Equivalently, at the same $p$, the real volume is smaller.
+
+**Klausur protocol.** If you're asked to compute $v$ for CO₂ at 60 bar and 320 K, the correct approach is:
+
+1. Note the conditions are near critical — expect significant deviation from ideal.
+2. If a $Z$ value is provided in the problem, use $v = Z R_s T / p$.
+3. If a property table is provided, read $v$ directly.
+4. Only if the problem *explicitly* says "assume ideal gas" should you plug into $pv = R_s T$.
+
+Assuming ideal gas without justification is a typical source of mark-deductions in Thermodynamik II.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l6-ex3"
+  difficulty="klausur"
+  type="multiple_choice"
+  question_de="Ein Gas hat am kritischen Punkt welches Verhalten?"
+  question_en="A gas at the critical point exhibits which behaviour?"
+  options={[
+    { id: "a", de: "Es ist gleichzeitig flüssig und gasförmig; der Unterschied verschwindet.", en: "It is simultaneously liquid and gaseous; the distinction vanishes." },
+    { id: "b", de: "Es kann durch Druckerhöhung nicht mehr verflüssigt werden.", en: "It can no longer be liquefied by pressure increase." },
+    { id: "c", de: "Der Realgasfaktor Z ist dort typischerweise ≈ 0{,}27.", en: "The compressibility factor Z is typically ≈ 0.27 there." },
+    { id: "d", de: "Alle genannten Aussagen sind richtig.", en: "All of the above are correct." },
+  ]}
+  correct="d"
+  hint_en="The critical point is the endpoint of the vapour-pressure curve. Above it, phase distinctions disappear."
+  solution_mdx={`
+**Correct answer: (d) — all three statements are correct.**
+
+**(a) Phase distinction vanishes.** At the critical point, the densities of the saturated liquid and the saturated vapour become equal. Just above the critical point, the substance is a "supercritical fluid" — neither clearly liquid nor clearly gas, with properties intermediate between both.
+
+**(b) Cannot be liquefied by pressure alone.** Above $T_c$, no amount of compression produces a phase change — you just get a denser and denser supercritical fluid. This is why oxygen cannot be bottled as a liquid at room temperature (T_c of O₂ is 155 K, far below room T). You need to cool BELOW the critical temperature first.
+
+**(c) $Z_c \\approx 0{,}27$.** The compressibility factor at the critical point is remarkably close to 0.27 for most substances (van der Waals predicts exactly 3/8 = 0.375, real substances are around 0.25–0.29). This regularity is part of the basis for corresponding-states correlations.
+
+All three are correct.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a alone",
+      why_en: "Technically correct but incomplete. The question asked which is correct; (d) captures all three facts that are true at the critical point. Selecting only (a) means you know the phase-merger fact but may not have connected it to the liquefaction impossibility or the Z_c universality."
+    },
+    {
+      wrong: "b alone",
+      why_en: "Same issue. 'No liquefaction above T_c' is a key engineering consequence, but it is one of several simultaneous facts at the critical point. (d) encompasses the others."
+    }
+  ]}
+  discussion_mdx={`
+**Why $Z_c$ is nearly universal.**
+
+The van der Waals equation predicts $Z_c = 3/8 = 0.375$ exactly, same for every substance — a direct consequence of the three critical-point conditions $(\\partial p/\\partial v)_T = 0$, $(\\partial^2 p/\\partial v^2)_T = 0$, and $p = p_c$, $T = T_c$. Real substances deviate: water is 0.229, CO₂ is 0.274, argon is 0.291. The van der Waals prediction is systematically high because its excluded-volume correction is too simple.
+
+More accurate equations of state (Redlich-Kwong, Peng-Robinson) improve the agreement but don't quite nail $Z_c$ either. For engineering purposes, the fact that $Z_c$ ranges narrowly (0.23–0.29) is enough to justify *corresponding-states* correlations: give me $p_r$ and $T_r$ and I'll give you $Z$ for your substance without needing the full equation of state.
+
+**Supercritical fluids in process engineering.**
+
+Supercritical CO₂ (above 304 K, 74 bar) is used industrially for decaffeinating coffee, extracting hops, and dry-cleaning — because it has the density of a liquid (good solvent power) with the viscosity of a gas (easy mass transfer). This is a pure real-gas application; the ideal-gas model has nothing to say about it. In the last semester of a Verfahrenstechnik degree you will compute these operations in detail.
+
+**Connection to everyday life.** A CO₂ fire extinguisher at room temperature contains liquid CO₂ at its vapour pressure (~58 bar). If you warm it above 31 °C, the liquid disappears — supercritical. If you cool it below 31 °C, there's a liquid-vapour mix again. This is why fire extinguishers specify maximum storage temperatures.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l6-ex4"
+  difficulty="klausur"
+  type="multi_select"
+  question_de="Wann ist das Idealgas-Modell für ein reales Gas eine gute Näherung (Fehler < 5 %)? Mehrfachauswahl."
+  question_en="When is the ideal-gas model a good approximation for a real gas (error < 5 %)? Multiple selection."
+  options={[
+    { id: "a", de: "Bei niedrigen Drücken (z. B. p < 10 bar für Luft).", en: "At low pressures (e.g. p < 10 bar for air)." },
+    { id: "b", de: "Bei Temperaturen weit über dem kritischen Punkt.", en: "At temperatures well above the critical point." },
+    { id: "c", de: "In der Nähe des Siedepunkts.", en: "Near the boiling point." },
+    { id: "d", de: "Für Edelgase wie Helium oder Argon unter moderaten Bedingungen.", en: "For noble gases like helium or argon under moderate conditions." },
+    { id: "e", de: "Bei Wasserdampf unter hohen Drücken in Kraftwerken.", en: "For water steam at high pressures in power plants." },
+  ]}
+  correct={["a", "b", "d"]}
+  hint_en="Three of the five are good approximations. The failures come from either being close to phase change or from heavy-interaction conditions."
+  solution_mdx={`
+**Correct answers: (a), (b), (d).**
+
+- **(a) Low pressure** → wide gas → molecules rarely close enough to interact. Ideal works.
+- **(b) T much above T_c** → kinetic energy >> attractive potential. Interactions become negligible. Ideal works.
+- **(d) Noble gases under moderate conditions** → noble gases have very weak intermolecular attractions (no dipoles, no hydrogen bonds). Even closer to ideal than polyatomic gases at the same conditions. Ideal works very well.
+
+- **(c) Near the boiling point** — here the gas is at its condensation curve, and attractive forces are substantial (preparing to liquefy). Ideal fails. Use steam tables or $Z$-charts.
+- **(e) Steam at high pressures** — the hallmark application where real-gas corrections matter. Power plants operate at 100–250 bar, well inside the regime where ideal is inadequate. Steam tables are essential; there is no shortcut.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (c) near boiling",
+      why_en: "Near the boiling point, a gas is about to condense — attractive forces are winning over kinetic energy. The ideal-gas model, which ignores those attractions entirely, fails badly in this regime. Refrigerants near their evaporation temperatures, water just above its dew point, CO₂ near 0 °C at high pressure — all need real-gas or table-based treatment."
+    },
+    {
+      wrong: "Including (e) steam at high pressure",
+      why_en: "This is the single most common case where Thermodynamik I students incorrectly apply the ideal-gas law. Steam tables exist precisely because ideal gas is inadequate for power plant steam. At 100 bar and 400 °C, the ideal estimate is off by 10–15 % — enough to make a design non-conservative by more than its safety margin."
+    },
+    {
+      wrong: "Missing (d) noble gases",
+      why_en: "Noble gases are the canonical case where ideal works best. Their lack of dipole moment and weak dispersion forces mean they stay close to ideal even at moderate pressure. Helium, in particular, is used as the 'almost ideal gas' in cryogenics precisely because deviations are tiny in engineering conditions."
+    }
+  ]}
+  discussion_mdx={`
+**The two-regime mental map.**
+
+Think of every (T, p) point for every fluid as a dot on a phase diagram. Draw the dew/vapour-pressure curve and the critical point. Then:
+
+- Far to the upper right (high T, moderate p) → far above the dew line → ideal works.
+- Near the dew line or the critical point → real-gas corrections essential.
+- To the right of the critical temperature → supercritical, complex; use tables.
+
+**Decision tree for a Klausur problem.**
+
+1. Is the substance specified (water, R-134a, NH₃, etc.)? → If yes, check if tables are expected.
+2. Is the condition near a phase change? → If yes, use tables.
+3. Is it just "air" or "gas" at moderate conditions? → Use ideal gas.
+4. If in doubt, write down both estimates and reason about which is trusted.
+
+**Practical anecdote.** Natural gas pipelines operate at 70–100 bar, moderate temperature. Engineers use real-gas corrections for the density calculation to within 2–3 % accuracy. A 2 % error on a large pipeline's throughput is worth a lot of money — real-gas isn't an academic exercise in that industry.
+
+**Connection forward.** You will meet *virial expansion* $Z = 1 + B(T)/v + C(T)/v^2 + \\dots$ in Thermodynamik II — it is the formal series expansion around the ideal limit, with $B(T)$ giving the leading correction. For most engineering problems, picking $Z$ off a chart is faster; for some research work, virial is cleaner.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** Write down a one-line *Modellannahme* (modelling assumption) at the start of every thermodynamics problem: *"Die Luft wird als ideales Gas behandelt"* or *"Wasserdampf wird über die Dampftafel behandelt"*. This protects you from the examiner's biggest gotcha — using the wrong model without noticing — and also gives partial credit even if the downstream arithmetic goes wrong.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Chapter 1 is complete. In **Kapitel 2 — der erste Hauptsatz der Thermodynamik** we leave classification and meet the master conservation law. Energy balances, internal energy, enthalpy, work types (boundary, shaft, flow), and the first-law formulations for closed and open systems. Everything you classified in Chapter 1 gets its energy-conservation equation in Chapter 2 — and the entire rest of Thermodynamik I is about applying those equations to turbines, compressors, heat exchangers, cycles, and refrigeration.
