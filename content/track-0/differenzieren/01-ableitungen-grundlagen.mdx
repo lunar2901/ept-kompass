@@ -1,0 +1,454 @@
+---
+id: track-0-diff-l1
+module: schulwissen-auffrischen
+chapter: differenzieren
+position: 1
+name_de: "Ableitungen — was sie sind und warum Ingenieure sie brauchen"
+name_en: "Derivatives — what they are and why engineers need them"
+estimated_minutes: 25
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+The moment a physics formula has a dot on top of a variable — $\dot{m}$, $\dot{Q}$, $\dot{V}$ — or contains a "rate of change", you are looking at a derivative. Ingenieure arbeiten den ganzen Tag mit Ableitungen. Luckily, differentiation is a *technique* more than a theory: a short list of rules that, applied mechanically, handles every practical formula.
+
+This lesson rebuilds your intuition from scratch: what a derivative IS, how to compute it using three basic rules, and what it means when it appears in engineering formulas like $\dot{Q} = k A \frac{\mathrm{d}T}{\mathrm{d}x}$.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Ableitung
+    en: derivative
+    plural: die Ableitungen
+    ipa: /ˈapˌlaɪ̯tʊŋ/
+    example_de: "Die Ableitung misst die Änderungsrate einer Funktion."
+    example_en: "The derivative measures the rate of change of a function."
+  - term: differenzieren
+    en: to differentiate (compute a derivative)
+    example_de: "Um eine Funktion zu differenzieren, wendet man die Ableitungsregeln an."
+    example_en: "To differentiate a function, apply the derivative rules."
+  - term: die Tangente
+    en: tangent
+    plural: die Tangenten
+    example_de: "Die Tangente an einer Stelle hat dieselbe Steigung wie die Funktion dort."
+    example_en: "The tangent at a point has the same slope as the function there."
+  - term: die Steigung
+    en: slope
+    example_de: "Die Steigung einer Tangente ist die Ableitung an dieser Stelle."
+    example_en: "The slope of a tangent is the derivative at that point."
+  - term: die partielle Ableitung
+    en: partial derivative
+    example_de: "Eine partielle Ableitung hält alle Variablen außer einer konstant."
+    example_en: "A partial derivative holds all variables except one constant."
+  - term: das Differential
+    en: differential
+    example_de: "Das Differential dx ist eine infinitesimal kleine Änderung."
+    example_en: "The differential dx is an infinitesimally small change."
+</VocabBlock>
+
+## Theorie
+
+### The intuition: slope of a tangent
+
+At any point $x$ on a curve $f(x)$, imagine zooming in so far that the curve looks like a straight line. The **slope** of that line is the **derivative** of $f$ at $x$:
+
+$$f'(x) = \frac{\mathrm{d}f}{\mathrm{d}x}$$
+
+Read: "the derivative of $f$ with respect to $x$." The notation $\mathrm{d}f/\mathrm{d}x$ (Leibniz) and $f'(x)$ (Lagrange) mean the same thing; you will see both.
+
+Physical examples:
+
+- Position $s(t)$ vs time $t$: the derivative $\frac{\mathrm{d}s}{\mathrm{d}t} = v$ is velocity.
+- Velocity $v(t)$: $\frac{\mathrm{d}v}{\mathrm{d}t} = a$ is acceleration.
+- Mass $m(t)$ of a leaking tank: $\frac{\mathrm{d}m}{\mathrm{d}t} = -\dot{m}_{\text{leak}}$.
+- Temperature along a rod, $T(x)$: $\frac{\mathrm{d}T}{\mathrm{d}x}$ is the temperature gradient, which drives heat flow.
+
+### The three rules you need cold
+
+<FormulaCard
+  name_de="Konstanten-Regel"
+  name_en="Constant rule"
+  latex="\frac{\mathrm{d}}{\mathrm{d}x}(c) = 0, \quad \frac{\mathrm{d}}{\mathrm{d}x}(c \cdot f(x)) = c \cdot f'(x)"
+>
+
+Constants have zero slope. Constant multiples factor out of derivatives.
+
+</FormulaCard>
+
+<FormulaCard
+  name_de="Potenzregel"
+  name_en="Power rule"
+  latex="\frac{\mathrm{d}}{\mathrm{d}x}(x^n) = n \cdot x^{n-1}"
+>
+
+Works for any real $n$, not just integers. Examples:
+
+- $\frac{\mathrm{d}}{\mathrm{d}x}(x^2) = 2x$
+- $\frac{\mathrm{d}}{\mathrm{d}x}(x^{1/2}) = \frac{1}{2} x^{-1/2} = \frac{1}{2\sqrt{x}}$
+- $\frac{\mathrm{d}}{\mathrm{d}x}(1/x) = \frac{\mathrm{d}}{\mathrm{d}x}(x^{-1}) = -x^{-2} = -\frac{1}{x^2}$
+
+</FormulaCard>
+
+<FormulaCard
+  name_de="Summenregel"
+  name_en="Sum rule"
+  latex="\frac{\mathrm{d}}{\mathrm{d}x}(f(x) + g(x)) = f'(x) + g'(x)"
+>
+
+Derivatives distribute over sums (and, by the same logic, differences).
+
+</FormulaCard>
+
+### Special functions — memorise these
+
+<FormulaCard
+  name_de="Wichtige Grundableitungen"
+  name_en="Important basic derivatives"
+>
+
+| Function | Derivative |
+| --- | --- |
+| $\sin(x)$ | $\cos(x)$ |
+| $\cos(x)$ | $-\sin(x)$ |
+| $\tan(x)$ | $\sec^2(x) = 1/\cos^2(x)$ |
+| $e^x$ | $e^x$ (its own derivative — this is why $e$ is special) |
+| $\ln(x)$ | $1/x$ |
+| $a^x$ | $a^x \ln(a)$ |
+| $\log_a(x)$ | $1/(x \ln a)$ |
+
+</FormulaCard>
+
+### Kettenregel (chain rule) — for compositions
+
+For any composition $f(g(x))$:
+
+<FormulaCard
+  name_de="Kettenregel"
+  name_en="Chain rule"
+  latex="\frac{\mathrm{d}}{\mathrm{d}x} f(g(x)) = f'(g(x)) \cdot g'(x)"
+>
+
+"Outer derivative × inner derivative." Examples:
+
+- $\frac{\mathrm{d}}{\mathrm{d}x} (x^2 + 1)^5 = 5(x^2 + 1)^4 \cdot 2x$
+- $\frac{\mathrm{d}}{\mathrm{d}x} \sin(3x) = \cos(3x) \cdot 3$
+- $\frac{\mathrm{d}}{\mathrm{d}x} e^{-\alpha t} = -\alpha \cdot e^{-\alpha t}$ (with $x \to t$, a mainstay of kinetics)
+
+</FormulaCard>
+
+### Partielle Ableitungen — in thermodynamics
+
+For functions of multiple variables like $U(T, V)$, the **partial derivative** fixes all but one variable:
+
+$$\left(\frac{\partial U}{\partial T}\right)_V = \text{rate of change of } U \text{ with } T, \text{ at constant } V$$
+
+The subscript $V$ says "V is held constant". This is the definition of $c_v$:
+
+$$c_v = \left(\frac{\partial u}{\partial T}\right)_v$$
+
+and of $c_p$:
+
+$$c_p = \left(\frac{\partial h}{\partial T}\right)_p$$
+
+<Callout variant="note">
+
+Partial derivatives are just ordinary derivatives where you treat the other variables as if they were constants. Learn to set them up correctly — the subscript telling you "at constant X" matters.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Differenzieren Sie:
+>
+> a) $f(x) = 3x^4 - 2x^2 + 5$
+> b) $g(t) = e^{-2t} \sin(t)$ (Hinweis: Produktregel)
+> c) $\eta(T) = 1 - \frac{T_{\text{kalt}}}{T}$ (Carnot-Wirkungsgrad, $T_{\text{kalt}}$ konstant)
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Power + sum rule.**
+
+$$f'(x) = 3 \cdot 4 x^3 - 2 \cdot 2x + 0 = 12x^3 - 4x$$
+
+**b) Product rule** ($\frac{\mathrm{d}}{\mathrm{d}t}(uv) = u'v + uv'$) with $u = e^{-2t}$, $v = \sin(t)$:
+
+$$g'(t) = (-2 e^{-2t}) \sin(t) + e^{-2t} \cos(t) = e^{-2t}(\cos t - 2\sin t)$$
+
+**c) Carnot efficiency derivative.**
+
+Write $\eta = 1 - T_{\text{kalt}} T^{-1}$. Then:
+
+$$\frac{\mathrm{d}\eta}{\mathrm{d}T} = 0 - T_{\text{kalt}} \cdot (-1) T^{-2} = \frac{T_{\text{kalt}}}{T^2}$$
+
+Interpretation: the Carnot efficiency rises with $T$ (hot reservoir temperature), but the rate of improvement decreases like $1/T^2$. Doubling $T$ only improves efficiency by a small amount once $T$ is already high. This is why gas turbines keep pushing $T$ up despite materials challenges — each extra 100 K matters less than the previous.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-diff-l1-ex1"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Bilden Sie die Ableitung von f(x) = 5x^3 - 2x + 7."
+  question_en="Differentiate f(x) = 5x^3 - 2x + 7."
+  correct_latex="15x^2 - 2"
+  hint_en="Apply the power rule to each term separately, using the sum rule."
+  solution_mdx={`
+**Answer: $f'(x) = 15x^2 - 2$.**
+
+**Term by term:**
+
+- $\\frac{\\mathrm{d}}{\\mathrm{d}x}(5x^3) = 5 \\cdot 3 x^2 = 15x^2$
+- $\\frac{\\mathrm{d}}{\\mathrm{d}x}(-2x) = -2$
+- $\\frac{\\mathrm{d}}{\\mathrm{d}x}(7) = 0$ (constant)
+
+Sum: $15x^2 - 2$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 15x² - 2 + 7 (keeping the constant)",
+      why_en: "Constants have zero derivative. The +7 vanishes when you differentiate. A common slip when differentiating hurriedly — the constant term stubbornly sits there in memory."
+    },
+    {
+      wrong: "Forgetting to reduce the exponent: 15x³ instead of 15x²",
+      why_en: "Power rule: $x^n \\to n x^{n-1}$, not $n x^n$. The exponent must DROP by one. For $x^3$, the derivative is $3x^2$, and with the coefficient 5 in front, $15x^2$."
+    }
+  ]}
+  discussion_mdx={`
+**Why the power rule has that shape.**
+
+From the limit definition $f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$, applying to $x^n$ gives a binomial expansion where all higher-order terms in $h$ vanish as $h \\to 0$, leaving just $n x^{n-1}$. Detailed derivation is a first-year calculus exercise.
+
+**Connection to engineering.** Polynomial differentiation shows up any time a problem quantity is modelled as $f(x) = a + b x + c x^2 + \\dots$ and you need the rate of change at a specific x. Examples:
+
+- Flow rate vs pipe length with quadratic pressure drop.
+- Temperature profile along a heat exchanger (often quartic in reality).
+- Voltage across a resistor network with mixed linear / quadratic elements.
+
+Even polynomials that aren't physics laws often appear as curve fits to data.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l1-ex2"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Bilden Sie die Ableitung von g(x) = e^{-3x}."
+  question_en="Differentiate g(x) = e^{-3x}."
+  correct_latex="-3 e^{-3x}"
+  hint_en="Chain rule: outer derivative (e^u) × inner derivative (-3)."
+  solution_mdx={`
+**Answer: $g'(x) = -3 e^{-3x}$.**
+
+Chain rule with $f(u) = e^u$, $u = -3x$:
+
+- Outer derivative: $\\frac{\\mathrm{d}}{\\mathrm{d}u}(e^u) = e^u$
+- Inner derivative: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(-3x) = -3$
+
+Product: $e^{-3x} \\cdot (-3) = -3 e^{-3x}$.
+
+**Meta-pattern:** $\\frac{\\mathrm{d}}{\\mathrm{d}x} e^{ax} = a \\cdot e^{ax}$ for any constant $a$. Worth memorising — it appears in every kinetics and decay problem.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering $e^{-3x}$ (forgot the chain-rule multiplier)",
+      why_en: "For $e^x$, the derivative is $e^x$ — true, but only when the exponent is exactly $x$. For $e^{-3x}$, the chain rule multiplies by $-3$. This is a classic early mistake; always ask 'what's the inner function?'"
+    },
+    {
+      wrong: "Answering $-3 e^{-3x-1}$ or similar (misapplying the power rule)",
+      why_en: "The power rule ($x^n$) doesn't apply to $e^u$ — they have different derivative rules. $e^{-3x}$ means 'e to the exponent $-3x$', not 'e to the power of $-3x-1$'. The derivative of $e^u$ is always $e^u$ itself, just multiplied by the inner derivative."
+    }
+  ]}
+  discussion_mdx={`
+**Why $e^x$ and its friends matter so much in engineering.**
+
+Exponentials with negative exponents describe **decay**: radioactive isotopes, discharging capacitors, cooling towards ambient temperature (Newton's law of cooling), reaction kinetics (Arrhenius).
+
+Positive exponents describe **growth**: population, compound interest, initial-stage exponential feedback in many instabilities.
+
+In both cases the characteristic form is $f(t) = f_0 \\, e^{\\pm t/\\tau}$, where $\\tau$ is the time constant. Taking the derivative:
+
+$$\\frac{\\mathrm{d}f}{\\mathrm{d}t} = \\pm \\frac{1}{\\tau} f_0 e^{\\pm t/\\tau} = \\pm \\frac{f(t)}{\\tau}$$
+
+So the instantaneous rate of change is proportional to the current value — the defining property of exponential processes. This is why the differential equation $\\mathrm{d}f/\\mathrm{d}t = \\pm f/\\tau$ has exponential solutions: it's a self-similar process.
+
+**In thermodynamics.** The Arrhenius equation $k = A e^{-E_A/(RT)}$ gives reaction rate as a function of temperature. Differentiating wrt $T$ using the chain rule gives the temperature sensitivity — essential for understanding why reactions speed up exponentially with heat.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l1-ex3"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Bilden Sie die Ableitung von h(x) = \\ln(x^2 + 1)."
+  question_en="Differentiate h(x) = ln(x² + 1)."
+  correct_latex="\\frac{2x}{x^2 + 1}"
+  hint_en="Chain rule: outer (d/du ln(u) = 1/u) × inner (d/dx (x²+1) = 2x)."
+  solution_mdx={`
+**Answer: $h'(x) = \\dfrac{2x}{x^2 + 1}$.**
+
+Chain rule with $f(u) = \\ln u$, $u = x^2 + 1$:
+
+- Outer derivative: $\\frac{\\mathrm{d}}{\\mathrm{d}u}(\\ln u) = \\frac{1}{u}$
+- Inner derivative: $\\frac{\\mathrm{d}}{\\mathrm{d}x}(x^2 + 1) = 2x$
+
+Product:
+
+$$h'(x) = \\frac{1}{x^2 + 1} \\cdot 2x = \\frac{2x}{x^2 + 1}$$
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering $\\ln(2x)$",
+      why_en: "Confusing the derivative of a composite with the composite of derivatives. $\\ln$ is one layer, $x^2 + 1$ is another; you differentiate each and multiply. Writing $\\ln(2x)$ makes no sense as a derivative of $\\ln(x^2 + 1)$."
+    },
+    {
+      wrong: "Forgetting the chain rule: 1/(x² + 1)",
+      why_en: "Missing the inner-derivative factor 2x. This is the single most common chain-rule slip — remembering the outer derivative, forgetting to multiply by the inner derivative. Always ask: 'what IS the function I'm differentiating in terms of $x$?'"
+    }
+  ]}
+  discussion_mdx={`
+**Chain rule in thermodynamics — a subtle example.**
+
+The specific heat at constant pressure is defined as:
+
+$$c_p = \\left(\\frac{\\partial h}{\\partial T}\\right)_p$$
+
+For an ideal gas, $h = h(T)$ alone, so this partial is an ordinary derivative. But for a real gas, $h(T, p)$ depends on both. If your Klausur has "find $c_p$ for a gas given by the equation $h = 4.5 R T + 0.002 R T^2 + ...$" — just differentiate with respect to $T$ treating any other variables as constants.
+
+For composite functions: $\\frac{\\mathrm{d}h}{\\mathrm{d}T} = ...$ where the inner function depends on $T$ — apply the chain rule. Typical in combustion kinetics and chemical thermodynamics.
+
+**Engineering-scale intuition.** The derivative $\\frac{2x}{x^2+1}$ peaks near $x = 1$ and tails off at large $|x|$ — this is a classic "humped" curve. When you see it in a formula, you're looking at a sensitivity that maximises at some intermediate value and falls off at extremes.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l1-ex4"
+  difficulty="medium"
+  type="numeric"
+  question_de="Eine Temperatur ändert sich mit der Zeit wie T(t) = 20 + 80 e^{-t/100}, wobei t in Sekunden und T in °C. Wie groß ist die momentane Abkühlungsrate dT/dt bei t = 0 (in K/s)? Geben Sie den Betrag (positiver Wert) an."
+  question_en="A temperature varies with time as T(t) = 20 + 80 e^{-t/100}, with t in seconds and T in °C. What is the instantaneous cooling rate |dT/dt| at t = 0 (in K/s)? Give the magnitude (positive value)."
+  correct={0.8}
+  tolerance={0.02}
+  hint_en="Differentiate using chain rule (derivative of exponential with inner -t/100). Evaluate at t = 0."
+  solution_mdx={`
+**Answer: $|dT/dt| = 0{,}8\\,\\mathrm{K/s}$ at $t = 0$.**
+
+**Differentiate.** The $20$ is a constant, so it vanishes:
+
+$$\\frac{\\mathrm{d}T}{\\mathrm{d}t} = 80 \\cdot \\frac{\\mathrm{d}}{\\mathrm{d}t} e^{-t/100} = 80 \\cdot \\left(-\\frac{1}{100}\\right) e^{-t/100}$$
+
+$$\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -0{,}8 \\, e^{-t/100} \\quad [\\mathrm{°C/s}]$$
+
+(K/s and °C/s are the same for rates, because the offset 273.15 vanishes in a difference.)
+
+**At $t = 0$:** $e^0 = 1$, so $dT/dt = -0{,}8\\,\\mathrm{K/s}$. Magnitude: $0{,}8\\,\\mathrm{K/s}$.
+
+**Interpretation.** The object is initially at $T(0) = 20 + 80 = 100\\,\\mathrm{°C}$, cooling toward an ambient $T_\\infty = 20\\,\\mathrm{°C}$ with a time constant $\\tau = 100\\,\\mathrm{s}$. The initial cooling rate is large (0.8 K/s); by $t = 100\\,\\mathrm{s}$ it has dropped to $0{,}8/e \\approx 0{,}29\\,\\mathrm{K/s}$ — the exponential slowdown characteristic of Newton's law of cooling.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting the chain-rule factor -1/100",
+      why_en: "$\\frac{\\mathrm{d}}{\\mathrm{d}t} e^{-t/100}$ requires the chain rule: the inner function $-t/100$ has derivative $-1/100$, which multiplies the outer $e^{-t/100}$. Missing this gives an answer 100× too large."
+    },
+    {
+      wrong: "Forgetting to evaluate at t = 0",
+      why_en: "The derivative is a FUNCTION of $t$: $-0.8 e^{-t/100}$. You need to plug in $t = 0$ to get the value at that specific moment. This step is easy to forget in the rush to finish."
+    }
+  ]}
+  discussion_mdx={`
+**Newton's law of cooling in one equation.**
+
+The cooling dynamics $T(t) = T_\\infty + (T_0 - T_\\infty) e^{-t/\\tau}$ is the solution to:
+
+$$\\frac{\\mathrm{d}T}{\\mathrm{d}t} = -\\frac{T - T_\\infty}{\\tau}$$
+
+— the cooling rate is proportional to the difference from ambient. This is a fundamental heat-transfer law.
+
+**Time constant $\\tau$:**
+
+- Large $\\tau$ → slow cooling, well-insulated system.
+- Small $\\tau$ → fast cooling, poor insulation or high surface area.
+
+For a 100 ml cup of hot coffee in a ceramic mug, $\\tau \\approx 30-60\\,\\mathrm{min}$. For the same coffee in a thermos, $\\tau \\approx 12\\,\\mathrm{h}$ (the thermos's whole purpose).
+
+**Connection to thermodynamics.** Newton's cooling is the combined conductive/convective heat loss from a body with uniform temperature. When the body has spatial temperature variations (non-uniform $T$), you need the partial differential heat equation — subject of *Wärme- und Stoffübertragung* in your B.Sc. program.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l1-ex5"
+  difficulty="klausur"
+  type="short_derivation"
+  question_de="Leiten Sie die Ableitung von f(x) = x \\ln(x) ab (Produktregel)."
+  question_en="Compute the derivative of f(x) = x · ln(x) (product rule)."
+  correct_latex="\\ln(x) + 1"
+  hint_en="Product rule: (uv)' = u'v + uv'. Here u = x, v = ln(x)."
+  solution_mdx={`
+**Answer: $f'(x) = \\ln(x) + 1$.**
+
+Product rule with $u = x$, $v = \\ln x$:
+
+- $u' = 1$
+- $v' = 1/x$
+
+$$f'(x) = u'v + uv' = 1 \\cdot \\ln(x) + x \\cdot \\frac{1}{x} = \\ln(x) + 1$$
+
+**A classic use.** The function $x \\ln x$ appears in entropy calculations for ideal gases and in information theory. Its derivative tells you where $x \\ln x$ is minimised (at $x = 1/e$, where $f'(x) = \\ln(x) + 1 = 0$, so $x = e^{-1}$).
+
+In thermodynamics: the entropy of mixing of two ideal gases involves terms like $x_A \\ln x_A + x_B \\ln x_B$. Differentiating with respect to mole fraction tells you when the mixing driving force is strongest — giving you Gibbs's famous *paradox* result.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting the + 1: answering just ln(x)",
+      why_en: "Classic sign of forgetting the $x \\cdot v'$ part of the product rule. The product rule has TWO terms: $u'v$ AND $uv'$. Here: $1 \\cdot \\ln x = \\ln x$ is the first term; $x \\cdot (1/x) = 1$ is the second. Don't drop the second term."
+    },
+    {
+      wrong: "Answering ln(x) · 1/x (chain rule applied to product)",
+      why_en: "This would be the chain rule (which multiplies outer and inner derivatives) — but $x \\ln x$ is a PRODUCT of two separate functions, not a composition. Use the product rule, which ADDS two terms, not the chain rule, which multiplies."
+    }
+  ]}
+  discussion_mdx={`
+**The product rule in thermodynamics — deriving dH = dU + d(pV).**
+
+Starting from $H = U + pV$ and taking differentials:
+
+$$\\mathrm{d}H = \\mathrm{d}U + \\mathrm{d}(pV) = \\mathrm{d}U + p\\,\\mathrm{d}V + V\\,\\mathrm{d}p$$
+
+The product rule is hiding in plain sight: $\\mathrm{d}(pV) = p\\,\\mathrm{d}V + V\\,\\mathrm{d}p$. This identity is used every time you derive the open-system first law from the closed-system version.
+
+**Product rule in open-system energy balance.**
+
+For mass flow in an open system, the energy balance has terms like $\\frac{\\mathrm{d}(m u)}{\\mathrm{d}t}$ where both $m$ (mass in CV) and $u$ (specific internal energy) can change. Product rule:
+
+$$\\frac{\\mathrm{d}(mu)}{\\mathrm{d}t} = m \\frac{\\mathrm{d}u}{\\mathrm{d}t} + u \\frac{\\mathrm{d}m}{\\mathrm{d}t}$$
+
+— the second term capturing the contribution from mass entering / leaving the CV. In steady state both sides are zero; in transient problems, this expansion is how you track the two effects separately.
+
+**Connection forward.** Integration of $x \\ln x$ (by parts) gives $\\frac{x^2}{2} \\ln x - \\frac{x^2}{4}$. This kind of integral shows up in information theory (Shannon entropy of a continuous distribution) and in some statistical-thermodynamics derivations.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** A differentiation problem where you freeze up is usually a chain-rule or product-rule problem in disguise. Two questions:
+
+1. Is my function a COMPOSITION $f(g(x))$? If yes, chain rule.
+2. Is my function a PRODUCT $f(x) \cdot g(x)$? If yes, product rule.
+
+If neither, it's likely a sum of basic pieces — apply the power, exponential, or log rule to each piece separately. Practice until these identifications are second nature.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next lesson: **Höhere Ableitungen und Extrema** — second derivatives, finding maxima and minima, inflection points. After that: Integrieren — the reverse of differentiation, which completes the calculus toolkit you need for every thermodynamic-cycle calculation.
