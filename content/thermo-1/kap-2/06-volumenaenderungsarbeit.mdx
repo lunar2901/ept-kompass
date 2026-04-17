@@ -1,0 +1,353 @@
+---
+id: thermo-1-k2-l6
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 6
+name_de: "Volumenänderungsarbeit im Detail"
+name_en: "Boundary work in depth"
+estimated_minutes: 20
+prerequisites: ["thermo-1-k2-l5"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Previous lessons quoted the boundary-work formulas. This lesson **derives** them, so you can reconstruct the right formula on a Klausur even if you forget which one belongs to which iso-process. And it introduces the <GermanTerm de="Polytrope" article="die" en="polytropic process" /> — the general $pV^n = \mathrm{const}$ family that includes isothermal, isobaric, isochoric, and isentropic as special cases.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Polytrope
+    en: polytropic process
+    plural: die Polytropen
+    example_de: "Eine Polytrope erfüllt p V^n = const."
+    example_en: "A polytrope satisfies p V^n = const."
+  - term: der Polytropenexponent
+    en: polytropic exponent
+    example_de: "Der Polytropenexponent n bestimmt die Art der Polytrope."
+    example_en: "The polytropic exponent n characterises the polytrope."
+</VocabBlock>
+
+## Theorie
+
+### The master integral
+
+<FormulaCard
+  name_de="Volumenänderungsarbeit (quasistatisch, geschlossenes System)"
+  name_en="Boundary work (quasi-static, closed system)"
+  latex="W_{V,12} = -\int_{V_1}^{V_2} p(V) \, \mathrm{d}V"
+>
+
+Sign convention: work done ON the system is positive. For expansion ($V_2 > V_1$), the integral is positive, so $W_V$ is negative — work done BY the system.
+
+The integral depends on $p(V)$ — i.e. on the process path. Different processes give different $W_V$ for the same endpoints.
+
+</FormulaCard>
+
+### Isochoric: $V = \mathrm{const}$
+
+$\mathrm{d}V = 0$ everywhere along the path, so:
+
+$$W_V = 0$$
+
+No piston motion, no boundary work.
+
+### Isobaric: $p = \mathrm{const}$
+
+Pull $p$ out of the integral:
+
+$$W_V = -p \int_{V_1}^{V_2} \mathrm{d}V = -p(V_2 - V_1) = -p\,\Delta V$$
+
+Using ideal-gas law, $p\Delta V = mR_s\Delta T$, so equivalently $W_V = -mR_s\Delta T$.
+
+### Isothermal: $T = \mathrm{const}$, ideal gas
+
+From $pV = mR_sT$ with $T$ constant: $p = mR_sT / V$. Plug in:
+
+$$W_V = -\int_{V_1}^{V_2} \frac{mR_sT}{V} \mathrm{d}V = -mR_sT \int_{V_1}^{V_2} \frac{\mathrm{d}V}{V} = -mR_sT \ln\!\left(\frac{V_2}{V_1}\right)$$
+
+Equivalent forms:
+
+$$W_V = mR_sT \ln\!\left(\frac{V_1}{V_2}\right) = mR_sT \ln\!\left(\frac{p_2}{p_1}\right)$$
+
+(The second uses Boyle's law $V_1/V_2 = p_2/p_1$ at constant $T$.)
+
+### Polytropic: $pV^n = \mathrm{const}$
+
+The general parametrisation. Specific values of $n$ recover the earlier cases:
+
+| $n$ | Process |
+| :---: | --- |
+| $n = 0$ | isobar ($p = \mathrm{const}$) |
+| $n = 1$ | isotherm (for ideal gas: $pV = \mathrm{const} \Leftrightarrow T = \mathrm{const}$) |
+| $n = \kappa$ | isentrop (for ideal gas) |
+| $n \to \infty$ | isochor ($V = \mathrm{const}$) |
+
+For real compressors, $n$ typically falls between 1 and $\kappa$ — between the isothermal lower bound and the isentropic ideal limit.
+
+<FormulaCard
+  name_de="Volumenänderungsarbeit einer Polytrope (n ≠ 1)"
+  name_en="Boundary work of a polytrope (n ≠ 1)"
+  latex="W_V = \frac{p_2 V_2 - p_1 V_1}{n - 1} = \frac{mR_s(T_2 - T_1)}{n - 1}"
+  variables={[
+    { symbol: "n", name_de: "Polytropenexponent", name_en: "polytropic exponent", unit: "—" },
+  ]}
+>
+
+Derivation: $p V^n = p_1 V_1^n$, so $p = p_1 V_1^n / V^n$. Integrate:
+
+$$W_V = -p_1 V_1^n \int_{V_1}^{V_2} V^{-n}\mathrm{d}V = -p_1 V_1^n \cdot \frac{V_2^{1-n} - V_1^{1-n}}{1-n} = \frac{p_2 V_2 - p_1 V_1}{n - 1}$$
+
+Special case $n = 1$ (isotherm) must be handled separately because the formula has a $1/0$; the log form $W_V = -mR_sT\ln(V_2/V_1)$ applies.
+
+</FormulaCard>
+
+## Musteraufgabe
+
+> **Aufgabe.** Ein Verdichter verdichtet polytrop ($n = 1{,}3$) 0,5 kg Luft ($R_s = 287\,\mathrm{J/(kg\,K)}$) von Zustand 1 ($p_1 = 1\,\mathrm{bar}$, $T_1 = 290\,\mathrm{K}$) auf $p_2 = 6\,\mathrm{bar}$. Berechnen Sie $T_2$ und $W_V$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**T_2 from polytropic relation.**
+
+For any polytrope with index $n$ on an ideal gas: $T V^{n-1} = \mathrm{const}$, or equivalently $T \, p^{(1-n)/n} = \mathrm{const}$.
+
+$$\frac{T_2}{T_1} = \left(\frac{p_2}{p_1}\right)^{(n-1)/n} = 6^{0{,}3/1{,}3} = 6^{0{,}2308}$$
+
+$$T_2 = 290 \cdot 6^{0{,}2308} \approx 290 \cdot 1{,}500 \approx 435\,\mathrm{K}$$
+
+**W_V from polytropic work formula.**
+
+$$W_V = \frac{m R_s (T_2 - T_1)}{n - 1} = \frac{0{,}5 \cdot 287 \cdot (435 - 290)}{1{,}3 - 1}$$
+
+$$W_V = \frac{0{,}5 \cdot 287 \cdot 145}{0{,}3} = \frac{20\,808}{0{,}3} \approx 69\,360\,\mathrm{J} \approx 69{,}4\,\mathrm{kJ}$$
+
+**Sign.** Positive: compression, work INTO the gas. ✓
+
+**Interpretation.** The polytropic index $n = 1{,}3$ is between $1$ (isotherm, minimum work) and $\kappa = 1{,}4$ (isentropic, maximum adiabatic work for air). The real compressor is partially cooled during compression, falling between the two limits.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l6-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Welche Volumenänderungsarbeit W_V hat ein isochorer Prozess?"
+  question_en="What is the boundary work W_V of an isochoric process?"
+  options={[
+    { id: "a", de: "W_V = -p ΔV", en: "W_V = -p ΔV" },
+    { id: "b", de: "W_V = 0", en: "W_V = 0" },
+    { id: "c", de: "W_V = -m R_s T ln(V_2/V_1)", en: "W_V = -m R_s T ln(V_2/V_1)" },
+    { id: "d", de: "W_V = -nRT", en: "W_V = -nRT" },
+  ]}
+  correct="b"
+  hint_en="Isochoric means V is constant. What is the integral of zero dV?"
+  solution_mdx={`
+**Correct answer: (b) W_V = 0.**
+
+Isochoric: $\\mathrm{d}V = 0$ throughout the process, so $\\int p \\, \\mathrm{d}V = 0$. No volume change → no boundary work.
+
+The first law then gives $\\Delta U = Q$ — all heat input raises internal energy (and thus temperature for an ideal gas). This is why $c_v$ is 'the heat capacity that matches $\\Delta U$': on the isochoric path, heat added equals $\\Delta U$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — W_V = -p ΔV (which is also 0 when ΔV = 0)",
+      why_en: "The formula $W_V = -p\\,\\Delta V$ applies to isobaric processes (with $p$ constant). For isochoric, $\\Delta V = 0$, so plugging into either formula gives 0 — you're right accidentally, but the wrong formula for the right answer loses marks on a Klausur where the examiner is checking if you know WHICH formula applies."
+    }
+  ]}
+  discussion_mdx={`
+**Why isochoric processes are practically common.**
+
+- **Gas heater in a fixed-volume tank.** Heating before combustion in an internal combustion engine (constant-volume heating is the Otto cycle's idealisation).
+- **Stirred tank before a reaction.** Chemical reactors that operate at fixed volume.
+- **Pressure-vessel safety testing.** Heat a fixed-volume container to study pressure rise.
+
+In every case, no boundary work happens because no boundary moves. All energy transfer is via heat.
+
+**Contrast: isobaric processes.** Open atmosphere, open beakers, piston-cylinder with constant external load — all isobaric. Expansion is possible, boundary work is done.
+
+Knowing whether the *container* is rigid or has a movable boundary tells you immediately whether to look for non-zero $W_V$.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l6-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Eine Gasmenge (m = 1 kg, R_s = 287 J/(kg·K)) wird polytrop (n = 1,25) von T_1 = 300 K auf T_2 = 420 K verdichtet. Wie groß ist die Volumenänderungsarbeit W_V (in kJ)?"
+  question_en="A gas sample (m = 1 kg, R_s = 287 J/(kg·K)) is polytropically (n = 1.25) compressed from T_1 = 300 K to T_2 = 420 K. Compute the boundary work W_V (in kJ)."
+  correct={137.76}
+  tolerance={1}
+  hint_en="W_V = m R_s (T_2 - T_1) / (n - 1). Sign: compression means work INTO gas."
+  solution_mdx={`
+**Answer: $W_V \\approx +137{,}8\\,\\mathrm{kJ}$.**
+
+$$W_V = \\frac{m R_s (T_2 - T_1)}{n - 1} = \\frac{1 \\cdot 287 \\cdot (420 - 300)}{1{,}25 - 1} = \\frac{287 \\cdot 120}{0{,}25} = \\frac{34\\,440}{0{,}25}$$
+
+$$W_V = 137\\,760\\,\\mathrm{J} \\approx 137{,}8\\,\\mathrm{kJ}$$
+
+Positive: compression raises $T$, and work went INTO the gas.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting to divide: 34,440 J = 34.4 kJ",
+      why_en: "The formula has an explicit denominator $(n-1)$. For $n = 1.25$, divisor is 0.25, making the result 4× larger. Missing this factor gives numbers about 4× too small."
+    },
+    {
+      wrong: "Using n = 1 (isotherm) formula: would need log(V_2/V_1) which isn't given directly",
+      why_en: "For $n = 1$ the polytropic formula diverges — use the isothermal logarithm form. For $n \\neq 1$ (as here, $n = 1.25$), use the algebraic form with the $(n-1)$ denominator."
+    }
+  ]}
+  discussion_mdx={`
+**Where $n$ lies for real processes.**
+
+| Process | n |
+| --- | --- |
+| isobar | 0 |
+| isotherm (perfect heat exchange) | 1 |
+| polytrop typical compressor (partial cooling) | 1.2–1.35 (air) |
+| isentropic ideal (no heat loss) | κ ≈ 1.4 (air) |
+| isochor | ∞ |
+
+In real engineering, $n$ lies between 1 and $\\kappa$ for air compressors. As the compressor approaches isothermal (via intercoolers and jackets), $n \\to 1$ and the work approaches the isothermal minimum. As the compressor approaches adiabatic (fast, no cooling), $n \\to \\kappa$ and work approaches the isentropic maximum. Real machines are somewhere in between.
+
+**Why $n < \\kappa$?** Because real compressors always lose some heat to their casing and lubricant, even without explicit cooling. That heat loss pulls the process toward isothermal.
+
+**How to measure $n$.** Take $(p_1, T_1)$ and $(p_2, T_2)$ from a real compressor at steady state. Solve $T_2/T_1 = (p_2/p_1)^{(n-1)/n}$ for $n$. Typical measured values are 1.25–1.35.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l6-ex3"
+  difficulty="medium"
+  type="multi_select"
+  question_de="Welche Polytropen-Exponenten n entsprechen welchen Prozessen? (Mehrfachauswahl.)"
+  question_en="Which polytropic exponent n matches which process? (Multiple selection.)"
+  options={[
+    { id: "a", de: "n = 0 → isobar", en: "n = 0 → isobaric" },
+    { id: "b", de: "n = 1 → isotherm (für ideales Gas)", en: "n = 1 → isothermal (for ideal gas)" },
+    { id: "c", de: "n = κ → isentrop", en: "n = κ → isentropic" },
+    { id: "d", de: "n → ∞ → isochor", en: "n → ∞ → isochoric" },
+    { id: "e", de: "n = 0,5 → adiabat", en: "n = 0.5 → adiabatic" },
+  ]}
+  correct={["a", "b", "c", "d"]}
+  hint_en="Four of the five are standard identifications; one invents a process."
+  solution_mdx={`
+**Correct answers: (a), (b), (c), (d).**
+
+- $n = 0$: $pV^0 = p = \\mathrm{const}$ → isobar. ✓
+- $n = 1$: $pV = \\mathrm{const}$, which for ideal gas means $T = \\mathrm{const}$ → isotherm. ✓
+- $n = \\kappa$: for ideal gas, $pV^\\kappa = \\mathrm{const}$ is the isentropic relation. ✓
+- $n \\to \\infty$: Take $pV^n = C$, rearrange to $V = (C/p)^{1/n}$. As $n \\to \\infty$, $(C/p)^{1/n} \\to 1$ for any finite $p$, so $V$ stays constant → isochor. ✓
+- $n = 0.5$ does not correspond to adiabatic — that's $n = \\kappa \\approx 1.4$. $n = 0.5$ would be an unusual process between isotherm ($n=1$) and isobar ($n=0$), with $T$ changing but less than in an adiabat. Not a named classical process.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (e) n = 0.5 = adiabatic",
+      why_en: "Adiabatic for an ideal gas is $n = \\kappa$ (around 1.4 for air). The value 0.5 doesn't correspond to any standard named process. If you picked this, review the polytropic-exponent table in the lesson."
+    }
+  ]}
+  discussion_mdx={`
+**Visual on a (p, V) diagram.**
+
+All four special cases are curves passing through the same initial point:
+
+- $n = 0$ (isobar): horizontal line.
+- $n = 1$ (isotherm): hyperbola $pV = \\mathrm{const}$.
+- $n = \\kappa$ (isentrop): steeper hyperbola $pV^\\kappa = \\mathrm{const}$ — steeper than the isotherm.
+- $n \\to \\infty$ (isochor): vertical line.
+
+Between the isotherm ($n = 1$) and isentrop ($n = \\kappa$), any polytropic $n$ in between describes a process with some heat transfer and some temperature rise. This is the engineering "comfortable middle" for real compressors.
+
+**A common mnemonic.** On a (p, V) diagram, steeper = larger $n$. Horizontal = $n = 0$, vertical = $n = \\infty$. The log of log scales.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l6-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Eine adiabate Kompression (isentrop) auf ideales Luftgas: p_1 = 1 bar, T_1 = 300 K, p_2 = 8 bar, κ = 1,4. Berechnen Sie die Endtemperatur T_2 (in K)."
+  question_en="Adiabatic (isentropic) compression on ideal air: p_1 = 1 bar, T_1 = 300 K, p_2 = 8 bar, κ = 1.4. Compute the final temperature T_2 (in K)."
+  correct={543.4}
+  tolerance={3}
+  hint_en="Isentropic: T_2/T_1 = (p_2/p_1)^((κ-1)/κ)."
+  solution_mdx={`
+**Answer: $T_2 \\approx 543\\,\\mathrm{K}$.**
+
+Isentropic relation for an ideal gas:
+
+$$\\frac{T_2}{T_1} = \\left(\\frac{p_2}{p_1}\\right)^{(\\kappa - 1)/\\kappa}$$
+
+Exponent: $(1{,}4 - 1)/1{,}4 = 0{,}4/1{,}4 = 0{,}2857$.
+
+$$T_2 = 300 \\cdot 8^{0{,}2857} \\approx 300 \\cdot 1{,}811 \\approx 543{,}4\\,\\mathrm{K}$$
+
+That's 270 °C — a 243 K rise from an 8-fold pressure increase. This is why industrial compressors need cooling: without intercooling, multi-stage compression leads to very high outlet temperatures.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using the exponent (κ - 1) directly, not (κ - 1)/κ",
+      why_en: "The isentropic temperature-pressure relation has the exponent $(\\kappa - 1)/\\kappa = 0.4/1.4 \\approx 0.286$ (not just 0.4). Getting this exponent wrong gives a $T_2$ about 100 K too high, which is a crushing error on a compressor design."
+    },
+    {
+      wrong: "Using pressure in bar (works here) vs Pa (also works)",
+      why_en: "Since the formula involves the RATIO $p_2/p_1$, the units cancel — you can use bar, Pa, atm, anything consistent. This is one of the rare ideal-gas formulas where units don't matter."
+    }
+  ]}
+  discussion_mdx={`
+**The isentropic relations for ideal gas — a set of three.**
+
+Starting from $pV^\\kappa = \\mathrm{const}$ and $pV = mR_sT$:
+
+$$p V^\\kappa = \\mathrm{const}$$
+$$T V^{\\kappa - 1} = \\mathrm{const}$$
+$$T \\cdot p^{(1-\\kappa)/\\kappa} = \\mathrm{const} \\quad\\text{or}\\quad \\frac{T_2}{T_1} = \\left(\\frac{p_2}{p_1}\\right)^{(\\kappa-1)/\\kappa}$$
+
+All three are equivalent — pick whichever matches the known/unknown pair in your problem:
+
+- known $V_1, V_2$, $T_1$ → use $T V^{\\kappa - 1}$
+- known $p_1, p_2$, $T_1$ → use the $T \\cdot p^{...}$ form
+- known $p_1, V_1, p_2$ → use $p V^\\kappa$ to find $V_2$
+
+**Check: ideal compressor outlet temperature for common ratios.**
+
+For air ($\\kappa = 1.4$), starting at 300 K:
+
+| p_2/p_1 | T_2/T_1 | T_2 (K) |
+| --- | --- | --- |
+| 2 | 1.219 | 366 |
+| 4 | 1.486 | 446 |
+| 8 | 1.811 | 543 |
+| 10 | 1.931 | 579 |
+
+These are 'rule of thumb' numbers worth memorising for quick sanity checks on compressor design problems.
+
+**Connection forward.** Kapitel 2 Lesson 8 applies isentropic compression directly to the ideal-compressor + real-compressor-efficiency calculation, which is the backbone of every refrigeration and gas-turbine problem.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For polytropic problems, write down the three forms of the polytropic relation and pick the one that matches your given variables:
+
+- $pV^n = p_1 V_1^n$
+- $TV^{n-1} = T_1 V_1^{n-1}$
+- $T^n p^{1-n} = T_1^n p_1^{1-n}$
+
+Isentropic: replace $n$ with $\kappa$. Isothermal ($n = 1$): these reduce to $pV = \mathrm{const}$ and $T = \mathrm{const}$.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next lesson — **Wellenarbeit** — introduces the work crossing a rotating shaft, and the distinction between *Volumenänderungsarbeit* (piston work, for closed systems) and *technische Arbeit* (the open-system analogue for flow processes). The integral $W_t = \int V \, \mathrm{d}p$ is the mirror of $W_V = -\int p \, \mathrm{d}V$, and they live in different systems.
