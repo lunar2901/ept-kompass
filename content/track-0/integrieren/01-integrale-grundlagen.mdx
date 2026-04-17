@@ -1,0 +1,389 @@
+---
+id: track-0-int-l1
+module: schulwissen-auffrischen
+chapter: integrieren
+position: 1
+name_de: "Integrale — die Umkehrung der Ableitung"
+name_en: "Integrals — the inverse of differentiation"
+estimated_minutes: 25
+prerequisites: ["track-0-diff-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+If differentiation is "slope of a function", integration is "area under a function". The two operations are inverses — the *Hauptsatz der Differential- und Integralrechnung* (fundamental theorem of calculus) makes it formal.
+
+You will meet integrals constantly in engineering:
+
+- <GermanTerm de="Volumenänderungsarbeit" article="die" en="boundary work" /> $W = -\int p\,\mathrm{d}V$ — area under the $p$–$V$ curve.
+- <GermanTerm de="Wärmemenge" article="die" en="heat quantity" /> $Q = \int \dot{Q}\,\mathrm{d}t$ — area under the heat-flow-rate curve.
+- Total mass flowing through a pipe: $m = \int \dot{m}\,\mathrm{d}t$.
+- Internal-energy change: $\Delta U = \int c_v(T)\,m\,\mathrm{d}T$.
+
+This lesson rebuilds integration from its geometric meaning, then equips you with the rules to compute most engineering integrals mechanically.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: das Integral
+    en: integral
+    plural: die Integrale
+    ipa: /ɪnteˈɡʁaːl/
+    example_de: "Das Integral einer Funktion entspricht der Fläche unter ihrem Graphen."
+    example_en: "The integral of a function is the area under its graph."
+  - term: integrieren
+    en: to integrate
+    example_de: "Um eine Funktion zu integrieren, suchen wir eine Stammfunktion."
+    example_en: "To integrate a function, we look for an antiderivative."
+  - term: die Stammfunktion
+    en: antiderivative
+    plural: die Stammfunktionen
+    example_de: "Eine Stammfunktion F(x) erfüllt F'(x) = f(x)."
+    example_en: "An antiderivative F(x) satisfies F'(x) = f(x)."
+  - term: bestimmtes Integral
+    en: definite integral
+    example_de: "Ein bestimmtes Integral hat feste Integrationsgrenzen."
+    example_en: "A definite integral has fixed integration bounds."
+  - term: unbestimmtes Integral
+    en: indefinite integral
+    example_de: "Ein unbestimmtes Integral enthält eine Integrationskonstante."
+    example_en: "An indefinite integral contains an integration constant."
+  - term: die Integrationsvariable
+    en: integration variable
+    example_de: "Die Integrationsvariable dx gibt an, über welche Variable integriert wird."
+    example_en: "The integration variable dx specifies over which variable the integral is taken."
+</VocabBlock>
+
+## Theorie
+
+### Two kinds of integral
+
+<FormulaCard
+  name_de="Unbestimmtes Integral (Stammfunktion)"
+  name_en="Indefinite integral (antiderivative)"
+  latex="\int f(x) \, \mathrm{d}x = F(x) + C"
+>
+
+$F(x)$ is any function with $F'(x) = f(x)$; $C$ is the *Integrationskonstante*, an arbitrary constant that gets lost in differentiation.
+
+</FormulaCard>
+
+<FormulaCard
+  name_de="Bestimmtes Integral"
+  name_en="Definite integral"
+  latex="\int_a^b f(x) \, \mathrm{d}x = F(b) - F(a)"
+>
+
+The *Hauptsatz* says: to compute the definite integral, find any antiderivative $F$ and evaluate at the endpoints. The arbitrary constant $C$ cancels: $[F(b) + C] - [F(a) + C] = F(b) - F(a)$.
+
+Geometrically: the signed area between the curve and the x-axis, from $x = a$ to $x = b$. Signed because portions where $f(x) < 0$ count as negative area.
+
+</FormulaCard>
+
+### The rules — inverse of differentiation
+
+<FormulaCard
+  name_de="Grundintegrale"
+  name_en="Basic integrals"
+>
+
+| Function $f(x)$ | Antiderivative $\int f(x)\,\mathrm{d}x$ |
+| --- | --- |
+| $x^n$ ($n \neq -1$) | $\dfrac{x^{n+1}}{n+1} + C$ |
+| $1/x$ | $\ln|x| + C$ |
+| $e^x$ | $e^x + C$ |
+| $e^{ax}$ | $\dfrac{e^{ax}}{a} + C$ |
+| $\sin x$ | $-\cos x + C$ |
+| $\cos x$ | $\sin x + C$ |
+| constant $c$ | $c\,x + C$ |
+
+</FormulaCard>
+
+**Linearity of integration.** For constants $a$, $b$ and functions $f$, $g$:
+
+$$\int (a\,f(x) + b\,g(x))\,\mathrm{d}x = a\int f(x)\,\mathrm{d}x + b\int g(x)\,\mathrm{d}x$$
+
+Integrals distribute over sums and constants pull out — just like derivatives.
+
+### What about chain rule and product rule? ⇒ Substitution and partial fractions
+
+The integration analogues of chain rule and product rule are:
+
+- <GermanTerm de="Substitution" article="die" en="substitution" /> ($u = g(x)$) — the inverse of the chain rule.
+- <GermanTerm de="Partielle Integration" article="die" en="integration by parts" /> — the inverse of the product rule: $\int u'v\,\mathrm{d}x = uv - \int uv'\,\mathrm{d}x$.
+
+These are more art than recipe. Learn them when you need them; for first-semester engineering, the basic integrals + linearity cover 80 % of problems.
+
+### The geometric interpretation: area
+
+If $f(x) \geq 0$ on $[a, b]$, then $\int_a^b f\,\mathrm{d}x$ is the area between the curve and the x-axis. Specific engineering readings:
+
+- On a $p$–$V$ diagram, $-\int p\,\mathrm{d}V$ is the boundary work — area under the $p(V)$ curve.
+- On a $\dot{Q}$–$t$ plot, $\int \dot{Q}\,\mathrm{d}t$ is the total heat transferred — area under the heat-flow-rate curve.
+- On a $\dot{m}$–$t$ plot, $\int \dot{m}\,\mathrm{d}t$ is the total mass that has flowed — area under the mass-flow-rate curve.
+
+<Callout variant="note">
+
+**Units check.** The integral of a rate quantity over time gives a total quantity with matching units. $\int [W]\,\mathrm{d}[s] = [W\cdot s] = [J]$ — so $\int \dot{Q}\,\mathrm{d}t$ is in J, as expected for heat.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Berechnen Sie:
+>
+> a) $\int (3x^2 - 2x + 1) \, \mathrm{d}x$
+> b) $\int_0^2 4x \, \mathrm{d}x$
+> c) $\int_1^5 \frac{1}{x} \, \mathrm{d}x$
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Indefinite integral.** Linearity: integrate each term using the power rule, and the constant using the constant rule.
+
+$$\int 3x^2\,\mathrm{d}x = 3 \cdot \frac{x^3}{3} = x^3$$
+$$\int (-2x)\,\mathrm{d}x = -2 \cdot \frac{x^2}{2} = -x^2$$
+$$\int 1\,\mathrm{d}x = x$$
+
+Sum: $x^3 - x^2 + x + C$.
+
+**b) Definite integral.** Antiderivative of $4x$: $F(x) = 2x^2$. Evaluate:
+
+$$\int_0^2 4x\,\mathrm{d}x = F(2) - F(0) = 2(4) - 0 = 8$$
+
+Geometric check: triangle with base 2 and height $4 \cdot 2 = 8$, area $= \frac{1}{2} \cdot 2 \cdot 8 = 8$. ✓
+
+**c) Definite log integral.**
+
+$$\int_1^5 \frac{1}{x}\,\mathrm{d}x = [\ln|x|]_1^5 = \ln 5 - \ln 1 = \ln 5 - 0 = \ln 5 \approx 1{,}609$$
+
+A number worth recognising — $\ln 5 \approx 1{,}6$ and $\ln 10 \approx 2{,}3$ both appear frequently in engineering.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-int-l1-ex1"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Bestimmen Sie das unbestimmte Integral von f(x) = 4x^3 - 6x."
+  question_en="Find the indefinite integral of f(x) = 4x³ - 6x."
+  correct_latex="x^4 - 3x^2 + C"
+  hint_en="Integrate each term separately using the power rule: ∫x^n dx = x^(n+1)/(n+1)."
+  solution_mdx={`
+**Answer: $\\int (4x^3 - 6x)\\,\\mathrm{d}x = x^4 - 3x^2 + C$.**
+
+Term by term:
+
+- $\\int 4x^3\\,\\mathrm{d}x = 4 \\cdot \\frac{x^4}{4} = x^4$
+- $\\int -6x\\,\\mathrm{d}x = -6 \\cdot \\frac{x^2}{2} = -3x^2$
+
+Add the integration constant $C$ at the end (any indefinite integral carries one).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting + C",
+      why_en: "Indefinite integrals ALWAYS carry an integration constant. This reflects the fact that all antiderivatives differ by a constant. Leaving it off is a small but consistent Klausur deduction — worth 0.5 marks, usually."
+    },
+    {
+      wrong: "Raising the exponent instead of integrating: 4x² - 6",
+      why_en: "That's the derivative, not the integral. Differentiation REDUCES the exponent by 1; integration INCREASES it by 1. The two operations are inverses — check which one you're doing by following the 'slope' intuition (derivative) vs 'area' intuition (integral)."
+    }
+  ]}
+  discussion_mdx={`
+**Verification by differentiation.**
+
+Any time you compute an integral, you can verify by differentiating — the result should give you back the integrand:
+
+$$\\frac{\\mathrm{d}}{\\mathrm{d}x}(x^4 - 3x^2 + C) = 4x^3 - 6x + 0 = f(x)\\,\\,✓$$
+
+This self-check catches most integration mistakes.
+
+**Constants of integration in engineering.** When you integrate a rate to get a total quantity, the integration constant typically represents the *initial value*. Example: integrating velocity to get position, $s(t) = \\int v(t)\\,\\mathrm{d}t = F(t) + C$; then $C = s(0)$, the initial position. Boundary conditions fix $C$.
+  `}
+/>
+
+<Exercise
+  id="track-0-int-l1-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Berechnen Sie das bestimmte Integral ∫_0^3 (2x + 1) dx."
+  question_en="Compute the definite integral ∫_0^3 (2x + 1) dx."
+  correct={12}
+  tolerance={0.1}
+  hint_en="Antiderivative of 2x+1 is x² + x. Evaluate at 3 and subtract the value at 0."
+  solution_mdx={`
+**Answer: 12.**
+
+**Antiderivative.** $F(x) = x^2 + x$.
+
+**Evaluate at bounds.**
+
+$$\\int_0^3 (2x + 1)\\,\\mathrm{d}x = [x^2 + x]_0^3 = (9 + 3) - (0 + 0) = 12$$
+
+**Geometric check.** The function $2x + 1$ is a line from $(0, 1)$ to $(3, 7)$ with average value $(1 + 7)/2 = 4$ over an interval of length 3, giving area $3 \\cdot 4 = 12$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting the +1 constant integration: 9",
+      why_en: "The $+1$ in the integrand becomes $+x$ in the antiderivative, and evaluates to $+3 - 0 = +3$. Missing this contributes 3 units to your final answer. When integrating sum, integrate EVERY term."
+    },
+    {
+      wrong: "Getting 12 + C (leaving C in a definite integral)",
+      why_en: "Definite integrals evaluate to a PURE NUMBER — the integration constant cancels when you subtract $F(b) - F(a)$. Don't carry $+C$ through a definite-integral calculation."
+    }
+  ]}
+  discussion_mdx={`
+**The Hauptsatz der Differential- und Integralrechnung.**
+
+$$\\int_a^b F'(x)\\,\\mathrm{d}x = F(b) - F(a)$$
+
+This single identity reduces integral calculation to:
+
+1. Find any antiderivative.
+2. Evaluate at upper bound minus lower bound.
+
+Both steps are mechanical once you have a catalogue of basic integrals. The challenge is step 1 for complicated integrands — that's where substitution, integration by parts, and partial-fraction decomposition come in.
+
+**Sign conventions.** The definite integral from $a$ to $b$ can be negative if $b < a$ or if $f$ is negative over the interval. In engineering:
+
+- $\\int p\\,\\mathrm{d}V$ is positive for expansion (V going from V₁ to V₂ > V₁), giving positive area under a positive $p$ curve.
+- The closed-system boundary-work sign convention puts a minus in front: $W = -\\int p\\,\\mathrm{d}V$, so positive-area expansion gives negative $W$ (work OUT of system).
+
+Always verify the integration bounds match the physical direction of the process.
+  `}
+/>
+
+<Exercise
+  id="track-0-int-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Die Wärmeleistung eines elektrischen Heizgeräts ändert sich zeitlich wie Ḃ(t) = 100 e^{-t/60} W, wobei t in Sekunden. Wie viel Wärme (in J) wird in den ersten 60 Sekunden abgegeben?"
+  question_en="The heating power of an electric heater varies with time as P(t) = 100 e^{-t/60} W, with t in seconds. How much heat (in J) is delivered in the first 60 seconds?"
+  correct={3793}
+  tolerance={15}
+  hint_en="Q = ∫_0^60 P(t) dt. Antiderivative of e^(-t/60) is -60·e^(-t/60). Evaluate."
+  solution_mdx={`
+**Answer: $Q \\approx 3793\\,\\mathrm{J}$.**
+
+**Step 1. Set up the integral.**
+
+$$Q = \\int_0^{60} 100 \\, e^{-t/60} \\, \\mathrm{d}t$$
+
+**Step 2. Antiderivative of $e^{-t/60}$.**
+
+Substitute $u = -t/60$, $\\mathrm{d}u = -\\mathrm{d}t/60$, so $\\mathrm{d}t = -60\\,\\mathrm{d}u$. Integral becomes $\\int e^u \\cdot (-60)\\,\\mathrm{d}u = -60 e^u = -60 e^{-t/60}$.
+
+**Step 3. Apply bounds.**
+
+$$Q = 100 \\cdot \\left[-60 e^{-t/60}\\right]_0^{60} = 100 \\cdot (-60)(e^{-1} - e^0)$$
+
+$$Q = -6000 (e^{-1} - 1) = 6000 (1 - e^{-1}) = 6000 (1 - 0{,}368)$$
+
+$$Q \\approx 6000 \\cdot 0{,}632 \\approx 3793\\,\\mathrm{J}$$
+
+**Sanity check.** If the heater ran at full 100 W for 60 s, it would deliver 6000 J. Because the heater decays exponentially, it delivers less — 63 % of the full-power output, which is the characteristic "63 % after one time constant" of exponential processes.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting the -60 factor in the antiderivative: 100 · (e^(-1) - 1) = -63.2 J (negative)",
+      why_en: "The antiderivative of $e^{-t/60}$ is $-60 \\cdot e^{-t/60}$ (from the chain rule applied in reverse). Missing the factor of 60 makes the answer ~60× too small. Remember: for $e^{ax}$ the antiderivative is $\\frac{1}{a} e^{ax}$, so for $e^{-t/60}$ with $a = -1/60$, the antiderivative has $\\frac{1}{-1/60} = -60$ out front."
+    },
+    {
+      wrong: "Using P(0) × t = 100 · 60 = 6000 J",
+      why_en: "That would be correct if the heater ran at CONSTANT 100 W. It doesn't — power drops over time. The integral accounts for the variable rate; a single-point power × time only works for constant power."
+    }
+  ]}
+  discussion_mdx={`
+**Why integration is essential for time-varying rates.**
+
+In engineering, energies, masses, and charges are TOTAL quantities; powers, flow rates, and currents are RATES. The fundamental relationship:
+
+$$\\text{total} = \\int \\text{rate}\\,\\mathrm{d}t$$
+
+If the rate is constant, this reduces to rate × time — multiplication. If the rate varies, you must integrate. For an exponentially decaying rate, the integral shows up in:
+
+- Capacitor discharge: $Q_{lost}(t) = Q_0 (1 - e^{-t/RC})$, asymptotically approaching $Q_0$.
+- Radioactive decay: total decays after time $t$ is $N_0 (1 - e^{-t/\\tau})$.
+- Heat released by a cooling body: $Q(t) = m c (T_0 - T_\\infty)(1 - e^{-t/\\tau})$.
+
+These all have the same mathematical shape — the "63 % after one time constant" rule.
+
+**Time constant and 63 %.** After $t = \\tau$ (one time constant), the integral has accumulated $1 - e^{-1} = 0{,}632$ or 63.2% of its eventual asymptote. This number appears so often in engineering that 63% = τ is a rule of thumb worth memorising.
+  `}
+/>
+
+<Exercise
+  id="track-0-int-l1-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Berechnen Sie das Integral ∫_1^2 (x² + 1/x) dx."
+  question_en="Compute the integral ∫_1^2 (x² + 1/x) dx."
+  correct={3.027}
+  tolerance={0.05}
+  hint_en="Linearity: split into two integrals. Antiderivatives: x³/3 and ln|x|. Then evaluate."
+  solution_mdx={`
+**Answer: $\\approx 3{,}03$.**
+
+**Split.**
+
+$$\\int_1^2 (x^2 + 1/x)\\,\\mathrm{d}x = \\int_1^2 x^2\\,\\mathrm{d}x + \\int_1^2 \\frac{1}{x}\\,\\mathrm{d}x$$
+
+**Evaluate each.**
+
+First: $[x^3/3]_1^2 = 8/3 - 1/3 = 7/3 \\approx 2{,}333$.
+
+Second: $[\\ln|x|]_1^2 = \\ln 2 - \\ln 1 = \\ln 2 \\approx 0{,}693$.
+
+**Sum:** $7/3 + \\ln 2 \\approx 2{,}333 + 0{,}693 = 3{,}027$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using the power rule on 1/x, getting x^0/0 = ∞",
+      why_en: "The power rule $\\int x^n\\,\\mathrm{d}x = \\frac{x^{n+1}}{n+1}$ FAILS at $n = -1$ because you'd divide by zero. The antiderivative of $1/x$ is $\\ln|x|$, NOT in the power-rule family. This is a special case that must be memorised separately."
+    },
+    {
+      wrong: "Getting ln(2) - ln(0) = ∞ (if incorrect bounds used)",
+      why_en: "If you wrongly used lower bound 0 instead of 1, you'd integrate $1/x$ across zero where it diverges. This is the classic 'improper integral' trap — $\\int_0^1 1/x\\,\\mathrm{d}x$ diverges. Always verify your bounds match the problem statement."
+    }
+  ]}
+  discussion_mdx={`
+**Why ln appears everywhere in engineering.**
+
+The identity $\\int 1/x\\,\\mathrm{d}x = \\ln|x|$ is why logarithms show up in:
+
+- Isothermal boundary work: $W = -mR_sT \\int \\frac{\\mathrm{d}V}{V} = -mR_sT\\ln(V_2/V_1)$.
+- Entropy of isothermal expansion: $\\Delta s = R_s \\ln(p_1/p_2)$.
+- Decibel scale (audio): $L = 10 \\log_{10}(I/I_0)$ is a log because sound intensity spans many orders of magnitude.
+- Reaction kinetics: first-order kinetics $\\frac{\\mathrm{d}c}{c} = -k\\,\\mathrm{d}t$ integrates to $\\ln(c/c_0) = -kt$.
+
+In every case, the reason is the same: when the rate of change of a quantity is proportional to the quantity itself (self-similar behaviour), integrating produces a logarithm.
+
+**Connection forward.** The definite integral $\\int_{V_1}^{V_2} \\frac{\\mathrm{d}V}{V} = \\ln(V_2/V_1)$ is ONE unit of work you will do a hundred times in Thermodynamik and Thermische Verfahrenstechnik. The isothermal boundary-work formula depends on it.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For any time-varying engineering rate problem (energy, mass, heat) where you need a total quantity:
+
+1. Write down the integral form first: $Q = \int \dot{Q}\,\mathrm{d}t$.
+2. Identify the functional form of the rate (constant, linear, exponential, etc.).
+3. Apply the matching basic integral from the table.
+4. Plug in bounds; verify the final unit makes sense.
+
+For constant rates (most Thermodynamik I Klausur problems), the integral reduces to rate × time. For time-varying rates, the integral is essential — and the basic exponential form covers ~90 % of them.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+The next lesson — **Substitution und partielle Integration** — covers the two main techniques for integrating composed and product functions. After that, the full-semester Analysis I material (improper integrals, multiple integrals, Fourier series) builds on this foundation.
