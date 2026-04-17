@@ -1,0 +1,323 @@
+---
+id: track-0-stoech-l1
+module: schulwissen-auffrischen
+chapter: stoechiometrie
+position: 1
+name_de: "Stöchiometrie und Molrechnung"
+name_en: "Stoichiometry and mole calculations"
+estimated_minutes: 20
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Chemical reactions and process engineering balance the number of atoms / molecules, not grams. To think like an engineer in a plant, you translate masses into <GermanTerm de="Stoffmenge" article="die" en="amount of substance" /> (moles) using the molar mass, balance the equation at the molecular level, then translate back to kilograms for the process.
+
+This lesson refreshes the three conversions that tie everything together: mass ↔ moles ↔ molecules, and the role of the molar mass as the bridge.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Stoffmenge
+    en: amount of substance
+    example_de: "Die Stoffmenge wird in Mol angegeben."
+    example_en: "Amount of substance is measured in moles."
+  - term: das Mol
+    en: mole
+    example_de: "Ein Mol enthält etwa 6,022·10²³ Teilchen."
+    example_en: "One mole contains about 6.022·10²³ particles."
+  - term: die molare Masse
+    en: molar mass
+    example_de: "Die molare Masse von Wasser beträgt 18 g/mol."
+    example_en: "The molar mass of water is 18 g/mol."
+  - term: die Avogadro-Konstante
+    en: Avogadro constant
+    example_de: "Die Avogadro-Konstante N_A beträgt 6,022·10²³ pro Mol."
+    example_en: "The Avogadro constant N_A is 6.022·10²³ per mole."
+  - term: die Stöchiometrie
+    en: stoichiometry
+    ipa: /ʃtøˌçjoˈmeːtʁiː/
+    example_de: "Die Stöchiometrie balanciert chemische Gleichungen."
+    example_en: "Stoichiometry balances chemical equations."
+  - term: die Reaktionsgleichung
+    en: reaction equation
+    example_de: "Eine balancierte Reaktionsgleichung erfüllt die Atomerhaltung."
+    example_en: "A balanced reaction equation satisfies atomic conservation."
+</VocabBlock>
+
+## Theorie
+
+### Mole — the chemist's unit
+
+<FormulaCard
+  name_de="Avogadro-Konstante und Mol-Definition"
+  name_en="Avogadro constant and mole definition"
+  latex="N_A = 6{,}022 \cdot 10^{23}\,\mathrm{mol^{-1}}"
+>
+
+One mole of a substance contains $N_A$ particles (atoms, molecules, ions — whichever the substance's unit is). So:
+
+- 1 mol of water contains $6{,}022 \cdot 10^{23}$ H₂O molecules.
+- 1 mol of iron contains $6{,}022 \cdot 10^{23}$ Fe atoms.
+- 1 mol of electrons contains $6{,}022 \cdot 10^{23}$ electrons.
+
+Choosing the right "particle type" is important. The mole is a unit of counting, not of mass or volume.
+
+</FormulaCard>
+
+### Molar mass — grams per mole
+
+The molar mass $M$ of a substance is the mass of 1 mol of it. Units: g/mol (or equivalently kg/kmol, kg·mol⁻¹).
+
+Key numbers to memorise for combustion and process engineering:
+
+| Substance | $M$ (g/mol) |
+| --- | --- |
+| H (atomic hydrogen) | 1.008 |
+| C | 12.01 |
+| N | 14.01 |
+| O | 16.00 |
+| Air (average) | 28.96 |
+| H₂O | 18.02 |
+| N₂ | 28.01 |
+| O₂ | 32.00 |
+| CO₂ | 44.01 |
+| CH₄ | 16.04 |
+
+For compounds, sum atomic masses: $M(\mathrm{H_2O}) = 2 \cdot 1{,}008 + 16{,}00 \approx 18{,}02\,\mathrm{g/mol}$.
+
+### The three-way conversion
+
+<FormulaCard
+  name_de="Mass ↔ Mol ↔ Teilchen"
+  name_en="Mass ↔ moles ↔ particles"
+  latex="n = \frac{m}{M}, \qquad N = n \cdot N_A"
+  variables={[
+    { symbol: "m", name_de: "Masse", name_en: "mass", unit: "g or kg" },
+    { symbol: "M", name_de: "molare Masse", name_en: "molar mass", unit: "g/mol or kg/mol" },
+    { symbol: "n", name_de: "Stoffmenge", name_en: "amount of substance", unit: "mol" },
+    { symbol: "N", name_de: "Teilchenzahl", name_en: "number of particles", unit: "—" },
+    { symbol: "N_A", name_de: "Avogadro-Konstante", name_en: "Avogadro constant", unit: "mol⁻¹" },
+  ]}
+>
+
+To go mass → moles: divide by $M$. Moles → particles: multiply by $N_A$.
+
+</FormulaCard>
+
+### Balancing a simple reaction
+
+Methane combustion: $\mathrm{CH_4} + 2\,\mathrm{O_2} \rightarrow \mathrm{CO_2} + 2\,\mathrm{H_2O}$.
+
+Read as: 1 mol of methane reacts with 2 mol of oxygen to produce 1 mol of CO₂ and 2 mol of water.
+
+Cross-check atomic balance:
+- C: 1 in, 1 out ✓
+- H: 4 in, 4 out ✓
+- O: 4 in (2·O₂), 4 out (2 in CO₂, 2 in H₂O) ✓
+
+The *stoichiometric coefficients* (1, 2, 1, 2) tell you the MOLE ratios — not mass ratios.
+
+### Mass of products from mass of reactants
+
+Example: burn 10 kg of methane completely. How much CO₂ is produced?
+
+1. Moles of methane: $n_{\mathrm{CH_4}} = 10\,000\,\mathrm{g} / 16{,}04\,\mathrm{g/mol} \approx 624\,\mathrm{mol}$.
+2. Moles of CO₂ produced: 1 mol of CH₄ → 1 mol of CO₂, so $n_{\mathrm{CO_2}} \approx 624\,\mathrm{mol}$.
+3. Mass of CO₂: $m = n \cdot M = 624 \cdot 44{,}01 \approx 27\,500\,\mathrm{g} = 27{,}5\,\mathrm{kg}$.
+
+So 10 kg of methane produces about 27.5 kg of CO₂. This factor (~2.75 kg CO₂ per kg CH₄) is often quoted directly in environmental engineering.
+
+## Musteraufgabe
+
+> **Aufgabe.** Wie viel Gramm Wasser werden freigesetzt, wenn 44 g CO₂ entstehen (aus vollständiger Methanverbrennung)?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+Reaction: $\mathrm{CH_4} + 2\,\mathrm{O_2} \rightarrow \mathrm{CO_2} + 2\,\mathrm{H_2O}$.
+
+Mole ratio CO₂ : H₂O = 1 : 2. For every mole of CO₂, two moles of water.
+
+**Step 1. Mol CO₂.** $n(\mathrm{CO_2}) = 44 / 44{,}01 \approx 1{,}00\,\mathrm{mol}$.
+
+**Step 2. Mol H₂O.** $n(\mathrm{H_2O}) = 2 \cdot 1{,}00 = 2{,}00\,\mathrm{mol}$.
+
+**Step 3. Mass H₂O.** $m = n \cdot M = 2 \cdot 18{,}02 \approx 36\,\mathrm{g}$.
+
+So **36 g** of water are released.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-stoech-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Wie viel Mol sind 72 g Wasser (M = 18 g/mol)?"
+  question_en="How many moles are 72 g of water (M = 18 g/mol)?"
+  correct={4}
+  tolerance={0.05}
+  hint_en="n = m / M."
+  solution_mdx={`
+**Answer: 4 mol.**
+
+$$n = \\frac{m}{M} = \\frac{72\\,\\mathrm{g}}{18\\,\\mathrm{g/mol}} = 4\\,\\mathrm{mol}$$
+
+That's $4 \\cdot N_A \\approx 2{,}41 \\cdot 10^{24}$ water molecules.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 72/18 · 6.022·10²³ (confusing moles with particle count)",
+      why_en: "The question asks for moles, not particles. To convert from moles to particles, multiply by Avogadro. To convert from mass to moles, divide by M. These are two DIFFERENT conversions — always read what the question wants."
+    }
+  ]}
+  discussion_mdx={`
+**Why 'moles' aren't just 'numbers divided by Avogadro'.**
+
+A mole is a unit with dimension *amount of substance* — it's one of the seven SI base units alongside kg, m, s, etc. Chemists use moles because reaction stoichiometry is cleaner in mole ratios than particle counts. 1 mol + 2 mol → 1 mol + 2 mol is easier to write than $6 \\cdot 10^{23}$ + $1{,}2 \\cdot 10^{24}$ → ... etc.
+
+**In engineering formulas:**
+- $R = 8{,}314\\,\\mathrm{J/(mol \\cdot K)}$ (universal gas constant) — per-mole.
+- $c_p = 1005\\,\\mathrm{J/(kg \\cdot K)}$ (specific heat of air) — per-mass.
+
+Each "per" is a different base — you don't interchange them freely. Molar specific heat of air: $c_{p,m} = c_p \\cdot M = 1005 \\cdot 0{,}02896 \\approx 29{,}1\\,\\mathrm{J/(mol \\cdot K)}$.
+  `}
+/>
+
+<Exercise
+  id="track-0-stoech-l1-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Verbrennung von Ethan: 2 C₂H₆ + 7 O₂ → 4 CO₂ + 6 H₂O. Wie viele Mol O₂ werden benötigt, um 1 Mol C₂H₆ zu verbrennen?"
+  question_en="Ethane combustion: 2 C₂H₆ + 7 O₂ → 4 CO₂ + 6 H₂O. How many moles of O₂ are needed to burn 1 mole of C₂H₆?"
+  correct={3.5}
+  tolerance={0.05}
+  hint_en="Reaction ratio: 7/2 mol O₂ per mol C₂H₆."
+  solution_mdx={`
+**Answer: 3.5 mol.**
+
+Stoichiometric ratio: $\\frac{n_{\\mathrm{O_2}}}{n_{\\mathrm{C_2H_6}}} = \\frac{7}{2}$.
+
+For 1 mol C₂H₆: $n_{\\mathrm{O_2}} = \\frac{7}{2} \\cdot 1 = 3{,}5\\,\\mathrm{mol}$.
+
+**Cross-check atomic balance.** Left: 2·C₂H₆ has 4 C and 12 H; 7·O₂ has 14 O. Right: 4·CO₂ has 4 C and 8 O; 6·H₂O has 12 H and 6 O. Totals: C ✓, H ✓, O: 14 in vs (8 + 6) = 14 out ✓. The equation balances.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 7 (using the stoichiometric coefficient directly)",
+      why_en: "The coefficient 7 is for 2 mol of ethane. For 1 mol of ethane, the O₂ requirement is HALF: 7/2 = 3.5 mol. Always divide by the reactant's coefficient when the problem gives you 1 mol of that reactant."
+    },
+    {
+      wrong: "Answering 2 (reading the wrong coefficient)",
+      why_en: "2 is the coefficient of ethane itself, not of oxygen. The stoichiometric ratio of O₂ to ethane is 7:2 — oxygen comes first, seven units; ethane second, two units. Watch the order."
+    }
+  ]}
+  discussion_mdx={`
+**Air-fuel ratio — a critical engineering parameter.**
+
+For internal combustion engines, the *stoichiometric air-fuel mass ratio* of gasoline (roughly C₈H₁₈, octane) is about 14.7:1 — meaning 14.7 kg of air per 1 kg of fuel for complete combustion.
+
+Calculation: octane combustion $\\mathrm{C_8H_{18}} + 12{,}5\\,\\mathrm{O_2} \\to 8\\,\\mathrm{CO_2} + 9\\,\\mathrm{H_2O}$ needs 12.5 mol O₂ per mol octane. In air (21% O₂ by mole), that's $12{,}5/0{,}21 \\approx 59{,}5\\,\\mathrm{mol}$ of air. Mass ratio: $59{,}5 \\cdot 28{,}96 / 114{,}2 \\approx 15{,}1$ — close to 14.7 depending on the fuel composition.
+
+Engineering consequence: lean mixtures (more air than 14.7:1) burn cooler and emit less fuel but more NOx. Rich mixtures burn richer in HC and CO. Catalytic converters need a stoichiometric mixture (λ = 1) to function efficiently.
+
+**Connection forward.** In Chemische Verfahrenstechnik and Reaktionstechnik, stoichiometry expands to cover conversion, yield, and selectivity — multi-step reactions where not everything goes to completion.
+  `}
+/>
+
+<Exercise
+  id="track-0-stoech-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Wie viele Moleküle sind in 5 g Sauerstoff (O₂, M = 32 g/mol)?"
+  question_en="How many molecules are in 5 g of oxygen (O₂, M = 32 g/mol)?"
+  correct={9.41e22}
+  tolerance={1e21}
+  hint_en="n = m/M, then N = n · N_A (Avogadro = 6.022·10²³)."
+  solution_mdx={`
+**Answer: $\\approx 9{,}41 \\cdot 10^{22}$ Moleküle.**
+
+**Step 1.** $n = 5/32 = 0{,}15625\\,\\mathrm{mol}$.
+
+**Step 2.** $N = 0{,}15625 \\cdot 6{,}022 \\cdot 10^{23} \\approx 9{,}41 \\cdot 10^{22}$ molecules.
+
+**Sanity check.** The order of magnitude is always near $10^{22}$-$10^{24}$ for gram-scale samples. If you get, say, $10^{19}$ or $10^{26}$, check for exponent errors.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting Avogadro: just 0.156",
+      why_en: "0.156 is the moles, not the molecules. Question asks molecules → must multiply by Avogadro's number. The factor of ~6·10²³ is huge — missing it gives an answer 24 orders of magnitude off."
+    }
+  ]}
+  discussion_mdx={`
+**Intuition for particle counts.**
+
+One gram of any "small" molecule (molar mass ~20 g/mol) contains about $3 \\cdot 10^{22}$ particles. That's enormous — $3 \\cdot 10^{22}$ is about the number of seconds in a billion times the age of the universe. Yet in 1 g of water, they all coexist peacefully.
+
+This number is also why statistical thermodynamics is so accurate: averaging over $10^{22}$-$10^{24}$ particles gives essentially infinite statistics, so deterministic laws (like the ideal gas law or the Maxwell-Boltzmann distribution) describe macroscopic behaviour to a precision no experiment has ever achieved in the opposite direction.
+
+**Connection to chemical engineering.** Reaction rates are often quoted as "mol per second per litre" — dividing particle-level events by Avogadro to get a manageable number. Multiplying back up reveals the astonishing molecular traffic: a modest 1 mol/L/s reaction has $6 \\cdot 10^{23}$ events per litre per second — more than $10^{15}$ events per microsecond in a 100 mL beaker.
+  `}
+/>
+
+<Exercise
+  id="track-0-stoech-l1-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Verbrennt 1 kg Methan vollständig zu CO₂ und H₂O (CH₄ + 2 O₂ → CO₂ + 2 H₂O). Wie viel kg CO₂ entsteht? M(CH₄) = 16 g/mol, M(CO₂) = 44 g/mol."
+  question_en="1 kg of methane is burned completely to CO₂ and H₂O (CH₄ + 2 O₂ → CO₂ + 2 H₂O). How much CO₂ is produced, in kg? M(CH₄) = 16 g/mol, M(CO₂) = 44 g/mol."
+  correct={2.75}
+  tolerance={0.05}
+  hint_en="Mol ratio CH₄ : CO₂ = 1:1. Mass ratio = M(CO₂)/M(CH₄) = 44/16 = 2.75."
+  solution_mdx={`
+**Answer: 2.75 kg.**
+
+**Method 1: via moles.**
+
+- $n(\\mathrm{CH_4}) = 1000/16 = 62{,}5\\,\\mathrm{mol}$.
+- Mol ratio 1:1, so $n(\\mathrm{CO_2}) = 62{,}5\\,\\mathrm{mol}$.
+- $m(\\mathrm{CO_2}) = 62{,}5 \\cdot 44 = 2750\\,\\mathrm{g} = 2{,}75\\,\\mathrm{kg}$.
+
+**Method 2: mass ratio directly.** Since the mol ratio is 1:1, the mass ratio is $M(\\mathrm{CO_2})/M(\\mathrm{CH_4}) = 44/16 = 2{,}75$. So 1 kg CH₄ → 2.75 kg CO₂.
+
+**Environmental engineering factoid.** Methane combustion is often quoted as "2.75 kg CO₂ per kg CH₄" in emissions calculations. Gasoline similar: ~3.1 kg CO₂ per kg fuel.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 1 kg (mass conservation in a wrong form)",
+      why_en: "Mass conservation holds across the ENTIRE reaction, not per molecule type. 1 kg CH₄ + mass of O₂ needed = mass of CO₂ + mass of H₂O. So CO₂ mass is NOT equal to CH₄ mass — in fact it's larger because the oxygen atoms from O₂ are incorporated. Separate 'matter is conserved' from 'any particular species is conserved'."
+    }
+  ]}
+  discussion_mdx={`
+**Climate-policy implications.**
+
+A car emitting 120 g CO₂ per km corresponds to about 120/2.75 ≈ 44 g methane-equivalent fuel, or for gasoline roughly 120/3.1 ≈ 39 g of fuel. Over 15 000 km/year, that's about 580 kg of gasoline → about 1800 kg CO₂. Multiply by 40 million cars in Germany: 72 million tons of CO₂ per year from passenger cars alone. Stoichiometry is how you get from "burn this fuel" to "emit this much CO₂" — an every-day calculation for environmental and energy engineers.
+
+**Natural gas vs coal.** Burning 1 kg of coal (mostly carbon, M ≈ 12) produces 44/12 ≈ 3.67 kg CO₂. Natural gas (CH₄) produces 2.75 kg CO₂. Per kg of fuel, coal emits 33 % more CO₂ than methane. Per kWh of heat, the ratio shifts because methane is more hydrogen-rich (hydrogen combustion produces water, not CO₂) — natural gas emits about half the CO₂ per kWh as coal. This is the core stoichiometric argument for "coal to gas" transitions in power generation.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For stoichiometry problems, always:
+
+1. Write and balance the equation.
+2. Identify the mole ratio between the known substance and the wanted one.
+3. Convert mass → mol (divide by M), apply ratio, convert mol → mass (multiply by M).
+
+Most errors come from skipping step 1 or forgetting to use the mole ratio (steps 2-3 cancel out cleanly if the ratio is 1:1).
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next: **Vektorrechnung-Grundlagen** — vectors, scalar product, cross product. Essential for mechanics, fluid flow, electrodynamics. After that, Newton'sche Mechanik and basic probability close out the Track 0 refresher track.
