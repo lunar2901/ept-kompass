@@ -117,4 +117,11 @@ export const CHAPTERS: ChapterSeed[] = [
     name_en: "Chapter 1 — Fundamentals",
     position: 1,
   },
+  {
+    code: "kap-2-erster-hauptsatz",
+    module_code: "thermodynamik-1",
+    name_de: "Kapitel 2 — Erster Hauptsatz",
+    name_en: "Chapter 2 — First law of thermodynamics",
+    position: 2,
+  },
 ];
