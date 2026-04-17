@@ -1,0 +1,527 @@
+---
+id: thermo-1-k1-l5
+module: thermodynamik-1
+chapter: kap-1-grundbegriffe
+position: 5
+name_de: "Zustandsgleichung des idealen Gases"
+name_en: "Ideal-gas equation of state"
+estimated_minutes: 30
+prerequisites: ["thermo-1-k1-l4"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Two previous lessons taught you that a pure-substance state at equilibrium is described by two independent intensive variables. This lesson tells you the explicit formula that connects them for the simplest case: a gas so dilute that molecular interactions can be ignored.
+
+The result, the <GermanTerm de="ideale Gasgleichung" article="die" en="ideal-gas equation" />, is the single most-used equation in Thermodynamik I. Even when you eventually face steam (real, non-ideal) and combustion gases (real, non-ideal), you will often start with the ideal-gas estimate and correct afterward. Write it in your own handwriting ten times until it is muscle memory:
+
+$$
+pV = nRT \qquad\text{equivalently}\qquad pv = R T
+$$
+
+That is the formula. The rest of this lesson is about when it is accurate, how to use it with engineering units, and the specific-vs-molar form that shows up on steam tables.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Zustandsgleichung
+    en: equation of state
+    plural: die Zustandsgleichungen
+    example_de: "Die Zustandsgleichung verknüpft p, v und T eines Systems."
+    example_en: "The equation of state links p, v, and T of a system."
+  - term: das ideale Gas
+    en: ideal gas
+    plural: die idealen Gase
+    example_de: "Luft bei Raumtemperatur verhält sich näherungsweise wie ein ideales Gas."
+    example_en: "Air at room temperature behaves approximately as an ideal gas."
+  - term: die universelle Gaskonstante
+    en: universal gas constant
+    ipa: /univɛʁˈzɛlə ˈɡaːskɔnˌstantə/
+    example_de: "Die universelle Gaskonstante R beträgt 8,314 J/(mol·K)."
+    example_en: "The universal gas constant R is 8.314 J/(mol·K)."
+  - term: die spezifische Gaskonstante
+    en: specific gas constant
+    example_de: "Die spezifische Gaskonstante von Luft beträgt 287 J/(kg·K)."
+    example_en: "The specific gas constant of air is 287 J/(kg·K)."
+  - term: die molare Masse
+    en: molar mass
+    plural: die molaren Massen
+    example_de: "Die molare Masse von Luft beträgt etwa 28,96 g/mol."
+    example_en: "The molar mass of air is about 28.96 g/mol."
+  - term: die Stoffmenge
+    en: amount of substance (moles)
+    example_de: "1 Mol eines idealen Gases enthält 6,022·10²³ Teilchen."
+    example_en: "1 mole of an ideal gas contains 6.022·10²³ particles."
+</VocabBlock>
+
+## Theorie
+
+### The equation, in four equivalent forms
+
+<FormulaCard
+  name_de="Ideale Gasgleichung (vier Formen)"
+  name_en="Ideal-gas equation (four forms)"
+>
+
+All four forms describe the same physics. Choose the form whose units match what the problem gives you.
+
+$$p V = n R T \qquad(1)\text{ — extensive, molar}$$
+$$p V = m R_s T \qquad(2)\text{ — extensive, mass-based}$$
+$$p v = R_s T \qquad(3)\text{ — specific}$$
+$$p V_m = R T \qquad(4)\text{ — molar volume}$$
+
+where:
+
+- $n$ = Stoffmenge (moles), $m$ = Masse (kg)
+- $R = 8{,}314\,\mathrm{J/(mol\,K)}$ — universal
+- $R_s = R / M$ — specific, depends on the substance; $M$ = molar mass in kg/mol
+- $v = V / m$ — specific volume, $V_m = V / n$ — molar volume
+
+</FormulaCard>
+
+For air, $M \approx 0{,}02896\,\mathrm{kg/mol}$, so $R_s = 8{,}314 / 0{,}02896 \approx 287\,\mathrm{J/(kg\,K)}$. **Memorise $R_{s,\text{Luft}} = 287\,\mathrm{J/(kg\,K)}$** — it appears in nearly every Klausur problem on air.
+
+For water (steam), $M = 0{,}01802\,\mathrm{kg/mol}$, $R_s \approx 461\,\mathrm{J/(kg\,K)}$. For CO₂, $M = 0{,}04401\,\mathrm{kg/mol}$, $R_s \approx 189\,\mathrm{J/(kg\,K)}$.
+
+### What "ideal" means
+
+An ideal gas is a model with two assumptions:
+
+1. Gas molecules are point particles (zero volume of their own).
+2. Gas molecules do not interact (no intermolecular forces, except during elastic collisions with each other or with the container wall).
+
+Both are approximations. Real molecules have finite size and non-zero attractions. The ideal-gas model is accurate when:
+
+- $p$ is low (wide gas, few molecules per unit volume)
+- $T$ is high (kinetic energy dominates over attractive potential energy)
+- the gas is far from its critical point / condensation curve
+
+For air at atmospheric conditions, the ideal model is accurate to about 0.1 %. For compressed steam at 100 bar, it might be 10 % off — real-gas corrections matter. For combustion gases at high $T$ and moderate $p$, ideal is usually fine.
+
+### Two Klausur-level manipulations
+
+**Compression at constant $T$ (Boyle's law):**
+$$p_1 V_1 = p_2 V_2 \quad (T = \mathrm{const})$$
+
+**Heating at constant $V$ (Amontons' law):**
+$$\frac{p_1}{T_1} = \frac{p_2}{T_2} \quad (V = \mathrm{const})$$
+
+**Heating at constant $p$ (Charles's law):**
+$$\frac{V_1}{T_1} = \frac{V_2}{T_2} \quad (p = \mathrm{const})$$
+
+These are all limiting cases of the full $pV = nRT$. In Klausuren, the problem usually names the process type and you pick the right ratio.
+
+<Callout variant="warning">
+
+Always use **Kelvin** in ideal-gas formulae, never Celsius. 27 °C → 300 K, not 300 °C (= 573 K). Mixing the two gives answers a full order of magnitude wrong.
+
+Always use **Pascals** (or consistent alternative units). 1 bar = 10⁵ Pa. Using bar directly with $R = 287\,\mathrm{J/(kg\,K)}$ gives answers 10⁵ too large.
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** In einem starren Behälter von $V = 0{,}5\,\mathrm{m^3}$ befinden sich bei $T_1 = 300\,\mathrm{K}$ Stickstoff ($M = 0{,}028\,\mathrm{kg/mol}$) unter einem Druck von $p_1 = 4\,\mathrm{bar}$.
+>
+> *a)* Wie groß ist die Masse des Stickstoffs?
+> *b)* Der Behälter wird erhitzt, bis $p_2 = 6\,\mathrm{bar}$ erreicht ist. Welche Endtemperatur $T_2$ stellt sich ein?
+> *c)* Welche Wärmemenge $Q$ wurde dem Gas zugeführt, wenn $c_v = 743\,\mathrm{J/(kg\,K)}$ angenommen wird?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Mass of nitrogen.**
+
+Use the mass-based form $pV = m R_s T$, with $R_s = R/M = 8{,}314 / 0{,}028 \approx 297\,\mathrm{J/(kg\,K)}$.
+
+$$m = \frac{p_1 V}{R_s T_1} = \frac{4 \cdot 10^5\,\mathrm{Pa} \cdot 0{,}5\,\mathrm{m^3}}{297\,\mathrm{J/(kg\,K)} \cdot 300\,\mathrm{K}}$$
+
+$$m = \frac{2 \cdot 10^5}{89{,}100} \approx 2{,}25\,\mathrm{kg}$$
+
+**b) Final temperature after isochoric heating.**
+
+The container is rigid, so $V_1 = V_2$. Mass is conserved. Divide the state equations:
+
+$$\frac{p_1}{T_1} = \frac{m R_s}{V} = \frac{p_2}{T_2}$$
+
+$$T_2 = T_1 \cdot \frac{p_2}{p_1} = 300 \cdot \frac{6}{4} = 450\,\mathrm{K}$$
+
+**c) Heat added.**
+
+For an isochoric process in a closed system, the first law reads $\Delta U = Q + W$ with $W = 0$ (no volume change). So $Q = \Delta U = m c_v \Delta T$.
+
+$$\Delta T = T_2 - T_1 = 150\,\mathrm{K}$$
+
+$$Q = 2{,}25\,\mathrm{kg} \cdot 743\,\mathrm{J/(kg\,K)} \cdot 150\,\mathrm{K} = 2{,}51 \cdot 10^5\,\mathrm{J} = 251\,\mathrm{kJ}$$
+
+**Sanity check.** Signs: adding heat raises temperature. $\Delta T > 0$ → $Q > 0$ ✓.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k1-l5-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Ein Ballon enthält 0{,}2 kg Helium bei T = 295 K und p = 1{,}013 bar. Die molare Masse von Helium beträgt M = 4{,}003 g/mol. Welches Volumen V hat das Helium (in m³)?"
+  question_en="A balloon holds 0.2 kg of helium at T = 295 K and p = 1.013 bar. Helium's molar mass is M = 4.003 g/mol. What is the volume V (in m³)?"
+  correct={1.208}
+  tolerance={0.03}
+  hint_en="Use the mass-based form pV = mR_s T with R_s = R/M. Be careful: M is in g/mol, convert to kg/mol."
+  solution_mdx={`
+**Answer: $V \\approx 1{,}21\\,\\mathrm{m^3}$.**
+
+**Step 1. Compute specific gas constant.**
+$$R_s = \\frac{R}{M} = \\frac{8{,}314\\,\\mathrm{J/(mol\\,K)}}{0{,}004003\\,\\mathrm{kg/mol}} \\approx 2077\\,\\mathrm{J/(kg\\,K)}$$
+
+Note $M$ converted from g/mol to kg/mol.
+
+**Step 2. Solve pV = mR_s T for V.**
+$$V = \\frac{m R_s T}{p} = \\frac{0{,}2 \\cdot 2077 \\cdot 295}{1{,}013 \\cdot 10^5}$$
+
+$$V \\approx \\frac{122{,}540}{101{,}300} \\approx 1{,}21\\,\\mathrm{m^3}$$
+
+**Sanity check.** 0.2 kg of helium is a lot — helium is very light (4 g/mol). One mole of gas at 1 atm and ~0 °C occupies 22.4 L; 0.2 kg = 50 mol of helium ≈ 50 · 22.4 L ≈ 1120 L ≈ 1.12 m³. Close to our answer (the temperature is higher here, so volume is proportionally larger). ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using M = 4.003 kg/mol (forgetting to convert from g/mol)",
+      why_en: "The molar mass unit trap. Tables usually print M in g/mol because the numbers are nicer (4 rather than 0.004). But SI requires kg/mol, and $R = 8.314\\,\\mathrm{J/(mol\\,K)}$ needs kg/mol for the units to work out. Forgetting this conversion gives $R_s = 2.077\\,\\mathrm{J/(kg\\,K)}$ instead of $2077$, and a volume 1000× too small — a classic three-order-of-magnitude slip."
+    },
+    {
+      wrong: "Using p in bar: V = 0.2 · 2077 · 295 / 1.013 ≈ 120,912 m³",
+      why_en: "Pressure must be in Pa for $R$ in J/(mol·K). 1.013 bar = 101,300 Pa. Forgetting the factor of 10⁵ makes volumes 10⁵× too large — a nonsensical number that should trip your sanity check. Always convert bar to Pa in ideal-gas formulae, or use a version of $R$ adapted to different units."
+    }
+  ]}
+  discussion_mdx={`
+**Why helium balloons float.**
+
+The balloon pushes aside its own volume of air. The air mass displaced is $\\rho_{\\mathrm{Luft}} \\cdot V$. The balloon's contents (helium) weigh much less: $\\rho_{\\mathrm{He}} = \\rho_{\\mathrm{Luft}} \\cdot (M_{\\mathrm{He}} / M_{\\mathrm{Luft}}) \\approx \\rho_{\\mathrm{Luft}} \\cdot 0{,}138$.
+
+Net upward force (Archimedes):
+
+$$F_{\\mathrm{buoyancy}} = (\\rho_{\\mathrm{Luft}} - \\rho_{\\mathrm{He}}) \\cdot V \\cdot g$$
+
+For our 1.2 m³ balloon: $\\rho_{\\mathrm{Luft}} \\approx 1{,}2\\,\\mathrm{kg/m^3}$, $\\rho_{\\mathrm{He}} \\approx 0{,}165\\,\\mathrm{kg/m^3}$, giving ~12 N of lift — enough to carry about 1 kg of cargo (plus the balloon material itself).
+
+**The hot-air-balloon physics.** For a hot-air balloon, the air inside is at higher $T$, so lower $\\rho$ (same $p$, higher $T$, $\\rho = p / (R_s T)$). Typical operating temperature ~100 °C gives density reduction ~25 %, which is enough lift for 1 kg of payload per 4 m³ of balloon volume — hence hot-air balloons are big.
+
+**Engineering cousin.** In process engineering, the gas density at a given $(p, T)$ is computed with exactly this formula and feeds into buoyancy, pressure-drop, and flow calculations throughout pipe networks and packed columns. The same $pv = R_s T$ you just used.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l5-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein Auto-Reifen wird bei T₁ = 283 K (10 °C) auf p₁ = 2{,}2 bar aufgepumpt. Auf der Autobahn erwärmt sich die Luft durch Reibung auf T₂ = 323 K (50 °C). Welcher Druck herrscht dann im Reifen (in bar)? Nehmen Sie an, dass das Volumen des Reifens konstant bleibt."
+  question_en="A car tyre is inflated at T₁ = 283 K (10 °C) to p₁ = 2.2 bar. On the motorway the air heats up by friction to T₂ = 323 K (50 °C). What pressure is in the tyre (in bar)? Assume the tyre volume stays constant."
+  correct={2.51}
+  tolerance={0.03}
+  hint_en="Isochoric process: p/T = const. Use absolute temperatures in Kelvin."
+  solution_mdx={`
+**Answer: $p_2 \\approx 2{,}51\\,\\mathrm{bar}$.**
+
+**Gegeben:** $T_1 = 283\\,\\mathrm{K}$, $p_1 = 2{,}2\\,\\mathrm{bar}$, $T_2 = 323\\,\\mathrm{K}$, $V = \\mathrm{const}$.
+
+**Step 1. Apply Amontons' law (isochoric, ideal gas).**
+
+For a closed container (constant mass, constant volume):
+
+$$\\frac{p_1}{T_1} = \\frac{p_2}{T_2}$$
+
+**Step 2. Solve for $p_2$.**
+
+$$p_2 = p_1 \\cdot \\frac{T_2}{T_1} = 2{,}2\\,\\mathrm{bar} \\cdot \\frac{323}{283} \\approx 2{,}51\\,\\mathrm{bar}$$
+
+**Physical interpretation.** A 40 K rise from 10 °C to 50 °C raises the absolute temperature from 283 K to 323 K — a 14 % increase. Pressure also rises 14 %, from 2.2 bar to ~2.5 bar. This is why car manuals tell you to check tyre pressure *cold*: a hot tyre reads higher than it should.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using °C: p₂ = 2.2 · 50 / 10 = 11 bar",
+      why_en: "Using Celsius gives a ridiculous 11 bar — 5× the initial pressure for a 40° rise. Remember that ideal-gas formulae use absolute temperature (Kelvin). The ratio 50/10 is not the same as 323/283. This is the single most common Klausur error on gas-law problems, and it produces wildly wrong numbers that SHOULD trip your sanity check."
+    },
+    {
+      wrong: "Treating the process as isobaric (V/T = const)",
+      why_en: "A car tyre is roughly rigid, so volume stays constant — isochoric, NOT isobaric. If you used Charles's law V/T = const, you would have found a new volume (which doesn't make sense for a tyre) and not a new pressure. Read the process type carefully."
+    },
+    {
+      wrong: "Treating the tyre as 'open' to the atmosphere",
+      why_en: "A sealed inflated tyre is a closed system: mass is fixed, volume is (approximately) fixed. Pressure rises as temperature rises. If the tyre could vent, it would be a different problem; but tyres are designed to hold pressure."
+    }
+  ]}
+  discussion_mdx={`
+**Why this matters for driving safety.**
+
+A car tyre at 2.5 bar hot and 2.2 bar cold is the same tyre — the reading changes just because of temperature. Tyre manufacturers specify pressure in a cold condition precisely because driving heats the tyre.
+
+Over-inflation from heating itself is rarely dangerous (tyres are designed for 3.0+ bar); the concern is a sudden cooling (winter) making an already-marginal tyre under-inflated. Under-inflated tyres flex more, heat up more through that flex, and can delaminate on the motorway — this is the classic blowout failure mode.
+
+**Variation — a gas cylinder left in the sun.**
+
+A compressed-gas cylinder at room temperature (20 °C, 200 bar) left in the sun reaches 60 °C. New pressure: $p_2 = 200 \\cdot 333/293 \\approx 227\\,\\mathrm{bar}$. Safety limits on cylinders are rated with this in mind — typical burst disks trigger around 275–300 bar so sun-heating alone does not rupture the cylinder. The reverse mistake is an empty-looking cylinder in winter: a cylinder at 5 °C might read 30 % lower than its room-temperature rating, leading you to think it's emptier than it is.
+
+**Industrial version.** In steam pipelines with closed segments between valves, a segment heated by solar gain can generate dangerous overpressure if the valves are airtight. This is why isolated pipe segments have pressure-relief valves.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l5-ex3"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Welche der folgenden Aussagen über die spezifische Gaskonstante R_s ist korrekt?"
+  question_en="Which statement about the specific gas constant R_s is correct?"
+  options={[
+    { id: "a", de: "R_s ist universell und hat für alle Gase denselben Wert.", en: "R_s is universal and has the same value for all gases." },
+    { id: "b", de: "R_s = R / M, abhängig von der molaren Masse des Gases.", en: "R_s = R / M, depends on the molar mass of the gas." },
+    { id: "c", de: "R_s hat für Luft den Wert 8{,}314 J/(kg·K).", en: "R_s for air is 8.314 J/(kg·K)." },
+    { id: "d", de: "R_s ist nur für einatomige Gase definiert.", en: "R_s is defined only for monatomic gases." },
+  ]}
+  correct="b"
+  hint_en="Specific means 'per unit mass'. How does one move from the universal gas constant (per mole) to a specific one?"
+  solution_mdx={`
+**Correct answer: (b) $R_s = R/M$.**
+
+The **universal** gas constant $R = 8{,}314\\,\\mathrm{J/(mol\\,K)}$ is the same for every ideal gas — it is a fundamental constant. The **specific** gas constant $R_s$ is *per unit mass*, so you divide by the molar mass (converting mol to kg):
+
+$$R_s = \\frac{R}{M} \\quad \\text{in units J/(kg·K)}$$
+
+Therefore $R_s$ is different for every gas:
+- Air: $R_s \\approx 287\\,\\mathrm{J/(kg\\,K)}$
+- Water steam: $R_s \\approx 461\\,\\mathrm{J/(kg\\,K)}$
+- CO₂: $R_s \\approx 189\\,\\mathrm{J/(kg\\,K)}$
+- He: $R_s \\approx 2077\\,\\mathrm{J/(kg\\,K)}$ (lightest common gas → largest $R_s$)
+
+Option (a) confuses $R$ (universal) with $R_s$ (specific). Option (c) mixes up the value ($8{,}314$ is the universal in J/(mol·K), while $R_s$ for air is 287 in J/(kg·K) — different number and different units). Option (d) is a complete invention — atomicity doesn't affect the definition of $R_s$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — R_s is universal",
+      why_en: "Confusing terms: $R$ is universal, $R_s$ is specific. The word *specific* in thermodynamics always means *per unit mass* and always introduces a gas-dependent factor. Similarly for specific heat capacities $c_v$, $c_p$ — gas-dependent, per-mass."
+    },
+    {
+      wrong: "c — R_s,air = 8.314 J/(kg·K)",
+      why_en: "The value 8.314 is $R$ in J/(mol·K), not $R_s$ in J/(kg·K). For air, $R_s = 287$. If you see 8.314 attached to kg units, alarm bells: the constant was mis-assigned or the unit conversion was skipped. A factor of $1/M$ (for air, $1/0.029 \\approx 34$) separates the two."
+    }
+  ]}
+  discussion_mdx={`
+**Two-sentence summary of the constant zoo.**
+
+There is exactly one universal gas constant, $R = 8{,}314\\,\\mathrm{J/(mol\\,K)}$. Every other "gas constant" you will see is a specific version, adapted to particular choices of units or substances.
+
+Common forms you may encounter:
+
+| Symbol | Value | Units | What it is |
+| --- | --- | --- | --- |
+| $R$ | 8.314 | J/(mol·K) | universal, SI |
+| $R$ | 0.08314 | L·bar/(mol·K) | universal, engineering |
+| $R_s$ for air | 287 | J/(kg·K) | specific, air |
+| $R_s$ for air | 0.287 | kJ/(kg·K) | specific, air, kJ |
+| $R_u$ (German books) | same as $R$ | — | 'u' for 'universell' |
+
+**Unit conversion nuisance.** Many German engineering textbooks use $R = 0{,}287\\,\\mathrm{kJ/(kg\\,K)}$ by default, not the universal form. When you pick up a formula sheet, always check which constant it assumes and what units go with it.
+
+**Why specific forms matter.** In engineering calculations with mass-flow rates $\\dot{m}$ or mass totals, $R_s$ drops the mole-to-mass conversion from your calculation. You get direct $\\dot{H} = \\dot{m} h$-style formulas. In chemistry calculations with moles, $R$ is usually cleaner. Thermodynamik I leans heavily on $R_s$; Kinetik and Reaktionstechnik lean on $R$.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l5-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="In einem Kolben-Zylinder-System wird Luft bei p₁ = 1 bar und V₁ = 0{,}02 m³, T₁ = 300 K isobar (quasistatisch) auf V₂ = 0{,}04 m³ ausgedehnt. Berechnen Sie die Endtemperatur T₂ (in K)."
+  question_en="In a piston-cylinder system, air at p₁ = 1 bar and V₁ = 0.02 m³, T₁ = 300 K is expanded isobarically (quasi-statically) to V₂ = 0.04 m³. Compute the final temperature T₂ (in K)."
+  correct={600}
+  tolerance={2}
+  hint_en="Isobaric means p constant. Apply V/T = const (Charles's law) between states 1 and 2."
+  solution_mdx={`
+**Answer: $T_2 = 600\\,\\mathrm{K}$.**
+
+**Gegeben:** $p_1 = p_2 = 1\\,\\mathrm{bar}$, $V_1 = 0{,}02\\,\\mathrm{m^3}$, $T_1 = 300\\,\\mathrm{K}$, $V_2 = 0{,}04\\,\\mathrm{m^3}$.
+
+**Step 1. Apply Charles's law (isobaric, closed system).**
+
+$$\\frac{V_1}{T_1} = \\frac{V_2}{T_2}$$
+
+**Step 2. Solve for $T_2$.**
+
+$$T_2 = T_1 \\cdot \\frac{V_2}{V_1} = 300 \\cdot \\frac{0{,}04}{0{,}02} = 600\\,\\mathrm{K}$$
+
+**Physical interpretation.** Doubling the volume at constant pressure doubles the absolute temperature. Physically: the gas expands because it is being heated, and the piston moves outward. The expansion is possible because the pressure on both sides of the piston (inside and outside) stays balanced at 1 bar — the external force on the piston is just slightly less than the internal force at every instant (quasi-static).
+
+**Amount of heat needed.** For an isobaric process, $Q = m c_p \\Delta T$. With $m = p_1 V_1 / (R_s T_1) = 10^5 \\cdot 0{,}02 / (287 \\cdot 300) \\approx 0{,}0232\\,\\mathrm{kg}$ and $c_p \\approx 1005\\,\\mathrm{J/(kg\\,K)}$, we'd need $Q = 0{,}0232 \\cdot 1005 \\cdot 300 \\approx 7\\,\\mathrm{kJ}$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using p/T = const: T₂ = 300 · 1/1 = 300 K",
+      why_en: "Misclassifying the process. $p/T = \\mathrm{const}$ is Amontons's law (isochoric). Here the process is isobaric, so pressure is fixed AND volume changes; the right ratio is $V/T$ (Charles's law). If you get 300 K back, your process-type identification is off — go back and read which quantity is constant."
+    },
+    {
+      wrong: "Forgetting to multiply: T₂ = 300 - 2 = 298",
+      why_en: "Volume changes multiplicatively, not additively. The ratio $V_2/V_1$ is what propagates through the ideal-gas law. Thinking of 'change of 0.02 m³' as if it were a temperature change in K is a unit-type error — volume and temperature are different quantities."
+    },
+    {
+      wrong: "Computing the pressure with pV = nRT but missing that n = const",
+      why_en: "The mole number (or mass) is constant — it is still the same gas inside the cylinder, just occupying more space. Don't let yourself drift into a mass-balance calculation when the question is a simple gas-law ratio problem."
+    }
+  ]}
+  discussion_mdx={`
+**Isobaric heating of an ideal gas — the energy bookkeeping.**
+
+The first law for a closed-system isobaric process reads:
+
+$$Q = \\Delta U + p \\Delta V = \\Delta H$$
+
+because for an ideal gas $\\Delta H = \\Delta U + p \\Delta V$ at constant $p$. Equivalently, $Q = m c_p \\Delta T$. Heat goes partly into internal energy ($\\Delta U$) and partly into pushing the piston out ($p \\Delta V$), which is the *Volumenänderungsarbeit*.
+
+For our problem: $Q \\approx 7\\,\\mathrm{kJ}$, of which $\\Delta U \\approx 5\\,\\mathrm{kJ}$ (internal energy rise for this $\\Delta T$) and the remaining 2 kJ is the boundary work done on the surroundings.
+
+**Why does $c_p > c_v$?**
+
+For any ideal gas, $c_p = c_v + R_s$ (Mayer's relation). Air: $c_v = 718$, $c_p = 1005$, $R_s = 287$, and 718 + 287 = 1005 ✓. The difference is exactly the work done expanding the gas against a constant pressure as it heats — work that would not happen at constant volume.
+
+**Connection forward.** Kapitel 2 derives this relation from the first law and the definitions of $U(T)$ and $H(T)$ for an ideal gas. The key step is recognising that for an ideal gas, $U$ and $H$ depend *only* on temperature, not on $p$ or $V$ independently. This simplification is what makes ideal-gas thermodynamics so tractable — real gases need two independent variables, ideal gases only one (for these energy functions).
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l5-ex5"
+  difficulty="klausur"
+  type="multi_select"
+  question_de="Welche Annahmen liegen dem Modell des idealen Gases zugrunde? (Mehrfachauswahl.)"
+  question_en="Which assumptions underlie the ideal-gas model? (Multiple selection.)"
+  options={[
+    { id: "a", de: "Die Moleküle haben vernachlässigbares Eigenvolumen (Punktteilchen).", en: "Molecules have negligible own volume (point particles)." },
+    { id: "b", de: "Die Moleküle üben keine Anziehungskräfte aufeinander aus.", en: "Molecules exert no attractive forces on each other." },
+    { id: "c", de: "Die Stöße zwischen Molekülen sind vollkommen elastisch.", en: "Collisions between molecules are perfectly elastic." },
+    { id: "d", de: "Die mittlere kinetische Energie der Moleküle hängt nicht von der Temperatur ab.", en: "The mean kinetic energy of molecules does not depend on temperature." },
+    { id: "e", de: "Das Modell gilt nur für einatomige Gase.", en: "The model only applies to monatomic gases." },
+  ]}
+  correct={["a", "b", "c"]}
+  hint_en="The model assumes 'almost nothing happens' between molecules except during collisions. Two of the options contradict facts you already know."
+  solution_mdx={`
+**Correct answers: (a), (b), (c).**
+
+- **(a) Point particles.** Classical kinetic theory models molecules as zero-volume points — no excluded volume from molecular size. This is the most important ideal approximation; it becomes invalid at high density when molecular volumes become non-negligible compared to gas volume.
+- **(b) No attractive forces.** No van der Waals, no dipole-dipole, no hydrogen bonding. Molecules only interact via brief elastic collisions. This breaks down at low $T$ or high $p$, where attractive forces become important.
+- **(c) Elastic collisions.** Collisions conserve kinetic energy. If they didn't, energy would leak into other degrees of freedom and the simple $pV = nRT$ would not hold.
+
+**(d) is wrong.** In fact, the core result of kinetic theory is $\\langle E_{\\text{kin}} \\rangle = \\tfrac{3}{2} k_B T$ per molecule — the mean kinetic energy is proportional to $T$. That's the molecular definition of temperature.
+
+**(e) is wrong.** Ideal gas model applies to any gas with negligible interactions: monatomic (He, Ar), diatomic (N₂, O₂, air), polyatomic (CO₂, H₂O steam) — all obey $pV = nRT$ to good accuracy at low-to-moderate density. The polyatomic gases have additional *internal* degrees of freedom (rotation, vibration), which affect their specific heats but not the state equation.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Missing (c) elastic collisions",
+      why_en: "Students sometimes forget this assumption because it is less visible. But it is essential: if kinetic energy leaked to potential energy during collisions (as in real gases at high density), the pressure-temperature relation would deviate from ideal. This is what the 'a' parameter in the van der Waals equation corrects."
+    },
+    {
+      wrong: "Including (d) mean KE independent of T",
+      why_en: "Exactly the opposite — the proportionality $\\langle E_{\\text{kin}} \\rangle \\propto T$ is THE defining relation of kinetic theory. If you picked this, you may be misremembering the classical textbook statement; review it."
+    },
+    {
+      wrong: "Including (e) monatomic only",
+      why_en: "The $pV = nRT$ equation is about the gas-phase equation of state, which only cares about translation (particle center-of-mass motion). Internal degrees of freedom (rotation of N₂, vibration of CO₂) enter the specific-heat values ($c_v$ and $c_p$) but not the state equation. $pV = nRT$ applies to air, steam (when dilute enough), CO₂ — anything gas-like and dilute."
+    }
+  ]}
+  discussion_mdx={`
+**When the ideal gas model breaks down.**
+
+Two regimes where $pV = nRT$ noticeably deviates:
+
+1. **High pressure / high density.** Molecular volume becomes comparable to gas volume; the excluded-volume correction matters. Van der Waals adds a $-b$ term to volume: $p(V - nb) = nRT$ (roughly).
+
+2. **Low temperature.** Attractive forces become comparable to kinetic energy; gases start to liquefy. Van der Waals adds an attraction correction $+an^2/V^2$: $(p + an^2/V^2)(V - nb) = nRT$.
+
+Near the critical point, both corrections matter simultaneously and the van der Waals equation itself becomes inadequate. Engineering fluids like water steam at power-plant conditions use more sophisticated equations of state (Redlich-Kwong, Peng-Robinson, or empirical polynomial fits as in the IAPWS steam formulation).
+
+**Rule of thumb for Klausur-time confidence.**
+
+- Air, $T > 200\\,\\mathrm{K}$, $p < 10\\,\\mathrm{bar}$: ideal gas is accurate to ~0.1 %.
+- Steam, superheated, $T > 200\\,\\mathrm{°C}$, $p < 10\\,\\mathrm{bar}$: ideal gas to ~5 %.
+- Steam in a saturated or wet-steam region: **do not** use ideal gas — use steam tables.
+- CO₂ at 100 bar: ideal gas off by 20 %.
+
+**Connection forward.** In Lesson 6 (Reale Gase) we meet the van der Waals equation as the next step up in complexity, and the concept of a compressibility factor $Z = pv / (R_s T)$ that measures deviation from ideal. In Thermodynamik II, full steam tables replace formulas for water and refrigerants.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l5-ex6"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Zwei Behälter: Behälter 1 enthält 2 mol Wasserstoff, Behälter 2 enthält 2 mol Stickstoff. Beide bei T = 300 K und p = 1 bar. Welcher Behälter hat das größere Volumen?  (Geben Sie als Antwort das Verhältnis V₁ / V₂ an — als Zahl.)"
+  question_en="Two vessels: vessel 1 contains 2 mol of hydrogen, vessel 2 contains 2 mol of nitrogen. Both at T = 300 K, p = 1 bar. Which vessel has the larger volume? (Give the ratio V₁ / V₂ as a number.)"
+  correct={1}
+  tolerance={0.01}
+  hint_en="Avogadro's principle: at same p and T, equal moles → equal volumes, regardless of gas identity."
+  solution_mdx={`
+**Answer: $V_1 / V_2 = 1$.**
+
+This is the famous conceptual surprise of the ideal-gas model.
+
+From $pV = nRT$:
+$$V = \\frac{n R T}{p}$$
+
+At fixed $p$ and $T$, $V$ depends only on $n$, the mole number. Two gases at the same $T$, same $p$, same $n$ occupy the same volume — regardless of whether the gas is hydrogen (M = 2 g/mol) or nitrogen (M = 28 g/mol) or anything else.
+
+This is **Avogadro's principle**: *equal volumes of different gases at the same $T$ and $p$ contain equal numbers of molecules*.
+
+The mass, however, differs enormously. 2 mol of H₂ weighs 4 g; 2 mol of N₂ weighs 56 g. Same volume, very different masses. That is why hydrogen balloons float in air — the hydrogen displaces its own volume of air but weighs much less.
+
+So the ratio is exactly 1.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using molar masses in the ratio: 28/2 = 14",
+      why_en: "Molar mass does NOT enter the volume calculation at fixed $p$, $T$, $n$. The confusion: if you used the mass-based form $pV = mR_s T$ and plugged the SAME mass for both, you'd get different volumes (because $R_s$ differs). But the problem specifies the same mole number, not the same mass. At the same $n$, volume is gas-identity-independent."
+    },
+    {
+      wrong: "Computing each volume separately and dividing, getting something different from 1 due to unit errors",
+      why_en: "If you computed $V_1 \\neq V_2$ using consistent units (moles for $n$, SI everywhere else), the answer must come out exactly to 1. If you got something different, check your $R$ value — did you use $R_s$ for one and $R$ for the other?"
+    }
+  ]}
+  discussion_mdx={`
+**Why Avogadro's principle is non-obvious.**
+
+Hydrogen molecules are much lighter than nitrogen molecules. It is tempting to think a light molecule would 'fit more' or 'move faster' in a way that affects volume. In fact, lighter molecules DO move faster (kinetic energy same, so $v \\propto 1/\\sqrt{M}$) — but they also hit the wall less often per collision, and their impact is softer. These effects balance perfectly in the ideal model, giving the same $pV$ for equal $n$.
+
+The deep reason: in the ideal model, the only thing that matters is *how many particles hit the wall per second and how hard*. Equal $T$ means equal kinetic energy, so equal momentum-flux per particle. Equal $n$ means equal number of particles. Equal $V$ means equal wall area per particle. Hence equal pressure. The molecular mass cancels out.
+
+**Historical note.** Amadeo Avogadro proposed his principle in 1811 — before atomic weights were understood. He reasoned that equal gas volumes at the same $T$ and $p$ must contain equal particle counts, because the observed pressure-volume behaviour was gas-identity-independent. His principle predated the numerical value of Avogadro's number (6.022 × 10²³) by decades.
+
+**Engineering consequence — molar volume.**
+
+At standard conditions ($T = 273{,}15\\,\\mathrm{K}$, $p = 101\\,325\\,\\mathrm{Pa}$) every ideal gas has a molar volume of
+
+$$V_m = \\frac{RT}{p} = \\frac{8{,}314 \\cdot 273{,}15}{101\\,325} \\approx 0{,}02244\\,\\mathrm{m^3/mol} = 22{,}44\\,\\mathrm{L/mol}$$
+
+That 22.4 L/mol number is worth memorising. It lets you convert between moles and volume in your head for any gas.
+
+At "room conditions" (25 °C, 1 atm) it's 24.47 L/mol; at European standard (20 °C, 1.013 bar) it's 24.06 L/mol. The three most common reference states are within 10 % of each other, but they differ by more than measurement precision — always check which reference your problem uses.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** In almost every ideal-gas Klausur problem, the moment you read the process type (isotherm, isobar, isochor), one quantity in $pV = nRT$ becomes constant and two stay as unknowns — linked by the ratio law. The three ratios worth memorising:
+
+- isotherm ($T$ const): $p_1 V_1 = p_2 V_2$
+- isobar ($p$ const): $V_1 / T_1 = V_2 / T_2$
+- isochor ($V$ const): $p_1 / T_1 = p_2 / T_2$
+
+Identify the process, pick the ratio, plug in — 30 seconds, no algebra. Save the full $pV = nRT$ for absolute-value calculations like *what mass is in this tank at these conditions*.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+The next lesson — **Reale Gase: Einführung** — introduces what happens when pressures get high enough or temperatures low enough that molecular volume and attraction matter. The van der Waals equation, the compressibility factor $Z$, and why steam tables exist rather than simple formulas. A brief and tactical introduction — the full treatment of real-gas thermodynamics lives in Thermodynamik II.

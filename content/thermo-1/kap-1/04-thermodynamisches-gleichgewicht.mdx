@@ -1,0 +1,489 @@
+---
+id: thermo-1-k1-l4
+module: thermodynamik-1
+chapter: kap-1-grundbegriffe
+position: 4
+name_de: "Thermodynamisches Gleichgewicht"
+name_en: "Thermodynamic equilibrium"
+estimated_minutes: 20
+prerequisites: ["thermo-1-k1-l3"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+When we say "a system has temperature $T$ and pressure $p$", we are quietly assuming that $T$ and $p$ have single, well-defined values. But in a lump of gas where the top is hot and the bottom is cold, there is no single $T$ — you would need a function $T(x, y, z, t)$. State variables only make sense for a system in <GermanTerm de="Gleichgewicht" article="das" plural="Gleichgewichte" en="equilibrium" />.
+
+"Equilibrium" in thermodynamics is stricter than it sounds. It is the simultaneous satisfaction of three balances: thermal, mechanical, and chemical. All three have to hold for you to be allowed to write $p$, $T$, $\mu$ as single numbers for the whole system.
+
+This lesson tells you exactly what that means and flags the Klausur traps where students treat a non-equilibrium system as if it were at equilibrium.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: das Gleichgewicht
+    en: equilibrium
+    plural: die Gleichgewichte
+    ipa: /ˈɡlaɪ̯çɡəˌvɪçt/
+    example_de: "Nur im Gleichgewicht sind die Zustandsgrößen wohldefiniert."
+    example_en: "Only at equilibrium are the state variables well-defined."
+  - term: das thermische Gleichgewicht
+    en: thermal equilibrium
+    example_de: "Zwei Systeme sind im thermischen Gleichgewicht, wenn sie dieselbe Temperatur haben."
+    example_en: "Two systems are in thermal equilibrium when they have the same temperature."
+  - term: das mechanische Gleichgewicht
+    en: mechanical equilibrium
+    example_de: "Im mechanischen Gleichgewicht herrscht überall derselbe Druck."
+    example_en: "At mechanical equilibrium the pressure is the same everywhere."
+  - term: das chemische Gleichgewicht
+    en: chemical equilibrium
+    example_de: "Im chemischen Gleichgewicht haben alle Komponenten dasselbe chemische Potenzial."
+    example_en: "At chemical equilibrium every component has the same chemical potential."
+  - term: das chemische Potenzial
+    en: chemical potential
+    plural: die chemischen Potenziale
+    ipa: /ˈçeːmɪʃəs potɛnˈʦiaːl/
+    example_de: "Das chemische Potenzial bestimmt, in welche Phase ein Stoff strömt."
+    example_en: "The chemical potential determines into which phase a substance flows."
+  - term: der nullte Hauptsatz
+    en: zeroth law of thermodynamics
+    example_de: "Der nullte Hauptsatz begründet den Begriff der Temperatur."
+    example_en: "The zeroth law underpins the notion of temperature."
+  - term: das Nichtgleichgewicht
+    en: non-equilibrium
+    example_de: "In einem Nichtgleichgewicht gibt es Gradienten von T, p oder μ."
+    example_en: "In a non-equilibrium there are gradients of T, p, or μ."
+</VocabBlock>
+
+## Theorie
+
+### The three balances
+
+A system is in *thermodynamic equilibrium* when it is simultaneously in all three of:
+
+1. **Thermisches Gleichgewicht** — temperature is uniform everywhere within the system, and equal to the temperature of any surroundings it is in thermal contact with. Net heat flow across every interior and boundary surface is zero.
+2. **Mechanisches Gleichgewicht** — pressure is uniform everywhere (ignoring tiny hydrostatic gradients in slow flows). Net force on every fluid element is zero; nothing is accelerating.
+3. **Chemisches Gleichgewicht** — chemical potential of every component is uniform across all phases. Net mass transfer across phase boundaries is zero; no reaction is proceeding.
+
+<Callout variant="note">
+
+If any one of these three fails, the system is in **non-equilibrium**. Its state cannot be described by a single $(T, p, \mu)$ triple — you would need spatial functions $T(x,y,z)$, $p(x,y,z)$, $\mu_i(x,y,z)$ and possibly time dependence too.
+
+</Callout>
+
+### The zeroth law: why temperature is a thing
+
+The <GermanTerm de="nullter Hauptsatz" article="der" en="zeroth law of thermodynamics" /> states:
+
+> If system $A$ is in thermal equilibrium with system $B$, and $B$ is in thermal equilibrium with system $C$, then $A$ is in thermal equilibrium with $C$.
+
+It sounds trivial. It is not. This transitivity is what lets us define *temperature* as a single number attached to each equilibrium system, and compare the temperatures of different systems using a third system (a thermometer) as a reference.
+
+The zeroth law is the logical foundation for every thermometer. Without it, "temperature" would be an ill-defined pairwise relation, not a property of a single system.
+
+### Local equilibrium — why engineering still works
+
+Real systems almost always have *some* gradient. A heated pipe has temperature gradients along its length, pressure gradients from the pump to the outlet. Strictly, such a system is not at equilibrium.
+
+The practical escape: **local equilibrium**. Divide the system into small parcels. Each parcel is small enough that $T$, $p$ are approximately uniform inside, but large enough to contain enough molecules that statistical averages make sense. We assign $T(x,y,z,t)$, $p(x,y,z,t)$ to each parcel, and use the equilibrium laws on each parcel individually.
+
+This is how all of fluid mechanics, heat transfer, and transport phenomena are built. The justification is that microscopic relaxation times (picoseconds for molecular collisions) are much shorter than macroscopic process times (seconds for flow). Equilibrium holds locally before bulk flow has moved meaningful amounts of matter.
+
+<Callout variant="warning">
+
+Local equilibrium fails in three regimes you will meet later:
+
+- shock waves (gradients steep enough to span a few mean free paths)
+- rarefied gases (low density, long mean free paths)
+- very fast processes (plasmas, explosive expansion)
+
+For everything in Thermodynamik I, local equilibrium is assumed without comment.
+
+</Callout>
+
+### Equilibrium vs. steady state — do not confuse
+
+- **Gleichgewicht**: no macroscopic changes with time AND no fluxes across any boundary.
+- **Stationärer Zustand** (steady state): no macroscopic changes with time at a fixed point, BUT there may be fluxes through the system.
+
+A heated pipe at steady state has constant $T(x)$ at every point, but heat is flowing through the wall. The pipe is NOT at equilibrium (there are gradients, and heat is crossing the boundary); it is in steady state.
+
+Steady-state systems are analysed with the equilibrium framework *locally* at each point, but the overall system is not at equilibrium.
+
+## Musteraufgabe
+
+> **Aufgabe.** Zwei starre Behälter sind mit einem Rohr und einem geschlossenen Ventil verbunden. Behälter A enthält 2 kg Luft bei $p_A = 4\,\mathrm{bar}$, $T_A = 300\,\mathrm{K}$; Behälter B enthält 3 kg Luft bei $p_B = 2\,\mathrm{bar}$, $T_B = 300\,\mathrm{K}$. Beide Behälter sind ideal isoliert.
+>
+> *a)* Sind die beiden Behälter vor dem Öffnen im thermischen, im mechanischen und im chemischen Gleichgewicht miteinander?
+> *b)* Was passiert nach dem Öffnen des Ventils (qualitativ)? Welche Art von Ungleichgewicht löst den Prozess aus?
+> *c)* Beschreiben Sie den Endzustand. Welches Gleichgewicht ist dann erreicht?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) Pre-opening classification.**
+
+- *Thermisch?* $T_A = T_B = 300\,\mathrm{K}$. Same temperature on both sides, so yes, **thermal equilibrium**.
+- *Mechanisch?* $p_A = 4\,\mathrm{bar} \neq p_B = 2\,\mathrm{bar}$. Different pressures, so **NOT in mechanical equilibrium** with each other — but note: the valve is closed, so the two systems are isolated from each other. Each separately is in its own internal mechanical equilibrium.
+- *Chemisch?* Both contain air (same composition), same $T$. For pure same-composition fluids at the same $T$ and different $p$, the chemical potentials differ (since $\\mu$ depends on $p$). So **NOT in chemical equilibrium** with each other either — but again, only becomes relevant when the valve opens.
+
+**b) What happens after opening.**
+
+The driver is the pressure difference (mechanical ungleichgewicht). Gas flows from A to B until pressures equalise. On a shorter timescale, this flow carries mass, which also transfers composition-uniform-across-both-volumes — but because the compositions were already identical, the chemical-potential gradient disappears with the pressure gradient.
+
+If A and B had different temperatures initially, there would also be a thermal gradient, and heat would flow (plus the mass carrying internal energy). In our case temperatures are equal, but the expansion work may cool the gas leaving A and warm the gas entering B slightly.
+
+**c) Final state.**
+
+Pressure uniform across both tanks: $p_f$ determined by mass balance.
+
+Total mass: $m = m_A + m_B = 5\,\mathrm{kg}$. Total volume: $V = V_A + V_B$, where from the ideal-gas law:
+
+$V_A = m_A R T_A / p_A = 2 \\cdot 287 \\cdot 300 / (4 \\cdot 10^5) = 0{,}4305\\,\\mathrm{m^3}$
+
+$V_B = m_B R T_B / p_B = 3 \\cdot 287 \\cdot 300 / (2 \\cdot 10^5) = 1{,}2915\\,\\mathrm{m^3}$
+
+$V = 1{,}722\\,\\mathrm{m^3}$.
+
+Since the tanks are insulated, rigid, and the combined system is isolated, $U$ is conserved. For an ideal gas $U = m c_v T$, so with total mass and the equal initial temperatures, $T_f = 300\\,\\mathrm{K}$ (no temperature change in the mixed ideal-gas system).
+
+Final pressure: $p_f = m R T_f / V = 5 \\cdot 287 \\cdot 300 / 1{,}722 \\approx 2{,}5 \\cdot 10^5\\,\\mathrm{Pa} = 2{,}5\\,\\mathrm{bar}$.
+
+**Final state:** $T_f = 300\\,\\mathrm{K}$, $p_f = 2{,}5\\,\\mathrm{bar}$, uniform across the combined volume. Now in **simultaneous thermal, mechanical, and chemical equilibrium**.
+
+**Important observation.** The process A → final is irreversible — entropy of the combined system rises, even though $T$ didn't change. The entropy rise comes from the gas from A expanding into the additional volume.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k1-l4-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Zwei Systeme haben dieselbe Temperatur, aber unterschiedliche Drücke. Sie stehen über eine bewegliche Wand in Kontakt. Welche Aussage ist korrekt?"
+  question_en="Two systems are at the same temperature but different pressures, and are in contact through a movable wall. Which statement is correct?"
+  options={[
+    { id: "a", de: "Sie sind im vollständigen thermodynamischen Gleichgewicht.", en: "They are in full thermodynamic equilibrium." },
+    { id: "b", de: "Sie sind im thermischen Gleichgewicht, aber nicht im mechanischen.", en: "They are in thermal equilibrium but not mechanical." },
+    { id: "c", de: "Sie sind im mechanischen Gleichgewicht, aber nicht im thermischen.", en: "They are in mechanical equilibrium but not thermal." },
+    { id: "d", de: "Es kann kein Wärmestrom zwischen ihnen fließen, da T gleich ist.", en: "No heat can flow between them, since T is equal." },
+  ]}
+  correct="b"
+  hint_en="Thermal equilibrium is defined by equal temperatures; mechanical equilibrium by equal pressures at a movable wall."
+  solution_mdx={`
+**Correct answer: (b) thermal yes, mechanical no.**
+
+- *Same temperature* → thermal equilibrium (by definition).
+- *Different pressures + movable wall* → the wall will move. Mechanical equilibrium requires equal pressures across movable boundaries, so there is mechanical non-equilibrium.
+
+Option (d) is true ("no heat flows because T is equal") but it conflates thermal equilibrium with the absence of any interaction. There can still be mechanical work across the movable wall until pressures equalise. It's a partial truth inside a larger wrong claim.
+
+**What will happen physically.** The higher-pressure side pushes the wall toward the lower-pressure side. Volumes change. At constant combined volume and no heat exchange, internal energy adjusts. The process stops when $p_1 = p_2$ — mechanical equilibrium — at which point both systems share both $T$ and $p$ and are in full equilibrium.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — full equilibrium",
+      why_en: "Full equilibrium requires all three balances: thermal, mechanical, AND chemical. Different pressures directly violate mechanical equilibrium regardless of temperature. If you answered (a), review the three balances — they are independent conditions, all of which must hold simultaneously."
+    },
+    {
+      wrong: "c — mechanical yes, thermal no",
+      why_en: "Inverted: equal temperatures is the defining property of thermal equilibrium; equal pressures of mechanical. Rapidly confusing which quantity goes with which balance is a frequent Klausur error."
+    },
+    {
+      wrong: "d — no heat flows since T is equal",
+      why_en: "True in isolation but misleading. Equal temperatures → no heat flows, but the question is about equilibrium, not just heat flux. Mechanical interaction (work across the movable wall) is a separate phenomenon and does NOT require a temperature difference."
+    }
+  ]}
+  discussion_mdx={`
+**The three balances are independent — each has its own 'currency'.**
+
+| Balance | What flows across a boundary | Equalised by | Variable that signals equilibrium |
+| --- | --- | --- | --- |
+| Thermal | heat (energy) | equal $T$ | temperature |
+| Mechanical | work via volume change | equal $p$ | pressure |
+| Chemical | mass (per species) | equal $\\mu_i$ | chemical potential of each component |
+
+You can have *any combination* of these equilibria violated. Four tanks of gas in various pairings all demonstrate different combinations:
+
+- equal $T$, different $p$ — mechanical non-equilibrium
+- different $T$, equal $p$ — thermal non-equilibrium
+- both different — both non-equilibrium
+- different composition, same $T$, same $p$ — chemical non-equilibrium
+- all three equal and compositions match — full equilibrium
+
+**Connection forward.** In Thermodynamik II, chemical non-equilibrium gets rigorous: the second law, applied across phase boundaries, states that the chemical potential of every component must be equal in every phase at equilibrium, i.e. $\\mu_i^{(1)} = \\mu_i^{(2)}$. That is what drives evaporation, condensation, mass-transfer in absorption columns. For Thermodynamik I we mostly ignore compositional effects and treat single-component fluids — but the framework is the same.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l4-ex2"
+  difficulty="medium"
+  type="multi_select"
+  question_de="Welche der folgenden Situationen beschreibt ein System im thermodynamischen Gleichgewicht?"
+  question_en="Which of the following describes a system in thermodynamic equilibrium?"
+  options={[
+    { id: "a", de: "Ein gut isolierter Behälter mit homogenem Gas, das seit Stunden unberührt ist.", en: "A well-insulated vessel with a homogeneous gas, untouched for hours." },
+    { id: "b", de: "Wasser in einem Kessel, das gerade zu sieden beginnt.", en: "Water in a kettle just beginning to boil." },
+    { id: "c", de: "Ein Glas Wasser, auf dessen Oberfläche Eiswürfel schwimmen (T_Wasser ≠ T_Eis).", en: "A glass of water with ice cubes on the surface (T_water ≠ T_ice)." },
+    { id: "d", de: "Ein isoliertes Gemisch aus H₂ und O₂ bei 25 °C, das nicht explodiert.", en: "An insulated H₂/O₂ mixture at 25 °C that isn't exploding." },
+    { id: "e", de: "Ein Rohr, durch das stationär heißes Wasser strömt, mit konstantem T(x).", en: "A pipe with hot water flowing steadily, with constant T(x)." },
+  ]}
+  correct={["a"]}
+  hint_en="Equilibrium needs ALL of thermal, mechanical, and chemical to hold. Four of the five options violate at least one."
+  solution_mdx={`
+**Correct answer: only (a).**
+
+- **(a)** Isolated + homogeneous + undisturbed for hours → all three balances satisfied. This is equilibrium.
+- **(b)** The kettle is mid-phase-change. Gradients exist between water and dissolved gas, and the system is clearly evolving. Not equilibrium.
+- **(c)** Different temperatures between water and ice → thermal non-equilibrium. Heat is flowing from water to ice; ice is melting. Not equilibrium.
+- **(d)** Subtle. H₂ and O₂ at 25 °C are in what is called **metastable equilibrium** — kinetically stable (no reaction rate at this temperature) but thermodynamically NOT at equilibrium (the equilibrium composition at 25 °C is essentially 100 % H₂O). A spark triggers the reaction. This is why Thermodynamik distinguishes equilibrium from "not currently reacting".
+- **(e)** Steady state with non-trivial flow → not equilibrium. Even if $T(x)$ doesn't change in time, there are spatial gradients and heat flows through the pipe wall.
+
+(a) is the only true equilibrium.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (d) H₂/O₂ mixture",
+      why_en: "The classic metastable-vs-equilibrium trap. A gas mixture that is not reacting might be kinetically frozen (rate too slow to observe) but still far from chemical equilibrium (composition would change if the reaction could proceed). Diamond at room temperature is another famous example — it 'should' turn into graphite but the activation energy is too high. Thermodynamic equilibrium is about where the system WOULD settle given infinite time; metastability is about where it happens to be stuck."
+    },
+    {
+      wrong: "Including (e) steady-state pipe",
+      why_en: "This is the most common equilibrium-vs-steady-state conflation in engineering thermodynamics. Steady state = time-invariant at each point; equilibrium = no gradients + no fluxes anywhere. A heat exchanger is designed to NEVER be at equilibrium while operating (the whole point is heat transfer, which requires a gradient) — but it is in steady state."
+    },
+    {
+      wrong: "Missing (a)",
+      why_en: "If you excluded (a), you may have overthought the problem. 'Homogeneous, insulated, undisturbed for hours' is the textbook definition of a system at equilibrium. There is no trick here."
+    }
+  ]}
+  discussion_mdx={`
+**Metastable equilibrium — the engineering workaround.**
+
+A metastable state is a local energy minimum, not the global one. Water below 0 °C without ice nuclei can remain liquid (supercooled). Carbon under normal Earth conditions is stable as graphite — diamond is metastable on geological timescales but effectively forever on human timescales. The H₂/O₂ mixture in option (d) is metastable at room temperature because the reaction barrier (~250 kJ/mol) is too high to overcome without a spark.
+
+Engineering exploits metastability deliberately: supercooled water helps certain crystallisation processes, diamond abrasives exist because they do not revert to graphite at tool temperatures, bottled CO₂ in sparkling water is metastable at atmospheric pressure.
+
+In Thermodynamik I we usually ignore metastability — assume any system that "looks" at equilibrium is at equilibrium, which is fine for the calculations we do. In Reaktionstechnik and Verfahrenstechnik it matters: you compute equilibrium conversions assuming reactions go to completion, then correct for kinetic limitations separately.
+
+**A simple visual.** An equilibrium diagram shows the lowest-energy state for each $(T, p)$. In practice, systems might sit in a higher-energy basin until perturbed. Thermodynamics tells you the destination; kinetics tells you how fast you'll get there — and whether you will in your lifetime.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l4-ex3"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Der nullte Hauptsatz besagt, dass …"
+  question_en="The zeroth law of thermodynamics states that …"
+  options={[
+    { id: "a", de: "Wärme stets vom wärmeren zum kälteren Körper fließt.", en: "heat always flows from hotter to colder bodies." },
+    { id: "b", de: "die Entropie eines abgeschlossenen Systems nie abnimmt.", en: "the entropy of an isolated system never decreases." },
+    { id: "c", de: "zwei Systeme, die jeweils im thermischen Gleichgewicht mit einem dritten sind, auch untereinander im thermischen Gleichgewicht sind.", en: "two systems each in thermal equilibrium with a third are in thermal equilibrium with each other." },
+    { id: "d", de: "die Entropie eines perfekten Kristalls am absoluten Nullpunkt gleich Null ist.", en: "the entropy of a perfect crystal at absolute zero is zero." },
+  ]}
+  correct="c"
+  hint_en="The zeroth law is about the consistency of temperature — it's the basis for thermometry."
+  solution_mdx={`
+**Correct answer: (c).**
+
+This is the formal statement of the zeroth law: thermal equilibrium is a **transitive** relation. If A ~ B and B ~ C (where ~ means "in thermal equilibrium with"), then A ~ C.
+
+This transitivity is what allows us to say "system A has temperature $T$" — we can measure $T$ with a thermometer (the third system B) and, if it reads the same for A and C, A and C must be in mutual equilibrium.
+
+The other options are the famous other laws:
+- **(a)** is a statement of the second law (Clausius form).
+- **(b)** is the second law (entropy increase principle).
+- **(d)** is the third law (Nernst).
+
+Calling this law "zeroth" is a historical accident: it was recognised as logically prior to the first law only after the first and second laws were well-established, so it was numbered zero.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — heat flows from hot to cold",
+      why_en: "A correct physical fact, but it is the second law's content, not the zeroth's. The laws build on each other: zeroth defines what temperature is, first conserves energy, second constrains the direction of processes, third anchors entropy at absolute zero."
+    },
+    {
+      wrong: "b — entropy never decreases",
+      why_en: "This is the second law's entropy formulation. The zeroth law does not mention entropy at all — it predates the concept."
+    }
+  ]}
+  discussion_mdx={`
+**Why number a law 'zero'?**
+
+Historical: the first, second, and third laws were stated first — by Clausius, Boltzmann, Nernst and others in the 19th century. The zeroth law was implicit in every temperature measurement but not stated as a separate law until the 1930s, when Ralph Fowler pointed out that it was needed *before* the other laws could even be formulated. You cannot talk about "heat flow from hot to cold" (second law) without first defining what "hot" and "cold" *mean* — and that is what the zeroth law does.
+
+**Practical consequence.** Every thermometer works because of the zeroth law. A mercury thermometer placed in a beaker reaches thermal equilibrium with the water; placed in another beaker of the same temperature, it reads the same value. The zeroth law guarantees this transitivity, and therefore guarantees that "temperature" is a property of the beaker alone, not of the (beaker + thermometer) pair.
+
+**The four-law hierarchy.**
+
+| # | Name | One-sentence statement |
+| --- | --- | --- |
+| 0 | Zeroth | Thermal equilibrium is transitive → temperature exists. |
+| I | First | Energy is conserved: $\\Delta U = Q + W$. |
+| II | Second | Entropy of an isolated system doesn't decrease. |
+| III | Third | At absolute zero, perfect crystalline entropy = 0. |
+
+Every Klausur-level thermodynamics problem uses laws 0, I, and II heavily; law III appears occasionally in entropy-of-formation tables. The zeroth law is rarely tested directly but is implicit in every temperature-based calculation.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l4-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Zwei isolierte Behälter enthalten je 1 kg Luft. Behälter 1: T₁ = 300 K, p₁ = 2 bar. Behälter 2: T₂ = 500 K, p₂ = 2 bar. Ein Rohr verbindet sie, das zunächst geschlossen ist. Nach dem Öffnen stellt sich thermisches Gleichgewicht ein (Annahmen: ideale Mischung, c_v = 718 J/(kg·K), starre und isolierte Gesamtbehälter, keine Arbeit, kein Wärmetausch mit der Umgebung). Welche Temperatur T_f hat die Luft am Ende (in K)?"
+  question_en="Two insulated vessels each contain 1 kg of air. Vessel 1: T₁ = 300 K, p₁ = 2 bar. Vessel 2: T₂ = 500 K, p₂ = 2 bar. A pipe connecting them is opened. Thermal equilibrium is reached (assume ideal mixing, c_v = 718 J/(kg·K), rigid insulated combined vessel, no work, no heat to surroundings). What is the final temperature T_f (in K)?"
+  correct={400}
+  tolerance={2}
+  hint_en="First law on the combined isolated system: ΔU_total = 0. For ideal gas, U depends only on T. So total internal energy is conserved."
+  solution_mdx={`
+**Answer: $T_f = 400\\,\\mathrm{K}$.**
+
+**Gegeben:**
+- $m_1 = 1\\,\\mathrm{kg}$, $T_1 = 300\\,\\mathrm{K}$
+- $m_2 = 1\\,\\mathrm{kg}$, $T_2 = 500\\,\\mathrm{K}$
+- combined system: rigid + insulated (so no $Q$, no $W$)
+- ideal gas, $c_v = 718\\,\\mathrm{J/(kg\\,K)}$
+
+**Gesucht:** $T_f$.
+
+**Step 1. Apply the first law to the combined isolated system.**
+$$\\Delta U_{\\text{gesamt}} = Q + W = 0 + 0 = 0$$
+
+Internal energy is conserved.
+
+**Step 2. Express internal energies.**
+
+For an ideal gas, $U = m c_v T$ (taking $T = 0$ as reference is fine since only differences matter). So:
+$$U_{\\text{vor}} = m_1 c_v T_1 + m_2 c_v T_2$$
+$$U_{\\text{nach}} = (m_1 + m_2) c_v T_f$$
+
+**Step 3. Set them equal.**
+$$m_1 T_1 + m_2 T_2 = (m_1 + m_2) T_f$$
+$$T_f = \\frac{m_1 T_1 + m_2 T_2}{m_1 + m_2} = \\frac{1 \\cdot 300 + 1 \\cdot 500}{1 + 1} = 400\\,\\mathrm{K}$$
+
+(Clean because $m_1 = m_2$ — the answer is the simple average. Had masses differed, it would be a mass-weighted average.)
+
+**Sanity check.** Energy is conserved, so the final temperature lies between $T_1$ and $T_2$. It does: 300 < 400 < 500. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Simple average $(T_1 + T_2) / 2 = 400$ — correct number, wrong reasoning",
+      why_en: "The simple average $(T_1 + T_2) / 2$ gives the right answer here only because the masses are equal. Had the masses been different, a simple average would be wrong. The correct formula is the *mass-weighted* (equivalently, heat-capacity-weighted) average $T_f = (m_1 T_1 + m_2 T_2) / (m_1 + m_2)$. If you just averaged, you got lucky."
+    },
+    {
+      wrong: "Using specific heat at constant pressure $c_p$ instead of $c_v$",
+      why_en: "The combined container is rigid, so there is no volume change of the combined system, so the process at the level of the whole is isochoric. At constant volume, $\\Delta U = m c_v \\Delta T$. Using $c_p$ would be right for an isobaric heat-exchanger-style problem, not this one. Note that for this particular problem $c$ cancels out anyway (it appears on both sides of the energy balance), so using the wrong $c$ still gives 400 K — but the reasoning would be wrong, and examiners notice."
+    },
+    {
+      wrong: "Trying to find the final pressure without realising it's not asked",
+      why_en: "If the vessel volumes happen to be equal, the final pressure is 2 bar (unchanged). If they differ, you'd need the volumes to find $p_f$. The question asks only for $T_f$, which is determined purely by energy conservation + mass balance. Don't make the problem harder than it is."
+    }
+  ]}
+  discussion_mdx={`
+**Why this calculation is almost always correct for insulated mixing.**
+
+For an insulated rigid vessel receiving multiple gas streams at different temperatures (same composition), the energy balance gives
+
+$$T_f = \\frac{\\sum m_i c_{v,i} T_i}{\\sum m_i c_{v,i}}$$
+
+For one component, $c_v$ drops out and you get a mass-weighted average. For multiple components (say air and helium), you need to keep the individual $c_v$ values.
+
+**What about the pressure?**
+
+For two equal-volume vessels initially at equal pressure but different temperatures, the ideal-gas law gives $p = mRT/V$, so the vessels had different masses (here they didn't — $m_1 = m_2$ was given). After mixing:
+
+$$p_f = \\frac{(m_1 + m_2) R T_f}{V_1 + V_2}$$
+
+It's worth computing for sanity-check purposes.
+
+**The entropy change is positive.** Even though energy is conserved, entropy rises. The irreversibility comes from mixing gases that were initially at different temperatures:
+
+$$\\Delta S_{\\text{gen}} = m_1 c_v \\ln\\!\\left(\\frac{T_f}{T_1}\\right) + m_2 c_v \\ln\\!\\left(\\frac{T_f}{T_2}\\right) > 0$$
+
+(You can verify this by plugging in 300, 500, 400.) Nothing is reversible about thermal mixing, even inside an isolated vessel. Kapitel 4 derives this formula rigorously.
+
+**Variation — what if one vessel is twice as massive?**
+
+Let $m_1 = 2\\,\\mathrm{kg}$, $m_2 = 1\\,\\mathrm{kg}$: $T_f = (2 \\cdot 300 + 1 \\cdot 500) / 3 = 1100/3 \\approx 367\\,\\mathrm{K}$. The larger mass pulls the average toward its temperature. In the limit $m_1 \\gg m_2$, $T_f \\to T_1$ — the big tank barely notices the small one. This is why reservoirs are treated as thermal baths in thermodynamics: effectively infinite mass, temperature unchanged.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k1-l4-ex5"
+  difficulty="klausur"
+  type="multiple_choice"
+  question_de="Ein heißer Tee (80 °C) steht in einem Raum (20 °C). Welche Aussage beschreibt den thermodynamischen Zustand am besten?"
+  question_en="A hot cup of tea (80 °C) sits in a room (20 °C). Which statement best describes the thermodynamic situation?"
+  options={[
+    { id: "a", de: "Tee und Raum bilden zusammen ein System im Gleichgewicht, da beide stationäre Temperaturen haben.", en: "The tea and the room together form an equilibrium system, since both have steady temperatures." },
+    { id: "b", de: "Der Tee ist im inneren Gleichgewicht, das Gesamtsystem (Tee + Raum) ist im Nichtgleichgewicht wegen der Temperaturdifferenz.", en: "The tea is in internal equilibrium; the combined tea+room system is in non-equilibrium because of the temperature gradient." },
+    { id: "c", de: "Der Tee befindet sich im Nichtgleichgewicht, da er abkühlt.", en: "The tea is in non-equilibrium because it is cooling." },
+    { id: "d", de: "Der Raum ist im Gleichgewicht, der Tee nicht, da der Tee eine zusätzliche innere Energiequelle hat.", en: "The room is in equilibrium, the tea is not, because the tea has an extra internal energy source." },
+  ]}
+  correct="b"
+  hint_en="Ask two questions separately: is the tea internally homogeneous? Is there a temperature difference between tea and surroundings?"
+  solution_mdx={`
+**Correct answer: (b).**
+
+Separate the question into two levels:
+
+1. **Is the tea internally at equilibrium?** Yes, typically. A stirred hot tea has approximately uniform temperature (80 °C) throughout the cup. It is in its own internal equilibrium.
+2. **Is the tea in equilibrium with the surroundings?** No. Temperature difference of 60 K means heat flows from tea to air, and the tea cools over time.
+
+So the tea is in internal equilibrium (we can attach a single $T$ to it), but the combined tea+room system has a temperature gradient — hence it is in non-equilibrium.
+
+**Option (c)** says "tea is in non-equilibrium because it is cooling". This confuses time-dependence with spatial gradients. The tea itself is at a well-defined temperature at each instant (just a slowly decreasing one). "Cooling" is the tea's equilibrium state being updated by heat loss; it is not itself a non-equilibrium situation internal to the tea.
+
+**Option (a)** is wrong because stationary ≠ equilibrium. Both tea and room have steady temperatures at each instant (if we watch for a few seconds), but the gradient between them is the definition of non-equilibrium.
+
+**Option (d)** is wrong: there is no "internal energy source" in the tea beyond the initial thermal energy. The tea cools because heat flows out, not because something inside it is generating energy.
+  `}
+  common_mistakes={[
+    {
+      wrong: "c — tea is in non-equilibrium because cooling",
+      why_en: "This is the quasi-static idealisation trap. In engineering, we treat a cooling tea as passing through a sequence of equilibrium states (at each moment, tea has a well-defined $T$). This is the *local equilibrium / quasi-static* assumption, and it is what lets us write down laws like $\\dot{Q} = -U A \\Delta T$ in the first place. Non-equilibrium only kicks in if the tea has internal gradients (e.g. untouched tea has a slightly hotter top than bottom; stirring homogenises)."
+    },
+    {
+      wrong: "a — tea and room form equilibrium",
+      why_en: "The classic steady-state / equilibrium confusion. At any snapshot both have uniform-ish temperatures, but they are DIFFERENT temperatures — that is exactly a thermal non-equilibrium across the tea-room boundary. Over minutes to hours, the tea cools; over much longer times, you'd see equilibrium at room temperature."
+    },
+    {
+      wrong: "d — tea has an internal energy source",
+      why_en: "Tea is not generating heat; it is losing heat. Internal energy is being exported across the cup boundary, not created inside the tea. Energy-balance vocabulary matters — using 'source' for what is actually a 'loss' would lose marks in a Klausur."
+    }
+  ]}
+  discussion_mdx={`
+**Two-scale equilibrium is the default engineering framework.**
+
+Almost every engineering thermodynamics problem uses a two-scale picture:
+
+1. The system being studied is treated as internally at (approximately) uniform state — one $T$, one $p$, one set of $\\mu_i$. This lets us write $U(T, V, n_i)$ as a function of a few variables.
+2. The system is coupled to its surroundings via heat, work, or mass flows across a clear boundary. These flows drive the system's state to evolve over time (unsteady problems) or balance (steady-state problems).
+
+This is the *Systemgrenze* picture you met in Lesson 1, now formalised. It works because molecular relaxation happens on nanoseconds while engineering processes unfold on seconds-to-hours: the system internally re-equilibrates far faster than bulk changes.
+
+**When does the two-scale picture break?**
+
+- When the system has internal gradients that can't be ignored. A long insulated pipe has axial temperature gradients; treating the whole pipe as one $T$ is wrong. Solution: divide the pipe into small sections, each with its own local $T$ (this is the starting point of heat-transfer analysis in Wärme- und Stoffübertragung).
+- When a phase transition is happening. A boiling pot has two coexisting phases at the same $T$ but different specific enthalpies — the system is 'at equilibrium' (phase equilibrium) but needs more than one state variable to describe.
+
+**Exam framing.** Klausur questions that describe a "cold fluid being heated" or "hot fluid being cooled" always implicitly assume the fluid is internally at equilibrium at each moment. You can read off its temperature, pressure, and specific enthalpy from a single pair of coordinates — even as they change over time. Only questions that explicitly describe "temperature varies with position" are non-equilibrium problems.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** When a Klausur describes "two systems in contact", check the three balances one by one. Write out: are $T$'s equal? Are $p$'s equal? Are compositions equal? If any answer is no, identify the gradient that will drive the process. The subsequent energy and mass balances tell you the final state once the gradient disappears (full equilibrium).
+
+</Callout>
+
+## Was kommt als Nächstes
+
+The next lesson — **Zustandsgleichung des idealen Gases** — turns the abstract equilibrium state into a concrete equation. $pV = nRT$ (or $pv = RT$ in specific form) is the first *Zustandsgleichung* (equation of state) we meet. It tells you that for an ideal gas at equilibrium, three state variables are not independent — one is determined by the other two. That is what "only two independent variables" means in practice.
