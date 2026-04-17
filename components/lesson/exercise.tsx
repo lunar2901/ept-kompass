@@ -37,6 +37,8 @@ async function compile(source: string | undefined) {
   const { content } = await compileMDX({
     source: src,
     options: {
+      blockJS: false,
+      blockDangerousJS: true,
       mdxOptions: {
         remarkPlugins: [remarkMath, remarkGfm],
         rehypePlugins: [

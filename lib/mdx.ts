@@ -38,6 +38,12 @@ export async function renderLessonMDX(
     },
     options: {
       parseFrontmatter: false,
+      // Trusted authored content — we need JS expressions in MDX props
+      // (e.g. `options={[...]}` on Exercise) to compile through. Keep
+      // blockDangerousJS true so eval/Function/require are still
+      // sandboxed on the off-chance a bad import slips in.
+      blockJS: false,
+      blockDangerousJS: true,
       mdxOptions: {
         remarkPlugins: [
           (await import("remark-math")).default,
