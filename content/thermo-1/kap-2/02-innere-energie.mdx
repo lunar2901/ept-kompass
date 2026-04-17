@@ -1,0 +1,406 @@
+---
+id: thermo-1-k2-l2
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 2
+name_de: "Innere Energie U"
+name_en: "Internal energy U"
+estimated_minutes: 20
+prerequisites: ["thermo-1-k2-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Heat and work enter a system. Something inside stores what they leave behind. That something is <GermanTerm de="innere Energie" article="die" en="internal energy" />, $U$ — the energy content of the matter inside the system boundary.
+
+For a Klausur, two things about $U$ are worth knowing cold:
+
+1. $U$ is a **state quantity**: $\Delta U = U_2 - U_1$ depends only on endpoints.
+2. For an **ideal gas**, $U = U(T)$ only — it does not depend on $p$ or $v$.
+
+Point (2) is the reason ideal-gas problems are so much simpler than real-gas problems. If you know $T_1$ and $T_2$, you know $\Delta U$, regardless of what path the gas took.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die innere Energie
+    en: internal energy
+    ipa: /ˈɪnəʁə ʔɛnɛʁˈɡiː/
+    example_de: "Die innere Energie enthält die kinetischen und potenziellen Energien aller Moleküle."
+    example_en: "Internal energy includes the kinetic and potential energies of all molecules."
+  - term: die Wärmekapazität
+    en: heat capacity
+    plural: die Wärmekapazitäten
+    example_de: "Die spezifische Wärmekapazität c_v gilt für isochore Prozesse."
+    example_en: "The specific heat capacity c_v applies to isochoric processes."
+  - term: spezifisch
+    en: specific (per unit mass)
+    example_de: "c_v ist die spezifische Wärmekapazität bei konstantem Volumen."
+    example_en: "c_v is the specific heat capacity at constant volume."
+  - term: die Mayer-Relation
+    en: Mayer's relation
+    example_de: "Die Mayer-Relation verknüpft c_p und c_v für ideale Gase: c_p - c_v = R_s."
+    example_en: "Mayer's relation links c_p and c_v for ideal gases: c_p - c_v = R_s."
+  - term: der Isentropenexponent
+    en: adiabatic index / heat capacity ratio
+    example_de: "Der Isentropenexponent κ = c_p / c_v beträgt für zweiatomige Gase ungefähr 1,4."
+    example_en: "The adiabatic index κ = c_p / c_v is about 1.4 for diatomic gases."
+</VocabBlock>
+
+## Theorie
+
+### The molecular picture
+
+At the molecular level, internal energy is the sum of every kinetic and potential energy inside the system boundary:
+
+- Translational kinetic energy of every molecule (random motion in 3D)
+- Rotational kinetic energy (for non-monatomic molecules)
+- Vibrational kinetic + potential energy (for molecules with flexible bonds)
+- Intermolecular potential energy (from attractions and repulsions)
+- Electronic energy (usually frozen at normal temperatures)
+
+For an ideal gas, intermolecular potential energy is zero (by assumption). For a monatomic ideal gas (He, Ar), only translation contributes — $\frac{3}{2} k_B T$ per molecule. Adding up over all molecules: $U = \frac{3}{2} n R T$ for the system.
+
+For diatomic and polyatomic gases, rotation and vibration add further contributions, but in every case for an ideal gas, $U$ depends on $T$ alone.
+
+### The thermodynamic definition
+
+On a macroscopic level, $U$ is defined by the first law. Starting from a reference state where $U = 0$, perform any sequence of heat and work transfers; the change in $U$ is $\Delta U = Q + W$. Since $U$ is a state quantity, any two paths between the same endpoints give the same $\Delta U$.
+
+### Specific and molar forms
+
+As with every extensive quantity, $U$ has specific and molar versions:
+
+<FormulaCard
+  name_de="Spezifische und molare innere Energie"
+  name_en="Specific and molar internal energy"
+  latex="u = \frac{U}{m}, \quad U_m = \frac{U}{n}"
+  variables={[
+    { symbol: "U", name_de: "innere Energie (extensiv)", name_en: "internal energy (extensive)", unit: "J" },
+    { symbol: "u", name_de: "spezifische innere Energie", name_en: "specific internal energy", unit: "J/kg" },
+    { symbol: "U_m", name_de: "molare innere Energie", name_en: "molar internal energy", unit: "J/mol" },
+    { symbol: "m", name_de: "Masse des Systems", name_en: "mass of the system", unit: "kg" },
+    { symbol: "n", name_de: "Stoffmenge", name_en: "amount of substance", unit: "mol" },
+  ]}
+/>
+
+### How $U$ depends on $T$ — specific heat at constant volume
+
+For any substance, the rate at which $U$ changes with $T$ at constant volume is called the *specific heat capacity at constant volume*:
+
+<FormulaCard
+  name_de="Spezifische Wärmekapazität bei konstantem Volumen"
+  name_en="Specific heat capacity at constant volume"
+  latex="c_v = \left(\frac{\partial u}{\partial T}\right)_v"
+  variables={[
+    { symbol: "c_v", name_de: "spezifische Wärmekapazität bei V = const", name_en: "specific heat capacity at constant V", unit: "J/(kg·K)" },
+    { symbol: "u", name_de: "spezifische innere Energie", name_en: "specific internal energy", unit: "J/kg" },
+    { symbol: "T", name_de: "Temperatur", name_en: "temperature", unit: "K" },
+  ]}
+>
+
+For an ideal gas (where $u = u(T)$ only), the partial derivative becomes a total derivative: $c_v = \mathrm{d}u/\mathrm{d}T$. Integrating:
+
+$$\Delta u = \int_{T_1}^{T_2} c_v(T) \, \mathrm{d}T \approx c_v \cdot \Delta T$$
+
+(the approximation is exact for a temperature-independent $c_v$, which is a very good approximation for ideal gases over modest $T$ ranges).
+
+**Typical values for air** at room conditions: $c_v \approx 718\,\mathrm{J/(kg\,K)}$, $c_p \approx 1005\,\mathrm{J/(kg\,K)}$.
+
+</FormulaCard>
+
+### Mayer's relation — the $c_p - c_v$ difference
+
+<FormulaCard
+  name_de="Mayer-Relation (ideales Gas)"
+  name_en="Mayer's relation (ideal gas)"
+  latex="c_p - c_v = R_s"
+  variables={[
+    { symbol: "c_p", name_de: "spezifische Wärmekapazität bei p = const", name_en: "specific heat capacity at constant p", unit: "J/(kg·K)" },
+    { symbol: "c_v", name_de: "spezifische Wärmekapazität bei V = const", name_en: "specific heat capacity at constant V", unit: "J/(kg·K)" },
+    { symbol: "R_s", name_de: "spezifische Gaskonstante", name_en: "specific gas constant", unit: "J/(kg·K)" },
+  ]}
+>
+
+Quick verification for air: $1005 - 718 = 287 = R_{s,\text{Luft}}$. ✓
+
+The physical meaning: at constant $p$, heating raises $T$ AND expands the gas (boundary work is done against the constant external pressure). At constant $V$, only $T$ rises — no boundary work. $c_p > c_v$ because at constant $p$ some of the input heat goes to work, not just to raising $T$.
+
+</FormulaCard>
+
+### The adiabatic index $\kappa$
+
+The ratio $\kappa = c_p / c_v$ appears in every formula involving isentropic (adiabatic + reversible) processes:
+
+- Monatomic ideal gas (He, Ar): $\kappa = 5/3 \approx 1.667$
+- Diatomic ideal gas (N₂, O₂, air): $\kappa \approx 1.4$
+- Triatomic / polyatomic (CO₂, H₂O steam as ideal gas): $\kappa \approx 1.3$
+
+For every isentropic process on an ideal gas: $pV^\kappa = \mathrm{const}$, $T V^{\kappa - 1} = \mathrm{const}$, $T^\kappa \, p^{1-\kappa} = \mathrm{const}$.
+
+## Musteraufgabe
+
+> **Aufgabe.** 3 kg Luft (ideal, $c_v = 718\,\mathrm{J/(kg\,K)}$) werden von $T_1 = 300\,\mathrm{K}$ isochor erhitzt auf $T_2 = 500\,\mathrm{K}$. Berechnen Sie:
+>
+> *a)* Die Änderung der inneren Energie $\Delta U$.
+> *b)* Die zugeführte Wärme $Q$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a) $\Delta U$** for an ideal gas depends only on the temperature change:
+
+$$\Delta U = m \cdot c_v \cdot \Delta T = 3 \cdot 718 \cdot (500 - 300) = 3 \cdot 718 \cdot 200$$
+
+$$\Delta U = 430\,800\,\mathrm{J} \approx 431\,\mathrm{kJ}$$
+
+**b) First law for closed, isochoric system.** $\Delta V = 0$ means $W_V = 0$. Only heat enters:
+
+$$\Delta U = Q + W_V = Q + 0 \quad \Rightarrow \quad Q = \Delta U \approx 431\,\mathrm{kJ}$$
+
+**Observation.** For any isochoric heating of an ideal gas, $Q = \Delta U = m c_v \Delta T$. For isobaric heating, by contrast, $Q = \Delta H = m c_p \Delta T$. The difference, $(c_p - c_v) \Delta T \cdot m = R_s \, m \, \Delta T$, is the boundary work the isobaric process does on the surroundings.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l2-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Welche Aussage über die innere Energie U eines idealen Gases ist korrekt?"
+  question_en="Which statement about the internal energy U of an ideal gas is correct?"
+  options={[
+    { id: "a", de: "U hängt nur von T ab.", en: "U depends only on T." },
+    { id: "b", de: "U hängt nur vom Druck p ab.", en: "U depends only on pressure p." },
+    { id: "c", de: "U hängt von T und V unabhängig voneinander ab.", en: "U depends on T and V independently." },
+    { id: "d", de: "U ist eine Prozessgröße.", en: "U is a process quantity." },
+  ]}
+  correct="a"
+  hint_en="For the ideal-gas model, intermolecular interactions are zero, so there's no way for volume to affect U."
+  solution_mdx={`
+**Correct answer: (a) U depends only on T.**
+
+For an ideal gas, intermolecular potential energy is zero (by assumption — molecules don't interact except during elastic collisions). So the only stored energy is the kinetic energy of the molecules, which depends on the average molecular speed, which depends on $T$ and nothing else. Thus $U = U(T)$.
+
+This is a signature property of the ideal-gas model that you can exploit:
+
+- Isothermal process on an ideal gas: $T_1 = T_2 \Rightarrow \\Delta U = 0$, always.
+- First law then simplifies to $Q = -W$ for isothermal ideal-gas processes.
+
+**For real gases** this simplification fails. Real-gas $U$ depends on both $T$ and $v$ (or $p$ — two independent intensive variables). You need tables or an equation of state to get $\\Delta U$ between two states.
+
+Option (d) is wrong because $U$ is a state quantity. $U$ is stored *at a state*; $Q$ and $W$ are transferred *during a process*.
+  `}
+  common_mistakes={[
+    {
+      wrong: "c — U depends on T and V independently",
+      why_en: "For a real gas (van der Waals, steam, CO₂), yes — U depends on both $T$ and $v$. But the ideal-gas simplification is precisely that the $v$-dependence vanishes. If you remembered $U$ depends on two variables in general but forgot the ideal-gas shortcut, you missed the main point of this concept for Thermodynamik I."
+    },
+    {
+      wrong: "d — U is a process quantity",
+      why_en: "Confusion with heat and work. $U$ is stored in the system at each state; it has a well-defined value at every equilibrium state. Heat and work are the process-quantity cousins — they cross the boundary, they have no 'value at a state'. If your answer was (d), revisit the state/process distinction in Kapitel 1 Lesson 3."
+    }
+  ]}
+  discussion_mdx={`
+**Joule's experiment — evidence that U depends only on T for an ideal gas.**
+
+James Prescott Joule (1845) rigged up a pair of connected chambers, one with gas, one evacuated. He opened a valve between them and the gas expanded into the vacuum. With no external pressure to push against, no work was done ($W = 0$). The whole apparatus was insulated ($Q = 0$). By the first law, $\\Delta U = 0$.
+
+Joule's key measurement: the temperature of the gas didn't change during this free expansion. Conclusion: at constant $U$, $T$ is determined — i.e. $U$ and $T$ are in one-to-one correspondence, so $U = U(T)$ only.
+
+This was the experimental justification for the ideal-gas-U-depends-only-on-T result. Real gases DO change temperature slightly in free expansion (the Joule-Thomson effect, ~0.3 K/bar for air, larger for real gases near their inversion temperature). That temperature change is a measure of how non-ideal the gas is.
+
+**Why this matters practically.** Every isothermal ideal-gas problem has $\\Delta U = 0$. So the first law simplifies to $Q = -W$ — heat and work are equal and opposite. Every Klausur problem on isothermal expansion/compression of air exploits this.
+
+**Connection to enthalpy (next lesson).** Similarly, for an ideal gas, $H = U + pV = U(T) + nRT = H(T)$ — enthalpy also depends only on $T$. These two simplifications make ideal-gas calculations dramatically easier than real-gas ones.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l2-ex2"
+  difficulty="easy"
+  type="numeric"
+  question_de="Die Mayer-Relation für ideales Gas lautet c_p - c_v = R_s. Für Stickstoff ist c_p = 1039 J/(kg·K) und R_s = 297 J/(kg·K). Wie groß ist c_v (in J/(kg·K))?"
+  question_en="Mayer's relation for an ideal gas: c_p - c_v = R_s. For nitrogen, c_p = 1039 J/(kg·K) and R_s = 297 J/(kg·K). What is c_v (in J/(kg·K))?"
+  correct={742}
+  tolerance={2}
+  hint_en="Simple rearrangement of Mayer's formula."
+  solution_mdx={`
+**Answer: $c_v = 742\\,\\mathrm{J/(kg\\,K)}$.**
+
+$$c_v = c_p - R_s = 1039 - 297 = 742\\,\\mathrm{J/(kg\\,K)}$$
+
+**Sanity check.** The ratio $\\kappa = c_p / c_v = 1039 / 742 \\approx 1{,}40$ — consistent with diatomic gases like N₂ at room temperature. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Adding instead of subtracting: c_v = 1336",
+      why_en: "Mayer's relation says $c_p - c_v = R_s$, so $c_v = c_p - R_s$. Adding would give a $c_v$ larger than $c_p$, which violates the physical inequality $c_p > c_v$ (since constant-pressure heating does extra work)."
+    }
+  ]}
+  discussion_mdx={`
+**Why always $c_p > c_v$ for ANY substance.**
+
+At constant volume: heat input goes entirely to raising $T$ (no boundary work, no volume change).
+
+At constant pressure: same temperature rise requires more heat, because part of the input heat is exported as boundary work $p \\, \\Delta V$ as the substance expands.
+
+So $c_p > c_v$ always, for any substance — not just ideal gases. The difference is exactly $R_s$ for ideal gases (Mayer), but is different (and usually smaller) for real substances.
+
+**Values to recognise.**
+
+| Substance | c_v | c_p | κ = c_p/c_v | R_s |
+| --- | --- | --- | --- | --- |
+| He (monatomic) | 3115 | 5192 | 1.667 | 2077 |
+| Air (diatomic mix) | 718 | 1005 | 1.40 | 287 |
+| N₂ | 742 | 1039 | 1.40 | 297 |
+| CO₂ | 650 | 845 | 1.30 | 189 |
+| H₂O steam (ideal) | 1410 | 1870 | 1.33 | 461 |
+
+Units: all in J/(kg·K). Memorise the row for air; others are looked up.
+
+**Why κ varies with atomicity.** From equipartition of energy:
+- Monatomic: 3 translational DOF → $c_v = \\tfrac{3}{2} R_s$, $\\kappa = 5/3 \\approx 1.67$
+- Diatomic: 3 translational + 2 rotational → $c_v = \\tfrac{5}{2} R_s$, $\\kappa = 7/5 = 1.40$
+- Polyatomic (nonlinear): 3 + 3 → $c_v = \\tfrac{6}{2} R_s = 3 R_s$, $\\kappa = 8/6 \\approx 1.33$
+
+At high temperatures, vibrational modes also activate, adding to $c_v$ and lowering $\\kappa$ further. This is why steam-engine designers had to use temperature-dependent $\\kappa$ values in the 19th century.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l2-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Luft (1,5 kg, c_v = 718 J/(kg·K)) wird in einem Kolben-Zylinder von T_1 = 280 K auf T_2 = 430 K erwärmt. Wie groß ist die Änderung der inneren Energie ΔU (in kJ)?"
+  question_en="Air (1.5 kg, c_v = 718 J/(kg·K)) is heated in a piston-cylinder from T_1 = 280 K to T_2 = 430 K. What is the change in internal energy ΔU (in kJ)?"
+  correct={161.55}
+  tolerance={1}
+  hint_en="ΔU = m · c_v · ΔT for an ideal gas, regardless of the path (pressure, volume changes)."
+  solution_mdx={`
+**Answer: $\\Delta U \\approx 161{,}6\\,\\mathrm{kJ}$.**
+
+For any ideal-gas process (isobaric, isochoric, isentropic, whatever), the internal energy change depends only on the temperature change:
+
+$$\\Delta U = m \\cdot c_v \\cdot \\Delta T$$
+
+Note that we use $c_v$ even if the process is NOT isochoric. This is the path-independence of state quantities at work: $U$ is a state function, so $\\Delta U$ depends only on $(T_1, T_2)$, not on how we got there.
+
+$$\\Delta U = 1{,}5 \\cdot 718 \\cdot (430 - 280) = 1{,}5 \\cdot 718 \\cdot 150$$
+
+$$\\Delta U = 161\\,550\\,\\mathrm{J} \\approx 161{,}6\\,\\mathrm{kJ}$$
+
+**Where the heat went.** If this was isobaric heating, the total heat input would be $Q = m c_p \\Delta T = 1{,}5 \\cdot 1005 \\cdot 150 \\approx 226{,}1\\,\\mathrm{kJ}$. Of that, 161.6 kJ raised $U$, and the remaining 64.5 kJ went out as boundary work (expansion against the constant external pressure). If the process was isochoric instead, the heat input would equal $\\Delta U$ exactly — 161.6 kJ — since no boundary work happened.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using c_p instead of c_v to compute ΔU",
+      why_en: "The trap: students remember 'c_p is for constant pressure, c_v is for constant volume' and think that determines which $c$ goes in the formula. Actually, $\\Delta U$ ALWAYS uses $c_v$ regardless of process type, because internal energy depends only on temperature for an ideal gas. $c_p$ is used for $\\Delta H = m c_p \\Delta T$. The names are misleading — $c_v$ is 'the heat capacity that multiplies dT to give dU', and $c_p$ is 'the heat capacity that multiplies dT to give dH'."
+    },
+    {
+      wrong: "Using T in °C: ΔT = 430 - 280 = 150 °C... OK the same",
+      why_en: "Lucky: this problem uses DIFFERENCES in temperature, and Celsius-to-Kelvin differences are the same (the offset of 273.15 cancels). So $\\Delta T = 150\\,\\mathrm{K} = 150\\,\\mathrm{°C}$. But the same luck does NOT apply to absolute-temperature calculations (like in pV = mR_sT). So get in the habit of using Kelvin always — the price of always-Kelvin is zero, while the price of sometimes-Celsius is a major error when the habit slips."
+    }
+  ]}
+  discussion_mdx={`
+**Why $c_v$ is used even for non-isochoric processes.**
+
+$c_v$ is defined by $c_v = (\\partial u / \\partial T)_v$. For an ideal gas where $u = u(T)$ only, this partial becomes total: $c_v = du/dT$. So $\\Delta u = c_v \\Delta T$ regardless of how $v$ varies during the process.
+
+For a real gas, $u$ depends on both $T$ and $v$, so $\\Delta u$ would have additional terms involving $\\Delta v$. Then using just $c_v \\Delta T$ would only be correct for genuinely isochoric processes. This is one more way in which the ideal gas model simplifies life: paths don't matter for $\\Delta u$.
+
+**The dual formula for $\\Delta H$.**
+
+For an ideal gas, $h = u + pv = u(T) + R_sT = h(T)$ — enthalpy also depends only on $T$. And $c_p = dh/dT$. So $\\Delta h = c_p \\Delta T$, regardless of process type. You can verify:
+
+$$\\Delta h = \\Delta u + \\Delta (pv) = c_v \\Delta T + R_s \\Delta T = (c_v + R_s) \\Delta T = c_p \\Delta T$$
+
+Mayer's relation falls out naturally.
+
+**Klausur-ready pair.** For any ideal-gas process connecting states 1 and 2:
+
+$$\\boxed{\\Delta U = m c_v (T_2 - T_1), \\qquad \\Delta H = m c_p (T_2 - T_1)}$$
+
+These two formulas, plus the iso-process specialisations of the boundary work, plus the first law $\\Delta U = Q + W$, are enough to solve most ideal-gas closed-system problems. That's why we keep $c_v$ and $c_p$ so visible — they're the workhorses.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l2-ex4"
+  difficulty="klausur"
+  type="multi_select"
+  question_de="Welche Aussagen sind für ein ideales Gas korrekt? (Mehrfachauswahl.)"
+  question_en="Which statements are correct for an ideal gas? (Multiple selection.)"
+  options={[
+    { id: "a", de: "ΔU = m · c_v · ΔT gilt für jeden Prozess (isotherm, adiabat, isobar, isochor).", en: "ΔU = m · c_v · ΔT holds for any process (isothermal, adiabatic, isobaric, isochoric)." },
+    { id: "b", de: "Q = m · c_v · ΔT gilt nur für isochore Prozesse.", en: "Q = m · c_v · ΔT holds only for isochoric processes." },
+    { id: "c", de: "Q = m · c_p · ΔT gilt für isobare Prozesse.", en: "Q = m · c_p · ΔT holds for isobaric processes." },
+    { id: "d", de: "Bei einer isothermen Zustandsänderung ist ΔU = 0.", en: "For an isothermal change of state, ΔU = 0." },
+    { id: "e", de: "c_p - c_v ist für jedes Gas gleich der universellen Gaskonstante R.", en: "c_p - c_v for every gas equals the universal gas constant R." },
+  ]}
+  correct={["a", "b", "c", "d"]}
+  hint_en="Four of the five statements are correct. The wrong one confuses the specific gas constant R_s with the universal gas constant R."
+  solution_mdx={`
+**Correct answers: (a), (b), (c), (d).**
+
+- **(a)** ΔU = m c_v ΔT for any ideal-gas process. State-quantity, depends only on T. ✓
+- **(b)** Q = m c_v ΔT ONLY for isochoric processes, because there W = 0 and ΔU = Q + W = Q. For isobaric, Q equals ΔH (m c_p ΔT), not ΔU. ✓
+- **(c)** Q = m c_p ΔT for isobaric closed-system processes — that's the definition of c_p in a constant-pressure context. ✓
+- **(d)** Isothermal means ΔT = 0, and for an ideal gas ΔU = c_v ΔT = 0. ✓
+- **(e)** — WRONG. Mayer says c_p - c_v = R_**s** (the SPECIFIC gas constant, different for each gas), not R (the universal constant). For air, c_p - c_v = 287 J/(kg·K) = R_s,air — not 8.314 J/(mol·K) which is the universal R. Units matter.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (e) — c_p - c_v = R (universal)",
+      why_en: "Mixing up R (universal, per-mole) with R_s (specific, per-kg). In molar form, Mayer says $c_{p,m} - c_{v,m} = R$ — where $c_{p,m}$ and $c_{v,m}$ are molar heat capacities in J/(mol·K), NOT specific heat capacities in J/(kg·K). The two statements are consistent, but the constants and heat capacities must be in matching form (both per-mole or both per-mass)."
+    },
+    {
+      wrong: "Missing (a) ΔU = m c_v ΔT for any process",
+      why_en: "The key insight: $c_v$ appears in the formula for $\\Delta U$ even when the process is NOT isochoric, because $\\Delta U$ is path-independent. Students who think $c_v$ only applies to isochoric processes get the wrong $\\Delta U$ in isobaric, isothermal, and adiabatic problems. This single error is worth 2-3 marks on a Klausur."
+    },
+    {
+      wrong: "Missing (d) isothermal means ΔU = 0",
+      why_en: "For ideal gases only — a real gas at constant T would have $\\Delta U$ depending on the $\\Delta v$ change. But in Thermodynamik I, 'ideal gas + isothermal → ΔU = 0' is a go-to shortcut, and forgetting it wastes time and invites arithmetic errors."
+    }
+  ]}
+  discussion_mdx={`
+**The four iso-processes and their energy bookkeeping for an ideal gas.**
+
+| Process | Constraint | W_V | ΔU | Q |
+| --- | --- | --- | --- | --- |
+| isochor | V = const | 0 | $m c_v \\Delta T$ | $m c_v \\Delta T$ |
+| isobar | p = const | $-p \\Delta V$ | $m c_v \\Delta T$ | $m c_p \\Delta T$ |
+| isotherm | T = const | $m R_s T \\ln(p_2/p_1)$ | 0 | $-W_V$ |
+| isentrop | s = const (adiabat + rev) | $m c_v \\Delta T$ | $m c_v \\Delta T$ | 0 |
+
+Note that $\\Delta U$ column is always $m c_v \\Delta T$ (when $\\Delta T \\neq 0$) — reflecting the state-quantity nature. Only the heat and work vary with process type.
+
+**Why the adiabatic / isentropic row has W = ΔU.**
+
+Adiabatic → Q = 0 → first law says ΔU = W. For an ideal gas, ΔU = m c_v ΔT, so W = m c_v ΔT. This is the cleanest way to compute the work in an adiabatic compression: find the final temperature, multiply by $m c_v$.
+
+**Connection forward.** Lesson 4 (Energiebilanz geschlossenes System) puts these four rows into a unified formulation. Lesson 5 extends to open systems with the $\\dot{m} h$ term carrying enthalpy across the boundary. Lesson 8 applies everything to turbines, compressors, and throttles.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** The two specific-heat formulas you'll use most:
+
+$$\Delta U = m \cdot c_v \cdot \Delta T \qquad \Delta H = m \cdot c_p \cdot \Delta T$$
+
+Both are valid for **any** ideal-gas process (not just the "iso" whose name they share). The subscript says which derivative defined them, NOT which process they apply to. This single clarification prevents a third of first-law Klausur mistakes.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next lesson — **Enthalpie $H$** — generalises internal energy for systems with flowing matter. $H = U + pV$ absorbs the "flow work" $pV$ needed to push matter across a boundary, which is why open-system energy balances are written in $h$, not $u$. Once $H$ is defined, the first law for open systems becomes a short step away.
