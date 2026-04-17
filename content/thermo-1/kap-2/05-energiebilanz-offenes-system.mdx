@@ -1,0 +1,384 @@
+---
+id: thermo-1-k2-l5
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 5
+name_de: "Energiebilanz für das offene System (stationär)"
+name_en: "Energy balance for steady-state open systems"
+estimated_minutes: 25
+prerequisites: ["thermo-1-k2-l4"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Closed systems cover pistons and sealed tanks. Power plants, jet engines, chemical plants, and the Berlin district-heating network all run on open systems — matter flows in, matter flows out, and usually at a *steady state* (time-independent at each point).
+
+The closed-system first law $\Delta U = Q + W$ doesn't fit directly: the mass inside the control volume doesn't change, so "ΔU" isn't the right quantity. What changes is the specific enthalpy of the flowing matter as it passes through. This lesson writes down the open-system first law in the form every Klausur uses:
+
+$$
+\dot{Q} + P = \dot{m}\left[(h_2 - h_1) + \tfrac{1}{2}(c_2^2 - c_1^2) + g(z_2 - z_1)\right]
+$$
+
+Most Klausur problems drop the kinetic and potential terms, leaving the clean $\dot{Q} + P = \dot{m} \Delta h$. Master the full form for when you need it.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: der Kontrollraum
+    en: control volume
+    plural: die Kontrollräume
+    example_de: "Ein Kontrollraum ist ein raumfestes offenes System."
+    example_en: "A control volume is a space-fixed open system."
+  - term: die technische Arbeit
+    en: technical work (shaft work in open-system form)
+    example_de: "Die technische Arbeit wird über eine rotierende Welle übertragen."
+    example_en: "Technical work is transferred via a rotating shaft."
+  - term: die Leistung
+    en: power
+    plural: die Leistungen
+    example_de: "Die Leistung P ist die zeitliche Ableitung der Arbeit."
+    example_en: "Power P is the time derivative of work."
+  - term: der Enthalpiestrom
+    en: enthalpy flow rate
+    example_de: "Der Enthalpiestrom ṁ·h quert die Systemgrenze mit dem strömenden Fluid."
+    example_en: "The enthalpy flow rate ṁ·h crosses the system boundary with the flowing fluid."
+  - term: stationärer Fließprozess
+    en: steady-state flow process
+    example_de: "Im stationären Fließprozess sind alle Zustandsgrößen zeitlich konstant."
+    example_en: "In a steady-state flow process all state variables are time-independent."
+</VocabBlock>
+
+## Theorie
+
+### Mass balance (conservation of mass)
+
+In steady state, the mass inside the control volume doesn't change with time. So total mass inflow equals total mass outflow:
+
+$$\sum_{\text{in}} \dot{m}_i = \sum_{\text{out}} \dot{m}_j$$
+
+For one-in-one-out devices (turbines, compressors, pumps, valves): $\dot{m}_1 = \dot{m}_2 = \dot{m}$.
+
+### Energy balance (first law for steady-flow)
+
+<FormulaCard
+  name_de="Erster Hauptsatz für stationäre Fließprozesse"
+  name_en="First law for steady-state flow processes"
+  latex="\dot{Q} + P = \sum_{\text{out}} \dot{m}\left(h + \tfrac{c^2}{2} + g z\right) - \sum_{\text{in}} \dot{m}\left(h + \tfrac{c^2}{2} + g z\right)"
+  variables={[
+    { symbol: "\\dot{Q}", name_de: "Wärmestrom", name_en: "heat flow rate", unit: "W" },
+    { symbol: "P", name_de: "technische Leistung", name_en: "technical power", unit: "W" },
+    { symbol: "\\dot{m}", name_de: "Massenstrom", name_en: "mass flow rate", unit: "kg/s" },
+    { symbol: "h", name_de: "spezifische Enthalpie", name_en: "specific enthalpy", unit: "J/kg" },
+    { symbol: "c", name_de: "Strömungsgeschwindigkeit", name_en: "flow velocity", unit: "m/s" },
+    { symbol: "g\\,z", name_de: "potenzielle Energie pro Masse", name_en: "potential energy per mass", unit: "J/kg" },
+  ]}
+>
+
+Sign convention: $\dot{Q} > 0$ → heat into CV; $P > 0$ → technical work into CV (compressor, pump); $P < 0$ → out (turbine, expander).
+
+For one-in-one-out:
+
+$$\dot{Q} + P = \dot{m}\left[(h_2 - h_1) + \tfrac{1}{2}(c_2^2 - c_1^2) + g(z_2 - z_1)\right]$$
+
+</FormulaCard>
+
+### When can we drop the KE and PE terms?
+
+Almost always, in Thermodynamik I. Compare the magnitudes:
+
+- **Enthalpy difference** for a turbine stage: $\Delta h \sim 500\,\mathrm{kJ/kg}$.
+- **Kinetic-energy change**: a fluid accelerating from 50 m/s to 100 m/s has $\Delta(c^2/2) = (100^2 - 50^2)/2 = 3750\,\mathrm{J/kg} = 3{,}75\,\mathrm{kJ/kg}$ — less than 1 % of typical $\Delta h$.
+- **Potential-energy change**: even a 100 m elevation change is $g \Delta z = 9{,}81 \cdot 100 \approx 1\,\mathrm{kJ/kg}$ — negligible for most plant equipment.
+
+Exceptions where you must keep them:
+- **Nozzles and diffusers** — the whole point is changing velocity, so KE is THE variable.
+- **Hydraulic systems** (water at moderate temperatures) — $\Delta h$ can be small, and PE matters over tall vertical runs.
+
+### Typical simplifications for common devices
+
+| Device | Dominant term | Simplification |
+| --- | --- | --- |
+| **Turbine** | $-P$ output | $-P = \dot{m}(h_1 - h_2)$, adiabatic |
+| **Verdichter** (compressor) | $+P$ input | $+P = \dot{m}(h_2 - h_1)$, adiabatic |
+| **Pumpe** | $+P$ small | often $P \approx \dot{m} v \Delta p$ for liquids |
+| **Drossel** (throttle) | none | $h_1 = h_2$ (isenthalpic) |
+| **Wärmetauscher** | $\dot{Q}$ | $\dot{Q} = \dot{m} (h_2 - h_1)$, no work |
+| **Düse** (nozzle) | KE | $\tfrac{1}{2}(c_2^2 - c_1^2) = h_1 - h_2$ |
+
+Each of these is a specialisation of the one general balance with different terms set to zero. Memorise the general form; derive the specialised forms when you need them.
+
+## Musteraufgabe
+
+> **Aufgabe.** In einer adiabaten Dampfturbine tritt Wasserdampf mit $\dot{m} = 10\,\mathrm{kg/s}$, $h_1 = 3400\,\mathrm{kJ/kg}$, $c_1 = 50\,\mathrm{m/s}$ ein und verlässt die Turbine mit $h_2 = 2600\,\mathrm{kJ/kg}$, $c_2 = 180\,\mathrm{m/s}$. Höhenunterschiede sind vernachlässigbar.
+>
+> *a)* Welche Leistung $P$ gibt die Turbine ab (in MW)?
+> *b)* Welchen Anteil liefern die kinetischen Terme zur Leistungsabgabe?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Setup.** Turbine → adiabatic → $\dot{Q} = 0$. Elevation change → negligible.
+
+Energy balance:
+$$0 + P = \dot{m}\left[(h_2 - h_1) + \tfrac{1}{2}(c_2^2 - c_1^2)\right]$$
+
+**a) Power.**
+
+$\Delta h = h_2 - h_1 = 2600 - 3400 = -800\,\mathrm{kJ/kg}$ (enthalpy drops across turbine).
+
+$\Delta(c^2/2) = (180^2 - 50^2)/2 = (32\,400 - 2500)/2 = 14\,950\,\mathrm{J/kg} = 14{,}95\,\mathrm{kJ/kg}$.
+
+Total per kg: $-800 + 14{,}95 = -785{,}05\,\mathrm{kJ/kg}$.
+
+$$P = \dot{m} \cdot (-785{,}05\,\mathrm{kJ/kg}) = 10 \cdot (-785{,}05) = -7850{,}5\,\mathrm{kW} \approx -7{,}85\,\mathrm{MW}$$
+
+Negative → work OUT of the control volume → turbine delivers work. Magnitude: **7.85 MW**.
+
+**b) Kinetic contribution.**
+
+KE term contributes $10 \cdot 14{,}95 = 149{,}5\,\mathrm{kW}$ to the magnitude (with the opposite sign — it reduces the delivered power, because the exit flow has more KE than the inlet). Relative to the enthalpy contribution (8000 kW), the KE is $\approx 1{,}9\,\%$. Small but not negligible for a precise design.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l5-ex1"
+  difficulty="easy"
+  type="multiple_choice"
+  question_de="Eine adiabate Turbine ohne merkliche kinetische oder potenzielle Energieänderungen erzeugt eine Leistung von …"
+  question_en="An adiabatic turbine with negligible KE and PE changes delivers a power of …"
+  options={[
+    { id: "a", de: "P = ṁ · Δh", en: "P = ṁ · Δh" },
+    { id: "b", de: "P = ṁ · (h_1 - h_2)", en: "P = ṁ · (h_1 - h_2)" },
+    { id: "c", de: "P = ṁ · c_p · ΔT", en: "P = ṁ · c_p · ΔT" },
+    { id: "d", de: "P = ṁ · R_s · T", en: "P = ṁ · R_s · T" },
+  ]}
+  correct="b"
+  hint_en="A turbine takes energy OUT — so the output power equals the enthalpy DROP, not rise."
+  solution_mdx={`
+**Correct answer: (b) $P_{\\text{Turbine}} = \\dot{m}(h_1 - h_2)$.**
+
+The general balance: $\\dot{Q} + P = \\dot{m}(h_2 - h_1)$ (ignoring KE, PE). Adiabatic → $\\dot{Q} = 0$, so $P = \\dot{m}(h_2 - h_1)$.
+
+For a turbine, $h_2 < h_1$ (the fluid LOSES enthalpy across the turbine, giving up energy as shaft work). So in the EPT-Kompass convention, $P < 0$ — work OUT of the CV.
+
+When quoting "power output of the turbine", engineers usually mean the magnitude, with the sign convention implicit. So $|P| = \\dot{m}(h_1 - h_2)$ — a positive number, matching option (b).
+
+Option (a), $P = \\dot{m} \\Delta h$, gives the wrong sign: $\\Delta h = h_2 - h_1 < 0$ gives $P < 0$, which is correct in the sign convention but doesn't match the "power delivered" phrasing that engineers use.
+
+Option (c), with $c_p \\Delta T$, works only for ideal gases where $\\Delta h = c_p \\Delta T$. Close to right for air turbines; wrong for steam turbines where you must use table values.
+
+Option (d) is dimensionally wrong — $R_s T$ is energy per kg, not enthalpy per kg, and doesn't account for the state change.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — P = ṁ Δh",
+      why_en: "Technically correct if you stick to the sign convention strictly — but for an expansion through a turbine, $\\Delta h < 0$, giving $P < 0$ (work out). Engineers habitually quote turbine power as a positive number (the magnitude), which matches $\\dot{m}(h_1 - h_2)$. Watch the sign convention in your answer."
+    }
+  ]}
+  discussion_mdx={`
+**Why turbines and compressors have opposite enthalpy changes.**
+
+Turbine: fluid flows through at high enthalpy, expands, does work on the rotor, exits at lower enthalpy. Sign: work out of CV.
+
+Compressor: fluid enters at low enthalpy, work from the rotor compresses it, exits at higher enthalpy. Sign: work into CV.
+
+The symmetry is exact. Both are adiabatic (to first approximation), both use the same formula; only the direction of flow through the enthalpy-change reverses.
+
+**Order of magnitudes.**
+
+A modern steam turbine in a 500 MW power plant has $\\dot{m} \\sim 500\\,\\mathrm{kg/s}$ and $\\Delta h \\sim 1000\\,\\mathrm{kJ/kg}$ → $P \\sim 500 \\cdot 1000 = 500\\,\\mathrm{MW}$. ✓
+
+A laboratory turbine might have $\\dot{m} \\sim 0{,}1\\,\\mathrm{kg/s}$ and $\\Delta h \\sim 300\\,\\mathrm{kJ/kg}$ → $P \\sim 30\\,\\mathrm{kW}$. Same formula, four orders of magnitude smaller.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l5-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein adiabater Verdichter verdichtet 5 kg/s Luft. Am Eintritt: h_1 = 295 kJ/kg. Am Austritt: h_2 = 540 kJ/kg. Kinetische und potenzielle Energien sind vernachlässigbar. Welche Leistung (in kW) muss der Antriebsmotor aufbringen?"
+  question_en="An adiabatic compressor compresses 5 kg/s of air. Inlet: h_1 = 295 kJ/kg. Outlet: h_2 = 540 kJ/kg. KE and PE are negligible. What power (in kW) does the drive motor need?"
+  correct={1225}
+  tolerance={5}
+  hint_en="P = ṁ · Δh for adiabatic compressor. Motor power equals what's fed INTO the CV, which is a positive number."
+  solution_mdx={`
+**Answer: $P \\approx 1225\\,\\mathrm{kW}$.**
+
+Adiabatic compressor, $\\dot{Q} = 0$, negligible KE/PE:
+
+$$P = \\dot{m}(h_2 - h_1) = 5 \\cdot (540 - 295) = 5 \\cdot 245 = 1225\\,\\mathrm{kW}$$
+
+Positive: work INTO the compressor CV — the motor must supply this. 1.225 MW is typical for a medium industrial compressor.
+
+**Why no c_p?** We were given h values directly, so we use them. For air at these moderate conditions, $\\Delta h \\approx c_p \\Delta T$ would give the same answer if c_p is chosen consistently. Using h directly is more accurate when real-gas effects matter.
+  `}
+  common_mistakes={[
+    {
+      wrong: "-1225 kW (wrong sign)",
+      why_en: "Sign convention: $P > 0$ means work INTO the CV. A compressor takes work from its motor, so P is positive in our convention. Getting a negative answer means you either used the turbine sign convention, or subtracted in the wrong order."
+    },
+    {
+      wrong: "Using the difference h_1 - h_2: -1225 kW",
+      why_en: "The formula is $P = \\dot{m}(h_2 - h_1)$ (outlet minus inlet). For a compressor with $h_2 > h_1$, this is positive. Reversing the subtraction order gives you the negative of the right answer."
+    }
+  ]}
+  discussion_mdx={`
+**Real compressors aren't quite adiabatic.**
+
+Real compressors have some heat loss through the casing (often to cooling oil). This heat loss shows up as $\\dot{Q} < 0$ in the energy balance, which — at fixed $\\Delta h$ — requires *less* power input than the purely-adiabatic model predicts. That sounds paradoxical: heat loss helps?
+
+Yes — for compressors, cooling the gas during compression approaches the isothermal minimum-work limit. This is why multi-stage compressors with intercoolers are more efficient than single-stage adiabatic compressors. The intercoolers extract heat between stages, reducing the cumulative work input.
+
+**Typical compressor data.**
+
+Industrial screw compressor: $\\dot{m} \\approx 2\\,\\mathrm{kg/s}$, pressure ratio 10:1, isentropic efficiency 85%. Adiabatic ideal $\\Delta h \\approx 300\\,\\mathrm{kJ/kg}$ → ideal $P \\approx 600\\,\\mathrm{kW}$. Real $\\Delta h \\approx 300/0.85 \\approx 350\\,\\mathrm{kJ/kg}$ → actual $P \\approx 700\\,\\mathrm{kW}$. So a pretty efficient real compressor needs about 700 kW for a 600 kW ideal job.
+
+**Connection forward.** Kapitel 2 Lesson 8 applies the open-system first law to turbine, compressor, and throttle problems in sequence, setting up the pattern for Thermodynamik II's Clausius-Rankine power cycle analysis.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l5-ex3"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="In einem adiabaten Drosselventil (Drossel) strömt ein Fluid ohne nennenswerte Geschwindigkeitsänderung. Welche Größe bleibt dabei konstant?"
+  question_en="In an adiabatic throttle (Drossel) a fluid flows with negligible velocity change. Which quantity is conserved?"
+  options={[
+    { id: "a", de: "Die innere Energie u.", en: "Internal energy u." },
+    { id: "b", de: "Die Enthalpie h.", en: "Enthalpy h." },
+    { id: "c", de: "Der Druck p.", en: "Pressure p." },
+    { id: "d", de: "Die Temperatur T.", en: "Temperature T." },
+  ]}
+  correct="b"
+  hint_en="Throttles: adiabatic (insulated, fast), no shaft work, no KE change. What's left in the first law?"
+  solution_mdx={`
+**Correct answer: (b) enthalpy h.**
+
+First law for adiabatic open system with $\\dot{Q} = 0$, $P = 0$, and no KE/PE change:
+
+$$0 + 0 = \\dot{m}(h_2 - h_1) \\quad\\Rightarrow\\quad h_2 = h_1$$
+
+Throttles are **isenthalpic** — the specific enthalpy is conserved across them.
+
+- **(a)** Internal energy is not conserved; only $h = u + pv$ is. Since pressure drops ($p_2 < p_1$) and specific volume rises, $u$ changes even while $h$ stays constant.
+- **(c)** Pressure DROPS — that's the whole point of throttling.
+- **(d)** Temperature changes for real gases (Joule-Thomson effect). For ideal gas only, $h = h(T)$ so $T$ stays the same, but in general $T$ changes.
+  `}
+  common_mistakes={[
+    {
+      wrong: "d — T constant",
+      why_en: "True for ideal gas, false for real gases. The Joule-Thomson effect — temperature changes across an adiabatic throttle — is the basis for gas liquefaction (Linde process). For water throttled from high to low pressure (e.g. in a Clausius-Rankine refrigeration cycle), the temperature drops significantly. Enthalpy is the universal conserved quantity across throttles, not temperature."
+    },
+    {
+      wrong: "a — u constant",
+      why_en: "Not quite. Across a throttle, both $u$ and $v$ change, but the combination $u + pv = h$ stays the same. $u$ itself typically drops (gas cools and loses internal energy) while the flow work per unit mass $pv$ drops less, keeping the total $h$ constant."
+    }
+  ]}
+  discussion_mdx={`
+**Why throttles are isenthalpic — a clean derivation.**
+
+Consider a throttle: adiabatic, no shaft work, steady-state, one in / one out, no KE/PE change. The energy balance per unit mass is:
+
+$$0 + 0 = h_2 - h_1 \\Rightarrow h_2 = h_1$$
+
+That's it. Throttles do nothing except drop pressure; they absorb no heat, produce no work, don't change speed significantly. Enthalpy MUST be conserved.
+
+**Applications.**
+
+- **Refrigeration cycle.** The throttle valve is between the condenser and the evaporator. It drops pressure from ~10 bar (condenser) to ~2 bar (evaporator), turning partially to vapour and cooling the refrigerant in the process.
+- **Linde gas liquefaction.** Compressed gas throttled through a Joule-Thomson valve cools by 10-40 K per pass. Recirculating the cold gas cools the next pass further, eventually reaching liquid air at 77 K.
+- **Steam-trap operation.** A steam trap throttles wet steam condensate; the pressure drop ensures the trap doesn't back up.
+
+**The irreversibility.**
+
+Throttles are always irreversible — there's a pressure drop across them with no useful work extracted. Entropy rises across a throttle: $s_2 > s_1$. The exergy destroyed per kg is $T_0 (s_2 - s_1)$ where $T_0$ is the ambient temperature. For the refrigeration throttle, this exergy destruction is one of the two main losses (the other being compressor inefficiency).
+
+**Connection forward.** Kapitel 2 Lesson 8 does a full throttle calculation using steam tables. Kapitel 4 (second law) quantifies the entropy generation.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l5-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Wasser wird in einer Pumpe von p_1 = 1 bar auf p_2 = 20 bar gefördert. Der Massenstrom beträgt ṁ = 5 kg/s. Das spezifische Volumen ist für Wasser praktisch konstant v ≈ 0{,}001 m³/kg. Schätzen Sie die Pumpenleistung P (in kW), wenn Sie P ≈ ṁ · v · (p_2 - p_1) annehmen."
+  question_en="Water is pumped from p_1 = 1 bar to p_2 = 20 bar. Mass flow ṁ = 5 kg/s. Specific volume ≈ 0.001 m³/kg (constant for water). Estimate the pump power P (in kW) using P ≈ ṁ · v · (p_2 - p_1)."
+  correct={9.5}
+  tolerance={0.3}
+  hint_en="For an incompressible fluid, the specific work is v · Δp. Multiply by ṁ. Watch units: bar → Pa."
+  solution_mdx={`
+**Answer: $P \\approx 9{,}5\\,\\mathrm{kW}$.**
+
+Formula for pump / incompressible fluid:
+
+$$P = \\dot{m} \\cdot v \\cdot (p_2 - p_1)$$
+
+Convert pressure to Pa: $\\Delta p = (20 - 1) \\cdot 10^5 = 19 \\cdot 10^5\\,\\mathrm{Pa}$.
+
+$$P = 5 \\cdot 0{,}001 \\cdot 19 \\cdot 10^5 = 5 \\cdot 1900 = 9500\\,\\mathrm{W} = 9{,}5\\,\\mathrm{kW}$$
+
+**Why this formula works for pumps.**
+
+For an open system with $\\dot{Q} = 0$, negligible KE/PE:
+
+$$P = \\dot{m}(h_2 - h_1)$$
+
+For an incompressible liquid, $h = u + pv$ where $v$ is constant, so $\\Delta h = \\Delta u + v \\Delta p$. For a reversible adiabatic pump, $\\Delta u \\approx 0$ (no internal heating to speak of), so $\\Delta h \\approx v \\Delta p$. Then:
+
+$$P \\approx \\dot{m} \\cdot v \\cdot \\Delta p$$
+
+This is the "pump work" formula — a direct shortcut that avoids needing steam tables. Very accurate for liquid water, less so for gases (which are compressible, so $v$ changes).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using p in bar: P = 5 · 0.001 · 19 = 0.095 kW",
+      why_en: "Classic bar-vs-Pa trap. The formula requires SI units (Pa). 0.095 kW means 95 W, which is implausibly small for a 5 kg/s pump."
+    },
+    {
+      wrong: "Using steam-table Δh (would give a larger number)",
+      why_en: "For a pump (as opposed to a compressor of gas), the approximation $\\Delta h \\approx v \\Delta p$ is accurate to within a percent because liquid water is nearly incompressible. Using a full $\\Delta h$ from tables would give essentially the same answer — the shortcut is preferred because it's faster and doesn't require table lookups."
+    }
+  ]}
+  discussion_mdx={`
+**Why pump work is so small compared to turbine work (in a steam cycle).**
+
+In a Clausius-Rankine power cycle, the pump takes ~9-10 kJ/kg to pressurise feedwater from 1 bar to 100 bar. The turbine extracts ~1000 kJ/kg going back from 100 bar to 1 bar. That's a 100-to-1 ratio.
+
+Physical reason: in the pump, you're pushing liquid (dense, low specific volume). In the turbine, you're processing steam (low density, high specific volume). Work per unit mass is $\\int v \\, dp$ — for the same $\\Delta p$, gas work vastly exceeds liquid work.
+
+**Power plant net output.**
+
+Net power = turbine power - pump power ≈ 1000 - 10 = 990 kJ/kg. Pump work is ~1 % of the gross turbine output. A power plant's efficiency doesn't take a big hit from the pump — which is why we can use relatively simple pumps even for large plants.
+
+**Limit case: water hammer.** When a valve closes quickly in a water pipe, a pressure spike propagates upstream — "water hammer". The energy stored is $\\rho v^2 / 2$ from the velocity change, which can be several bar. This is why plumbing has air chambers to absorb the shock.
+
+**Connection forward.** The Clausius-Rankine cycle treatment in Thermodynamik II uses the pump-work formula verbatim. Memorise $W_{pump}/m \\approx v \\cdot \\Delta p$ for liquids.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For open-system Klausur problems:
+
+1. Draw the CV (control volume) box around the device.
+2. Identify inlets and outlets; label $\dot{m}$ at each.
+3. Write $\dot{Q} + P = \dot{m}[\Delta h + \tfrac{1}{2}\Delta c^2 + g\Delta z]$ — always, every time.
+4. Cross out terms that are zero (adiabatic → $\dot{Q} = 0$; no shaft → $P = 0$; small velocities → KE = 0).
+5. Solve.
+
+Writing the full form and crossing out is the examiner's best signal that you know the theory. Fill in only the terms the problem requires.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Lessons 6, 7, 8 of Kap 2 apply everything assembled so far: full treatment of *Volumenänderungsarbeit* for each iso-process (Lesson 6), shaft and technical work (Lesson 7), and worked applications to throttles, turbines, and compressors (Lesson 8). By the end of Kapitel 2 you will be ready for any TU Berlin Thermodynamik I Klausur's first-law section.
