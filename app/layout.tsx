@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
+import { SiteSidebar } from "@/components/site-sidebar";
+import { buildNavigation } from "@/lib/navigation";
 import "./globals.css";
 
 const inter = Inter({
@@ -49,11 +51,12 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const tracks = await buildNavigation();
   return (
     <html
       lang="en"
@@ -62,7 +65,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <SiteHeader />
-        <div className="flex-1">{children}</div>
+        <div className="flex flex-1">
+          <SiteSidebar tracks={tracks} />
+          <main className="flex-1 min-w-0">{children}</main>
+        </div>
       </body>
     </html>
   );

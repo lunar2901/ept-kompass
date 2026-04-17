@@ -8,6 +8,8 @@ import {
   loadLessonBySlug,
 } from "@/lib/content";
 import { renderLessonMDX } from "@/lib/mdx";
+import { resolveLessonContext } from "@/lib/navigation";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -40,31 +42,26 @@ export default async function LessonPage({ params }: PageProps) {
   const prev = idx > 0 ? all[idx - 1] : null;
   const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null;
 
+  const ctx = await resolveLessonContext(lesson.slug);
   const { content } = await renderLessonMDX(lesson.bodyMdx);
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-8 lg:py-10">
-      {/* Breadcrumb */}
-      <nav
-        aria-label="Breadcrumb"
-        className="mb-4 text-xs text-[color:var(--muted-foreground)]"
-      >
-        <ol className="flex flex-wrap items-center gap-1">
-          <li>
-            <Link href="/" className="hover:underline">
-              Start
-            </Link>
-          </li>
-          <li aria-hidden>›</li>
-          <li className="font-mono uppercase tracking-wide">{lesson.module}</li>
-          <li aria-hidden>›</li>
-          <li className="font-mono uppercase tracking-wide">{lesson.chapter}</li>
-          <li aria-hidden>›</li>
-          <li className="font-semibold text-[color:var(--foreground)]">
-            {lesson.name_de}
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { label: "Start", href: "/" },
+          ...(ctx
+            ? [
+                {
+                  label: `Track ${ctx.track.code} — ${ctx.track.name_de}`,
+                },
+                { label: ctx.module.name_de, href: ctx.module.href },
+                { label: ctx.chapter.name_de },
+                { label: lesson.name_de },
+              ]
+            : [{ label: lesson.name_de }]),
+        ]}
+      />
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <article className="min-w-0">
