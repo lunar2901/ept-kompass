@@ -1,0 +1,358 @@
+---
+id: thermo-1-k2-l4
+module: thermodynamik-1
+chapter: kap-2-erster-hauptsatz
+position: 4
+name_de: "Energiebilanz für das geschlossene System"
+name_en: "Energy balance for a closed system"
+estimated_minutes: 25
+prerequisites: ["thermo-1-k2-l3"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Three lessons of parts now assemble into one equation. The first law for a closed system:
+
+$$
+\Delta U = Q + W
+$$
+
+says: the change in stored internal energy equals the heat in plus the work in. Every closed-system problem in Thermodynamik I is solved by setting up this equation, plugging in the process-specific specialisation for $Q$, $W$, and $\Delta U$, and solving for whatever is unknown.
+
+This lesson puts it all together in one place. You leave with a one-page cheat sheet that handles isochoric, isobaric, isothermal, and adiabatic processes on ideal gases — the four workhorses.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die Energiebilanz
+    en: energy balance
+    plural: die Energiebilanzen
+    example_de: "Die Energiebilanz eines geschlossenen Systems lautet ΔU = Q + W."
+    example_en: "The energy balance of a closed system reads ΔU = Q + W."
+  - term: der erste Hauptsatz
+    en: first law of thermodynamics
+    example_de: "Der erste Hauptsatz ist der Energieerhaltungssatz."
+    example_en: "The first law is the energy-conservation principle."
+  - term: das geschlossene System
+    en: closed system
+    example_de: "Ein geschlossenes System tauscht Energie, aber keine Masse mit der Umgebung aus."
+    example_en: "A closed system exchanges energy but no mass with its surroundings."
+</VocabBlock>
+
+## Theorie
+
+### The first law in its closed-system form
+
+<FormulaCard
+  name_de="Erster Hauptsatz für geschlossene Systeme"
+  name_en="First law for closed systems"
+  latex="\mathrm{d}U = \delta Q + \delta W \quad \Rightarrow \quad \Delta U = U_2 - U_1 = Q_{12} + W_{12}"
+  variables={[
+    { symbol: "U", name_de: "innere Energie (Zustandsgröße)", name_en: "internal energy (state variable)", unit: "J" },
+    { symbol: "Q_{12}", name_de: "zugeführte Wärme 1→2", name_en: "heat added 1→2", unit: "J" },
+    { symbol: "W_{12}", name_de: "verrichtete Arbeit 1→2", name_en: "work done 1→2", unit: "J" },
+  ]}
+>
+
+Sign convention (EPT-Kompass): $Q > 0$ → heat into system; $W > 0$ → work into system. Both positive = energy entering.
+
+For any work type (boundary, shaft, electrical), $W$ in this equation means the total of all work crossing the boundary during the process. In Kapitel 2 we focus on closed systems where the only work mode is <GermanTerm de="Volumenänderungsarbeit" article="die" en="boundary work" /> $W_V = -\int p\,\mathrm{d}V$ — no shaft through the cylinder wall, no electrical feed-through.
+
+</FormulaCard>
+
+### The four-row ideal-gas cheat sheet
+
+For an ideal gas in a closed system, pick a row by matching the process type:
+
+<FormulaCard
+  name_de="Bilanztabelle für iso-Prozesse (ideales Gas, geschlossen)"
+  name_en="Balance table for iso-processes (ideal gas, closed)"
+>
+
+| Process | Constraint | $W_V$ | $\Delta U$ | $Q$ |
+| --- | --- | --- | --- | --- |
+| **isochor** | $V = \mathrm{const}$ | $0$ | $m c_v \Delta T$ | $m c_v \Delta T$ |
+| **isobar** | $p = \mathrm{const}$ | $-p\,\Delta V$ | $m c_v \Delta T$ | $m c_p \Delta T$ |
+| **isotherm** | $T = \mathrm{const}$ | $m R_s T \ln(p_2/p_1)$ | $0$ | $-W_V$ |
+| **isentrop** / adiabat-reversibel | $s = \mathrm{const}$ | $m c_v \Delta T$ | $m c_v \Delta T$ | $0$ |
+
+</FormulaCard>
+
+Three quick observations from the table:
+
+1. $\Delta U = m c_v \Delta T$ on every row (ideal gas). It is a state-quantity shortcut: $U$ depends only on $T$.
+2. $Q = 0$ on the adiabat row, forcing $W_V = \Delta U$. That is what makes adiabatic compression calculations quick.
+3. On the isotherm row, $\Delta U = 0$, so $Q = -W_V$. Compression work equals heat rejected, and the gas is a pass-through.
+
+### The seven-step first-law protocol
+
+For any closed-system problem:
+
+1. Draw the system + *Systemgrenze*.
+2. State the sign convention.
+3. Identify the process type (isotherm, isobar, isochor, adiabat, polytrop, or given by $p(V)$ explicitly).
+4. Write $\Delta U = Q + W$.
+5. Plug in $\Delta U = m c_v \Delta T$ (ideal gas).
+6. Plug in $W_V$ from the iso-process formula.
+7. Solve for the unknown.
+
+Follow this order and the algebra almost writes itself.
+
+## Musteraufgabe
+
+> **Aufgabe.** Eine Menge von $m = 1{,}5\,\mathrm{kg}$ Luft ($c_v = 718\,\mathrm{J/(kg\,K)}$, $c_p = 1005\,\mathrm{J/(kg\,K)}$, $R_s = 287\,\mathrm{J/(kg\,K)}$) wird in einem Kolben-Zylinder zunächst isobar bei $p_1 = 2\,\mathrm{bar}$ von $T_1 = 300\,\mathrm{K}$ auf $T_2 = 500\,\mathrm{K}$ erwärmt. Berechnen Sie für diesen Prozess: $V_1$, $V_2$, $W_V$, $\Delta U$, $Q$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Step 1. Initial and final volumes.**
+
+$$V_1 = \frac{m R_s T_1}{p_1} = \frac{1{,}5 \cdot 287 \cdot 300}{2 \cdot 10^5} = 0{,}6458\,\mathrm{m^3}$$
+
+$$V_2 = \frac{m R_s T_2}{p_1} = \frac{1{,}5 \cdot 287 \cdot 500}{2 \cdot 10^5} = 1{,}0763\,\mathrm{m^3}$$
+
+**Step 2. Boundary work (isobaric).**
+
+$$W_V = -p_1 (V_2 - V_1) = -2 \cdot 10^5 \cdot (1{,}0763 - 0{,}6458) = -2 \cdot 10^5 \cdot 0{,}4305$$
+
+$$W_V = -86\,100\,\mathrm{J} = -86{,}1\,\mathrm{kJ}$$
+
+Negative: the gas expanded, doing work on the surroundings.
+
+**Step 3. Internal energy change.**
+
+$$\Delta U = m c_v \Delta T = 1{,}5 \cdot 718 \cdot 200 = 215\,400\,\mathrm{J} \approx 215{,}4\,\mathrm{kJ}$$
+
+**Step 4. Heat from the first law.**
+
+$$Q = \Delta U - W_V = 215\,400 - (-86\,100) = 301\,500\,\mathrm{J} \approx 301{,}5\,\mathrm{kJ}$$
+
+**Verification.** For isobaric processes, $Q = m c_p \Delta T = 1{,}5 \cdot 1005 \cdot 200 = 301\,500\,\mathrm{J}$. ✓
+
+301.5 kJ of heat enters the gas; 215.4 kJ is stored as internal energy (temperature rise); 86.1 kJ is exported as boundary work as the piston pushes out.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="thermo-1-k2-l4-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="2 kg Luft in einem starren Tank werden von 280 K auf 420 K erwärmt. c_v = 718 J/(kg·K). Wie groß ist die zugeführte Wärme Q (in kJ)?"
+  question_en="2 kg of air in a rigid tank are heated from 280 K to 420 K. c_v = 718 J/(kg·K). What heat Q (in kJ) is supplied?"
+  correct={201.04}
+  tolerance={1}
+  hint_en="Rigid tank → isochoric. For isochoric processes Q = ΔU = m c_v ΔT."
+  solution_mdx={`
+**Answer: $Q \\approx 201{,}0\\,\\mathrm{kJ}$.**
+
+Rigid tank → $V = \\mathrm{const}$ → isochoric. For an isochoric closed system:
+
+- $W_V = 0$ (no volume change)
+- $\\Delta U = m c_v \\Delta T$
+- First law: $\\Delta U = Q + W_V = Q + 0$, so $Q = \\Delta U$
+
+$$Q = m c_v \\Delta T = 2 \\cdot 718 \\cdot (420 - 280) = 2 \\cdot 718 \\cdot 140 = 201\\,040\\,\\mathrm{J} \\approx 201{,}0\\,\\mathrm{kJ}$$
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using c_p = 1005 instead of c_v, getting 281.4 kJ",
+      why_en: "For isochoric processes $Q = m c_v \\Delta T$, not $m c_p \\Delta T$. The $c_p$ form applies only when constant pressure allows volume expansion (isobaric). A rigid tank doesn't expand, so no boundary work; all heat goes to internal energy rise."
+    }
+  ]}
+  discussion_mdx={`
+**Why rigid tanks use $c_v$.**
+
+Heat entering a rigid tank goes entirely to raising molecular kinetic energy (internal energy). No expansion work is done because the walls don't move. So every joule of heat equals one joule of $\\Delta U$, and the coefficient that relates $\\Delta U$ to $\\Delta T$ is $m c_v$.
+
+Contrast with an isobaric open beaker: heat enters, gas expands, some heat energy leaves as boundary work against the atmosphere. More heat is needed for the same temperature rise → $c_p > c_v$.
+
+**Pressure rise in the rigid tank.** After heating, by ideal-gas law $p \\propto T$ at constant $V$. If the initial pressure was 1 bar at 280 K, the final pressure is $1 \\cdot 420/280 = 1{,}5\\,\\mathrm{bar}$. Rigid tanks are designed for this — compressed-air tanks rated for 10 bar at 20 °C should survive to 40 °C summer conditions without trouble.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l4-ex2"
+  difficulty="medium"
+  type="numeric"
+  question_de="Luft (m = 1 kg, c_v = 718 J/(kg·K), R_s = 287 J/(kg·K)) wird isotherm bei T = 350 K von p_1 = 1 bar auf p_2 = 4 bar verdichtet. Wie viel Wärme Q wird dabei abgeführt (negatives Vorzeichen für 'abgeführt')? Geben Sie Q in kJ an."
+  question_en="Air (m = 1 kg, c_v = 718 J/(kg·K), R_s = 287 J/(kg·K)) is compressed isothermally at T = 350 K from p_1 = 1 bar to p_2 = 4 bar. How much heat Q is removed (negative sign means 'out')? Give Q in kJ."
+  correct={-139.3}
+  tolerance={1}
+  hint_en="Isothermal ideal gas: ΔU = 0, so Q = -W_V. W_V (compression) is positive; therefore Q is negative (heat leaves)."
+  solution_mdx={`
+**Answer: $Q \\approx -139{,}3\\,\\mathrm{kJ}$.**
+
+Isothermal compression of an ideal gas:
+
+$$W_V = m R_s T \\ln(p_2/p_1) = 1 \\cdot 287 \\cdot 350 \\cdot \\ln(4) \\approx 100\\,450 \\cdot 1{,}3863 \\approx 139\\,270\\,\\mathrm{J} \\approx +139{,}3\\,\\mathrm{kJ}$$
+
+Since $\\Delta U = 0$ (ideal gas, constant $T$):
+
+$$Q = \\Delta U - W_V = 0 - 139{,}3\\,\\mathrm{kJ} = -139{,}3\\,\\mathrm{kJ}$$
+
+Heat leaves the system (negative). Physical interpretation: compression work pumps in energy, which would heat the gas — but since we're holding $T$ constant, the cylinder wall must export that energy as heat at the same rate as work arrives.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Getting +139.3 kJ (wrong sign)",
+      why_en: "Sign convention trap. Compression means work INTO the gas, so $W_V > 0$. $\\Delta U = 0$ for isothermal ideal gas. So $Q = -W_V < 0$. The physical intuition: if the gas is being compressed but not heating up, heat MUST be leaving — otherwise energy conservation is violated."
+    },
+    {
+      wrong: "Using ln(p_1/p_2) = ln(0.25) and getting a negative W_V",
+      why_en: "The formula with pressure ratio has $\\ln(p_2/p_1)$ (final over initial). For compression $p_2 > p_1$, so $\\ln(p_2/p_1) > 0$, and $W_V > 0$ (consistent with 'compression = work into the gas')."
+    }
+  ]}
+  discussion_mdx={`
+**Why isothermal compression is the energy-minimum case.**
+
+For an ideal gas compressed from $p_1$ to $p_2$:
+
+- **Isothermal**: $W_V = m R_s T \\ln(p_2/p_1)$ — minimum possible work.
+- **Adiabatic**: $W_V = \\frac{m R_s}{\\kappa - 1}(T_2 - T_1)$ where $T_2 > T_1$ — MORE work than isothermal.
+
+Why? Because during adiabatic compression the gas heats up, and a hotter gas at higher density takes more work to compress the next increment. In isothermal compression, we remove heat continuously, keeping the gas cool and minimising the work needed.
+
+This is why industrial compressors use *intercoolers* between stages: compress a little, cool, compress a little more, cool, etc. The multi-stage intercooled compressor approaches the isothermal minimum.
+
+**Real-compressor efficiency.** For a single-stage adiabatic air compressor going from 1 bar to 10 bar:
+
+- Adiabatic work (ideal): $\\approx 280\\,\\mathrm{kJ/kg}$
+- Isothermal minimum: $\\approx 200\\,\\mathrm{kJ/kg}$
+
+A three-stage intercooled compressor recovers about 2/3 of the gap — a real saving worth the added cost of the extra heat exchangers.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l4-ex3"
+  difficulty="medium"
+  type="multi_select"
+  question_de="Ein ideales Gas durchläuft einen adiabaten Prozess im geschlossenen System. Welche Aussagen sind korrekt?"
+  question_en="An ideal gas undergoes an adiabatic closed-system process. Which statements are correct?"
+  options={[
+    { id: "a", de: "Q = 0.", en: "Q = 0." },
+    { id: "b", de: "W_V = ΔU.", en: "W_V = ΔU." },
+    { id: "c", de: "Die Temperatur ändert sich nicht.", en: "Temperature does not change." },
+    { id: "d", de: "Bei Verdichtung steigt T; bei Expansion sinkt T.", en: "Compression raises T; expansion lowers T." },
+    { id: "e", de: "ΔU = m c_p ΔT.", en: "ΔU = m c_p ΔT." },
+  ]}
+  correct={["a", "b", "d"]}
+  hint_en="Adiabatic means no heat crosses the boundary. The first law then ties ΔU directly to W_V, which manifests as a temperature change."
+  solution_mdx={`
+**Correct answers: (a), (b), (d).**
+
+- **(a) Q = 0** by definition of adiabatic.
+- **(b) W_V = ΔU**. First law: $\\Delta U = Q + W_V = 0 + W_V$. So yes.
+- **(c) T doesn't change** — FALSE. In an adiabatic compression, the work input raises the internal energy, which raises $T$ (for ideal gas, $\\Delta U \\propto \\Delta T$). Only isothermal processes have constant $T$.
+- **(d) Compression raises T, expansion lowers T** — TRUE. Adiabatic compression: $W_V > 0$, so $\\Delta U > 0$, so $\\Delta T > 0$. Adiabatic expansion: opposite sign.
+- **(e) $\\Delta U = m c_p \\Delta T$** — FALSE. For an ideal gas, $\\Delta U = m c_v \\Delta T$ always. $c_p$ is for $\\Delta H$, not $\\Delta U$.
+
+The practical pattern: in an adiabatic compression, you pay in work and get back temperature rise (like a bicycle pump warming up). In expansion, you pay in temperature drop and get back work (like a gas doing work against a piston).
+  `}
+  common_mistakes={[
+    {
+      wrong: "Including (c) temperature stays constant",
+      why_en: "Confusion of adiabatic with isothermal. Adiabatic: no heat. Isothermal: constant T. These happen together only in trivial no-process case — or when both sides are isolated (system at equilibrium). In any non-trivial adiabatic process, $T$ changes because work does it."
+    },
+    {
+      wrong: "Including (e) ΔU = m c_p ΔT",
+      why_en: "Classic c_p vs c_v mixup. $\\Delta U$ is a state-quantity change that depends only on temperature for ideal gas; the coefficient is $c_v$ by definition. $c_p$ defines $\\Delta H$, not $\\Delta U$. Even for adiabatic processes, $\\Delta U = m c_v \\Delta T$ — the process type doesn't change which $c$ to use for $\\Delta U$."
+    }
+  ]}
+  discussion_mdx={`
+**Adiabatic temperature change for air — a worked number.**
+
+Air compressed adiabatically from 1 bar, 300 K to 10 bar. Isentropic relation:
+
+$$\\frac{T_2}{T_1} = \\left(\\frac{p_2}{p_1}\\right)^{(\\kappa - 1)/\\kappa} = (10)^{0{,}4/1{,}4} = 10^{0{,}2857} \\approx 1{,}93$$
+
+$$T_2 \\approx 300 \\cdot 1{,}93 \\approx 580\\,\\mathrm{K} = 307\\,\\mathrm{°C}$$
+
+That's a 280 K rise from 10× compression. This is why diesel engines don't need spark plugs — compressing fuel-air mixture adiabatically heats it enough to auto-ignite. It's also why industrial compressors MUST be cooled; otherwise they'd destroy themselves or the air they handle.
+
+**Work required.** $W_V = m c_v (T_2 - T_1) = m \\cdot 718 \\cdot 280 \\approx 201\\,\\mathrm{kJ/kg}$ for the air being compressed.
+
+**Connection forward.** Kapitel 2 Lesson 6 derives the isentropic relations $T V^{\\kappa-1} = \\mathrm{const}$ and $T^\\kappa p^{1-\\kappa} = \\mathrm{const}$ that we used here. For now, the first-law + $c_v$ approach is enough — you can always find T_2 from the isentropic pressure relation and then plug into $W = m c_v \\Delta T$.
+  `}
+/>
+
+<Exercise
+  id="thermo-1-k2-l4-ex4"
+  difficulty="klausur"
+  type="numeric"
+  question_de="3 kg Luft (c_v = 718 J/(kg·K), c_p = 1005 J/(kg·K)) werden in einem Kolben-Zylinder isobar bei p = 1{,}5 bar von T_1 = 310 K auf T_2 = 480 K erwärmt. Wie groß ist die Volumenänderungsarbeit W_V (in kJ)?"
+  question_en="3 kg of air (c_v = 718 J/(kg·K), c_p = 1005 J/(kg·K)) is heated isobarically in a piston-cylinder at p = 1.5 bar from T_1 = 310 K to T_2 = 480 K. What is the boundary work W_V (in kJ)?"
+  correct={-146.4}
+  tolerance={1}
+  hint_en="Isobaric: W_V = -p ΔV. Use pV = mR_s T to relate ΔV to ΔT: ΔV = m R_s ΔT / p. So W_V = -m R_s ΔT."
+  solution_mdx={`
+**Answer: $W_V \\approx -146{,}4\\,\\mathrm{kJ}$.**
+
+Using the chain: isobaric + ideal gas → $p \\Delta V = m R_s \\Delta T$ → $W_V = -m R_s \\Delta T$.
+
+$$R_s = c_p - c_v = 1005 - 718 = 287\\,\\mathrm{J/(kg\\,K)}$$ (Mayer check)
+
+$$W_V = -m R_s \\Delta T = -3 \\cdot 287 \\cdot (480 - 310) = -3 \\cdot 287 \\cdot 170$$
+
+$$W_V = -146\\,370\\,\\mathrm{J} \\approx -146{,}4\\,\\mathrm{kJ}$$
+
+**Sign interpretation.** Heating at constant p → gas expands → $\\Delta V > 0$ → $W_V = -p\\Delta V < 0$. Work is done BY the system on its surroundings.
+
+**Direct method as a cross-check.** Compute $V_1 = m R_s T_1 / p = 3 \\cdot 287 \\cdot 310 / (1{,}5 \\cdot 10^5) \\approx 1{,}779\\,\\mathrm{m^3}$. $V_2 = V_1 \\cdot T_2/T_1 \\approx 2{,}755\\,\\mathrm{m^3}$. $W_V = -p(V_2 - V_1) = -1{,}5 \\cdot 10^5 \\cdot 0{,}976 \\approx -146{,}4\\,\\mathrm{kJ}$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "Using c_v or c_p instead of R_s: -352 or -513 kJ",
+      why_en: "The formula $W_V = -m R_s \\Delta T$ for isobaric ideal gas uses $R_s$, not $c_v$ or $c_p$. Why? Because $W_V = -p \\Delta V$, and for ideal gas $p \\Delta V = m R_s \\Delta T$. Neither heat capacity appears in the derivation — they come in when computing $Q = m c_p \\Delta T$ or $\\Delta U = m c_v \\Delta T$ separately."
+    },
+    {
+      wrong: "Forgetting the minus sign: +146 kJ",
+      why_en: "Isobaric heating → expansion → work OUT of system → W_V negative in our sign convention. Always check: did the gas expand or compress? Was work into or out of the system?"
+    }
+  ]}
+  discussion_mdx={`
+**Three formulas, one picture.**
+
+For isobaric heating of an ideal gas in a closed system with m and ΔT given:
+
+- $\\Delta U = m c_v \\Delta T$ — stored-energy rise
+- $W_V = -m R_s \\Delta T$ — boundary work (out of system)
+- $Q = m c_p \\Delta T$ — total heat in
+
+And $Q = \\Delta U - W_V$, which expands to $m c_p \\Delta T = m c_v \\Delta T + m R_s \\Delta T$ — Mayer's relation. The bookkeeping closes perfectly.
+
+For our problem:
+- $\\Delta U = 3 \\cdot 718 \\cdot 170 \\approx +366{,}2\\,\\mathrm{kJ}$
+- $W_V \\approx -146{,}4\\,\\mathrm{kJ}$
+- $Q = \\Delta U - W_V \\approx +366{,}2 + 146{,}4 = +512{,}6\\,\\mathrm{kJ}$
+
+Cross-check: $m c_p \\Delta T = 3 \\cdot 1005 \\cdot 170 \\approx +512{,}6\\,\\mathrm{kJ}$. ✓
+
+So: you put 512 kJ of heat in; 366 kJ gets stored as hotter gas; 146 kJ pushes the piston out. The books balance because of Mayer.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For iso-process closed-system problems with an ideal gas, memorise three one-liners:
+
+- isobar: $W_V = -m R_s \Delta T$
+- isotherm: $W_V = m R_s T \ln(p_2/p_1)$
+- isochor: $W_V = 0$
+
+Plus $\Delta U = m c_v \Delta T$ on every row, $\Delta H = m c_p \Delta T$ on every row. The first law $\Delta U = Q + W$ closes the bookkeeping. Total memorisation: five formulas. That handles 80 % of Kapitel 2 Klausur questions.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+In the next lesson — **Energiebilanz für das offene System** — we generalise the first law to devices where matter flows: turbines, compressors, heat exchangers, nozzles. The new formulation has mass-flow × specific enthalpy terms at every inlet and outlet, plus technical work $P$ and heat rate $\dot{Q}$ describing the rates of energy crossings. The state-quantity $h$ you met last lesson becomes the primary variable.
