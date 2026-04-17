@@ -1,0 +1,427 @@
+---
+id: track-0-si-l1
+module: schulwissen-auffrischen
+chapter: si-einheiten
+position: 1
+name_de: "SI-Einheiten und Einheitenumrechnung"
+name_en: "SI units and unit conversion"
+estimated_minutes: 25
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Half of all points lost on engineering Klausuren come from one source: a unit that wasn't converted. You compute a force in kg·m/s² but the answer sheet wants N. You use pressure in bar where the formula needs Pa. You convert kilowatt-hours to joules wrong. These aren't mistakes of understanding — they are mistakes of attention.
+
+This lesson is a field guide to the unit system you will use for the next six years. The goal is not to learn new physics; it is to build the habit of writing every number with its unit attached, converting everything to SI at the start of a problem, and checking units before you check arithmetic.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die SI-Einheit
+    en: SI unit
+    plural: die SI-Einheiten
+    ipa: /ɛs ˈiː ˈaɪ̯nhaɪ̯t/
+    example_de: "Die SI-Einheit der Energie ist das Joule."
+    example_en: "The SI unit of energy is the joule."
+  - term: die Grundeinheit
+    en: base unit
+    plural: die Grundeinheiten
+    example_de: "Es gibt sieben SI-Grundeinheiten."
+    example_en: "There are seven SI base units."
+  - term: die abgeleitete Einheit
+    en: derived unit
+    example_de: "Das Newton ist eine abgeleitete Einheit: 1 N = 1 kg·m/s²."
+    example_en: "The newton is a derived unit: 1 N = 1 kg·m/s²."
+  - term: die Dimensionsanalyse
+    en: dimensional analysis
+    example_de: "Eine Dimensionsanalyse prüft, ob die Einheiten einer Gleichung konsistent sind."
+    example_en: "Dimensional analysis checks whether the units of an equation are consistent."
+  - term: der SI-Vorsatz
+    en: SI prefix
+    plural: die SI-Vorsätze
+    example_de: "Der Vorsatz 'kilo' bedeutet 1000 (10³)."
+    example_en: "The prefix 'kilo' means 1000 (10³)."
+</VocabBlock>
+
+## Theorie
+
+### The seven SI base units
+
+<FormulaCard
+  name_de="SI-Grundeinheiten"
+  name_en="SI base units"
+>
+
+| Size | Symbol | German name | English name |
+| --- | :---: | --- | --- |
+| Length | m | Meter | metre |
+| Mass | kg | Kilogramm | kilogram |
+| Time | s | Sekunde | second |
+| Temperature | K | Kelvin | kelvin |
+| Amount of substance | mol | Mol | mole |
+| Electric current | A | Ampere | ampere |
+| Luminous intensity | cd | Candela | candela |
+
+Every other SI unit is derived from these seven. For engineering, the first four and the sixth (mol for chemistry) dominate.
+
+</FormulaCard>
+
+### Derived units you'll use daily
+
+| Size | Unit | In base units |
+| --- | :---: | --- |
+| Force | N (Newton) | kg·m/s² |
+| Pressure | Pa (Pascal) | N/m² = kg/(m·s²) |
+| Energy | J (Joule) | N·m = kg·m²/s² |
+| Power | W (Watt) | J/s = kg·m²/s³ |
+| Frequency | Hz (Hertz) | 1/s |
+| Electrical charge | C (Coulomb) | A·s |
+| Voltage | V (Volt) | W/A = kg·m²/(A·s³) |
+| Resistance | Ω (Ohm) | V/A |
+
+### SI prefixes
+
+<FormulaCard
+  name_de="SI-Vorsätze"
+  name_en="SI prefixes"
+>
+
+| Prefix | Symbol | Factor |
+| --- | :---: | --- |
+| tera | T | 10¹² |
+| giga | G | 10⁹ |
+| mega | M | 10⁶ |
+| kilo | k | 10³ |
+| hekto | h | 10² |
+| deka | da | 10¹ |
+| **1** | — | 10⁰ |
+| dezi | d | 10⁻¹ |
+| centi | c | 10⁻² |
+| milli | m | 10⁻³ |
+| mikro | μ | 10⁻⁶ |
+| nano | n | 10⁻⁹ |
+| pico | p | 10⁻¹² |
+
+</FormulaCard>
+
+Three traps for engineering students:
+
+- **k (kilo) vs K (kelvin).** Lowercase k is 10³; uppercase K is kelvin (a unit, not a prefix). `kW` = kilowatt; `K` = kelvin. Klausuren will test this.
+- **m (milli) vs M (mega).** Case matters! `mW` (milliwatt = 10⁻³ W) vs `MW` (megawatt = 10⁶ W). Off by a factor of 10⁹.
+- **"kg" is the base unit, not "g".** Annoying historical quirk — the base unit for mass is the kilogram. So "milligram" (mg) is 10⁻⁶ of the base unit (kg), not 10⁻³.
+
+### Common non-SI units engineers meet
+
+| Unit | Where used | SI equivalent |
+| --- | --- | --- |
+| bar | pressure (meteorology, engineering) | 10⁵ Pa |
+| atm | pressure (chemistry, old textbooks) | 101 325 Pa |
+| mmHg, Torr | pressure (medicine, vacuum) | 133.3 Pa |
+| L, Liter | volume | 10⁻³ m³ |
+| kWh | electrical energy (billing) | 3.6·10⁶ J |
+| eV | atomic/nuclear energy | 1.602·10⁻¹⁹ J |
+| kcal | food, old heat-transfer | 4184 J |
+| °C | temperature (everyday) | K - 273.15 |
+
+<Callout variant="warning">
+
+**Celsius and Kelvin have the same scale size but different zero points.**
+
+$T[\mathrm{K}] = T[\mathrm{°C}] + 273{,}15$.
+
+For *differences* or *ratios*, a 1 K change equals a 1 °C change — so you can skip the conversion if only $\Delta T$ matters. For *absolute* temperatures (as in $pV = nRT$), you MUST convert to K.
+
+A student who plugs 27 °C into $T$ of the ideal-gas law will get answers about an order of magnitude wrong. The habit: *always write K in your formula. Always convert at input.*
+
+</Callout>
+
+### Dimensional analysis as a cheat-check
+
+For every formula, the two sides must have the same units. If a problem gives you:
+
+$$F = m \cdot a$$
+
+and you have $m$ in kg, $a$ in m/s², then $F$ has units of kg·m/s² = N. ✓
+
+Any mismatch (kg·m/s and you forgot the squared) is a flag. Engineers develop the habit of writing units after every number, canceling/combining them alongside the algebra, and checking the final unit matches what was asked.
+
+## Musteraufgabe
+
+> **Aufgabe.** Die spezifische Enthalpie von Dampf beträgt $h = 2{,}75\,\mathrm{MJ/kg}$. Der Massenstrom sei $\dot{m} = 250\,\mathrm{kg/h}$. Wie groß ist der Enthalpiestrom $\dot{H}$ in **Kilowatt**?
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Step 1. Convert all inputs to SI.**
+
+- $h = 2{,}75\,\mathrm{MJ/kg} = 2{,}75 \cdot 10^6\,\mathrm{J/kg}$
+- $\dot{m} = 250\,\mathrm{kg/h} = 250 / 3600\,\mathrm{kg/s} = 0{,}0694\,\mathrm{kg/s}$
+
+**Step 2. Multiply.**
+
+$$\dot{H} = \dot{m} \cdot h = 0{,}0694\,\mathrm{kg/s} \cdot 2{,}75 \cdot 10^6\,\mathrm{J/kg}$$
+
+$$\dot{H} = 190\,972\,\mathrm{J/s} = 190\,972\,\mathrm{W}$$
+
+**Step 3. Convert to kW.**
+
+$$\dot{H} \approx 191\,\mathrm{kW}$$
+
+**Cross-check.** 1 kg/h of 2.75 MJ/kg steam = 2.75 MJ/h = 2.75·10⁶ J / 3600 s ≈ 764 W. For 250 kg/h: 250 × 764 ≈ 191 000 W = 191 kW. ✓
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-si-l1-ex1"
+  difficulty="easy"
+  type="numeric"
+  question_de="Wie viele Pascal sind 2,5 bar?"
+  question_en="How many pascals equal 2.5 bar?"
+  correct={250000}
+  tolerance={10}
+  hint_en="1 bar = 10⁵ Pa. Multiply."
+  solution_mdx={`
+**Answer: $250\\,000\\,\\mathrm{Pa} = 2{,}5 \\cdot 10^5\\,\\mathrm{Pa}$.**
+
+$$2{,}5\\,\\mathrm{bar} \\cdot \\frac{10^5\\,\\mathrm{Pa}}{1\\,\\mathrm{bar}} = 2{,}5 \\cdot 10^5\\,\\mathrm{Pa} = 250\\,000\\,\\mathrm{Pa}$$
+
+Worth memorising: 1 bar = 100 kPa = 100 000 Pa ≈ 1 atm.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 2500 Pa (missed a factor of 100)",
+      why_en: "Perhaps confused with hectopascal (hPa)? 1 bar = 1000 hPa, which is 100 000 Pa. The conversion factor from bar to Pa is always 10⁵."
+    },
+    {
+      wrong: "Answering 25 000 000 (added an extra zero)",
+      why_en: "Over-shooting by a factor of 100. 1 bar = 10⁵ Pa, 2.5 bar = 2.5 × 10⁵ Pa = 250 000 Pa."
+    }
+  ]}
+  discussion_mdx={`
+**Why bars are used at all.**
+
+Engineers use bar for pressure partly because it's close to 1 atm (convenient for everyday-scale problems) and partly because it yields round numbers. Car tire pressure: ~2 bar cold, 2.3 bar after highway driving. Natural gas distribution: ~50 mbar residential, 7-16 bar transmission. All nice small numbers — much friendlier than writing 200 000 Pa for a tire.
+
+For formulas involving $R$ (the gas constant in J/(mol·K) or J/(kg·K)), always convert bar to Pa to match the J units in R.
+  `}
+/>
+
+<Exercise
+  id="track-0-si-l1-ex2"
+  difficulty="easy"
+  type="numeric"
+  question_de="Ein Tauchsieder hat eine Leistung von 2{,}2 kW. Wie viele Joule Energie verbraucht er in 30 Sekunden?"
+  question_en="An immersion heater has a power of 2.2 kW. How many joules does it consume in 30 seconds?"
+  correct={66000}
+  tolerance={100}
+  hint_en="Energy = Power × Time. Convert kW → W and keep seconds."
+  solution_mdx={`
+**Answer: 66 000 J = 66 kJ.**
+
+$$E = P \\cdot t = 2{,}2\\,\\mathrm{kW} \\cdot 30\\,\\mathrm{s} = 2200\\,\\mathrm{W} \\cdot 30\\,\\mathrm{s}$$
+
+$$E = 66\\,000\\,\\mathrm{W \\cdot s} = 66\\,000\\,\\mathrm{J} = 66\\,\\mathrm{kJ}$$
+
+Good mental check: 1 W = 1 J/s, so 1 kW × 1 s = 1 kJ. 2.2 kW × 30 s → 66 kJ.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting kW → W: 2.2 · 30 = 66 J",
+      why_en: "Factor of 1000 off. 2.2 kW = 2200 W, not 2.2. When the problem gives kW, you almost always need to multiply by 1000 to get into base SI."
+    }
+  ]}
+  discussion_mdx={`
+**The J / Ws / kWh hierarchy.**
+
+- 1 J = 1 W·s — the base SI energy unit.
+- 1 Ws = 1 J (same thing, different notation).
+- 1 kWh = 1000 W · 3600 s = 3.6·10⁶ J = 3.6 MJ.
+
+A 2 kW heater running for 1 hour uses 2 kWh = 7.2 MJ. Your household electric bill is in kWh because J/s over hours produces huge numbers.
+
+Every engineering calculation should use J internally. Convert kWh to J at the start, report in kWh at the end if the context requires. Never work with mixed units in the middle of a calculation.
+  `}
+/>
+
+<Exercise
+  id="track-0-si-l1-ex3"
+  difficulty="medium"
+  type="numeric"
+  question_de="Ein Auto fährt 80 km/h. Wie groß ist die Geschwindigkeit in m/s?"
+  question_en="A car drives 80 km/h. What is the speed in m/s?"
+  correct={22.22}
+  tolerance={0.1}
+  hint_en="1 km = 1000 m. 1 h = 3600 s. Multiply by (1000/3600) = 10/36."
+  solution_mdx={`
+**Answer: $\\approx 22{,}22\\,\\mathrm{m/s}$.**
+
+$$80 \\,\\frac{\\mathrm{km}}{\\mathrm{h}} = 80 \\cdot \\frac{1000\\,\\mathrm{m}}{3600\\,\\mathrm{s}} = \\frac{80\\,000}{3600}\\,\\mathrm{m/s}$$
+
+$$= \\frac{80}{3{,}6}\\,\\mathrm{m/s} \\approx 22{,}22\\,\\mathrm{m/s}$$
+
+**Short cut.** Divide km/h by 3.6 to get m/s. Multiply m/s by 3.6 to get km/h. This is worth memorising — engineering problems often mix km/h (speeds) with m/s (flow velocities) and you need the conversion cold.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Forgetting to convert time: 80 · 1000 / 60 ≈ 1333 m/s",
+      why_en: "You need TO convert BOTH 'km → m' AND 'h → s'. Missing either gives a number 60× or 1000× off. The combined factor is 1000/3600 = 1/3.6 ≈ 0.278."
+    },
+    {
+      wrong: "Multiplying instead of dividing: 80 · 3.6 = 288 m/s",
+      why_en: "Going the wrong way. km/h are BIGGER numerically than m/s (since there are many m per km but also many s per h, and the km-per-m ratio wins). So km/h → m/s gives SMALLER numbers: divide. 22 m/s is about 80 km/h; 288 m/s would be the speed of sound."
+    }
+  ]}
+  discussion_mdx={`
+**Why engineers stick with m/s.**
+
+SI formulas use m/s because the base unit of length is m and of time is s. Every kinematic quantity — velocity, acceleration, momentum — is naturally m/s, m/s², kg·m/s. Mixing km/h into a calculation is asking for trouble.
+
+Typical engineering speed contexts:
+- air flow in ducts: 5-20 m/s
+- water in pipes: 1-5 m/s
+- steam in pipes: 30-80 m/s
+- car: 30 m/s (≈108 km/h)
+- sound in air: 343 m/s
+- jet engine exhaust: 500 m/s
+
+For thermodynamics, the typical "nominal fluid velocity" in turbines and nozzles is hundreds of m/s, so kinetic energy terms $c^2/2$ can matter: $(300\\,\\mathrm{m/s})^2/2 = 45\\,000\\,\\mathrm{J/kg} = 45\\,\\mathrm{kJ/kg}$, which is ~5% of typical $\\Delta h$ values.
+  `}
+/>
+
+<Exercise
+  id="track-0-si-l1-ex4"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Welche der folgenden Einheiten-Aussagen ist FALSCH?"
+  question_en="Which of the following unit statements is FALSE?"
+  options={[
+    { id: "a", de: "1 MW = 10⁶ W = 1000 kW", en: "1 MW = 10⁶ W = 1000 kW" },
+    { id: "b", de: "1 mg = 10⁻³ g = 10⁻⁶ kg", en: "1 mg = 10⁻³ g = 10⁻⁶ kg" },
+    { id: "c", de: "1 kK = 1000 K (kilokelvin)", en: "1 kK = 1000 K (kilokelvin)" },
+    { id: "d", de: "1 MJ = 10⁶ J = 10³ kJ", en: "1 MJ = 10⁶ J = 10³ kJ" },
+  ]}
+  correct="c"
+  hint_en="SI prefixes can technically combine with any base unit, but 'kK' is practically never used. The statement is arithmetically correct; but what's wrong?"
+  solution_mdx={`
+**Correct answer: (c).**
+
+Strictly speaking, (c) is arithmetically correct: "kK" means "kilokelvin" = 1000 K. But in practice, no one writes "kK" — temperatures in engineering never span a thousand-fold range where 1000 K would be a convenient base.
+
+The deeper issue: the Kelvin scale has physical zero at 0 K (absolute zero), and everyday engineering temperatures are in the 200-2000 K range. Prefixing with 'kilo' would mean measuring everyday temperatures in 'millikelvin' (0.3 kK for room temperature), which is ridiculous.
+
+So (c) is the "wrong" answer in the sense that the statement is arithmetically right but practically nonsense — and the question is asking you to notice that.
+
+**Options (a), (b), (d) are all correct** and useful conversion facts. Note (b) especially: mg → kg requires two steps (×10⁻³ then ×10⁻³), because the base unit is kg, not g.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a or d — these are correct arithmetic facts",
+      why_en: "Both (a) and (d) state standard SI relationships. If you picked one, double-check the prefix values: M = 10⁶, k = 10³."
+    },
+    {
+      wrong: "b — correct: milligram to kilogram",
+      why_en: "1 mg = 10⁻³ g = 10⁻³ · 10⁻³ kg = 10⁻⁶ kg. Two factors because the base unit for mass is kg, not g. This is a quirky historical quirk of SI."
+    }
+  ]}
+  discussion_mdx={`
+**Why "kg" is the only prefixed base unit.**
+
+Historical: when the SI system was codified (1960), the kilogram was already the base — defined by the international prototype kilogram artifact. It couldn't be re-defined as "gram" without invalidating all existing measurements. So we're stuck with "kilogram" as a base unit that already has a prefix.
+
+Practical consequence: when converting mass within SI, you need to count prefixes carefully. 1 mg = 10⁻³ g = 10⁻⁶ kg. 1 Mg = 10⁶ g = 10³ kg (which is 1 metric ton, though usually written "t").
+
+**Prefixes that are unusual but valid.**
+
+- Pascal: engineers use kPa, MPa, GPa (structural) — all valid.
+- Joule: J, kJ, MJ, GJ are all commonly used. PJ (petajoule, 10¹⁵ J) for national energy statistics.
+- Watt: W, kW, MW, GW are standard (power of plants, national capacity).
+- Second: µs, ns, ps in electronics; ks, Ms rarely used (we say "hours" instead).
+
+A good rule of thumb: choose the prefix that keeps the numerical value between 0.1 and 1000. If your answer is 0.001 kW, rewrite as 1 W. If it's 5 000 000 J, rewrite as 5 MJ.
+  `}
+/>
+
+<Exercise
+  id="track-0-si-l1-ex5"
+  difficulty="klausur"
+  type="numeric"
+  question_de="Ein Heizkörper gibt Q = 15 kWh pro Tag ab. Wie groß ist die durchschnittliche Heizleistung P (in W)?"
+  question_en="A radiator delivers Q = 15 kWh per day. What is the average heating power P (in W)?"
+  correct={625}
+  tolerance={3}
+  hint_en="Power = Energy / Time. Convert kWh → J and day → s. Or: divide kWh by 24 h = kW, then × 1000."
+  solution_mdx={`
+**Answer: $P \\approx 625\\,\\mathrm{W}$.**
+
+**Method 1: direct conversion.**
+
+$$P = \\frac{Q}{t} = \\frac{15\\,\\mathrm{kWh}}{24\\,\\mathrm{h}} = 0{,}625\\,\\mathrm{kW} = 625\\,\\mathrm{W}$$
+
+(Because kWh / h = kW. The hours cancel.)
+
+**Method 2: full SI conversion.**
+
+$$Q = 15\\,\\mathrm{kWh} \\cdot 3{,}6 \\cdot 10^6\\,\\mathrm{J/kWh} = 5{,}4 \\cdot 10^7\\,\\mathrm{J}$$
+
+$$t = 24 \\cdot 3600\\,\\mathrm{s} = 86\\,400\\,\\mathrm{s}$$
+
+$$P = \\frac{5{,}4 \\cdot 10^7}{86\\,400} = 625\\,\\mathrm{J/s} = 625\\,\\mathrm{W}$$
+
+Both methods give the same answer. Method 1 is faster once you see the kWh / h → kW trick.
+
+**Context.** 625 W average is a small radiator — typical for a small bathroom. A living-room radiator is more like 1500-2000 W average in winter.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Dividing kWh by 24 and reporting 0.625 as the answer",
+      why_en: "The answer is in W, and 0.625 kW = 625 W. If you stopped at 0.625, you forgot the unit conversion at the end. Always check the question's required unit."
+    },
+    {
+      wrong: "Dividing kWh by 86 400 s without converting to J first",
+      why_en: "kWh / s gives nonsense units (energy per second, but in weird prefixes). Convert kWh to J first if you're using seconds. Or use method 1: stay in kWh/h and get kW directly."
+    }
+  ]}
+  discussion_mdx={`
+**Why Method 1 is elegant.**
+
+The units of 1 kWh = 1 kW · 1 h by definition. So kWh / h = kW · h / h = kW. The units of time cancel cleanly and you get straight to kW without ever computing in J.
+
+General principle: when a rate unit already exists (kWh, km/h, kg/h), sometimes dividing by time in the same prefix is faster than converting to SI. But ALWAYS verify the final unit matches what's requested.
+
+**Energy vs Power — the dimension pair.**
+
+- Energy [E] = power × time [P·T]
+- Power [P] = energy / time [E/T]
+
+Every problem that gives you one and asks for the other requires a time conversion. The most common mistake is confusing the two — "energy of a 100 W bulb" is unbounded (depends how long it's on); "power of 15 kWh" is not a meaningful question without a time duration.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** Write a two-column **Umrechnungstabelle** at the start of every problem:
+
+| Gegeben (as stated) | In SI |
+| --- | --- |
+| $p = 3\,\mathrm{bar}$ | $p = 3 \cdot 10^5\,\mathrm{Pa}$ |
+| $T = 20\,\mathrm{°C}$ | $T = 293{,}15\,\mathrm{K}$ |
+| $\dot{m} = 2\,\mathrm{kg/h}$ | $\dot{m} = 5{,}56 \cdot 10^{-4}\,\mathrm{kg/s}$ |
+| ... | ... |
+
+Only use the right column for calculations. This single habit prevents ~half of Klausur unit errors.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next lesson: **Einheitenumrechnung in der Praxis** — worked examples with realistic combined conversions (mass-flow × specific enthalpy → power, kWh billing → MJ, °C vs K traps in real formulas). After that, we rebuild the math toolkit: Potenzen, Bruchrechnen, Logarithmen, Differenzieren, Integrieren — the six preparatory chapters you need to hit Analysis I and Thermodynamik I with confidence.
