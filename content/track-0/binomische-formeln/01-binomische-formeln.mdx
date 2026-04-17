@@ -1,0 +1,257 @@
+---
+id: track-0-binom-l1
+module: schulwissen-auffrischen
+chapter: binomische-formeln
+position: 1
+name_de: "Binomische Formeln — drei Identitäten, die Sie nie vergessen sollten"
+name_en: "Binomial formulas — three identities you should never forget"
+estimated_minutes: 15
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+Three short algebraic identities that save minutes on every Klausur problem involving expanded expressions. They appear on every derivation that has a square of a sum, a difference of squares, or a factored quadratic. Memorise them once, use them a thousand times.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die binomische Formel
+    en: binomial formula
+    plural: die binomischen Formeln
+    ipa: /biˈnoːmɪʃə fɔʁˈmeːl/
+    example_de: "Die erste binomische Formel lautet (a+b)^2 = a^2 + 2ab + b^2."
+    example_en: "The first binomial formula reads (a+b)^2 = a^2 + 2ab + b^2."
+  - term: quadrieren
+    en: to square
+    example_de: "Quadrieren bedeutet, eine Zahl mit sich selbst zu multiplizieren."
+    example_en: "To square means to multiply a number by itself."
+  - term: faktorisieren
+    en: to factorise
+    example_de: "Faktorisieren heißt, einen Ausdruck als Produkt zu schreiben."
+    example_en: "To factorise means to write an expression as a product."
+</VocabBlock>
+
+## Theorie
+
+<FormulaCard
+  name_de="Die drei binomischen Formeln"
+  name_en="The three binomial formulas"
+>
+
+$$(a + b)^2 = a^2 + 2ab + b^2 \qquad\text{1. binomische Formel}$$
+$$(a - b)^2 = a^2 - 2ab + b^2 \qquad\text{2. binomische Formel}$$
+$$(a + b)(a - b) = a^2 - b^2 \qquad\text{3. binomische Formel}$$
+
+All three are consequences of distributive multiplication. They are presented as separate identities because each has a distinctive shape that's useful to recognise in both directions — expanding AND factoring.
+
+</FormulaCard>
+
+### When to use each
+
+- **Expanding a square** like $(x + 3)^2$: use 1. BF → $x^2 + 6x + 9$.
+- **Recognising a completed square** like $x^2 - 8x + 16$: reverse 2. BF → $(x - 4)^2$.
+- **Factoring a difference of squares** like $x^2 - 25$: use 3. BF → $(x + 5)(x - 5)$.
+- **Simplifying awkward expressions** like $\frac{x^2 - 1}{x + 1}$: factor the numerator, cancel → $x - 1$.
+
+### The general $(a + b)^n$ — Pascal's triangle
+
+For higher powers, use the binomial theorem:
+
+$$(a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k$$
+
+where $\binom{n}{k}$ are the binomial coefficients (Pascal's triangle). For engineering Klausuren you rarely need this beyond $n = 2$; $n = 3$ occasionally (expanding $(a + b)^3$), higher only in probability problems.
+
+## Musteraufgabe
+
+> **Aufgabe.**
+>
+> a) Expandieren Sie $(2x + 3)^2$.
+> b) Faktorisieren Sie $x^2 - 49$.
+> c) Vereinfachen Sie $\dfrac{x^2 - 9}{x - 3}$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a)** Apply 1. BF with $a = 2x$, $b = 3$:
+
+$$(2x + 3)^2 = (2x)^2 + 2 \cdot 2x \cdot 3 + 3^2 = 4x^2 + 12x + 9$$
+
+**b)** $x^2 - 49 = x^2 - 7^2$ fits the 3. BF with $a = x$, $b = 7$:
+
+$$x^2 - 49 = (x + 7)(x - 7)$$
+
+**c)** Factor numerator via 3. BF:
+
+$$\frac{x^2 - 9}{x - 3} = \frac{(x + 3)(x - 3)}{x - 3} = x + 3$$
+
+(provided $x \neq 3$ so we don't divide by zero).
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-binom-l1-ex1"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Expandieren Sie (x + 5)^2."
+  question_en="Expand (x + 5)²."
+  correct_latex="x^2 + 10x + 25"
+  hint_en="First binomial formula: (a+b)² = a² + 2ab + b²."
+  solution_mdx={`
+**Answer: $x^2 + 10x + 25$.**
+
+With $a = x$, $b = 5$:
+
+$$(x + 5)^2 = x^2 + 2 \\cdot x \\cdot 5 + 5^2 = x^2 + 10x + 25$$
+  `}
+  common_mistakes={[
+    {
+      wrong: "x² + 25 (forgetting the middle term)",
+      why_en: "THE #1 MOST COMMON ALGEBRA MISTAKE. $(a+b)^2 \\neq a^2 + b^2$. The middle term $2ab$ comes from the cross product in the expansion $(a+b)(a+b)$. If you drop it, every single quadratic manipulation breaks."
+    }
+  ]}
+  discussion_mdx={`
+**Why $(a+b)^2$ has three terms, not two.**
+
+$(a + b)^2 = (a + b)(a + b)$. Distribute each term of the first against each of the second:
+
+$$a \\cdot a + a \\cdot b + b \\cdot a + b \\cdot b = a^2 + ab + ba + b^2 = a^2 + 2ab + b^2$$
+
+The 2 comes from the two cross-terms being equal. This is the foundational reason the "2" appears; the formula itself is just this distribution pattern compressed.
+
+**Engineering consequence.** When you complete the square in a quadratic, you use this identity in reverse — replacing $x^2 + 2kx + k^2$ with $(x + k)^2$. Critical for solving quadratic equations, finding eigenvalues, and deriving the *pq-formula*.
+  `}
+/>
+
+<Exercise
+  id="track-0-binom-l1-ex2"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Faktorisieren Sie x^2 - 100."
+  question_en="Factorise x² - 100."
+  correct_latex="(x+10)(x-10)"
+  hint_en="Difference of squares: a² - b² = (a+b)(a-b)."
+  solution_mdx={`
+**Answer: $(x + 10)(x - 10)$.**
+
+$x^2 - 100 = x^2 - 10^2$ fits 3. BF with $a = x$, $b = 10$.
+
+So $(x + 10)(x - 10)$. You can verify by expanding: $x^2 - 10x + 10x - 100 = x^2 - 100$. ✓
+  `}
+  common_mistakes={[
+    {
+      wrong: "(x - 10)² — confusing with (a-b)²",
+      why_en: "$(x - 10)^2 = x^2 - 20x + 100$ — has a middle term and wrong sign on the constant. Don't confuse the 2nd binomial formula (squared difference) with the 3rd (difference of squares)."
+    }
+  ]}
+  discussion_mdx={`
+**The difference-of-squares trick is versatile.**
+
+- $x^4 - y^4 = (x^2)^2 - (y^2)^2 = (x^2 + y^2)(x^2 - y^2) = (x^2 + y^2)(x + y)(x - y)$ — applied twice.
+- $\\sin^2 x - \\cos^2 x = -(\\cos^2 x - \\sin^2 x) = -\\cos(2x)$ — trigonometric identity.
+- Rationalising: $\\frac{1}{\\sqrt{a} + \\sqrt{b}} = \\frac{\\sqrt{a} - \\sqrt{b}}{a - b}$ (multiply top and bottom by the conjugate).
+
+All use the same $a^2 - b^2 = (a+b)(a-b)$ pattern.
+  `}
+/>
+
+<Exercise
+  id="track-0-binom-l1-ex3"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Vereinfachen Sie (x^2 - 16) / (x + 4)."
+  question_en="Simplify (x² - 16) / (x + 4)."
+  correct_latex="x - 4"
+  hint_en="Factor the numerator first (difference of squares); then cancel."
+  solution_mdx={`
+**Answer: $x - 4$** (provided $x \\neq -4$).
+
+$$\\frac{x^2 - 16}{x + 4} = \\frac{(x + 4)(x - 4)}{x + 4} = x - 4$$
+
+The $(x+4)$ factors cancel.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Cancelling x²: x - 16/4 = x - 4 (accidentally right answer)",
+      why_en: "Cancelling $x^2$ with $x$ in a fraction is INVALID — you can only cancel COMMON FACTORS, not parts of sums. Don't confuse 'same variable in both parts' with 'same factor'. The right path is to factor the top first."
+    }
+  ]}
+  discussion_mdx={`
+**Why cancelling only works for factors, not terms.**
+
+$\\frac{a + b}{a}$ does NOT simplify to $b$. Try $a = 2$, $b = 3$: $\\frac{5}{2} = 2{,}5$, but $b = 3$. Different!
+
+Cancellation works only when numerator and denominator share a MULTIPLICATIVE FACTOR. $\\frac{a \\cdot b}{a \\cdot c} = \\frac{b}{c}$ is valid. $\\frac{a + b}{a + c}$ is NOT $\\frac{b}{c}$.
+
+In the binomial exercise, we first FACTOR the top ($x^2 - 16 = (x+4)(x-4)$) so that it becomes a PRODUCT. Then the $(x+4)$ FACTOR can legitimately cancel with the $(x+4)$ FACTOR below.
+
+**Klausur-level consequence.** The instruction "simplify this rational expression" usually means: factor both numerator and denominator; cancel common factors. If you can't factor, you can't cancel. Binomial formulas are the fastest way to factor common shapes.
+  `}
+/>
+
+<Exercise
+  id="track-0-binom-l1-ex4"
+  difficulty="klausur"
+  type="short_derivation"
+  question_de="Expandieren Sie (3a - 2b)^2."
+  question_en="Expand (3a - 2b)²."
+  correct_latex="9a^2 - 12ab + 4b^2"
+  hint_en="Second binomial formula: (a-b)² = a² - 2ab + b². Here: let 'a' be 3a, 'b' be 2b."
+  solution_mdx={`
+**Answer: $9a^2 - 12ab + 4b^2$.**
+
+Let me set $A = 3a$, $B = 2b$ to avoid confusion with the letter choices.
+
+$$(A - B)^2 = A^2 - 2AB + B^2 = (3a)^2 - 2(3a)(2b) + (2b)^2$$
+
+$$= 9a^2 - 12ab + 4b^2$$
+
+Note that the coefficients of a and b get squared too: $(3a)^2 = 9a^2$, not $3a^2$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "3a² - 12ab + 2b² (forgetting to square the coefficients)",
+      why_en: "When $(3a)^2$ is expanded, BOTH the 3 AND the $a$ get squared: $(3a)^2 = 3^2 \\cdot a^2 = 9a^2$. Missing the $3^2$ is a common slip. Similarly $(2b)^2 = 4b^2$, not $2b^2$."
+    },
+    {
+      wrong: "Getting the sign of the middle term wrong: +12ab",
+      why_en: "The second binomial formula has a MINUS on the middle term: $(a-b)^2 = a^2 - 2ab + b^2$. The sign comes from the $-b$ becoming $-2ab$ in the cross product. First BF has $+2ab$; second has $-2ab$."
+    }
+  ]}
+  discussion_mdx={`
+**Squaring compound expressions — the general pattern.**
+
+For any $(k_1 a \\pm k_2 b)^2$:
+
+$$(k_1 a \\pm k_2 b)^2 = k_1^2 a^2 \\pm 2 k_1 k_2 ab + k_2^2 b^2$$
+
+The coefficients $k_1, k_2$ get squared in the first and last terms; their product $k_1 k_2$ (and the factor of 2) appears in the middle.
+
+**In engineering.** Algebraic manipulations while deriving equations of motion, setting up least-squares fits, expanding vibrational energy terms like $\\frac{1}{2} k (x - x_0)^2$ — all use these expansions.
+
+**Completing the square.** To solve $ax^2 + bx + c = 0$, you can complete the square:
+
+$$a\\left(x + \\frac{b}{2a}\\right)^2 = \\frac{b^2}{4a} - c$$
+
+This is the binomial formula in action, backward. The *pq-formula* in German schools comes from this completion. Writing it out requires exactly the skills in this lesson.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** The moment you see $(\text{anything})^2$ or $\text{something}^2 - \text{something}^2$ in a problem, try a binomial formula — it often collapses the expression dramatically. These three identities are the algebraic equivalent of common keyboard shortcuts: once your fingers know them, you're faster.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next: **Lineare und quadratische Gleichungen** — solving equations of the form $ax^2 + bx + c = 0$ using the pq- or abc-formula. The binomial formulas make the derivation clean.
