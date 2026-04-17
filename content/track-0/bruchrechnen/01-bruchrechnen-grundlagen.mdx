@@ -1,0 +1,274 @@
+---
+id: track-0-bruch-l1
+module: schulwissen-auffrischen
+chapter: bruchrechnen
+position: 1
+name_de: "Bruchrechnen — Addition, Multiplikation, Kehrwert"
+name_en: "Fractions — addition, multiplication, reciprocal"
+estimated_minutes: 15
+prerequisites: []
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+You were good at fractions when you were 12, and then you stopped using them. Engineering formulas are saturated with them: $\frac{\dot{m}\,(h_2 - h_1)}{\eta}$ or $\frac{p\,V}{R\,T}$ or $\frac{1}{\tau} = \frac{1}{R\,C}$. Ten seconds of fraction arithmetic should not be the thing that breaks your flow on a Klausur. Let's make sure it isn't.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: der Bruch
+    en: fraction
+    plural: die Brüche
+    example_de: "Ein Bruch besteht aus Zähler und Nenner."
+    example_en: "A fraction consists of numerator and denominator."
+  - term: der Zähler
+    en: numerator
+    plural: die Zähler
+    example_de: "Im Bruch 3/5 ist 3 der Zähler."
+    example_en: "In the fraction 3/5, 3 is the numerator."
+  - term: der Nenner
+    en: denominator
+    plural: die Nenner
+    example_de: "Im Bruch 3/5 ist 5 der Nenner."
+    example_en: "In the fraction 3/5, 5 is the denominator."
+  - term: der Kehrwert
+    en: reciprocal
+    example_de: "Der Kehrwert von 3/5 ist 5/3."
+    example_en: "The reciprocal of 3/5 is 5/3."
+  - term: der Hauptnenner
+    en: common denominator
+    example_de: "Um Brüche zu addieren, braucht man einen Hauptnenner."
+    example_en: "To add fractions, you need a common denominator."
+</VocabBlock>
+
+## Theorie
+
+### The four operations
+
+<FormulaCard
+  name_de="Grundrechenarten mit Brüchen"
+  name_en="Basic fraction arithmetic"
+>
+
+**Addition / Subtraktion** — need a common denominator:
+
+$$\frac{a}{b} \pm \frac{c}{d} = \frac{a\,d \pm b\,c}{b\,d}$$
+
+**Multiplikation** — straightforward:
+
+$$\frac{a}{b} \cdot \frac{c}{d} = \frac{a\,c}{b\,d}$$
+
+**Division** — multiply by the reciprocal:
+
+$$\frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c} = \frac{a\,d}{b\,c}$$
+
+**Reciprocal (Kehrwert):** flip numerator and denominator.
+
+$$\frac{1}{a/b} = \frac{b}{a}$$
+
+</FormulaCard>
+
+### Simplification — always reduce at the end
+
+A fraction is "simplified" when numerator and denominator share no common factor. Divide both by the GCD. Example: $\frac{12}{18} = \frac{2}{3}$ (divided both by 6).
+
+### Engineering habit: keep fractions symbolic
+
+Resist the urge to convert to decimals too early. $\frac{1}{3}$ is cleaner and more accurate than $0{,}333$. Carry symbolic fractions through your algebra; convert to decimals only at the very last step for the numerical answer.
+
+## Musteraufgabe
+
+> **Aufgabe.** Berechnen Sie:
+>
+> a) $\dfrac{1}{4} + \dfrac{1}{6}$
+> b) $\dfrac{2}{3} \cdot \dfrac{9}{4}$
+> c) $\dfrac{1/R_1 + 1/R_2}{R_1 \cdot R_2}$ (vereinfachen)
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**a)** Common denominator of 4 and 6 is 12:
+
+$$\frac{1}{4} + \frac{1}{6} = \frac{3}{12} + \frac{2}{12} = \frac{5}{12}$$
+
+**b)**
+
+$$\frac{2}{3} \cdot \frac{9}{4} = \frac{2 \cdot 9}{3 \cdot 4} = \frac{18}{12}$$
+
+Simplify: divide both by 6. $= \frac{3}{2}$.
+
+**c)** Combine the top first: $\frac{1}{R_1} + \frac{1}{R_2} = \frac{R_2 + R_1}{R_1 R_2}$.
+
+Then divide by $R_1 R_2$: that's multiply by $\frac{1}{R_1 R_2}$:
+
+$$\frac{R_2 + R_1}{R_1 R_2} \cdot \frac{1}{R_1 R_2} = \frac{R_1 + R_2}{R_1^2 R_2^2}$$
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-bruch-l1-ex1"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Vereinfachen Sie 3/4 + 1/2."
+  question_en="Simplify 3/4 + 1/2."
+  correct_latex="\\frac{5}{4}"
+  hint_en="Find common denominator (4). Rewrite 1/2 = 2/4, then add."
+  solution_mdx={`
+**Answer: $\\dfrac{5}{4}$** (equivalently $1{,}25$).
+
+$$\\frac{3}{4} + \\frac{1}{2} = \\frac{3}{4} + \\frac{2}{4} = \\frac{5}{4}$$
+
+Common denominator is 4 (since 2 divides 4). $1/2 = 2/4$. Then add numerators.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Adding numerators and denominators: (3+1)/(4+2) = 4/6",
+      why_en: "FRACTIONS ARE NOT ADDED BY ADDING NUMERATORS AND DENOMINATORS. This is the #1 fraction mistake. You MUST find a common denominator first. $\\frac{a}{b} + \\frac{c}{d} = \\frac{ad+bc}{bd}$ — note the $bd$ in denominator, not $b+d$."
+    }
+  ]}
+  discussion_mdx={`
+**Why fractions add that way.**
+
+Think of fractions as slices. $3/4$ is 3 slices of a 4-slice pizza. $1/2$ is 1 slice of a 2-slice pizza. If the slices aren't the same size, you can't just count them. Cutting the 2-slice pizza into 4 equally gives 2 slices of 4 — now $1/2$ matches $2/4$ in slice size. Now you can add: $3 + 2 = 5$ slices of 4-slice pizza, i.e. $5/4$ — more than one full pizza.
+
+The common-denominator step is ALWAYS "make the slice sizes match".
+
+**In engineering.** Parallel resistors: $\\frac{1}{R_{total}} = \\frac{1}{R_1} + \\frac{1}{R_2}$ — a classic fraction-addition application. Get it wrong and your circuit analysis is wrong.
+  `}
+/>
+
+<Exercise
+  id="track-0-bruch-l1-ex2"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Dividieren Sie: (2/3) / (4/5)."
+  question_en="Divide: (2/3) / (4/5)."
+  correct_latex="\\frac{5}{6}"
+  hint_en="Dividing by a fraction = multiplying by its reciprocal. Then simplify."
+  solution_mdx={`
+**Answer: $\\dfrac{5}{6}$.**
+
+$$\\frac{2/3}{4/5} = \\frac{2}{3} \\cdot \\frac{5}{4} = \\frac{2 \\cdot 5}{3 \\cdot 4} = \\frac{10}{12}$$
+
+Simplify: divide by 2: $= \\dfrac{5}{6}$.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Multiplying instead of taking reciprocal: (2/3)(4/5) = 8/15",
+      why_en: "DIVIDING by a fraction means MULTIPLYING by its reciprocal. $\\frac{a/b}{c/d} = \\frac{a}{b} \\cdot \\frac{d}{c}$. Multiplying numerators and denominators directly (which would be correct for simple multiplication) gives the wrong answer here."
+    }
+  ]}
+  discussion_mdx={`
+**Why division flips the denominator.**
+
+Division is the inverse of multiplication. $\\frac{a}{c/d}$ is the answer to "what do I multiply by $c/d$ to get $a$?" If you multiply $a$ by $d/c$, you get $\\frac{ad}{c}$. Multiplying that by $c/d$ gives back $\\frac{ad}{c} \\cdot \\frac{c}{d} = \\frac{adc}{cd} = a$. ✓ So $a \\div (c/d) = a \\cdot (d/c)$.
+
+In shorthand: "invert and multiply" (or in German: *mit dem Kehrwert multiplizieren*).
+  `}
+/>
+
+<Exercise
+  id="track-0-bruch-l1-ex3"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Vereinfachen Sie den Bruch 24 / 36."
+  question_en="Simplify the fraction 24/36."
+  correct_latex="\\frac{2}{3}"
+  hint_en="Find the GCD of 24 and 36 and divide both by it. Or, factor and cancel."
+  solution_mdx={`
+**Answer: $\\dfrac{2}{3}$.**
+
+**Method: factor and cancel.**
+
+$24 = 2 \\cdot 12 = 2 \\cdot 2 \\cdot 2 \\cdot 3 = 2^3 \\cdot 3$
+
+$36 = 4 \\cdot 9 = 2^2 \\cdot 3^2$
+
+Common factors: $2^2 \\cdot 3 = 12$. Cancel:
+
+$$\\frac{24}{36} = \\frac{2 \\cdot 12}{3 \\cdot 12} = \\frac{2}{3}$$
+
+**Alternative: find GCD step by step.** Both divisible by 2: $12/18$. Both divisible by 2 again: $6/9$. Both divisible by 3: $2/3$. Same answer via successive reduction.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Simplifying too early or incorrectly: 12/18 (half-reduced)",
+      why_en: "12/18 is correct but not fully simplified. Both 12 and 18 share a factor of 6, giving 2/3. Always check whether further reduction is possible; the final answer should have NO common factor between numerator and denominator."
+    }
+  ]}
+  discussion_mdx={`
+**Why bother simplifying.**
+
+1. **Clarity.** $\\frac{2}{3}$ is obviously smaller than 1 and close to $0{,}667$. $\\frac{24}{36}$ requires mental arithmetic to recognize it.
+2. **Further algebra.** If you'll combine this fraction with others, simpler form means smaller common denominators later.
+3. **Klausur convention.** German exam graders expect simplified answers. "$\\frac{24}{36}$" is technically correct but marks may be deducted for not simplifying.
+
+**In engineering.** Symbolic fractions often simplify dramatically. Compressor pressure-ratio formulas, heat-exchange resistance networks, differential equations' solution forms — all benefit from algebraic simplification before plugging in numbers.
+  `}
+/>
+
+<Exercise
+  id="track-0-bruch-l1-ex4"
+  difficulty="klausur"
+  type="short_derivation"
+  question_de="Vereinfachen Sie: (1/a + 1/b) / (a + b)."
+  question_en="Simplify: (1/a + 1/b) / (a + b)."
+  correct_latex="\\frac{1}{ab}"
+  hint_en="First combine the top into one fraction. Then divide."
+  solution_mdx={`
+**Answer: $\\dfrac{1}{ab}$.**
+
+**Step 1. Combine the top.**
+
+$$\\frac{1}{a} + \\frac{1}{b} = \\frac{b + a}{ab}$$
+
+**Step 2. Divide by $(a + b)$.**
+
+$$\\frac{(a + b)/(ab)}{a + b} = \\frac{a + b}{ab} \\cdot \\frac{1}{a + b} = \\frac{1}{ab}$$
+
+(The $a+b$ factors cancel.)
+  `}
+  common_mistakes={[
+    {
+      wrong: "Distributing wrong: 1/(a²+b) or similar",
+      why_en: "The expression needs careful bracket-handling. $\\frac{1/a + 1/b}{a+b}$ is NOT the same as $\\frac{1}{a(a+b)} + \\frac{1}{b(a+b)}$ — wait, actually... let me recheck. $\\frac{1/a + 1/b}{a+b} = \\frac{1/a}{a+b} + \\frac{1/b}{a+b} = \\frac{1}{a(a+b)} + \\frac{1}{b(a+b)}$. These are all valid representations of the same thing. The simplified form $\\frac{1}{ab}$ requires combining the top first, then cancelling $(a+b)$."
+    }
+  ]}
+  discussion_mdx={`
+**In engineering — parallel resistance.**
+
+Parallel resistor formula: $\\frac{1}{R_{parallel}} = \\frac{1}{R_1} + \\frac{1}{R_2}$. For two resistors:
+
+$$R_{parallel} = \\frac{R_1 R_2}{R_1 + R_2}$$
+
+Derivation: $\\frac{1}{R_{parallel}} = \\frac{R_1 + R_2}{R_1 R_2}$, so $R_{parallel} = \\frac{R_1 R_2}{R_1 + R_2}$ (taking the reciprocal).
+
+This is exactly the same fraction manipulation you just did, in disguise. The algebra you practiced on $\\frac{1/a + 1/b}{a+b}$ shows up verbatim in circuit analysis, parallel heat transfer, parallel flow in piping networks.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** If a fraction can be simplified, simplify it — examiners notice. The four checks:
+
+1. Can you cancel a common factor?
+2. Can you combine two fractions into one?
+3. Does an $(a+b)$ or similar appear in both numerator and denominator?
+4. Is the final form "as clean as possible"?
+
+Fractions left unsimplified lose 0.5–1 mark even when arithmetically correct.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next: **Binomische Formeln** — the three expansions $(a + b)^2$, $(a - b)^2$, $(a + b)(a - b)$ that you'll use in every algebraic manipulation for the next six years. A short lesson, a big payoff.
