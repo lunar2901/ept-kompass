@@ -2,7 +2,7 @@
 
 Bilingual, self-paced, exam-driven study companion for TU Berlin's B.Sc. *Energie- und Prozesstechnik* (from SoSe 2026: *Erneuerbare Energien und Verfahrenstechnik*). Zero AI at runtime — every hint, solution, common-mistake list, and Diskussion is pre-authored.
 
-**Live:** [ept-kompass.vercel.app](https://ept-kompass.vercel.app) · **Current release:** `v0-release` · See [`PROMPT.md`](./PROMPT.md) for the full product brief.
+**Live:** [ept-kompass.vercel.app](https://ept-kompass.vercel.app) · **Source:** [github.com/lunar2901/ept-kompass](https://github.com/lunar2901/ept-kompass) · **Current release:** [`v0-release`](https://github.com/lunar2901/ept-kompass/releases/tag/v0-release) · See [`PROMPT.md`](./PROMPT.md) for the full product brief.
 
 ## Status at v0 (Apr 2026)
 
