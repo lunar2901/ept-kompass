@@ -1,24 +1,28 @@
 @import "tailwindcss";
 
 /* KaTeX CSS is imported directly in app/layout.tsx so Tailwind v4's
- * pipeline does not prune rules. Belt-and-suspenders: the rules below
- * guarantee MathML (the screen-reader semantics copy) and its
- * `<annotation>` children are visually hidden even if a browser UA
- * style is missing or a later CSS optimiser strips KaTeX's own
- * position/clip rules. Accessibility is preserved — the content is
- * still in the DOM for screen readers, just clipped to 1×1 invisibly.
+ * pipeline does not prune rules.
+ *
+ * The default KaTeX approach wraps MathML in a 1×1 clipped
+ * `.katex-mathml` span so screen readers can read it. That approach
+ * FAILS in several Chromium and Firefox builds for one specific
+ * reason: a MathML `<math>` element has `display: math`, which is
+ * treated as a replaced-element-style layout and can ESCAPE the
+ * parent's 1×1 clip (browsers ignore `overflow: hidden` for math
+ * layout to keep equations legible). Result: both the MathML
+ * rendering AND the KaTeX HTML render visibly — the exact bug
+ * reported in the v0.2 audit ("E=mc² E = mc^2 E=mc²").
+ *
+ * Fix: take MathML out of layout entirely with `display: none`.
+ * Screen-reader accessibility for math does take a hit — future
+ * work can add an `aria-label` on the `.katex` wrapper with a
+ * plain-English reading of the equation — but a page that renders
+ * each formula exactly once is an obvious improvement over a page
+ * that renders each formula twice plus the raw source.
  */
-.katex .katex-mathml {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  clip: rect(0 0 0 0) !important;
-  clip-path: inset(50%) !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-}
+.katex .katex-mathml,
+.katex .katex-mathml math,
+.katex > math,
 .katex annotation {
   display: none !important;
 }
