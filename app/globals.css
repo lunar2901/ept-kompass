@@ -1,5 +1,27 @@
 @import "tailwindcss";
-@import "katex/dist/katex.min.css";
+
+/* KaTeX CSS is imported directly in app/layout.tsx so Tailwind v4's
+ * pipeline does not prune rules. Belt-and-suspenders: the rules below
+ * guarantee MathML (the screen-reader semantics copy) and its
+ * `<annotation>` children are visually hidden even if a browser UA
+ * style is missing or a later CSS optimiser strips KaTeX's own
+ * position/clip rules. Accessibility is preserved — the content is
+ * still in the DOM for screen readers, just clipped to 1×1 invisibly.
+ */
+.katex .katex-mathml {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+.katex annotation {
+  display: none !important;
+}
 
 /* Klausur-Modus — hides English translations so the student sees only
  * German, simulating an exam page. Toggle via <KlausurToggle>, which

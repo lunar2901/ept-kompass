@@ -3,6 +3,12 @@ import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { buildNavigation } from "@/lib/navigation";
+// KaTeX CSS is imported directly here (not via @import in globals.css)
+// so it lands in the page as a first-class stylesheet BEFORE Tailwind's
+// pipeline has a chance to prune rules. The visually-hidden-but-screen-
+// reader-accessible `.katex-mathml` clipping depends on the full rule
+// set making it through. See docs/math-and-typography.md §1.
+import "katex/dist/katex.min.css";
 import "./globals.css";
 
 const inter = Inter({
