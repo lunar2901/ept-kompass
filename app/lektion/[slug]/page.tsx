@@ -9,7 +9,12 @@ import {
 } from "@/lib/content";
 import { renderLessonMDX } from "@/lib/mdx";
 import { resolveLessonContext } from "@/lib/navigation";
+import {
+  extractLessonFormulas,
+  extractLessonTerms,
+} from "@/lib/lesson-extract";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { LessonSidebar } from "@/components/lesson/lesson-sidebar";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -43,6 +48,8 @@ export default async function LessonPage({ params }: PageProps) {
   const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null;
 
   const ctx = await resolveLessonContext(lesson.slug);
+  const terms = extractLessonTerms(lesson.bodyMdx);
+  const formulas = extractLessonFormulas(lesson.bodyMdx);
   const { content } = await renderLessonMDX(lesson.bodyMdx);
 
   return (
@@ -122,52 +129,11 @@ export default async function LessonPage({ params }: PageProps) {
           </nav>
         </article>
 
-        <aside className="hidden lg:block">
-          <div className="sticky top-20 space-y-4">
-            <div className="rounded border border-[color:var(--border)] bg-[color:var(--card)] p-4 text-sm">
-              <div className="mb-2 font-sans text-xs uppercase tracking-wide text-[color:var(--muted-foreground)]">
-                Diese Lektion
-              </div>
-              <dl className="space-y-1.5">
-                <div>
-                  <dt className="inline text-[color:var(--muted-foreground)]">
-                    Modul:{" "}
-                  </dt>
-                  <dd className="inline font-mono">{lesson.module}</dd>
-                </div>
-                <div>
-                  <dt className="inline text-[color:var(--muted-foreground)]">
-                    Kapitel:{" "}
-                  </dt>
-                  <dd className="inline font-mono">{lesson.chapter}</dd>
-                </div>
-                <div>
-                  <dt className="inline text-[color:var(--muted-foreground)]">
-                    Position:{" "}
-                  </dt>
-                  <dd className="inline">{lesson.position}</dd>
-                </div>
-                <div>
-                  <dt className="inline text-[color:var(--muted-foreground)]">
-                    Status:{" "}
-                  </dt>
-                  <dd className="inline font-mono">{lesson.status}</dd>
-                </div>
-              </dl>
-            </div>
-            <div className="rounded border border-dashed border-[color:var(--border)] p-4 text-xs text-[color:var(--muted-foreground)]">
-              <p className="font-sans font-semibold uppercase tracking-wide text-[color:var(--foreground)] mb-1.5">
-                Glossar · Formeln · Notizen
-              </p>
-              <p>
-                Sticky sidebar tabs land in a follow-up step. For MVP the
-                inline <code>&lt;GermanTerm&gt;</code> chips and{" "}
-                <code>&lt;FormulaCard&gt;</code> cards inside the lesson carry
-                the same information.
-              </p>
-            </div>
-          </div>
-        </aside>
+        <LessonSidebar
+          slug={lesson.slug}
+          terms={terms}
+          formulas={formulas}
+        />
       </div>
     </div>
   );

@@ -1,11 +1,15 @@
 import type { FormulaCardProps } from "../lesson-components";
 import { cn } from "@/lib/utils";
 import { KatexInline } from "./katex";
+import { slugifyName } from "@/lib/slug";
 
 /**
  * Bordered card displaying a named formula with bilingual variable legend.
  * LaTeX is rendered server-side via KaTeX. The "why" MDX children render
  * below the legend.
+ *
+ * The card has a stable `id` derived from its German name so the lesson
+ * sidebar's Formeln tab can scroll-link straight to it.
  */
 export function FormulaCard({
   name_de,
@@ -14,10 +18,12 @@ export function FormulaCard({
   variables,
   children,
 }: FormulaCardProps) {
+  const anchorId = `formula-${slugifyName(name_de)}`;
   return (
     <section
+      id={anchorId}
       className={cn(
-        "my-6 rounded-lg border p-5",
+        "my-6 rounded-lg border p-5 scroll-mt-24",
         "border-[color:var(--border)] bg-[color:var(--card)] text-[color:var(--card-foreground)]",
       )}
     >
