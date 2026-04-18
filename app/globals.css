@@ -132,6 +132,70 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─── GermanTerm chip ─────────────────────────────────────
+ * Inline pill for German terms embedded in English prose. Plain
+ * CSS (not Tailwind arbitrary values) so the rule survives any
+ * future CSS-pipeline quirk. Two sub-spans: `.german-term-article`
+ * (der/die/das, smaller + lighter) and `.german-term-word` (the
+ * noun itself). The article can be omitted for adjectives or
+ * verbs; the chip then collapses to just the word.
+ *
+ * Klausur-Modus: chip visually dissolves to plain underlined text
+ * so the student sees only the German, as on a Klausur page.
+ */
+.german-term-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25em;
+  padding: 0.05em 0.45em;
+  margin: 0 0.05em;
+  border-radius: 9999px;
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-family: var(--font-serif);
+  font-size: 0.95em;
+  font-weight: 500;
+  line-height: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: filter 120ms ease, background 120ms ease;
+}
+.german-term-chip:hover {
+  filter: brightness(1.06);
+}
+.german-term-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.german-term-article {
+  font-size: 0.75em;
+  font-weight: 500;
+  opacity: 0.75;
+  text-transform: lowercase;
+}
+.german-term-word {
+  font-weight: 500;
+}
+
+:where(.klausur-mode) .german-term-chip {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  white-space: normal;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--muted-foreground);
+  cursor: pointer;
+}
+:where(.klausur-mode) .german-term-article {
+  display: none;
+}
+
 /* ─── Lesson body typography (Source Serif 4 via .lesson-body) ─── */
 
 .lesson-body {
