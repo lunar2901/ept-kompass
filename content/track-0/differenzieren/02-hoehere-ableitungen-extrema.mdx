@@ -1,0 +1,390 @@
+---
+id: track-0-diff-l2
+module: schulwissen-auffrischen
+chapter: differenzieren
+position: 2
+name_de: "Höhere Ableitungen und Extrema"
+name_en: "Higher-order derivatives and extrema"
+estimated_minutes: 25
+prerequisites: ["track-0-diff-l1"]
+status: published
+---
+
+import { GermanTerm, FormulaCard, Exercise, Callout, VocabBlock } from "@/components/lesson"
+
+<Callout variant="intuition">
+
+## Why this concept exists
+
+The first derivative tells you the *slope* of a function. The second derivative tells you the slope of the slope — whether the function is curving up or down. Once you have both, you can find the highest and lowest points of any smooth function mechanically, without guessing. That procedure — the <GermanTerm de="Kurvendiskussion" article="die" en="curve discussion / critical-point analysis" /> — is standard Klausur fare and the mathematical backbone of optimisation everywhere in engineering.
+
+</Callout>
+
+## Schlüsselbegriffe
+
+<VocabBlock>
+  - term: die zweite Ableitung
+    en: second derivative
+    example_de: "Die zweite Ableitung misst die Krümmung."
+    example_en: "The second derivative measures curvature."
+  - term: das Maximum
+    en: maximum
+    plural: die Maxima
+    example_de: "Ein Maximum ist ein Hochpunkt der Funktion."
+    example_en: "A maximum is a high point of the function."
+  - term: das Minimum
+    en: minimum
+    plural: die Minima
+    example_de: "Ein Minimum ist ein Tiefpunkt."
+    example_en: "A minimum is a low point."
+  - term: der Wendepunkt
+    en: inflection point
+    plural: die Wendepunkte
+    ipa: /ˈvɛndəˌpʊŋkt/
+    example_de: "Am Wendepunkt wechselt die Krümmung das Vorzeichen."
+    example_en: "At an inflection point the curvature changes sign."
+  - term: die Extremwertaufgabe
+    en: optimisation problem
+    example_de: "Eine Extremwertaufgabe sucht den größten oder kleinsten Funktionswert."
+    example_en: "An optimisation problem looks for the largest or smallest function value."
+</VocabBlock>
+
+## Theorie
+
+### Higher derivatives
+
+Once you have $f'(x)$, you can differentiate it again to get $f''(x)$ — the second derivative. And again: $f'''$, $f^{(4)}$, and so on. Notation:
+
+$$f'(x), \quad f''(x) = \frac{\mathrm{d}^2 f}{\mathrm{d}x^2}, \quad f^{(n)}(x) = \frac{\mathrm{d}^n f}{\mathrm{d}x^n}$$
+
+Physical meanings:
+
+- Position $s(t)$ → velocity $s'(t) = v(t)$ → acceleration $s''(t) = a(t)$.
+- For small vibrations, $s(t) = A\cos(\omega t)$ gives $s''(t) = -\omega^2 s(t)$ — the equation of every harmonic oscillator.
+
+### The shape of a function — concavity
+
+The second derivative tells you the concavity:
+
+<FormulaCard
+  name_de="Konvex, konkav, Wendepunkt"
+  name_en="Convex, concave, inflection point"
+>
+
+- **$f''(x) > 0$**: function is **konvex** (linksgekrümmt) — curves upward like a cup.
+- **$f''(x) < 0$**: function is **konkav** (rechtsgekrümmt) — curves downward like a hill.
+- **$f''(x_0) = 0$ with a sign change**: $x_0$ is a **Wendepunkt** — the curvature flips.
+
+A classic example: $f(x) = x^3$. Derivative $f'(x) = 3x^2 \geq 0$ always, so it is monotonically increasing. Second derivative $f''(x) = 6x$ — negative for $x < 0$, zero at $x = 0$, positive for $x > 0$. So $x = 0$ is a Wendepunkt where the curve switches from concave to convex.
+
+</FormulaCard>
+
+### Finding maxima and minima
+
+Every local extremum of a differentiable function $f$ on the interior of its domain satisfies $f'(x) = 0$. These are the **critical points** (*kritische Stellen*). But $f'(x) = 0$ is necessary, not sufficient — a critical point can be a maximum, a minimum, OR a saddle-like horizontal inflection.
+
+<FormulaCard
+  name_de="Hinreichende Bedingung für Extrema"
+  name_en="Sufficient condition for extrema"
+>
+
+Let $f'(x_0) = 0$. Then:
+
+- **$f''(x_0) > 0$** → $x_0$ is a **Minimum** (local low point, $f$ curves up).
+- **$f''(x_0) < 0$** → $x_0$ is a **Maximum** (local high point, $f$ curves down).
+- **$f''(x_0) = 0$** → test inconclusive; check higher derivatives or the sign of $f'$ around $x_0$.
+
+</FormulaCard>
+
+### The three-step recipe
+
+To find all extrema of a function $f$ on an interval:
+
+1. **Compute $f'(x)$ and solve $f'(x) = 0$** — gives you candidate points.
+2. **Evaluate $f''(x)$ at each candidate** — positive means min, negative means max.
+3. **Check the boundary** of the interval too — endpoints can be the extremum even if $f' \neq 0$ there (on a closed interval).
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp.** For optimisation word problems (*Extremwertaufgaben*):
+
+1. Identify the *objective* you're optimising — often area, volume, cost, efficiency.
+2. Write it as a function $f$ of ONE variable, using constraints to eliminate others.
+3. Apply the recipe. Check the answer makes physical sense (positive volume, meaningful dimensions).
+
+</Callout>
+
+## Musteraufgabe
+
+> **Aufgabe.** Bestimmen Sie alle lokalen Extrema und Wendepunkte der Funktion $f(x) = x^3 - 3x^2 + 2$.
+
+<details>
+<summary>**Lösungsweg (English)**</summary>
+
+**Step 1. First derivative.**
+
+$$f'(x) = 3x^2 - 6x = 3x(x - 2)$$
+
+Setting $f'(x) = 0$: candidates are $x = 0$ and $x = 2$.
+
+**Step 2. Second derivative.**
+
+$$f''(x) = 6x - 6 = 6(x - 1)$$
+
+Evaluate at each candidate:
+
+- $f''(0) = -6 < 0$ → **Maximum** at $x = 0$. $f(0) = 2$.
+- $f''(2) = +6 > 0$ → **Minimum** at $x = 2$. $f(2) = 8 - 12 + 2 = -2$.
+
+**Step 3. Wendepunkt.** $f''(x) = 0$ at $x = 1$. Check third derivative: $f'''(x) = 6 \neq 0$, so $x = 1$ is indeed a Wendepunkt (not a degenerate double-zero).
+
+$f(1) = 1 - 3 + 2 = 0$. So the inflection point is at $(1, 0)$.
+
+**Summary:** Maximum at $(0, 2)$, Minimum at $(2, -2)$, Wendepunkt at $(1, 0)$.
+
+</details>
+
+## Übungen
+
+<Exercise
+  id="track-0-diff-l2-ex1"
+  difficulty="easy"
+  type="short_derivation"
+  question_de="Bestimmen Sie die zweite Ableitung von f(x) = 4x^3 - 9x^2 + 5x."
+  question_en="Find the second derivative of f(x) = 4x³ - 9x² + 5x."
+  correct_latex="24x - 18"
+  hint_en="Differentiate once, then differentiate the result."
+  solution_mdx={`
+**Answer: $f''(x) = 24x - 18$.**
+
+**First derivative:** $f'(x) = 12x^2 - 18x + 5$.
+
+**Second derivative:** differentiate $f'$:
+
+$$f''(x) = 24x - 18$$
+
+(constant terms vanish).
+  `}
+  common_mistakes={[
+    {
+      wrong: "24x - 18 + 5 (carrying the constant through)",
+      why_en: "The constant $+5$ in the first derivative has no $x$ dependence, so its derivative is 0. Constants always vanish when differentiated — not carried through."
+    },
+    {
+      wrong: "12x^2 - 18x + 5 (stopped at first derivative)",
+      why_en: "The question asks for the SECOND derivative. Differentiate $f'$ once more. Stopping at $f'$ is a one-step error and loses all the Klausur marks for this sub-problem."
+    }
+  ]}
+  discussion_mdx={`
+**What the second derivative tells you physically.**
+
+For motion problems, $s''(t) = a(t)$ is the acceleration. Units: m/s². Zero acceleration means constant velocity — free-coasting. Positive acceleration means speeding up in the positive direction.
+
+For cost functions $C(x)$ of production volume $x$, $C''(x)$ is the "curvature" — economists call it the rate at which marginal cost changes. If $C''(x) > 0$, you're in the regime of increasing marginal cost (more production means proportionally more expensive), which matters for deciding optimal production levels.
+
+For stress-strain curves in materials, the second derivative of stress with respect to strain captures non-linear behaviour in the plastic regime.
+
+**Connection to the Taylor series.** The Taylor expansion of $f$ around $x_0$:
+
+$$f(x) = f(x_0) + f'(x_0)(x - x_0) + \\tfrac{1}{2} f''(x_0)(x-x_0)^2 + O(x-x_0)^3$$
+
+So the second derivative is exactly the coefficient of the quadratic correction — it's how a function deviates from being linear near any point.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l2-ex2"
+  difficulty="medium"
+  type="short_derivation"
+  question_de="Bestimmen Sie die x-Koordinate des lokalen Minimums von f(x) = x^2 - 6x + 10."
+  question_en="Find the x-coordinate of the local minimum of f(x) = x² - 6x + 10."
+  correct_latex="3"
+  hint_en="Set f'(x) = 0 to find critical points. Verify with f'' > 0."
+  solution_mdx={`
+**Answer: $x = 3$.**
+
+**Step 1. First derivative.**
+
+$$f'(x) = 2x - 6$$
+
+**Step 2. Critical point.** Set $f'(x) = 0$:
+
+$$2x - 6 = 0 \\quad\\Rightarrow\\quad x = 3$$
+
+**Step 3. Verify minimum.**
+
+$$f''(x) = 2 > 0 \\quad\\text{for all } x$$
+
+Since $f''(3) > 0$, $x = 3$ is a local minimum.
+
+**Minimum value.** $f(3) = 9 - 18 + 10 = 1$. So the lowest point of the parabola is $(3, 1)$.
+
+This is an upward-opening parabola, so the local minimum is also the global minimum.
+  `}
+  common_mistakes={[
+    {
+      wrong: "Answering 6 (setting f = 0 instead of f' = 0)",
+      why_en: "Critical points come from $f'(x) = 0$, not $f(x) = 0$. $f(x) = 0$ would give you the x-intercepts (zeros of $f$), which are a different question."
+    },
+    {
+      wrong: "Not checking second derivative, could be mistaken for a maximum",
+      why_en: "Always verify with $f''(x_0)$. For a simple $x^2$-parabola the shape is obvious, but for more complex functions (cubics, quartics), a critical point could be min, max, or saddle — you MUST test."
+    }
+  ]}
+  discussion_mdx={`
+**Quick method for parabolas.**
+
+For $f(x) = ax^2 + bx + c$, the vertex is at $x = -b/(2a)$ — the critical point of the derivative $f'(x) = 2ax + b$. Vertex is a min if $a > 0$, max if $a < 0$.
+
+For our problem: $a = 1, b = -6$, so $x = -(-6)/(2 \\cdot 1) = 3$. Same answer, shorter route. Worth memorising for Klausur-time quickness.
+
+**Completing the square — the same answer by a different path.**
+
+$$x^2 - 6x + 10 = (x^2 - 6x + 9) + 1 = (x - 3)^2 + 1$$
+
+This makes the vertex visible: minimum value 1, at $x = 3$. The calculus and the algebra agree — no surprise, but a useful cross-check for any quadratic.
+
+**Connection to optimisation.** Many Klausur word problems reduce to finding the minimum of a quadratic: minimum cost, minimum distance, minimum energy loss. The $x = -b/(2a)$ trick or calculus both work; pick whichever you can do faster under exam time pressure.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l2-ex3"
+  difficulty="medium"
+  type="multiple_choice"
+  question_de="Welche Aussage ist bei f''(x_0) = 0 (und f'(x_0) = 0) korrekt?"
+  question_en="Which statement is correct when f''(x_0) = 0 (and f'(x_0) = 0)?"
+  options={[
+    { id: "a", de: "x_0 ist auf jeden Fall ein Wendepunkt.", en: "x_0 is definitely an inflection point." },
+    { id: "b", de: "x_0 ist auf jeden Fall ein Extremum.", en: "x_0 is definitely an extremum." },
+    { id: "c", de: "Die Zweite-Ableitungs-Bedingung greift nicht — man muss höhere Ableitungen oder das Vorzeichen von f' untersuchen.", en: "The second-derivative test is inconclusive — check higher derivatives or the sign of f' around x_0." },
+    { id: "d", de: "x_0 liegt nicht auf dem Graph.", en: "x_0 does not lie on the graph." },
+  ]}
+  correct="c"
+  hint_en="The second-derivative test gives information only when f''(x_0) is nonzero."
+  solution_mdx={`
+**Correct answer: (c).**
+
+When $f'(x_0) = 0$, $x_0$ is a critical point. The second-derivative test then says:
+
+- $f''(x_0) > 0$: $x_0$ is a minimum.
+- $f''(x_0) < 0$: $x_0$ is a maximum.
+- $f''(x_0) = 0$: **test fails**. Could be any of min, max, or horizontal inflection.
+
+Example: $f(x) = x^4$ has $f'(0) = 0$ AND $f''(0) = 0$, but $x = 0$ IS a minimum (check $f''' $ and $f^{(4)}$, or just inspect the function shape).
+
+Example: $f(x) = x^3$ has $f'(0) = 0$ AND $f''(0) = 0$, but $x = 0$ is NOT an extremum — it's a horizontal inflection where the curve flattens but keeps going in the same direction.
+
+So the test being inconclusive means you need more work — (a) and (b) claim certainty which isn't there.
+
+**Option (d)** is nonsense — critical points are ON the graph by construction.
+  `}
+  common_mistakes={[
+    {
+      wrong: "a — definitely an inflection point",
+      why_en: "Not true. $f(x) = x^4$ at $x = 0$ has $f'' = 0$ but is a minimum, not an inflection. Inflection requires the second derivative to CHANGE SIGN at the point, which is a stronger condition than just equaling zero."
+    },
+    {
+      wrong: "b — definitely an extremum",
+      why_en: "Not true either. $f(x) = x^3$ at $x = 0$ has both $f' = 0$ and $f'' = 0$, but it's a horizontal inflection, not an extremum. The curve keeps going upward."
+    }
+  ]}
+  discussion_mdx={`
+**When the second-derivative test fails — higher derivatives.**
+
+There's a generalisation: if $f'(x_0) = f''(x_0) = \\dots = f^{(n-1)}(x_0) = 0$ but $f^{(n)}(x_0) \\neq 0$:
+
+- $n$ even AND $f^{(n)}(x_0) > 0$: minimum.
+- $n$ even AND $f^{(n)}(x_0) < 0$: maximum.
+- $n$ odd: horizontal inflection (neither extremum).
+
+For $f(x) = x^4$ at 0: $f'(0) = f''(0) = f'''(0) = 0$, $f^{(4)}(0) = 24 > 0$. $n = 4$ is even and the fourth derivative is positive → minimum. ✓
+
+For $f(x) = x^3$ at 0: $f'(0) = f''(0) = 0$, $f'''(0) = 6 \\neq 0$. $n = 3$ is odd → horizontal inflection.
+
+**The sign-of-$f'$-around-$x_0$ method.** A more visual approach: compute $f'$ just to the left and just to the right of $x_0$.
+
+- $f'$ changes from $-$ to $+$: minimum.
+- $f'$ changes from $+$ to $-$: maximum.
+- $f'$ keeps the same sign: horizontal inflection (NOT an extremum).
+
+This works even when higher-derivative tests become unwieldy, and it's often faster for Klausur problems.
+
+**Connection forward.** In multivariable calculus (Analysis II), the second-derivative test becomes the **Hessian matrix** — eigenvalues tell you min/max/saddle. The same logic scales up: the second derivative is *the* tool for classifying critical points, no matter how many variables.
+  `}
+/>
+
+<Exercise
+  id="track-0-diff-l2-ex4"
+  difficulty="klausur"
+  type="short_derivation"
+  question_de="Gegeben f(x) = x^3 - 12x. Bestimmen Sie die x-Koordinaten aller lokalen Extrema."
+  question_en="Given f(x) = x³ - 12x. Find the x-coordinates of all local extrema."
+  correct_latex="x_1 = -2, x_2 = 2"
+  hint_en="f'(x) = 3x² - 12. Set to zero, factor. Use f'' to classify."
+  solution_mdx={`
+**Answer: $x_1 = -2$ (maximum), $x_2 = +2$ (minimum).**
+
+**Step 1. First derivative.**
+
+$$f'(x) = 3x^2 - 12 = 3(x^2 - 4) = 3(x-2)(x+2)$$
+
+Setting $f'(x) = 0$: $x = -2$ or $x = +2$.
+
+**Step 2. Second derivative.**
+
+$$f''(x) = 6x$$
+
+- $f''(-2) = -12 < 0$ → $x = -2$ is a local **maximum**.
+- $f''(+2) = +12 > 0$ → $x = +2$ is a local **minimum**.
+
+**Values.** $f(-2) = -8 - (-24) = -8 + 24 = +16$. $f(+2) = 8 - 24 = -16$.
+
+So the two extrema are at $(-2, +16)$ (max) and $(+2, -16)$ (min) — symmetric about the origin as one would expect from the odd-function cubic with no quadratic or linear shifts.
+  `}
+  common_mistakes={[
+    {
+      wrong: "x_1 = -2 as minimum, x_2 = +2 as maximum (sign-swap)",
+      why_en: "Check signs of $f''$ carefully. At $x = -2$, $f''(-2) = 6(-2) = -12$, which is NEGATIVE → maximum. Flipping signs on this step gives wrong classifications. Always plug the specific x-values into $f''$ (don't reason in general)."
+    },
+    {
+      wrong: "Only finding x = 2 (forgetting negative root)",
+      why_en: "$3(x^2 - 4) = 0$ when $x^2 = 4$, which has TWO solutions: $x = +2$ AND $x = -2$. Always remember both branches of a square root."
+    }
+  ]}
+  discussion_mdx={`
+**Parallel to the Musteraufgabe.**
+
+For any cubic of the form $f(x) = x^3 + a x$ (no quadratic or constant term):
+
+$$f'(x) = 3x^2 + a$$
+
+Critical points exist only if $a < 0$: $x = \\pm\\sqrt{-a/3}$. For $a \\geq 0$, $f$ has no critical points (monotone increasing).
+
+Our example has $a = -12$, so $\\sqrt{-a/3} = \\sqrt{4} = 2$. Clean numbers because of the choice of coefficients.
+
+**Graph sketch.** $f(x) = x^3 - 12x$ is odd (symmetric about origin). Three x-intercepts: $x = 0$, $x = \\pm\\sqrt{12} \\approx \\pm 3.46$. One local max at $(-2, 16)$, one local min at $(+2, -16)$, one Wendepunkt at origin. Classic S-shape of a cubic with two extrema.
+
+**Optimisation context.** Cubics with this shape show up in thermodynamics when you analyse van der Waals isotherms — the PV curve at sub-critical temperatures has an S-shape with a local max and min. Those critical points correspond to the limits of the metastable regions, and the Maxwell construction across the two extrema picks out the actual phase-equilibrium pressure. Calculus of a single variable → physical insight about phase transitions.
+  `}
+/>
+
+<Callout variant="exam-tip">
+
+**Klausur-Tipp for Kurvendiskussion.** When asked to "analyse" or "diskutieren" a function, the standard checklist is:
+
+1. Definitionsbereich (domain)
+2. Nullstellen ($f(x) = 0$)
+3. Symmetrie (gerade, ungerade, keins)
+4. Verhalten für $x \to \pm\infty$
+5. Erste Ableitung und Extrema
+6. Zweite Ableitung und Wendepunkte
+7. Skizze
+
+Write down the whole list at the start and tick items off — no forgotten steps, structured presentation, examiner-friendly.
+
+</Callout>
+
+## Was kommt als Nächstes
+
+Next: **Integration techniques** — substitution and integration by parts, which together handle the vast majority of engineering integrals that the simple power rule can't touch.
