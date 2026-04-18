@@ -1,70 +1,47 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import type { DiagramP_and_IDProps } from "../lesson-components";
 
 /**
- * Renders a Mermaid diagram client-side. Mermaid is dynamically imported
- * so it does not bloat the initial JS. Falls back to code text if Mermaid
- * fails to load or parse (e.g. offline PWA with an unknown diagram type).
+ * Server-safe wrapper. The actual Mermaid rendering happens in a
+ * client-only module loaded via `next/dynamic` with `ssr: false`
+ * — this guarantees the raw Mermaid source never lands in the
+ * initial HTML (it would have shown as a code block on the page
+ * until hydration completed, and it persisted forever on any
+ * prod build where the client bundle failed to load Mermaid).
+ *
+ * While the client bundle is loading we show a low-noise skeleton
+ * placeholder with the German caption, so the page layout doesn't
+ * shift and the student sees the caption immediately. If Mermaid
+ * fails at runtime, the inner component shows an error banner +
+ * the raw source so it can still be diagnosed.
  */
-export function DiagramP_and_ID({
-  mermaid,
-  caption_de,
-  caption_en,
-}: DiagramP_and_IDProps) {
-  const id = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const ref = useRef<HTMLDivElement>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [svg, setSvg] = useState<string | null>(null);
+const DiagramMermaidClient = dynamic(
+  () => import("./diagram-mermaid-client").then((m) => m.DiagramMermaidClient),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-40 items-center justify-center text-xs text-[color:var(--muted-foreground)]">
+        Diagramm wird geladen …
+      </div>
+    ),
+  },
+);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const m = (await import("mermaid")).default;
-        m.initialize({
-          startOnLoad: false,
-          securityLevel: "strict",
-          theme: "default",
-          fontFamily:
-            "var(--font-sans, Inter), system-ui, -apple-system, sans-serif",
-        });
-        const { svg } = await m.render(`mermaid-${id}`, mermaid.trim());
-        if (!cancelled) setSvg(svg);
-      } catch (e) {
-        if (!cancelled)
-          setError(
-            e instanceof Error ? e.message : "Mermaid konnte nicht geladen werden",
-          );
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [mermaid, id]);
-
+export function DiagramP_and_ID(props: DiagramP_and_IDProps) {
   return (
     <figure className="my-6 rounded-lg border border-[color:var(--border)] bg-[color:var(--card)] p-4">
       <div
-        ref={ref}
         className="mermaid flex justify-center overflow-x-auto"
-        aria-label={caption_en}
+        aria-label={props.caption_en}
       >
-        {svg ? (
-          <div dangerouslySetInnerHTML={{ __html: svg }} />
-        ) : error ? (
-          <pre className="text-xs text-[color:var(--danger)]">{error}</pre>
-        ) : (
-          <pre className="text-xs text-[color:var(--muted-foreground)] whitespace-pre">
-            {mermaid.trim()}
-          </pre>
-        )}
+        <DiagramMermaidClient mermaid={props.mermaid} />
       </div>
       <figcaption className="mt-3 text-sm">
-        <div className="font-serif italic">{caption_de}</div>
+        <div className="font-serif italic">{props.caption_de}</div>
         <div className="text-[color:var(--muted-foreground)] klausur-hide-en:hidden">
-          {caption_en}
+          {props.caption_en}
         </div>
       </figcaption>
     </figure>
